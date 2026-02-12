@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>[상세페이지 제목]</title>
+
+  <link rel="icon" href="/static/favicon.ico" />
+  <link rel="stylesheet" href="/static/style.css" />
+
+  <style>
+    .toast{
+      position:fixed;left:50%;bottom:18px;transform:translateX(-50%);
+      padding:10px 12px;border:1px solid #e5e5e5;border-radius:12px;
+      background:rgba(255,255,255,0.95);box-shadow:0 10px 25px rgba(0,0,0,0.08);
+      font-size:0.95rem;color:#111;z-index:9999;display:none;
+    }
+    .refcode { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:0.95rem; }
+  </style>
+</head>
+
+<body>
+  <div class="home-link-wrap">
+    <a class="btn-home" href="/index.html">← 메인으로</a>
+    <button class="btn btn-lightgrey" type="button" id="btnCopy">이 페이지 링크 복사</button>
+  </div>
+
+  <header class="site-header">
+    <div class="shell">
+      <h1>[상세페이지 제목]</h1>
+      <p class="subtitle">[한 줄 설명]</p>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- (필수) 상단 근거 블록 -->
+    <section class="section">
+      <h2 class="local-h2">적용범위 · 처리기준 · 근거</h2>
+      <div class="card" data-doc-text="1">
+        <p><b>적용범위</b>: [여기에]</p>
+        <p><b>처리기준(요약)</b>: [여기에]</p>
+        <hr />
+        <p><b>근거(문서번호/지침)</b></p>
+        <ul>
+          <li data-doc-id="leave">
+            <span class="refcode">[<span data-doc-field="label"></span>]</span>
+            문서번호: <span class="refcode" data-doc-field="number"></span>
+            / 제목: <span class="refcode" data-doc-field="title"></span>
+          </li>
+          <!-- 필요하면 추가 -->
+          <!--
+          <li data-doc-id="instructor_fee"> ... </li>
+          -->
+        </ul>
+      </div>
+    </section>
+
+    <!-- 본문 섹션들 -->
+    <section class="section" data-doc-text="1">
+      <h2>본문 섹션</h2>
+      <div class="card">
+        <p>여기서부터 본문.</p>
+
+        <div class="row between">
+          <span class="muted">표준 문구</span>
+          <!-- 복사 문구에 토큰 사용 가능 -->
+          <button class="btn ghost copy" data-copy="처리 기준은 {{DOC:leave}}에 따릅니다. (근거: {{DOCNO:leave}})">문구 복사</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell">
+      <p>본 문서는 안내용입니다. 최종 기준은 관련 지침·공문·결재 문서입니다.</p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="/static/docref.js"></script>
+
+  <script>
+    (function(){
+      const $ = (s, el=document) => el.querySelector(s);
+      const $$ = (s, el=document) => Array.from(el.querySelectorAll(s));
+
+      function toast(msg){
+        const t=$("#toast"); if(!t) return;
+        t.textContent=msg; t.style.display="block";
+        clearTimeout(toast._timer);
+        toast._timer=setTimeout(()=>t.style.display="none",1400);
+      }
+
+      async function copyText(text){
+        try{ await navigator.clipboard.writeText(text); return true; }
+        catch{
+          const ta=document.createElement("textarea");
+          ta.value=text; ta.style.position="fixed"; ta.style.left="-9999px";
+          document.body.appendChild(ta); ta.focus(); ta.select();
+          let ok=false; try{ ok=document.execCommand("copy"); }catch{}
+          ta.remove(); return ok;
+        }
+      }
+
+      $("#btnCopy")?.addEventListener("click", async ()=>{
+        const ok=await copyText(location.href);
+        toast(ok ? "링크 복사 완료" : "복사 실패");
+      });
+
+      $$(".copy").forEach(btn=>{
+        btn.addEventListener("click", async ()=>{
+          const text = btn.dataset.copy || "";
+          const ok = await copyText(text);
+          toast(ok ? "문구 복사 완료" : "복사 실패");
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
