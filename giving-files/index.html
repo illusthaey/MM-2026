@@ -4,28 +4,55 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="color-scheme" content="light" />
-  <title>행정실 협조 범위(요청 가능/불가)</title>
+  <title>각종 편람·지침·규정 자료실</title>
 
   <link rel="icon" href="/static/favicon.ico" />
   <link rel="stylesheet" href="/static/style.css" />
 
   <style>
-    .toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);padding:10px 12px;border:1px solid #e5e5e5;border-radius:12px;background:rgba(255,255,255,0.95);box-shadow:0 10px 25px rgba(0,0,0,0.08);font-size:0.95rem;color:#111;z-index:9999;display:none;}
-    .refcode{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:0.95rem;}
-    .badge{display:inline-block;padding:6px 10px;border-radius:999px;font-size:0.9rem;border:1px solid #e5e5e5;background:#fafafa;color:#444;}
+    .refcode { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:0.95rem; }
+    .pill { display:inline-block; padding:6px 10px; border:1px solid #e5e5e5; border-radius:999px; background:#fafafa; font-size:0.9rem; color:#444; }
+    .doc-meta { margin-top:8px; }
+    .doc-actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
+    .thumb-grid { display:grid; gap:10px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .thumb { border:1px solid #e5e5e5; border-radius:12px; overflow:hidden; background:#fff; }
+    .thumb img { width:100%; height:auto; display:block; cursor: zoom-in; }
+    .thumb .cap { padding:10px 12px; color:#555; font-size:0.95rem; }
+    .toast{
+      position:fixed;left:50%;bottom:18px;transform:translateX(-50%);
+      padding:10px 12px;border:1px solid #e5e5e5;border-radius:12px;
+      background:rgba(255,255,255,0.95);box-shadow:0 10px 25px rgba(0,0,0,0.08);
+      font-size:0.95rem;color:#111;z-index:9999;display:none;
+    }
+
+    /* 이미지 모달(간단 버전) */
+    .img-modal{ display:none; position:fixed; inset:0; z-index:9999; }
+    .img-modal-backdrop{ position:absolute; inset:0; background:rgba(0,0,0,0.65); }
+    .img-modal-body{
+      position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+      padding:18px;
+    }
+    .img-modal-body img{
+      max-width:92vw; max-height:92vh; border-radius:12px; background:#fff;
+      cursor: zoom-out;
+    }
+    .img-modal-close{
+      position:absolute; top:14px; right:14px; width:40px; height:40px;
+      border-radius:999px; border:1px solid rgba(255,255,255,0.35);
+      background:rgba(0,0,0,0.45); color:#fff; font-size:28px; line-height:36px; cursor:pointer;
+    }
   </style>
 </head>
 
 <body>
   <div class="home-link-wrap">
     <a class="btn-home" href="/index.html">← 메인으로</a>
-    <button class="btn btn-lightgrey" type="button" id="btnCopy">이 페이지 링크 복사</button>
   </div>
 
   <header class="site-header">
     <div class="shell">
-      <h1>행정실 업무 협조 범위</h1>
-      <p class="subtitle">요청 가능/불가를 표준화합니다. 요청은 “양식”대로만 받습니다.</p>
+      <h1>각종 편람·지침·규정 자료실</h1>
+      <p class="subtitle">PDF/링크를 한 곳에 모아두고, 본문 캡처 이미지는 클릭 한 번으로 확대합니다.</p>
     </div>
   </header>
 
@@ -33,60 +60,17 @@
 
     <section class="section">
       <div class="row between">
-        <h2 class="local-h2 local-tight">적용범위 · 처리기준 · 근거</h2>
-        <span class="badge">누락=보류/반려</span>
-      </div>
-      <div class="card">
-        <p><b>적용범위</b>: 행정실 협조 요청(회계/계약/지출/증빙)</p>
-        <p><b>처리기준(요약)</b>: (1) 업무/기한/근거/첨부/담당자 포함 (2) 사업 운영 책임은 담당부서 (3) 예외는 근거 첨부 시만 검토</p>
-        <hr />
-        <p><b>근거(문서번호/지침)</b></p>
-        <ul>
-          <li><span class="refcode">[업무분장/협조 요청 기준]</span> 문서번호: <span class="refcode">[예: 2026-○○○○]</span></li>
-          <li><span class="refcode">[학교회계 집행/마감]</span> 문서번호: <span class="refcode">[예: 2026-○○○○]</span></li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2>요청 가능(예시)</h2>
-      <div class="card">
-        <ul>
-          <li>지출 서류 검토(필수 첨부 누락 여부 확인)</li>
-          <li>계약·지출 절차 안내(서식 제공 포함)</li>
-          <li>정산서/산출표 형식 확인</li>
-          <li>회계 처리 일정/마감 안내</li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2>요청 불가(예시)</h2>
-      <div class="card">
-        <ul>
-          <li>사업 대상자 선정/명단 확정</li>
-          <li>운영계획 작성 대행(기획/프로그램 구성)</li>
-          <li>현장 운영/출석 관리 대행</li>
-          <li>증빙을 나중에 맞추는 선지급 요구</li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2>요청 템플릿(복사)</h2>
-
-      <div class="card">
-        <div class="row between">
-          <h3 class="local-h3 local-tight">[요청 양식]</h3>
-          <button class="btn ghost copy" data-copy="요청드립니다.\n1) 업무: \n2) 기한: \n3) 근거(지침/공문/결재): \n4) 첨부(산출표/증빙 등): \n5) 담당자(성명/내선): \n\n※ 누락 시 보류/반려될 수 있습니다.">복사</button>
+        <div>
+          <h2 class="local-h2 local-tight">자료 목록</h2>
+          <p class="muted local-tight">PDF는 브라우저 뷰어로 열리고, 다운로드도 가능합니다.</p>
         </div>
+        <span class="pill">목록 데이터: /giving-files/manifest.json</span>
       </div>
+    </section>
 
+    <section class="section" id="list">
       <div class="card">
-        <div class="row between">
-          <h3 class="local-h3 local-tight">[반려 문구]</h3>
-          <button class="btn ghost copy" data-copy="요청 필수 정보(업무/기한/근거/첨부/담당자)가 누락되어 처리할 수 없습니다. 안내 페이지의 요청 양식으로 재요청 바랍니다. (근거: [협조기준 문서번호])">문구 복사</button>
-        </div>
+        <p class="muted" style="margin:0;">로딩 중…</p>
       </div>
     </section>
 
@@ -94,39 +78,162 @@
 
   <footer class="site-footer">
     <div class="shell">
-      <p>본 문서는 안내용입니다. 최종 기준은 관련 지침·공문·결재 문서입니다.</p>
+      <p class="muted">정적 사이트 특성상 “업로드 버튼”은 없으며, 파일 추가는 레포/호스팅에 업로드(커밋)로 처리합니다.</p>
     </div>
   </footer>
 
   <div class="toast" id="toast"></div>
 
+  <div class="img-modal" id="imgModal" aria-hidden="true">
+    <div class="img-modal-backdrop"></div>
+    <button class="img-modal-close" type="button" aria-label="닫기">×</button>
+    <div class="img-modal-body">
+      <img id="imgModalImg" alt="" />
+    </div>
+  </div>
+
+  <script src="/static/docref.js"></script>
+
   <script>
     (function(){
-      const $=(s,el=document)=>el.querySelector(s);
-      const $$=(s,el=document)=>Array.from(el.querySelectorAll(s));
+      const $ = (s, el=document) => el.querySelector(s);
+
       function toast(msg){
-        const t=$("#toast"); t.textContent=msg; t.style.display="block";
-        clearTimeout(toast._timer); toast._timer=setTimeout(()=>t.style.display="none",1400);
+        const t=$("#toast"); if(!t) return;
+        t.textContent=msg; t.style.display="block";
+        clearTimeout(toast._timer);
+        toast._timer=setTimeout(()=>t.style.display="none",1400);
       }
-      async function copyText(text){
-        try{ await navigator.clipboard.writeText(text); return true; }
-        catch{
-          const ta=document.createElement("textarea");
-          ta.value=text; ta.style.position="fixed"; ta.style.left="-9999px";
-          document.body.appendChild(ta); ta.focus(); ta.select();
-          let ok=false; try{ ok=document.execCommand("copy"); }catch{}
-          ta.remove(); return ok;
+
+      async function fetchJSON(url){
+        const res = await fetch(url, { cache:"no-store" });
+        if(!res.ok) throw new Error("HTTP " + res.status);
+        return await res.json();
+      }
+
+      function esc(s){
+        return String(s||"").replace(/[&<>"']/g, m => ({
+          "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"
+        }[m]));
+      }
+
+      function openModal(src, caption){
+        const modal = $("#imgModal");
+        const img = $("#imgModalImg");
+        img.src = src;
+        img.alt = caption || "";
+        modal.style.display = "block";
+        modal.setAttribute("aria-hidden","false");
+      }
+      function closeModal(){
+        const modal = $("#imgModal");
+        const img = $("#imgModalImg");
+        img.src = "";
+        modal.style.display = "none";
+        modal.setAttribute("aria-hidden","true");
+      }
+
+      $("#imgModal .img-modal-backdrop")?.addEventListener("click", closeModal);
+      $("#imgModal .img-modal-close")?.addEventListener("click", closeModal);
+      $("#imgModalImg")?.addEventListener("click", closeModal);
+
+      async function render(){
+        const list = $("#list");
+        const manifest = await fetchJSON("/giving-files/manifest.json");
+        const items = Array.isArray(manifest.items) ? manifest.items : [];
+
+        // 문서번호 맵 가져오기(이미 docref.js가 로딩 시도를 하지만, 여기서는 안전하게 한 번 더)
+        let docsMap = {};
+        try{
+          const dn = await fetchJSON("/static/document-number.json");
+          docsMap = dn.docs || {};
+        }catch(e){
+          console.warn(e);
         }
-      }
-      $("#btnCopy").addEventListener("click", async ()=>{
-        const ok=await copyText(location.href);
-        toast(ok ? "링크 복사 완료" : "복사 실패");
-      });
-      $$(".copy").forEach(btn=>{
-        btn.addEventListener("click", async ()=>{
-          const ok=await copyText(btn.dataset.copy||"");
-          toast(ok ? "복사 완료" : "복사 실패");
+
+        const html = items.map(it => {
+          const file = it.file || "";
+          const openPage = it.openPage ? `#page=${it.openPage}` : "";
+          const openUrl = file ? (file + openPage) : "";
+          const downloadName = (it.title || "document") + ".pdf";
+
+          const doc = it.docRefId && docsMap[it.docRefId] ? docsMap[it.docRefId] : null;
+          const docLine = doc
+            ? `<div class="doc-meta muted">
+                 근거: <span class="refcode">[${esc(doc.label)}]</span>
+                 문서번호 <span class="refcode">${esc(doc.number)}</span>
+                 / ${esc(doc.title)}
+               </div>`
+            : `<div class="doc-meta muted">근거: (미등록)</div>`;
+
+          const links = (it.links || []).map(l =>
+            `<li><a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label || l.url)}</a></li>`
+          ).join("");
+
+          const captures = (it.captures || []).map(c =>
+            `<div class="thumb">
+               <img class="cap-img" src="${esc(c.src)}" alt="${esc(c.caption || "")}" data-src="${esc(c.src)}" data-cap="${esc(c.caption || "")}" />
+               <div class="cap">${esc(c.caption || "")}</div>
+             </div>`
+          ).join("");
+
+          return `
+            <article class="tool-card" style="margin:0 0 16px;">
+              <div class="tool-head">
+                <p class="tool-title">${esc(it.title)}</p>
+                <p class="tool-sub">${esc(it.category || "")}${it.category ? " · " : ""}${esc(it.description || "")}</p>
+                ${docLine}
+              </div>
+
+              <div class="tool-body">
+                <div class="doc-actions">
+                  ${file ? `<a class="btn primary" href="${esc(openUrl)}" target="_blank" rel="noopener">PDF 열기(뷰어)</a>` : ""}
+                  ${file ? `<a class="btn ghost" href="${esc(file)}" download="${esc(downloadName)}">다운로드</a>` : ""}
+                  ${file ? `<button class="btn ghost btnCopy" type="button" data-url="${esc(openUrl)}">링크 복사</button>` : ""}
+                </div>
+
+                ${links ? `<div class="card" style="margin-top:12px;">
+                  <h3 class="local-h3">관련 링크</h3>
+                  <ul>${links}</ul>
+                </div>` : ""}
+
+                ${captures ? `<div class="card" style="margin-top:12px;">
+                  <h3 class="local-h3">본문 캡처</h3>
+                  <div class="thumb-grid">${captures}</div>
+                </div>` : ""}
+              </div>
+            </article>
+          `;
+        }).join("");
+
+        list.innerHTML = html || `<div class="card"><p class="muted" style="margin:0;">등록된 자료가 없습니다.</p></div>`;
+
+        // 링크 복사
+        list.querySelectorAll(".btnCopy").forEach(btn => {
+          btn.addEventListener("click", async () => {
+            const url = btn.dataset.url ? new URL(btn.dataset.url, location.origin).toString() : location.href;
+            let ok = false;
+            try { await navigator.clipboard.writeText(url); ok = true; }
+            catch {
+              const ta=document.createElement("textarea");
+              ta.value=url; ta.style.position="fixed"; ta.style.left="-9999px";
+              document.body.appendChild(ta); ta.focus(); ta.select();
+              try { ok=document.execCommand("copy"); } catch {}
+              ta.remove();
+            }
+            toast(ok ? "링크 복사 완료" : "복사 실패");
+          });
         });
+
+        // 캡처 클릭 → 모달
+        list.querySelectorAll(".cap-img").forEach(img => {
+          img.addEventListener("click", () => openModal(img.dataset.src, img.dataset.cap));
+        });
+      }
+
+      render().catch(err => {
+        console.error(err);
+        toast("자료 목록 로딩 실패(경로/권한 확인)");
       });
     })();
   </script>
