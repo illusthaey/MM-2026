@@ -4,13 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="color-scheme" content="light" />
-  <title>문막초등학교 교직원 업무 안내</title>
+  <title>교직원 업무 안내(행정실 기준)</title>
 
   <link rel="icon" href="/static/favicon.ico" />
   <link rel="stylesheet" href="/static/style.css" />
 
   <style>
-    /* index 전용: 더 건조/칼같게 보이는 작은 보강만 */
     .kicker { text-align:center; margin: 10px 0 0; color:#666; font-size:0.95rem; }
     .notice-bar { display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between; }
     .pill { display:inline-block; padding:6px 10px; border:1px solid #e5e5e5; border-radius:999px; background:#fafafa; font-size:0.9rem; color:#444; }
@@ -29,6 +28,9 @@
       font-size: 0.95rem; color:#111; z-index: 9999;
       display:none;
     }
+    .ref-list { margin: 8px 0 0; padding-left: 18px; }
+    .ref-list li { margin: 6px 0; }
+    .ref-code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.95rem; }
   </style>
 </head>
 
@@ -37,19 +39,19 @@
     <div class="shell">
       <div class="row between">
         <div>
-          <div class="pill">문막초등학교 교직원 업무 안내</div>
+          <div class="pill">행정실 기준 · 표준 절차 · 링크로 안내 대체</div>
         </div>
         <div class="right">
           <span class="tag">최종판: 현행 기준</span>
-          <button class="btn ghost" type="button" id="btnCopyHome">링크 복사하기</button>
+          <button class="btn ghost" type="button" id="btnCopyHome">이 페이지 링크 복사</button>
         </div>
       </div>
     </div>
   </header>
 
   <main class="container">
-    <h1>고주무관 전용</h1>
-    <p class="subtitle">행정실에서 반복 설명하지 않습니다. 아래 항목 중 해당 링크를 확인하세요.</p>
+    <h1>교직원 업무 안내</h1>
+    <p class="subtitle">행정실에서 반복 설명하지 않습니다. 해당 링크를 확인하세요.</p>
     <p class="kicker muted">원칙: 문서·증빙·절차가 없으면 처리하지 않음.</p>
 
     <section class="section">
@@ -59,7 +61,7 @@
           <p class="muted local-tight">키워드로 필터링 (예: 연차, 강사료, 위수탁, 근로계약, 협조)</p>
         </div>
         <div class="right">
-          <span class="pill">FAQ는 상세페이지 하단</span>
+          <span class="pill">근거/문서번호는 상세페이지 상단</span>
         </div>
       </div>
 
@@ -73,21 +75,15 @@
       <h2>안내 목록</h2>
       <div class="tool-grid" id="grid">
 
-        <article class="tool-card item" data-keywords="공무직 복무 연차 병가 조퇴 지각 근태 결재 상태 완료">
+        <article class="tool-card item" data-keywords="공무직 복무 연차 병가 조퇴 지각 근태 결재 상태 완료 문서번호 지침">
           <div class="tool-head">
             <p class="tool-title">교육공무직 복무(연차/근태) 사용·처리 기준</p>
-            <p class="tool-sub">자주 묻는 항목을 표준 문장 + 체크리스트로 정리</p>
+            <p class="tool-sub">기준 문장 + 체크리스트 + 반려 기준</p>
           </div>
           <div class="tool-body">
             <ul class="tool-list">
-              <li>
-                <span>요청 전 확인해야 할 것(결재상태/증빙/기한)</span>
-                <span class="mini">체크리스트 제공</span>
-              </li>
-              <li>
-                <span>자주 발생하는 반려 사유(서류 누락 등)</span>
-                <span class="mini">정리본 제공</span>
-              </li>
+              <li><span>요청 전 확인(결재상태/증빙/기한)</span><span class="mini">체크리스트</span></li>
+              <li><span>반려 사유 고정</span><span class="mini">표준 문구</span></li>
             </ul>
             <div class="row between">
               <a class="btn primary" href="/guide/leave-eduworker.html">상세페이지 열기</a>
@@ -96,21 +92,15 @@
           </div>
         </article>
 
-        <article class="tool-card item" data-keywords="강사료 지급 품의 증빙 통장 사본 신분증 원천징수 지급명세서">
+        <article class="tool-card item" data-keywords="강사료 지급 품의 증빙 통장 사본 신분증 원천징수 지급명세서 문서번호 지침">
           <div class="tool-head">
             <p class="tool-title">사업담당 교사: 강사료 지급 요청 시 제출물</p>
-            <p class="tool-sub">“말로 설명” 없이, 제출물 미비 시 반려</p>
+            <p class="tool-sub">제출물 미비=반려, 기한·근거 고정</p>
           </div>
           <div class="tool-body">
             <ul class="tool-list">
-              <li>
-                <span>필수 제출물(정산표/출석/통장/신분확인 등)</span>
-                <span class="mini">샘플 문구 포함</span>
-              </li>
-              <li>
-                <span>기한/반려 기준</span>
-                <span class="mini">딱 잘라 명시</span>
-              </li>
+              <li><span>필수 제출물(산출표/출석/통장 등)</span><span class="mini">표준 목록</span></li>
+              <li><span>기한/반려 기준</span><span class="mini">고정</span></li>
             </ul>
             <div class="row between">
               <a class="btn primary" href="/guide/instructor-fee.html">상세페이지 열기</a>
@@ -119,21 +109,15 @@
           </div>
         </article>
 
-        <article class="tool-card item" data-keywords="방과후 강사 위수탁 계약 근로계약 절차 채용 서류 신원조회 성범죄">
+        <article class="tool-card item" data-keywords="방과후 강사 위수탁 계약 근로계약 절차 채용 서류 신원조회 성범죄 문서번호 지침">
           <div class="tool-head">
             <p class="tool-title">방과후강사: 위수탁계약 vs 근로계약 절차</p>
-            <p class="tool-sub">무엇을 언제 누구에게 제출하는지 “순서”로 고정</p>
+            <p class="tool-sub">유형 구분 → 타임라인 → 지급</p>
           </div>
           <div class="tool-body">
             <ul class="tool-list">
-              <li>
-                <span>계약 유형 구분 기준(실무 판단 포인트)</span>
-                <span class="mini">요약표</span>
-              </li>
-              <li>
-                <span>절차 타임라인(모집→서류→계약→지급)</span>
-                <span class="mini">체크리스트</span>
-              </li>
+              <li><span>유형 구분 포인트</span><span class="mini">요약</span></li>
+              <li><span>절차 타임라인</span><span class="mini">체크리스트</span></li>
             </ul>
             <div class="row between">
               <a class="btn primary" href="/guide/afterschool-contract.html">상세페이지 열기</a>
@@ -142,21 +126,15 @@
           </div>
         </article>
 
-        <article class="tool-card item" data-keywords="행정실 협조 범위 업무 분장 책임 소재 요청 금지 제출 기한 민원">
+        <article class="tool-card item" data-keywords="행정실 협조 범위 업무 분장 책임 소재 요청 금지 제출 기한 민원 문서번호 지침">
           <div class="tool-head">
             <p class="tool-title">행정실 업무 협조 범위(요청 가능/불가)</p>
-            <p class="tool-sub">요청 범위를 표준화해서 “불필요한 왕복” 제거</p>
+            <p class="tool-sub">요청 양식까지 고정</p>
           </div>
           <div class="tool-body">
             <ul class="tool-list">
-              <li>
-                <span>가능: 정산/증빙 확인, 회계 처리</span>
-                <span class="mini">조건 명시</span>
-              </li>
-              <li>
-                <span>불가: 사업기획/대상자 선정/현장 운영 대행</span>
-                <span class="mini">선 그어둠</span>
-              </li>
+              <li><span>요청 가능/불가 경계</span><span class="mini">명시</span></li>
+              <li><span>요청 템플릿</span><span class="mini">복사</span></li>
             </ul>
             <div class="row between">
               <a class="btn primary" href="/guide/office-coop-scope.html">상세페이지 열기</a>
@@ -169,6 +147,20 @@
     </section>
 
     <section class="section dl-section">
+      <h2>근거 문서(문서번호/지침) 모음</h2>
+      <div class="card">
+        <p class="muted" style="margin-top:0;">아래는 “참조용 링크/문서번호” 자리입니다. 학교/교육청 기준으로 채워 넣고 운영하세요.</p>
+        <ul class="ref-list">
+          <li><span class="ref-code">[복무 지침]</span> 문서번호: <span class="ref-code">[예: 2026-○○○○]</span> / 제목: <span class="ref-code">[교육공무직 복무 지침]</span></li>
+          <li><span class="ref-code">[강사료]</span> 문서번호: <span class="ref-code">[예: 2026-○○○○]</span> / 제목: <span class="ref-code">[강사료 지급 및 원천징수 안내]</span></li>
+          <li><span class="ref-code">[방과후 계약]</span> 문서번호: <span class="ref-code">[예: 2026-○○○○]</span> / 제목: <span class="ref-code">[방과후학교 운영/강사 계약 지침]</span></li>
+          <li><span class="ref-code">[회계 마감]</span> 문서번호: <span class="ref-code">[예: 2026-○○○○]</span> / 제목: <span class="ref-code">[학교회계 집행 마감 안내]</span></li>
+        </ul>
+        <p class="muted">팁: 상세페이지에도 같은 문서번호를 넣어서, 상대가 “왜요?” 하면 번호로 끝내면 됨.</p>
+      </div>
+    </section>
+
+    <section class="section">
       <h2>운영 원칙</h2>
       <div class="card">
         <ul>
@@ -177,7 +169,6 @@
           <li><b>구두 요청</b> → 링크 안내로 대체</li>
           <li><b>예외 처리</b> → 근거(지침/결재/공문) 첨부 시만 검토</li>
         </ul>
-        <p class="muted">문장 싸움 방지용: “개별 사유 설명” 대신 “기준 링크”를 공유하세요.</p>
       </div>
     </section>
 
@@ -215,7 +206,6 @@
           await navigator.clipboard.writeText(text);
           return true;
         } catch (e) {
-          // fallback
           const ta = document.createElement("textarea");
           ta.value = text;
           ta.style.position = "fixed";
@@ -230,7 +220,6 @@
         }
       }
 
-      // 링크 복사 버튼들
       $$("#btnCopyHome, .btnCopy").forEach(btn => {
         btn.addEventListener("click", async () => {
           const url = btn.dataset.url ? absUrl(btn.dataset.url) : location.href;
@@ -239,7 +228,6 @@
         });
       });
 
-      // 검색 필터
       const q = $("#q");
       const btnClear = $("#btnClear");
       const items = $$(".item");
@@ -263,7 +251,6 @@
       q.addEventListener("input", applyFilter);
       btnClear.addEventListener("click", () => { q.value = ""; applyFilter(); q.focus(); });
 
-      // 초기
       applyFilter();
     })();
   </script>
