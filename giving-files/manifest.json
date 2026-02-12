@@ -6,13 +6,13 @@
   },
   "items": [
     {
-      "id": "neulbom_guide_2025_gw",
+      "id": "neulbom_guide_2025",
       "category": "편람/지침",
       "title": "2025 늘봄학교 운영 길라잡이(초등학교편) - 강원특별자치도교육청",
       "description": "늘봄학교 운영 총론/세부 내용/위탁 운영/회계 관리 등 포함",
-      "file": "/giving-files/docs/2025-gw-neulbom-guide.pdf",
+      "file": "/giving-files/docs/neulbom-guide-2025.pdf",
       "openPage": 1,
-      "docRefId": "neulbom_guide_2025_gw",
+      "docRefId": "neulbom_guide_2025",
       "captures": [
         {
           "src": "/giving-files/captures/neulbom-p1.png",
@@ -26,7 +26,7 @@
       "links": [
         {
           "label": "관련: 용어 정의/적용 범위(본문 목차 인근)",
-          "url": "/giving-files/docs/2025-gw-neulbom-guide.pdf#page=2"
+          "url": "/giving-files/docs/neulbom_guide_2025.pdf#page=2"
         }
       ]
     }
