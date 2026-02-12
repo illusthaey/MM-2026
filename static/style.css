@@ -1,0 +1,709 @@
+/* 251204목 공통 스타일 */
+
+/* 박스 모델 통일 */
+* {
+  box-sizing: border-box;
+}
+
+/* =============================
+   기본 타이포 & 반응형 글자 크기
+   ============================= */
+html {
+  font-size: 16px; /* PC 기본 rem 기준 */
+}
+
+@media (max-width: 600px) {
+  html {
+    font-size: 15px; /* 모바일은 전체 스케일 자연스럽게 감소 */
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  color: #111;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, "Apple SD Gothic Neo", "Noto Sans KR", "맑은 고딕", sans-serif;
+  line-height: 1.5;
+  word-break: keep-all;
+}
+
+/* 링크 기본 */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* =============================
+   전역 헤딩 계층
+   ============================= */
+
+/* 페이지 제목: 사이트 전체에서 최우선 */
+body h1 {
+  font-size: 2.2rem;
+  margin: 28px 0 18px;
+  text-align: center !important;
+  color: #111;
+  font-weight: 700;
+}
+
+/* 큰 섹션 제목 */
+body h2 {
+  font-size: 1.6rem;
+  margin: 28px 0 12px;
+  color: #222;
+  font-weight: 700;
+}
+
+/* 중간 소제목 */
+body h3 {
+  font-size: 1.4rem;
+  margin: 20px 0 10px;
+  color: #222;
+  font-weight: 600;
+}
+
+/* 소단락 제목 */
+body h4 {
+  font-size: 1.2rem;
+  margin: 16px 0 8px;
+  color: #333;
+  font-weight: 600;
+}
+
+/* =============================
+   본문 텍스트
+   ============================= */
+
+body p,
+body li,
+body div,
+body span {
+  font-size: 1.1rem;
+  line-height: 1.65;
+  color: #333;
+}
+
+body p {
+  margin: 14px 0;
+}
+
+body li {
+  margin: 4px 0;
+  line-height: 1.55;
+}
+
+ul, ol {
+  margin: 12px 0 18px;
+  padding-left: 22px;
+}
+
+body .muted {
+  font-size: 0.95rem;
+  color: #666;
+}
+
+/* =============================
+   예외 클래스(local-*)
+   ============================= */
+
+.local-h2 { font-size: 1.3rem !important; }
+.local-h3 { font-size: 1.1rem !important; }
+.local-large { font-size: 1.2rem !important; }
+.local-small { font-size: 0.9rem !important; }
+.local-tight { margin-bottom: 6px !important; }
+.local-accent { color: #0051a8 !important; }
+
+/* =============================
+   레이아웃 공통
+   ============================= */
+
+.shell {
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+/* main에 컨테이너 역할(폭/패딩)을 주지 않음: .container에서 관리 */
+main {
+  margin: 0 auto;
+}
+
+.sub {
+  margin: 0.25rem 0 0;
+  font-size: 1rem;
+  color: #555;
+}
+
+/* 상단 헤더 */
+.site-header {
+  background: #fff;
+  border-bottom: 1px solid #e8e8ef;
+}
+
+.site-header .shell {
+  padding: 16px;
+}
+
+/* 섹션 카드 */
+.section {
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 20px 22px;
+  margin: 18px 0;
+  background: #fff;
+}
+
+/* 내부 카드 */
+.card {
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin: 14px 0;
+  background: #fafafa;
+}
+
+/* =============================
+   레이아웃 유틸
+   ============================= */
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.row.between { justify-content: space-between; }
+.row.gap { gap: 10px; }
+
+.grid {
+  display: grid;
+  gap: 12px;
+}
+
+.grid.two { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.grid.three { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+
+@media (max-width: 640px) {
+  .row { flex-wrap: wrap; align-items: flex-start; }
+  .grid.two, .grid.three { grid-template-columns: 1fr; }
+}
+
+/* =============================
+   버튼 스타일
+   ============================= */
+
+.btn {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: 1px solid #222;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #111;
+  background: #fff;
+  cursor: pointer;
+}
+
+.btn + .btn { margin-left: 10px; }
+.btn:hover { background: #f3f4f6; }
+
+.btn.primary { background: #111; color: #fff; }
+.btn.primary:hover { background: #000; }
+
+.btn.ghost { background: #f9fafb; border-color: #d4d4d8; }
+.btn.ghost:hover { background: #eef2ff; }
+
+.btn-desc {
+  font-size: 1rem;
+  margin: 6px 0 18px;
+  color: #333;
+}
+
+.btn-lightgrey {
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: #f3f4f6;
+  border: 1px solid #d4d4d8;
+}
+
+/* 메인으로 돌아가기 */
+.home-link-wrap {
+  max-width: 880px;
+  margin: 16px auto 0;
+  padding: 0 16px;
+  display: flex;
+  justify-content: flex-start;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-home {
+  padding: 8px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  background: #f9fafb;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.btn-home:hover {
+  background: #eef2ff;
+}
+
+/* =============================
+   푸터
+   ============================= */
+
+.site-footer {
+  border-top: 1px solid #e8e8ef;
+  margin-top: 32px;
+  padding: 16px 0 20px;
+  color: #444;
+  font-size: 1rem;
+}
+
+.site-footer p { margin: 4px 0; }
+
+/* =============================
+   입력 UI
+   ============================= */
+
+input,
+select,
+button,
+textarea {
+  font: inherit;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="time"],
+input[type="date"],
+select,
+textarea {
+  padding: 10px 12px;
+  border: 1px solid #d9d9e3;
+  border-radius: 12px;
+  background: #f9fafb;
+  outline: none;
+  min-width: 0;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.02);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #b4b4d0;
+  box-shadow: 0 0 0 2px rgba(180, 180, 208, 0.25);
+  background: #fff;
+}
+
+input:disabled,
+select:disabled,
+textarea:disabled {
+  background: #f6f7fb;
+  color: #888;
+}
+
+.numeric { text-align: right; }
+
+/* =============================
+   구분선(hr)
+   ============================= */
+
+hr {
+  border-top: 1px solid #ddd;
+  margin: 26px 0;
+  opacity: 0.9;
+}
+
+body h2 + hr {
+  margin-top: 10px !important;
+}
+
+/* =============================
+   테이블 스타일
+   ============================= */
+
+.table-wrap,
+.table-wrapper {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 12px 0;
+  padding-bottom: 6px;
+}
+
+.table-wrap table,
+.table-wrapper table {
+  min-width: 800px;
+  border-collapse: collapse;
+}
+
+.sheetlike {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+  background: #fff;
+}
+
+.sheetlike th,
+.sheetlike td {
+  border: 1px solid #e5e7eb;
+  padding: 8px 10px;
+}
+
+.sheetlike th {
+  background: #f9fafb;
+  font-weight: 600;
+}
+
+/* =============================
+   ↓↓↓ 요청사항 적용 부분 ↓↓↓
+   simple-table 정렬
+   ============================= */
+
+.simple-table th {
+  text-align: left;
+}
+
+.simple-table td {
+  text-align: right;
+  padding-right: 4px;
+}
+
+.note {
+  margin-top: 8px;
+  font-size: 1rem;
+  color: #555;
+}
+
+/* =============================
+   header/footer 레이아웃 통일
+   ============================= */
+
+.site-header .shell,
+.site-footer .shell {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* 모든 셀렉트 박스가 그리드 밖으로 넘치지 않도록 강제 */
+.field select {
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   index.html 전용(기존 인라인 스타일 제거 후 통합)
+   ========================================================= */
+
+/* main 컨테이너 */
+.container {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+/* index 서브타이틀 */
+.subtitle {
+  margin: 0 0 12px;
+  color: #444;
+  font-size: 0.98rem;
+  text-align: center;
+}
+
+/* 다운로드 섹션 약간 강조 */
+.dl-section {
+  background: #fafafa;
+}
+
+/* 다운로드 섹션 설명(간격만) */
+.dl-desc {
+  margin: 0 0 10px;
+}
+
+/* 다운로드 섹션 - 프로그램 스크린샷 */
+.dl-shot{
+  margin: 14px 0 0;
+  padding: 12px;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.dl-shot img{
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* 캡션: 이미지 위 배치 기준 */
+.dl-caption{
+  margin: 0 0 8px;
+  font-size: 0.95rem;
+  color: #666;
+}
+
+/* =================================================
+   업무 경감 프로그램 카드형 UI
+   ================================================= */
+
+.tool-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.tool-card {
+  border: 1px solid #e5e5e5;
+  border-radius: 14px;
+  padding: 18px 20px;
+  background: #fff;
+}
+
+.tool-head { margin-bottom: 10px; }
+
+.tool-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0 0 4px;
+  color: #111;
+}
+
+.tool-sub {
+  font-size: 0.95rem;
+  color: #555;
+  margin: 0;
+}
+
+.tool-body { margin-top: 10px; }
+
+.tool-list {
+  margin: 0 0 12px;
+  padding-left: 0;
+  list-style: none;
+}
+
+.tool-list li {
+  font-size: 0.95rem;
+  color: #333;
+  margin: 4px 0;
+}
+
+.tool-btn { margin-top: 6px; }
+
+.tool-shot {
+  margin-top: 14px;
+  padding: 10px;
+  border-radius: 12px;
+  background: #fafafa;
+  border: 1px solid #e5e5e5;
+}
+
+.tool-caption {
+  margin: 0 0 8px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.tool-shot img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  display: block;
+}
+
+@media (max-width: 640px) {
+  .tool-card { padding: 16px; }
+}
+
+
+/* ===============================
+   이미지 오버플로우 강제 방지
+   =============================== */
+
+/* 카드/섹션 내부에서 넘침 차단 */
+.section,
+.tool-card,
+.tool-shot {
+  overflow-x: hidden;
+}
+
+/* 스크린샷 래퍼 패딩 제거 */
+.tool-shot {
+  padding: 0;
+  margin-top: 14px;
+  border-radius: 12px;
+  background: #fafafa;
+  border: 1px solid #e5e5e5;
+}
+
+/* 이미지: 절대 안 넘치게 */
+.tool-shot img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* 모바일에서 혹시 모를 계산 오차 추가 차단 */
+@media (max-width: 640px) {
+  .tool-shot img {
+    width: 100%;
+    max-width: 100vw;
+  }
+}
+
+/* 썸네일 */
+.tool-thumb {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  cursor: zoom-in;
+}
+
+/* 모달 */
+.img-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+}
+
+.img-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.img-modal-stage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  touch-action: none; /* 핀치/드래그 제어를 JS에서 수행 */
+}
+
+.img-modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  max-width: 92vw;
+  max-height: 92vh;
+  transform: translate(0px, 0px) scale(1);
+  transform-origin: center center;
+  translate: -50% -50%;
+  border-radius: 12px;
+  background: #fff;
+  cursor: zoom-out;
+  will-change: transform;
+}
+
+.img-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.35);
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+  font-size: 28px;
+  line-height: 36px;
+  cursor: pointer;
+}
+
+.img-modal-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+/* ===============================
+   실행화면 접기/펼치기
+   =============================== */
+
+.shot-details {
+  margin-top: 12px;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  background: #fafafa;
+  padding: 10px 12px;
+}
+
+/* summary 기본 화살표는 유지해도 되고, 커스텀도 가능 */
+.shot-summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: #111;
+  font-size: 0.98rem;
+  list-style: none;
+}
+
+/* 크롬/사파리 기본 마커 숨기고 싶으면 사용 */
+.shot-summary::-webkit-details-marker {
+  display: none;
+}
+
+.shot-summary::before {
+  content: "▸ ";
+}
+
+.shot-details[open] .shot-summary::before {
+  content: "▾ ";
+}
+
+.shot-summary:hover {
+  text-decoration: underline;
+}
+
+/* 펼쳤을 때 내부 여백 */
+.shot-details[open] .tool-shot {
+  margin-top: 10px;
+}
+
+/* figure 기본 여백 제거 */
+.tool-shot {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+
+.site-footer {
+  margin-top: 64px;
+  padding: 24px 16px;
+  border-top: 1px solid #e5e7eb;
+  background: #fafafa;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.site-footer .shell {
+  max-width: 1024px;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 1.6;
+}
+
+
+/* ===============================
+   실행화면 접기/펼치기
+   =============================== */
+
+.row .btn + .btn { margin-left: 0; }
