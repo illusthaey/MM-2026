@@ -11,7 +11,7 @@
 
   <style>
     .toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);padding:10px 12px;border:1px solid #e5e5e5;border-radius:12px;background:rgba(255,255,255,0.95);box-shadow:0 10px 25px rgba(0,0,0,0.08);font-size:0.95rem;color:#111;z-index:9999;display:none;}
-    .prelike{white-space:pre-wrap;word-break:break-word;}
+    .refcode{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:0.95rem;}
     .stamp{display:inline-block;padding:6px 10px;border:1px solid #e5e5e5;border-radius:999px;background:#fafafa;font-size:0.9rem;color:#444;}
   </style>
 </head>
@@ -25,7 +25,7 @@
   <header class="site-header">
     <div class="shell">
       <h1>강사료 지급 요청: 제출물/절차</h1>
-      <p class="subtitle">사업담당 교사용. 제출물 미비 시 “추가요청” 없이 반려합니다.</p>
+      <p class="subtitle">제출물 미비 시 반려합니다. (추가요청으로 왕복하지 않음)</p>
     </div>
   </header>
 
@@ -33,14 +33,17 @@
 
     <section class="section">
       <div class="row between">
-        <h2 class="local-h2 local-tight">핵심 원칙</h2>
+        <h2 class="local-h2 local-tight">적용범위 · 처리기준 · 근거</h2>
         <span class="stamp">미비=반려</span>
       </div>
       <div class="card">
+        <p><b>적용범위</b>: 강사료 지급(외부강사 포함) 요청 및 정산</p>
+        <p><b>처리기준(요약)</b>: (1) 산출표(엑셀) (2) 출석/운영 증빙 (3) 지급정보 (4) 계약/위촉 근거 (5) 마감 준수</p>
+        <hr />
+        <p><b>근거(문서번호/지침)</b></p>
         <ul>
-          <li>서류가 완비되어야 회계 처리 시작</li>
-          <li>대상자/시간/단가/산출근거가 불명확하면 처리 불가</li>
-          <li>기한 경과 시 다음 회차 처리</li>
+          <li><span class="refcode">[강사료 지급 안내]</span> 문서번호: <span class="refcode">[예: 2026-○○○○]</span></li>
+          <li><span class="refcode">[학교회계 집행/마감]</span> 문서번호: <span class="refcode">[예: 2026-○○○○]</span></li>
         </ul>
       </div>
     </section>
@@ -49,13 +52,11 @@
       <h2>필수 제출물 체크리스트</h2>
       <div class="card">
         <ul>
-          <li><b>강사료 산출내역(엑셀)</b>: 시간×단가×횟수, 합계 자동 검증 가능 형태</li>
+          <li><b>강사료 산출내역(엑셀)</b>: 시간×단가×횟수, 합계 확인 가능</li>
           <li><b>출석/운영 증빙</b>: 운영일지 또는 출석부(서명 포함)</li>
-          <li><b>강사 신원/지급정보</b>: 통장사본, 신분확인(필요 시), 연락처</li>
-          <li><b>계약/위촉 근거</b>: 위촉장/계약서 등(사업 성격에 따라)</li>
-          <li><b>원천징수/지급 관련</b>: 해당 시 서식 포함(학교 기준 서식 사용)</li>
+          <li><b>강사 지급정보</b>: 통장사본 등</li>
+          <li><b>계약/위촉 근거</b>: 계약서/위촉장 등</li>
         </ul>
-        <p class="muted">학교/교육청 지침에 따라 추가 서류가 요구될 수 있습니다.</p>
       </div>
     </section>
 
@@ -67,14 +68,13 @@
           <ul>
             <li>산출표 누락 또는 합계 불일치</li>
             <li>출석/운영 증빙 없음</li>
-            <li>지급정보 불명확(계좌/인적사항 누락)</li>
+            <li>지급정보 누락</li>
           </ul>
         </div>
         <div class="card">
           <h3 class="local-h3">근거 불명확</h3>
           <ul>
-            <li>단가 근거(지침/예산편성) 누락</li>
-            <li>지급 사유·기준이 문서로 남지 않음</li>
+            <li>단가 근거 누락</li>
             <li>계약/위촉 절차 미이행</li>
           </ul>
         </div>
@@ -86,31 +86,25 @@
 
       <div class="card">
         <div class="row between">
-          <h3 class="local-h3 local-tight">[반려] 산출표/증빙 미비</h3>
-          <button class="btn ghost copy" data-copy="강사료 지급 요청 건은 제출물 완비 후 처리합니다. (1) 산출내역(엑셀) (2) 출석/운영 증빙 (3) 지급정보(통장 등) 누락으로 반려합니다. 보완 후 재요청 바랍니다.">문구 복사</button>
+          <h3 class="local-h3 local-tight">[반려] 제출물 미비</h3>
+          <button class="btn ghost copy" data-copy="강사료 지급 요청은 제출물 완비 후 처리합니다. 산출내역(엑셀)·출석/운영 증빙·지급정보 누락으로 반려합니다. (근거: [강사료 문서번호])">문구 복사</button>
         </div>
       </div>
 
       <div class="card">
         <div class="row between">
-          <h3 class="local-h3 local-tight">[요청] 엑셀 산출내역 첨부</h3>
-          <button class="btn ghost copy" data-copy="강사료 산출내역은 엑셀 파일로 첨부 바랍니다. 시간×단가×횟수 산식과 합계가 확인 가능해야 합니다. (이미지/문장만으로는 처리 불가)">문구 복사</button>
+          <h3 class="local-h3 local-tight">[요청] 엑셀 산출내역 제출</h3>
+          <button class="btn ghost copy" data-copy="강사료 산출내역은 엑셀 파일로 제출 바랍니다(시간×단가×횟수 및 합계 확인 가능). 이미지/문장만으로는 처리할 수 없습니다. (근거: [강사료 문서번호])">문구 복사</button>
         </div>
-        <p class="muted">네가 예전에 만들었던 “강사료 산출표 첨부 협조” 문구를 여기에 고정해도 좋음.</p>
       </div>
 
       <div class="card">
         <div class="row between">
-          <h3 class="local-h3 local-tight">[안내] 처리 기한</h3>
-          <button class="btn ghost copy" data-copy="마감 이후 접수 건은 다음 회차 처리될 수 있습니다. 기한 내 제출 바랍니다.">문구 복사</button>
+          <h3 class="local-h3 local-tight">[안내] 마감</h3>
+          <button class="btn ghost copy" data-copy="마감 이후 접수 건은 다음 회차 처리될 수 있습니다. 기한 내 제출 바랍니다. (근거: [회계마감 문서번호])">문구 복사</button>
         </div>
       </div>
 
-      <div class="card">
-        <h3 class="local-h3">산출표 최소 형식(예시)</h3>
-        <div class="prelike muted">성명 | 날짜 | 시간(시수) | 단가 | 금액(시간×단가) | 비고
----  | ---  | ---       | ---  | ---            | ---</div>
-      </div>
     </section>
 
   </main>
