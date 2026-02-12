@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>교육공무직 복무(연차/근태) 안내</title>
+
+  <link rel="icon" href="/static/favicon.ico" />
+  <link rel="stylesheet" href="/static/style.css" />
+
+  <style>
+    .toc a { text-decoration: underline; text-underline-offset: 2px; }
+    .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:0.95rem; }
+    .callout { border:1px solid #e5e5e5; border-radius:12px; padding:14px 16px; background:#fafafa; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .prelike { white-space: pre-wrap; word-break: break-word; }
+    .toast {
+      position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%);
+      padding: 10px 12px; border: 1px solid #e5e5e5; border-radius: 12px;
+      background: rgba(255,255,255,0.95); box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      font-size: 0.95rem; color:#111; z-index: 9999; display:none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="home-link-wrap">
+    <a class="btn-home" href="/index.html">← 메인으로</a>
+    <button class="btn btn-lightgrey" type="button" id="btnCopy">이 페이지 링크 복사</button>
+  </div>
+
+  <header class="site-header">
+    <div class="shell">
+      <h1>교육공무직 복무(연차/근태) 안내</h1>
+      <p class="subtitle">기준/절차를 문장으로 고정합니다. 예외는 근거 첨부 시만 검토.</p>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section class="section">
+      <h2 class="local-h2">목차</h2>
+      <ul class="toc">
+        <li><a href="#precheck">요청 전 체크리스트</a></li>
+        <li><a href="#rules">처리 원칙(반려 기준 포함)</a></li>
+        <li><a href="#samples">표준 안내 문구(복사 버튼)</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </section>
+
+    <section class="section" id="precheck">
+      <h2>요청 전 체크리스트</h2>
+      <div class="card">
+        <ul>
+          <li>결재 문서: <b>결재상태가 완료</b>인지 확인</li>
+          <li>근태/연차 유형(연차/반일/지각/조퇴/외출 등) 정확히 선택</li>
+          <li>증빙이 필요한 사유(병가 등)는 증빙 첨부</li>
+          <li>기한: 당월 마감 전 제출(마감 후 제출 건은 다음 회차 처리 가능)</li>
+        </ul>
+        <p class="muted">체크리스트에서 하나라도 빠지면 “추가 요청”이 아니라 “반려”가 기본입니다.</p>
+      </div>
+    </section>
+
+    <section class="section" id="rules">
+      <h2>처리 원칙(반려 기준 포함)</h2>
+      <div class="grid two">
+        <div class="card">
+          <h3 class="local-h3">원칙</h3>
+          <ul>
+            <li>근거 없는 예외 처리 없음</li>
+            <li>구두 요청은 처리하지 않음</li>
+            <li>기재 오류(날짜/유형/시간)는 수정 후 재상신</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 class="local-h3">즉시 반려</h3>
+          <ul>
+            <li>결재 미완료 상태</li>
+            <li>증빙 누락(해당하는 경우)</li>
+            <li>대체인력/업무 인수인계 등 필수 확인사항 누락</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top:12px;">
+        <b class="mono">메모:</b>
+        <div class="prelike muted">
+- “설명”은 분쟁을 늘립니다. “기준 링크”로 안내를 고정하세요.
+- 필요하면 이 페이지 링크를 그대로 공유하면 끝.
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="samples">
+      <h2>표준 안내 문구</h2>
+
+      <div class="card">
+        <div class="row between">
+          <h3 class="local-h3 local-tight">[반려] 결재 미완료</h3>
+          <button class="btn ghost copy" data-copy="결재상태가 완료된 건만 처리합니다. 결재 완료 후 다시 요청해주세요. (기준: 복무 처리 원칙)">문구 복사</button>
+        </div>
+        <p class="muted">사용처: 메신저/댓글/요청 반려 사유</p>
+      </div>
+
+      <div class="card">
+        <div class="row between">
+          <h3 class="local-h3 local-tight">[요청] 증빙 누락</h3>
+          <button class="btn ghost copy" data-copy="증빙이 필요한 항목입니다. 증빙 첨부 후 재상신 바랍니다. (미첨부 시 반려 처리)">문구 복사</button>
+        </div>
+        <p class="muted">사용처: 병가 등 증빙 필수 항목</p>
+      </div>
+
+      <div class="card">
+        <div class="row between">
+          <h3 class="local-h3 local-tight">[안내] 제출 전 확인</h3>
+          <button class="btn ghost copy" data-copy="요청 전 체크: (1) 결재 완료 (2) 유형 정확 (3) 날짜/시간 정확 (4) 증빙 해당 시 첨부. 누락 시 반려됩니다.">문구 복사</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <h2>FAQ</h2>
+      <div class="card">
+        <h3 class="local-h3">Q. 급하니까 구두로 먼저 처리하면 안 되나요?</h3>
+        <p>A. 불가. 기록/근거 없는 처리는 사고 납니다. 링크 안내 후 문서로 받습니다.</p>
+      </div>
+      <div class="card">
+        <h3 class="local-h3">Q. 예외 처리 해주세요.</h3>
+        <p>A. 지침/공문/결재 근거 첨부 시만 검토합니다. 근거 없으면 불가입니다.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell">
+      <p>본 문서는 안내용입니다. 최종 기준은 관련 지침·공문·결재 문서입니다.</p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (function () {
+      const $ = (s, el=document) => el.querySelector(s);
+      const $$ = (s, el=document) => Array.from(el.querySelectorAll(s));
+
+      function toast(msg) {
+        const t = $("#toast");
+        t.textContent = msg;
+        t.style.display = "block";
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(() => (t.style.display = "none"), 1400);
+      }
+
+      async function copyText(text) {
+        try {
+          await navigator.clipboard.writeText(text);
+          return true;
+        } catch {
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          ta.style.position = "fixed";
+          ta.style.left = "-9999px";
+          document.body.appendChild(ta);
+          ta.focus();
+          ta.select();
+          let ok = false;
+          try { ok = document.execCommand("copy"); } catch {}
+          ta.remove();
+          return ok;
+        }
+      }
+
+      $("#btnCopy").addEventListener("click", async () => {
+        const ok = await copyText(location.href);
+        toast(ok ? "링크 복사 완료" : "복사 실패(브라우저 권한 확인)");
+      });
+
+      $$(".copy").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          const text = btn.dataset.copy || "";
+          const ok = await copyText(text);
+          toast(ok ? "문구 복사 완료" : "복사 실패");
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
