@@ -27,23 +27,44 @@
       font-size: 0.95rem; color:#111; z-index: 9999;
       display:none;
     }
+
     .ref-list { margin: 8px 0 0; padding-left: 0; }
     .ref-item { margin: 8px 0; }
     .ref-code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.95rem; }
 
-    /* <ul>/<li> 싫다 → div 기반 */
+    /* div 기반 안내 UI */
     .guide-quick { margin: 0; }
     .guide-quick .line { margin: 6px 0; }
-    .guide-details { margin-top: 10px; }
-    .guide-details summary { cursor: pointer; font-weight: 700; color:#111; }
-    .guide-details summary:hover { text-decoration: underline; }
-    .guide-details .inner { margin-top: 10px; }
     .guide-h { font-weight: 700; margin: 12px 0 6px; color:#111; }
     .guide-p { margin: 6px 0; }
     .guide-steps .step { margin: 6px 0; }
     .guide-note { margin-top: 10px; padding: 10px 12px; border: 1px solid #e5e5e5; border-radius: 12px; background:#fafafa; }
     .guide-note .t { font-weight:700; margin:0 0 6px; }
     .guide-note .d { margin:0; color:#555; }
+
+    /* details 스타일(아코디언) */
+    .guide-details { margin-top: 12px; }
+    .guide-details summary { cursor: pointer; font-weight: 700; color:#111; }
+    .guide-details summary:hover { text-decoration: underline; }
+    .guide-details .inner { margin-top: 10px; }
+
+    .mini-details {
+      margin-top: 10px;
+      border: 1px solid #e5e5e5;
+      border-radius: 12px;
+      background: #fafafa;
+      padding: 10px 12px;
+    }
+    .mini-details summary {
+      cursor: pointer;
+      font-weight: 700;
+      color:#111;
+      list-style: none;
+    }
+    .mini-details summary::-webkit-details-marker { display:none; }
+    .mini-details summary::before { content: "▸ "; }
+    .mini-details[open] summary::before { content: "▾ "; }
+    .mini-details .inner { margin-top: 8px; }
 
     .ref-fallback { display:none; }
     .ref-fallback.show { display:block; }
@@ -59,8 +80,8 @@
     </p>
 
     <p class="muted local-tight">
-      ·본 사이트는 문막초등학교 교직원분들을 이용 대상으로 합니다. <br/>
-      ·학교 회계·행정 업무의 더 효율적인 처리를 목적으로 제작하였습니다. <br/>
+      · 본 사이트는 문막초등학교 교직원분들을 이용 대상으로 합니다. <br/>
+      · 학교 회계·행정 업무의 더 효율적인 처리를 목적으로 제작하였습니다. <br/>
       ※ 학교 전체 및 교육행정실에서 공식적으로 제작한 웹페이지가 아니며, 고주무관의 업무 분장을 주로 다룹니다. <br/>
     </p>
 
@@ -69,72 +90,46 @@
       <h2>사이트 이용 안내</h2>
 
       <p class="muted">
-        ·사이트에 대한 전반적인 설명과 간단한 이용 방법에 대해 설명합니다. <br/>
+        · 사이트에 대한 전반적인 설명과 간단한 이용 방법에 대해 설명합니다. <br/>
       </p>
 
       <div class="card">
 
-
-        <div class="line">
-          <b>이 사이트에서 다루는 내용</b> <br/>
-          <br/>
-          <summary>고주무관 업무 분장 전반 (펼치기)</summary>
-          <div class="inner">
-            ·교직원 급여, 강사료, 자원봉사료 등 인건비성 지출 업무 관련 (초과근무수당 포함) <br/>
-            ·근로계약 체결 관련 (범죄경력조회 포함) <br/>
-            ·징수 업무 관련 - 교직원 급식비, 학생 우유급식비, 늘봄학교 수강료 등 수익자부담금 징수 업무 관련 <br/>
-            ·기타 문막초-59(2026.1.2.) "2026.1.1.자 교육행정실 업무분장"에서 고주무관 소관 업무로 규정한 업무 전반. <br/>
-          </div>
-          <br/>
-
-        <div class="line">
-          <b>이 사이트에서 다루지 않는 내용</b> <br/>
-          <br/>          
-          <summary>다른 분들 소관 업무 (펼치기)</summary>
-
-          <div class="inner">
-            ·학교회계 예산 및 결산 업무 관련 <br/>
-            ·물품, 간식, 교재 구매 등 일반 지출 업무 관련 <br/>
-            ·발전기금 관련 업무 <br/>
-            ·시설 관리 관련 업무 전반 <br/>
-            ·학교 운영위원회 관련 업무 전반 <br/>
-            ·기타 문막초-59(2026.1.2.) "2026.1.1.자 교육행정실 업무분장"에서 다른 분들 소관 업무로 규정한 업무 전반. <br/>
-          </div>
+        <!-- (선택) 한 줄 요약 -->
+        <div class="guide-quick">
+          <div class="line">· 문의 전: <b>검색 → 관련 페이지 확인</b> 후 해결 안 되면 문의 부탁드립니다.</div>
+          <div class="line">· 이 사이트는 <b>개인정보 입력 기능이 없고</b>, 게시 내용에도 학생·교직원 개인정보를 포함하지 않습니다.</div>
+          <div class="line">· 최종 기준은 공문/지침이 우선이며, 본 페이지 내용은 변경될 수 있습니다.</div>
         </div>
-        
 
-        
-3) 사용 방법
-① 상단 검색(키워드 1~2개)으로 먼저 찾아보기
-② 해당 업무 페이지의 절차/준비물/주의사항 확인
-③ 체크리스트가 있으면 체크 후 PDF 저장/출력하여 활용
-4) 문의 전 확인 부탁드리는 사항
-· 먼저 사이트에서 관련 페이지가 있는지 확인해 주세요.
-· 문의 시: “확인한 페이지(제목 또는 링크) + 현재 상황(한 줄) + 궁금한 점(한 줄)”로 보내주시면 빠릅니다.
-5) 체크리스트 검토 요청(필요 시)
-· 체크해본 뒤 PDF 저장/출력하여 전달해주시면, 체크 방향이 맞는지 간단히 검토해 드리겠습니다.
-· 단, 파일/메시지에는 학생·교직원 개인정보가 포함되지 않도록 유의해 주세요.
+        <!-- ✅ 여기부터: summary는 반드시 details 안에 있어야 정상 동작 -->
+        <!-- 기본으로 펼쳐두고 싶으면 details에 open 속성 추가 -->
+        <details class="mini-details" open>
+          <summary>이 사이트에서 다루는 내용 (고주무관 업무 분장 전반)</summary>
+          <div class="inner">
+            <div class="guide-p">· 교직원 급여, 강사료, 자원봉사료 등 인건비성 지출 업무 관련 (초과근무수당 포함)</div>
+            <div class="guide-p">· 근로계약 체결 관련 (범죄경력조회 포함)</div>
+            <div class="guide-p">· 징수 업무 관련 - 교직원 급식비, 학생 우유급식비, 늘봄학교 수강료 등 수익자부담금 징수 업무 관련</div>
+            <div class="guide-p">· 기타 문막초-59(2026.1.2.) "2026.1.1.자 교육행정실 업무분장"에서 고주무관 소관 업무로 규정한 업무 전반</div>
+          </div>
+        </details>
 
-
-
-
-        </div>
+        <details class="mini-details">
+          <summary>이 사이트에서 다루지 않는 내용 (다른 분들 소관 업무)</summary>
+          <div class="inner">
+            <div class="guide-p">· 학교회계 예산 및 결산 업무 관련</div>
+            <div class="guide-p">· 물품, 간식, 교재 구매 등 일반 지출 업무 관련</div>
+            <div class="guide-p">· 발전기금 관련 업무</div>
+            <div class="guide-p">· 시설 관리 관련 업무 전반</div>
+            <div class="guide-p">· 학교 운영위원회 관련 업무 전반</div>
+            <div class="guide-p">· 기타 문막초-59(2026.1.2.) "2026.1.1.자 교육행정실 업무분장"에서 다른 분들 소관 업무로 규정한 업무 전반</div>
+          </div>
+        </details>
 
         <!-- 자세히 보기(아코디언) -->
         <details class="guide-details">
           <summary>자세히 보기</summary>
           <div class="inner">
-
-            <div class="guide-h">1) 다루는 내용</div>
-            <div class="guide-p">· 행정·회계 업무 흐름(절차 요약)</div>
-            <div class="guide-p">· 업무별 서식/체크리스트</div>
-            <div class="guide-p">· 자주 묻는 질문(FAQ)과 실수 포인트</div>
-            <div class="guide-p">· 관련 지침/매뉴얼 링크(근거 확인용)</div>
-
-            <div class="guide-h">2) 다루지 않는 내용</div>
-            <div class="guide-p">· 학교 공식 지침 또는 최종 판단을 대체하지 않습니다.</div>
-            <div class="guide-p">· 예외 처리, 민원·감사·분쟁성 사안, 개별 인사·복무 등은 사안별 확인이 필요합니다.</div>
-            <div class="guide-p">· 지역/기관별로 수시 변경되는 최신 기준은 공문/지침이 우선이며, 본 페이지 내용은 변경될 수 있습니다.</div>
 
             <div class="guide-h">3) 사용 방법</div>
             <div class="guide-steps">
@@ -158,12 +153,11 @@
 
           </div>
         </details>
+
       </div>
     </section>
 
-    <!-- =========================
-         검색
-         ========================= -->
+    <!-- ========================= 검색 ========================= -->
     <section class="section">
       <div class="notice-bar">
         <div>
@@ -181,9 +175,7 @@
       </div>
     </section>
 
-    <!-- =========================
-         안내 목록
-         ========================= -->
+    <!-- ========================= 안내 목록 ========================= -->
     <section class="section">
       <h2>안내 목록</h2>
       <div class="tool-grid" id="grid">
@@ -243,9 +235,7 @@
       </div>
     </section>
 
-    <!-- =========================
-         근거 규정 (li/ul 없이 div로 렌더링)
-         ========================= -->
+    <!-- ========================= 근거 규정 ========================= -->
     <section class="section dl-section">
       <h2>업무 관련 근거 규정</h2>
       <div class="card">
@@ -384,7 +374,6 @@
             if (titleEl) titleEl.textContent = doc.title || "-";
           });
 
-          // fallback 숨김
           $("#refFallback")?.classList.remove("show");
         } catch (err) {
           toast("문서번호 로딩 실패(파일 경로/권한 확인)");
