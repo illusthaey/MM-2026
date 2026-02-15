@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>2026학년도 문막초등학교 행정업무 안내 웹페이지</title>
+
+  <link rel="icon" href="/static/favicon.ico" />
+  <link rel="stylesheet" href="/static/style.css" />
+
+  <style>
+    .kicker { text-align:center; margin: 10px 0 0; color:#666; font-size:0.95rem; }
+    .notice-bar { display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between; }
+    .pill { display:inline-block; padding:6px 10px; border:1px solid #e5e5e5; border-radius:999px; background:#fafafa; font-size:0.9rem; color:#444; }
+    .search-row { display:flex; gap:10px; flex-wrap:wrap; }
+    .search-row input { flex: 1 1 260px; }
+    .tool-list a { text-decoration: underline; text-underline-offset: 2px; }
+    .mini { font-size:0.9rem; color:#666; }
+    .right { display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
+    .tag { font-size:0.85rem; border:1px solid #ddd; border-radius:999px; padding:4px 8px; background:#fff; color:#444; white-space:nowrap; }
+    .hidden { display:none !important; }
+    .toast {
+      position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%);
+      padding: 10px 12px; border: 1px solid #e5e5e5; border-radius: 12px;
+      background: rgba(255,255,255,0.95); box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      font-size: 0.95rem; color:#111; z-index: 9999;
+      display:none;
+    }
+
+    .ref-list { margin: 8px 0 0; padding-left: 0; }
+    .ref-item { margin: 8px 0; }
+    .ref-code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.95rem; }
+
+    /* div 기반 안내 UI */
+    .guide-quick { margin: 0; }
+    .guide-quick .line { margin: 6px 0; }
+    .guide-h { font-weight: 700; margin: 12px 0 6px; color:#111; }
+    .guide-p { margin: 6px 0; }
+    .guide-steps .step { margin: 6px 0; }
+    .guide-note { margin-top: 10px; padding: 10px 12px; border: 1px solid #e5e5e5; border-radius: 12px; background:#fafafa; }
+    .guide-note .t { font-weight:700; margin:0 0 6px; }
+    .guide-note .d { margin:0; color:#555; }
+
+    /* details 스타일(아코디언) */
+    .guide-details { margin-top: 12px; }
+    .guide-details summary { cursor: pointer; font-weight: 700; color:#111; }
+    .guide-details summary:hover { text-decoration: underline; }
+    .guide-details .inner { margin-top: 10px; }
+
+    .mini-details {
+      margin-top: 10px;
+      border: 1px solid #e5e5e5;
+      border-radius: 12px;
+      background: #fafafa;
+      padding: 10px 12px;
+    }
+    .mini-details summary {
+      cursor: pointer;
+      font-weight: 700;
+      color:#111;
+      list-style: none;
+    }
+    .mini-details summary::-webkit-details-marker { display:none; }
+    .mini-details summary::before { content: "▸ "; }
+    .mini-details[open] summary::before { content: "▾ "; }
+    .mini-details .inner { margin-top: 8px; }
+
+    .ref-fallback { display:none; }
+    .ref-fallback.show { display:block; }
+  </style>
+</head>
+
+<body>
+
+  <main class="container">
+    <h1>고주무관의 학교행정·회계업무 안내 웹페이지</h1>
+    <p class="subtitle">
+      - 제작·운영: 업무천재 고주무관
+    </p>
+
+    <p class="muted local-tight">
+      ·본 사이트는 문막초등학교 교직원분들을 이용 대상으로 합니다. <br/>
+      ·학교행정·회계업무의 더 효율적인 처리를 목적으로 제작하였습니다. <br/>
+      ※ 교육행정실에서 공식적으로 제작한 웹페이지가 아니며, 고주무관의 업무 분장을 주로 다룹니다. <br/>
+    </p>
+
+    <!-- ======================== -->
+    <section class="section">
+      <h2>웹페이지 이용 안내</h2>
+
+      <p class="muted">
+        ·업무 안내용 웹페이지의 운영 목적 및 지원 기능, 간단한 이용 방법 등에 대해 전반적으로 설명합니다. <br/>
+      </p>
+
+      <div class="card">
+
+<h3>이 웹페이지가 하는 일 </h3>
+
+<div>
+·2025회계에 자주/반복적으로 문의하셨던 내용들을 정리해 두었습니다. 빠르고 간편하게 참고하실 수 있도록 관련 자료를 제공하여 지연되는 시간을 줄입니다. <br/>
+
+·업무 별로 체크리스트 pdf를 제공합니다. 업무 메신저로 저에게 보내주시면 사전 검토하여 실수나 사고를 방지합니다. <br/>
+
+·인터넷만 있으면 언제 어디서든 접속 가능하기 때문에, 근무시간 외에 급할 때나 출장 나가셔서, 혹은 제가 부재 중일 때 도움을 드릴 수 있습니다. <br/>
+
+·웹페이지 내용 검색 기능을 제공하오니 많은 이용 부탁드립니다. <br/>
+
+</div> </div>
+
+
+
+<div class="card">
+
+<h3>이 웹페이지에서 다루는 내용</h3>
+
+<div>
+
+<div> ·교직원 급여, 강사료, 자원봉사료, 초과근무수당 지급 등 인건비성 지출 업무에 대해 안내합니다. <br/> </div>
+
+<div> ·근로계약 체결 업무에 대해 안내합니다. 범죄경력 조회 절차 등을 포함합니다. <br/> </div>
+
+<div> ·교직원 급식비, 학생 우유급식비, 늘봄학교 수강료 등 각종 수익자부담금 징수 업무 관련하여 안내합니다. <br/></div>
+
+<div>·기타 고주무관 소관 업무로 규정된 업무 전반에 대해 안내합니다. <br/>
+ - 관련 문서: "2026.1.1.자 교육행정실 업무분장", 문막초-59(2026.1.2.) <br/></div>
+
+</div> </div>
+
+
+
+
+<div class="card">
+
+<h3>이 사이트에서 다루지 않는 내용</h3>
+
+
+<div>
+<div>·학교회계 예산 및 결산 업무 관련 <br/></div>
+
+<div>·물품, 간식, 교재 구매 등 인건비 외 지출 업무 관련 <br/></div>
+
+<div>·발전기금 관련 업무 <br/></div>
+
+<div>·시설 관리 관련 업무 전반 <br/></div>
+
+<div>·학교 운영위원회 관련 업무 전반 <br/></div>
+
+<div>·기타 다른 분들 소관 업무로 규정된 업무 전반에 대해서는 정확한 내용을 안내드리기 어렵습니다. <br/>
+ - 관련 문서: "2026.1.1.자 교육행정실 업무분장", 문막초-59(2026.1.2.) <br/></div>
+
+</div> </div>
+
+
+
+
+
+
+<div class="card">
+
+<h3>사이트 활용 방법</h3>
+
+<div>
+
+<div> ① 문의사항 발생 시, 검색창에 키워드를 입력하여 관련 자료가 있는지 찾아봅니다. </div>
+
+<div> ② 관련 자료가 있다면 업무 처리 절차와 유의사항을 확인합니다.</div>
+
+<div> ③ 체크리스트가 첨부되어 있는 경우 작성하여 메신저로 보내주시면 성심껏 확인하여 안내드립니다. </div>
+
+</div> </div>
+
+
+
+
+
+            <div class="guide-steps">
+              <div class="step">① 상단 검색(키워드 1~2개)으로 먼저 찾아보기</div>
+              <div class="step">② 해당 업무 페이지의 절차/준비물/주의사항 확인</div>
+              <div class="step">③ 체크리스트가 있으면 체크 후 PDF 저장/출력하여 활용</div>
+            </div>
+
+            <div class="guide-h">4) 문의 전 확인 부탁드리는 사항</div>
+            <div class="guide-p">· 먼저 사이트에서 관련 페이지가 있는지 확인해 주세요.</div>
+            <div class="guide-p">· 문의 시: “확인한 페이지(제목 또는 링크) + 현재 상황(한 줄) + 궁금한 점(한 줄)”로 보내주시면 빠릅니다.</div>
+
+            <div class="guide-h">5) 체크리스트 검토 요청(필요 시)</div>
+            <div class="guide-p">· 체크해본 뒤 PDF 저장/출력하여 전달해주시면, 체크 방향이 맞는지 간단히 검토해 드리겠습니다.</div>
+            <div class="guide-p">· 단, 파일/메시지에는 학생·교직원 개인정보가 포함되지 않도록 유의해 주세요.</div>
+
+            <div class="guide-note">
+              <p class="t">안내(공식 여부)</p>
+              <p class="d">본 웹페이지는 문막초등학교의 공식 제작물이 아니며, 업무 편의를 위해 개인적으로 정리·운영하는 자료입니다.</p>
+            </div>
+
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- ========================= 검색 ========================= -->
+    <section class="section">
+      <div class="notice-bar">
+        <div>
+          <h2 class="local-h2 local-tight">검색해서 내용 찾아보기</h2>
+          <p class="muted local-tight">
+            · 검색어를 한 단어로 입력하여 주십시오. <br/>
+            · 관련 문서 번호 등의 근거는 상세페이지에 기재되어 있습니다. <br/>
+          </p>
+        </div>
+      </div>
+
+      <div class="search-row">
+        <input id="q" type="text" placeholder="예시: 초과근무, 연차, 강사료, 위수탁, 근로계약 등" autocomplete="off" />
+        <button class="btn" type="button" id="btnClear">검색 결과 초기화하기</button>
+      </div>
+    </section>
+
+    <!-- ========================= 안내 목록 ========================= -->
+    <section class="section">
+      <h2>안내 목록</h2>
+      <div class="tool-grid" id="grid">
+
+        <article class="tool-card item" data-keywords="교육공무직 공무직 복무 연차 병가 조퇴 지각 외출 근태 결재 상태 완료 교장 교감 행정실장 문서번호 편람 규정 지침">
+          <div class="tool-head">
+            <p class="tool-title">복무 관련 안내 (연차, 초과근무 등)</p>
+            <p class="tool-sub">· 체크리스트, 반려 사유 등</p>
+          </div>
+          <div class="tool-body">
+            <div class="row between">
+              <a class="btn primary" href="/guide-work-state/index.html">상세페이지로 이동하기</a>
+              <button class="btn ghost btnCopy" type="button" data-url="/guide-work-state/index.html">링크 복사하기</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="tool-card item" data-keywords="강사료 지급 품의 서류 증빙 증빙서류 활동일지 강사활동 통장사본 신분증 원천징수 지급명세서 문서번호 지침">
+          <div class="tool-head">
+            <p class="tool-title">강사료 지급 관련 안내</p>
+            <p class="tool-sub">· 체크리스트, 반려 사유 등</p>
+          </div>
+          <div class="tool-body">
+            <div class="row between">
+              <a class="btn primary" href="/guide-instructor-fee/index.html">상세페이지로 이동하기</a>
+              <button class="btn ghost btnCopy" type="button" data-url="/guide-instructor-fee/index.html">링크 복사하기</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="tool-card item" data-keywords="늘봄학교 늘봄 강사 외부강사 방과후강사 방과후 맞춤형 선택형 위수탁 위수탁계약 계약 절차 채용 서류 범죄경력조회 범죄경력 아동학대 성범죄 문서번호 지침">
+          <div class="tool-head">
+            <p class="tool-title">계약 업무 관련 안내</p>
+            <p class="tool-sub">· 유형 구분 → 타임라인 → 지급</p>
+          </div>
+          <div class="tool-body">
+            <div class="row between">
+              <a class="btn primary" href="/guide-contract/index.html">상세페이지로 이동하기</a>
+              <button class="btn ghost btnCopy" type="button" data-url="/guide-contract/index.html">링크 복사하기</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="tool-card item" data-keywords="서식 양식 파일 활동일지 정산서 산출내역 엑셀 제출 협조 행정실협조 행정실 교무실 업무범위 업무분장 책임 요청 금지 제출기한">
+          <div class="tool-head">
+            <p class="tool-title">각종 업무 관련 파일 서식</p>
+            <p class="tool-sub">· 활동일지 등</p>
+          </div>
+          <div class="tool-body">
+            <div class="row between">
+              <a class="btn primary" href="/giving-files/index.html">상세페이지로 이동하기</a>
+              <button class="btn ghost btnCopy" type="button" data-url="/giving-files/index.html">링크 복사하기</button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ========================= 근거 규정 ========================= -->
+    <section class="section dl-section">
+      <h2>업무 관련 근거 규정</h2>
+      <div class="card">
+        <p class="muted" style="margin-top:0;">· 상세페이지에도 기재되어 있습니다.</p>
+
+        <div class="ref-list" id="refList">
+          <div class="ref-item" data-doc-id="leave">
+            <span class="ref-code">[복무 지침]</span>
+            문서번호: <span class="ref-code" data-doc-field="number">[로딩중]</span>
+            / 제목: <span class="ref-code" data-doc-field="title">[로딩중]</span>
+          </div>
+
+          <div class="ref-item" data-doc-id="instructor_fee">
+            <span class="ref-code">[강사료]</span>
+            문서번호: <span class="ref-code" data-doc-field="number">[로딩중]</span>
+            / 제목: <span class="ref-code" data-doc-field="title">[로딩중]</span>
+          </div>
+
+          <div class="ref-item" data-doc-id="contract">
+            <span class="ref-code">[방과후 계약]</span>
+            문서번호: <span class="ref-code" data-doc-field="number">[로딩중]</span>
+            / 제목: <span class="ref-code" data-doc-field="title">[로딩중]</span>
+          </div>
+
+          <div class="ref-item" data-doc-id="closing">
+            <span class="ref-code">[회계 마감]</span>
+            문서번호: <span class="ref-code" data-doc-field="number">[로딩중]</span>
+            / 제목: <span class="ref-code" data-doc-field="title">[로딩중]</span>
+          </div>
+        </div>
+
+        <p class="muted">※ 문서번호는 <span class="ref-code">/static/document-number.json</span>에서 관리합니다.</p>
+
+        <div class="ref-fallback" id="refFallback">
+          <p class="muted">※ 문서번호 로딩 실패 시, 상세페이지의 근거 문서번호를 참고해 주세요.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (function () {
+      const $ = (sel, el=document) => el.querySelector(sel);
+      const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
+
+      function toast(msg) {
+        const t = $("#toast");
+        if (!t) return;
+        t.textContent = msg;
+        t.style.display = "block";
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(() => (t.style.display = "none"), 1400);
+      }
+
+      function absUrl(path) {
+        try { return new URL(path, location.origin).toString(); }
+        catch { return path; }
+      }
+
+      async function copyText(text) {
+        try {
+          await navigator.clipboard.writeText(text);
+          return true;
+        } catch (e) {
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          ta.style.position = "fixed";
+          ta.style.left = "-9999px";
+          document.body.appendChild(ta);
+          ta.focus();
+          ta.select();
+          let ok = false;
+          try { ok = document.execCommand("copy"); } catch {}
+          ta.remove();
+          return ok;
+        }
+      }
+
+      // 링크 복사 버튼
+      $$(".btnCopy").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          const url = btn.dataset.url ? absUrl(btn.dataset.url) : location.href;
+          const ok = await copyText(url);
+          toast(ok ? "링크 복사 완료" : "복사 실패(브라우저 권한 확인)");
+        });
+      });
+
+      // 검색 필터
+      const q = $("#q");
+      const btnClear = $("#btnClear");
+      const items = $$(".item");
+
+      function norm(s) {
+        return (s || "").toLowerCase().replace(/\s+/g, " ").trim();
+      }
+
+      function applyFilter() {
+        const needle = norm(q?.value);
+        if (!needle) {
+          items.forEach(it => it.classList.remove("hidden"));
+          return;
+        }
+        items.forEach(it => {
+          const hay = norm(it.textContent + " " + (it.dataset.keywords || ""));
+          it.classList.toggle("hidden", !hay.includes(needle));
+        });
+      }
+
+      if (q) q.addEventListener("input", applyFilter);
+      if (btnClear) btnClear.addEventListener("click", () => { if (q) q.value = ""; applyFilter(); q?.focus(); });
+      applyFilter();
+
+      // 문서번호 JSON 로딩 → 근거 규정 섹션 자동 채우기
+      async function loadDocumentNumbers() {
+        const list = $("#refList");
+        if (!list) return;
+
+        try {
+          const res = await fetch("/static/document-number.json", { cache: "no-store" });
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          const data = await res.json();
+          const docs = (data && data.docs) ? data.docs : {};
+
+          $$("#refList [data-doc-id]").forEach(row => {
+            const id = row.getAttribute("data-doc-id");
+            const doc = docs[id];
+            if (!doc) return;
+
+            const numEl = row.querySelector('[data-doc-field="number"]');
+            const titleEl = row.querySelector('[data-doc-field="title"]');
+
+            if (numEl) numEl.textContent = doc.number || "-";
+            if (titleEl) titleEl.textContent = doc.title || "-";
+          });
+
+          $("#refFallback")?.classList.remove("show");
+        } catch (err) {
+          toast("문서번호 로딩 실패(파일 경로/권한 확인)");
+          console.warn(err);
+          $("#refFallback")?.classList.add("show");
+        }
+      }
+
+      loadDocumentNumbers();
+    })();
+  </script>
+
+  <script src="/static/disable-copy.js"></script>
+  <script src="/static/footer.js"></script>
+  <script src="/static/global-loader.js?v=1"></script>
+
+</body>
+</html>
