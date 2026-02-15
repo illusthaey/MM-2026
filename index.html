@@ -196,16 +196,17 @@
     <section class="section">
       <div class="notice-bar">
         <div>
-          <h2 class="local-h2 local-tight">검색해서 내용 찾아보기</h2>
+          <h3>검색해서 내용 찾아보기</h3>
+
           <p class="muted local-tight">
-            · 검색어를 한 단어로 입력하여 주십시오. <br/>
-            · 관련 문서 번호 등의 근거는 상세페이지에 기재되어 있습니다. <br/>
+            · 검색어를 한 단어로 입력하여 주십시오. (띄어쓰기 미지원) <br/>
+            · 관련 문서 번호 등의 근거는 해당 내용을 다루는 상세 페이지에 기재되어 있습니다. <br/>
           </p>
         </div>
       </div>
 
       <div class="search-row">
-        <input id="q" type="text" placeholder="예시: 초과근무, 연차, 강사료, 위수탁, 근로계약 등" autocomplete="off" />
+        <input id="q" type="text" placeholder="예시: 초과근무, 연차, 강사료, 지급, 계약, 지출서류, 대체인력, 계약 등" autocomplete="off" />
         <button class="btn" type="button" id="btnClear">검색 결과 초기화하기</button>
       </div>
     </section>
@@ -269,6 +270,9 @@
 
       </div>
     </section>
+
+
+
 
     <!-- ========================= 근거 규정 ========================= -->
     <section class="section dl-section">
@@ -357,7 +361,7 @@
         btn.addEventListener("click", async () => {
           const url = btn.dataset.url ? absUrl(btn.dataset.url) : location.href;
           const ok = await copyText(url);
-          toast(ok ? "링크 복사 완료" : "복사 실패(브라우저 권한 확인)");
+          toast(ok ? "링크 복사 완료. 고주무관 천재." : "복사 실패");
         });
       });
 
@@ -411,7 +415,7 @@
 
           $("#refFallback")?.classList.remove("show");
         } catch (err) {
-          toast("문서번호 로딩 실패(파일 경로/권한 확인)");
+          toast("문서번호 로딩 실패");
           console.warn(err);
           $("#refFallback")?.classList.add("show");
         }
@@ -422,8 +426,13 @@
   </script>
 
   <script src="/static/disable-copy.js"></script>
+
   <script src="/static/footer.js"></script>
+
   <script src="/static/global-loader.js?v=1"></script>
 
+
+
 </body>
+
 </html>
