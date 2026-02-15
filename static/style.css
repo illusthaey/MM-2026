@@ -720,3 +720,17 @@ body h2 + hr {
   background: #FFEFA0; /* 살짝 진한 호버 */
 }
 
+
+
+
+/* index: 사이트 안내 버튼 */
+.btn.notice-use-btn{
+  background: #FFF4B8;
+  border-color: #222;
+  color: #111;
+}
+
+.btn.notice-use-btn:hover{
+  background: #FFEFA0; /* 살짝 진한 호버 */
+}
+
