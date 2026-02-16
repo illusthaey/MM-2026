@@ -1,6 +1,9 @@
-/* 251204목 공통 스타일 */
+/* 2026.2.17.(화) */
 
-/* 박스 모델 통일 */
+
+
+
+
 * {
   box-sizing: border-box;
 }
@@ -709,28 +712,28 @@ body h2 + hr {
 .row .btn + .btn { margin-left: 0; }
 
 
-/* index: 사용자 의견 보내기 버튼만 파스텔 노란색 */
-.btn.feedback-btn{
+/* 버튼색깔 팔레트 */
+.btn.pastel-yellow{
   background: #FFF4B8;
   border-color: #222;
   color: #111;
 }
 
-.btn.feedback-btn:hover{
+.btn.pastel-yellow:hover{
   background: #FFEFA0; /* 살짝 진한 호버 */
 }
 
 
-
-
-/* index: 사이트 안내 버튼 */
-.btn.notice-how-to-use-btn{
-  background: #FFF4B8;
-  border-color: #222;
-  color: #111;
+/* 특정 버튼만 파스텔 파랑 */
+.btn.pastel-blue{
+  background: #E6F0FF;
+  transition: background-color 0.15s ease;
 }
 
-.btn.notice-how-to-use-btn:hover{
-  background: #FFEFA0; /* 살짝 진한 호버 */
+.btn.pastel-blue:hover{
+  background: #D7E8FF;
 }
+
+
+
 
