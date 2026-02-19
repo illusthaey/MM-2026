@@ -735,5 +735,22 @@ body h2 + hr {
 }
 
 
+.dash-summary{
+  display:flex;
+  align-items:baseline;
+  gap:8px;
+  cursor:pointer;
+  list-style:none; /* 일부 브라우저에서 마커/정렬 안정 */
+}
+
+.dash-summary::-webkit-details-marker{
+  display:none; /* 크롬/사파리 기본 ▶ 마커 제거 */
+}
+
+.dash-title{
+  font-size: 1.6rem; /* h2 느낌 */
+  font-weight: 700;
+  line-height: 1.2;
+}
 
 
