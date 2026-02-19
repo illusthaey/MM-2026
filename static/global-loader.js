@@ -9,7 +9,9 @@
   const host = location.hostname || "";
   const allowed = [
     "edusprouthaey.co.kr",
-    "narcolepsyhaeyisking.co.kr",
+    "eduworkhaey.co.kr",
+    "savinghaey.co.kr",
+    "archivinghaey.co.kr",
     "localhost",
     "127.0.0.1"
   ];
