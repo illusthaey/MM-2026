@@ -230,6 +230,23 @@ main {
   border: 1px solid #d4d4d8;
 }
 
+
+/* ===============================
+   버튼 세로 스택(위아래 간격)
+   =============================== */
+
+.btn-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;              /* ✅ 버튼 위아래 간격 */
+  align-items: flex-start; /* ✅ 버튼이 내용폭만큼만 */
+}
+
+/* 기존 .btn + .btn { margin-left: 10px; } 무력화 */
+.btn-stack > .btn + .btn {
+  margin-left: 0;
+}
+
 /* 메인으로 돌아가기 */
 .home-link-wrap {
   max-width: 880px;
