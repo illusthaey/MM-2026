@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>강사료 지급 요청: 제출물/절차</title>
+
+  <link rel="icon" href="/static/favicon.ico" />
+  <link rel="stylesheet" href="/static/style.css" />
+
+  <style>
+    .toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);padding:10px 12px;border:1px solid #e5e5e5;border-radius:12px;background:rgba(255,255,255,0.95);box-shadow:0 10px 25px rgba(0,0,0,0.08);font-size:0.95rem;color:#111;z-index:9999;display:none;}
+    .refcode{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:0.95rem;}
+    .stamp{display:inline-block;padding:6px 10px;border:1px solid #e5e5e5;border-radius:999px;background:#fafafa;font-size:0.9rem;color:#444;}
+  </style>
+</head>
+
+<body>
+  <div class="home-link-wrap">
+    <a class="btn-home" href="/index.html">← 메인으로</a>
+    <button class="btn btn-lightgrey" type="button" id="btnCopy">이 페이지 링크 복사</button>
+  </div>
+
+  <header class="site-header">
+    <div class="shell">
+      <h1>강사료 지급 요청: 제출물/절차</h1>
+      <p class="subtitle">제출물 미비 시 반려합니다. (추가요청으로 왕복하지 않음)</p>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section class="section">
+      <div class="row between">
+        <h2 class="local-h2 local-tight">적용범위 · 처리기준 · 근거</h2>
+        <span class="stamp">미비=반려</span>
+      </div>
+      <div class="card">
+        <p><b>적용범위</b>: 강사료 지급(외부강사 포함) 요청 및 정산</p>
+        <p><b>처리기준(요약)</b>: (1) 산출표(엑셀) (2) 출석/운영 증빙 (3) 지급정보 (4) 계약/위촉 근거 (5) 마감 준수</p>
+        <hr />
+        <p><b>근거(문서번호/지침)</b></p>
+        <ul>
+          <li><span class="refcode">[강사료 지급 안내]</span> 문서번호: <span class="refcode">[예: 2026-○○○○]</span></li>
+          <li><span class="refcode">[학교회계 집행/마감]</span> 문서번호: <span class="refcode">[예: 2026-○○○○]</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>필수 제출물 체크리스트</h2>
+      <div class="card">
+        <ul>
+          <li><b>강사료 산출내역(엑셀)</b>: 시간×단가×횟수, 합계 확인 가능</li>
+          <li><b>출석/운영 증빙</b>: 운영일지 또는 출석부(서명 포함)</li>
+          <li><b>강사 지급정보</b>: 통장사본 등</li>
+          <li><b>계약/위촉 근거</b>: 계약서/위촉장 등</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>반려 기준(대표)</h2>
+      <div class="grid two">
+        <div class="card">
+          <h3 class="local-h3">서류 미비</h3>
+          <ul>
+            <li>산출표 누락 또는 합계 불일치</li>
+            <li>출석/운영 증빙 없음</li>
+            <li>지급정보 누락</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 class="local-h3">근거 불명확</h3>
+          <ul>
+            <li>단가 근거 누락</li>
+            <li>계약/위촉 절차 미이행</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>표준 안내 문구(복사)</h2>
+
+      <div class="card">
+        <div class="row between">
+          <h3 class="local-h3 local-tight">[반려] 제출물 미비</h3>
+          <button class="btn ghost copy" data-copy="강사료 지급 요청은 제출물 완비 후 처리합니다. 산출내역(엑셀)·출석/운영 증빙·지급정보 누락으로 반려합니다. (근거: [강사료 문서번호])">문구 복사</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="row between">
+          <h3 class="local-h3 local-tight">[요청] 엑셀 산출내역 제출</h3>
+          <button class="btn ghost copy" data-copy="강사료 산출내역은 엑셀 파일로 제출 바랍니다(시간×단가×횟수 및 합계 확인 가능). 이미지/문장만으로는 처리할 수 없습니다. (근거: [강사료 문서번호])">문구 복사</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="row between">
+          <h3 class="local-h3 local-tight">[안내] 마감</h3>
+          <button class="btn ghost copy" data-copy="마감 이후 접수 건은 다음 회차 처리될 수 있습니다. 기한 내 제출 바랍니다. (근거: [회계마감 문서번호])">문구 복사</button>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell">
+      <p>본 문서는 안내용입니다. 최종 기준은 관련 지침·공문·결재 문서입니다.</p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (function(){
+      const $ = (s, el=document) => el.querySelector(s);
+      const $$ = (s, el=document) => Array.from(el.querySelectorAll(s));
+
+      function toast(msg){
+        const t=$("#toast");
+        t.textContent=msg;
+        t.style.display="block";
+        clearTimeout(toast._timer);
+        toast._timer=setTimeout(()=>t.style.display="none",1400);
+      }
+
+      async function copyText(text){
+        try{ await navigator.clipboard.writeText(text); return true; }
+        catch{
+          const ta=document.createElement("textarea");
+          ta.value=text; ta.style.position="fixed"; ta.style.left="-9999px";
+          document.body.appendChild(ta); ta.focus(); ta.select();
+          let ok=false; try{ ok=document.execCommand("copy"); }catch{}
+          ta.remove(); return ok;
+        }
+      }
+
+      $("#btnCopy").addEventListener("click", async ()=>{
+        const ok = await copyText(location.href);
+        toast(ok ? "링크 복사 완료" : "복사 실패");
+      });
+
+      $$(".copy").forEach(btn=>{
+        btn.addEventListener("click", async ()=>{
+          const ok = await copyText(btn.dataset.copy || "");
+          toast(ok ? "문구 복사 완료" : "복사 실패");
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

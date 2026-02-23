@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>방과후강사 계약 절차(위수탁/근로)</title>
+
+  <link rel="icon" href="/static/favicon.ico" />
+  <link rel="stylesheet" href="/static/style.css" />
+
+  <style>
+    .toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);padding:10px 12px;border:1px solid #e5e5e5;border-radius:12px;background:rgba(255,255,255,0.95);box-shadow:0 10px 25px rgba(0,0,0,0.08);font-size:0.95rem;color:#111;z-index:9999;display:none;}
+    .refcode{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:0.95rem;}
+    .pill{display:inline-block;padding:6px 10px;border:1px solid #e5e5e5;border-radius:999px;background:#fafafa;font-size:0.9rem;color:#444;}
+  </style>
+</head>
+
+<body>
+  <div class="home-link-wrap">
+    <a class="btn-home" href="/index.html">← 메인으로</a>
+    <button class="btn btn-lightgrey" type="button" id="btnCopy">이 페이지 링크 복사</button>
+  </div>
+
+  <header class="site-header">
+    <div class="shell">
+      <h1>방과후강사 계약 절차</h1>
+      <p class="subtitle">유형 구분 → 절차 → 증빙 → 지급. 순서가 틀리면 반려됩니다.</p>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section class="section">
+      <div class="row between">
+        <h2 class="local-h2 local-tight">적용범위 · 처리기준 · 근거</h2>
+        <span class="pill">유형 불명확=중단</span>
+      </div>
+      <div class="card">
+        <p><b>적용범위</b>: 방과후강사 계약(위수탁/근로) 및 지급 절차</p>
+        <p><b>처리기준(요약)</b>: (1) 유형 확정 (2) 선정 근거 문서화 (3) 필수 확인(자격/조회 등) (4) 계약 완료 (5) 운영 증빙 (6) 산출표+지급요청</p>
+        <hr />
+        <p><b>근거(문서번호/지침)</b></p>
+        <ul>
+          <li><span class="refcode">[방과후 운영 지침]</span> 문서번호: <span class="refcode">[예: 2026-○○○○]</span></li>
+          <li><span class="refcode">[강사 계약/검증 절차]</span> 문서번호: <span class="refcode">[예: 2026-○○○○]</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>계약 유형 확인</h2>
+      <div class="card">
+        <p><b>위수탁계약(예시)</b>: 독립성이 높고 지휘감독이 약한 형태</p>
+        <p><b>근로계약(예시)</b>: 근로시간/지시/감독 요소가 강한 형태</p>
+        <p class="muted">※ 학교 기준(교육청 안내/감사 포인트)으로 유형을 확정하세요.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>절차 타임라인(권장 순서)</h2>
+      <div class="grid two">
+        <div class="card">
+          <h3 class="local-h3">1) 모집/선정</h3>
+          <ul><li>공고/선정 근거 문서화</li><li>선정 결과 기록</li></ul>
+        </div>
+        <div class="card">
+          <h3 class="local-h3">2) 필수 확인</h3>
+          <ul><li>신원/자격 확인</li><li>필요 시 조회 절차</li></ul>
+        </div>
+        <div class="card">
+          <h3 class="local-h3">3) 계약</h3>
+          <ul><li>유형에 맞는 계약서 작성</li><li>단가/시간/조건 명시</li></ul>
+        </div>
+        <div class="card">
+          <h3 class="local-h3">4) 운영/정산</h3>
+          <ul><li>운영 증빙 축적</li><li>산출표(엑셀)+증빙 첨부 후 지급</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>표준 안내 문구(복사)</h2>
+      <div class="card">
+        <div class="row between">
+          <h3 class="local-h3 local-tight">[안내] 계약 선완료</h3>
+          <button class="btn ghost copy" data-copy="운영 전 계약 유형을 확정하고 계약서를 먼저 완료해야 합니다. 계약 완료 전 운영 시작은 불가합니다. (근거: [방과후 지침 문서번호])">문구 복사</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="row between">
+          <h3 class="local-h3 local-tight">[반려] 증빙/산출표 미비</h3>
+          <button class="btn ghost copy" data-copy="지급 요청은 운영 증빙과 산출내역(엑셀)이 완비되어야 처리합니다. 누락으로 반려합니다. (근거: [방과후 지침 문서번호])">문구 복사</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell">
+      <p>본 문서는 안내용입니다. 최종 기준은 관련 지침·공문·결재 문서입니다.</p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (function(){
+      const $=(s,el=document)=>el.querySelector(s);
+      const $$=(s,el=document)=>Array.from(el.querySelectorAll(s));
+      function toast(msg){
+        const t=$("#toast"); t.textContent=msg; t.style.display="block";
+        clearTimeout(toast._timer); toast._timer=setTimeout(()=>t.style.display="none",1400);
+      }
+      async function copyText(text){
+        try{ await navigator.clipboard.writeText(text); return true; }
+        catch{
+          const ta=document.createElement("textarea");
+          ta.value=text; ta.style.position="fixed"; ta.style.left="-9999px";
+          document.body.appendChild(ta); ta.focus(); ta.select();
+          let ok=false; try{ ok=document.execCommand("copy"); }catch{}
+          ta.remove(); return ok;
+        }
+      }
+      $("#btnCopy").addEventListener("click", async ()=>{
+        const ok=await copyText(location.href);
+        toast(ok ? "링크 복사 완료" : "복사 실패");
+      });
+      $$(".copy").forEach(btn=>{
+        btn.addEventListener("click", async ()=>{
+          const ok=await copyText(btn.dataset.copy||"");
+          toast(ok ? "문구 복사 완료" : "복사 실패");
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
