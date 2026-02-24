@@ -825,3 +825,64 @@ body h2 + hr {
    ========================= */
 .btn.pastel-teal { background: #D9F5F3; }
 .btn.pastel-teal:hover { background: #C7F0ED; }
+
+
+
+
+
+:root{
+  /* 원본(진한 파스텔) */
+  --rose-500: #FF5D8F;
+  --coral-500:#FF6B6B;
+  --peach-500:#FF9F68;
+  --apricot-500:#FFB86B;
+  --butter-500:#FFE08A;
+  --amber-500:#FBBF24;
+  --mint-500:#2DD4BF;
+  --seafoam-500:#34D399;
+  --pistachio-500:#A7F3A0;
+  --sky-500:#38BDF8;
+  --ice-500:#60A5FA;
+  --periwinkle-500:#7C83FF;
+  --lavender-500:#A78BFA;
+  --grape-500:#C084FC;
+  --lilac-500:#E879F9;
+
+  /* 어두운 버전(텍스트용) */
+  --rose-700: #C74970;
+  --coral-700:#C25151;
+  --peach-700:#A66744;
+  --apricot-700:#996E40;
+  --butter-700:#857448;
+  --amber-700:#947115;
+  --mint-700:#1C8376;
+  --seafoam-700:#218560;
+  --pistachio-700:#577E53;
+  --sky-700:#257DA4;
+  --ice-700:#4678B6;
+  --periwinkle-700:#666BD1;
+  --lavender-700:#7D68BC;
+  --grape-700:#8E62BA;
+  --lilac-700:#A757B3;
+}
+
+/* 유틸리티 클래스(텍스트 색) */
+.text-rose { color: var(--rose-700); }
+.text-sky  { color: var(--sky-700); }
+.text-mint { color: var(--mint-700); }
+.text-grape{ color: var(--grape-700); }
+
+/* 강조는 별도로 */
+.accent { font-weight: 700; }
+
+
+
+.badge-rose{
+  background: var(--rose-500);
+  color: var(--rose-700);
+  padding: .2em .6em;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+
