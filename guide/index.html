@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>업무 가이드</title>
+
+  <link rel="icon" href="/static/favicon.ico" />
+  <link rel="stylesheet" href="/static/style.css" />
+
+  <style>
+    /* 페이지 전용 스타일이 필요하면 '최소한'만 추가 */
+    .toast {
+      position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%);
+      padding: 10px 12px; border: 1px solid #e5e5e5; border-radius: 12px;
+      background: rgba(255,255,255,0.95); box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      font-size: 0.95rem; color:#111; z-index: 9999;
+      display:none;
+    }
+  </style>
+</head>
+
+<body>
+  
+  <main class="container">
+    <h1>업무 가이드 모음</h1>
+    <p class="muted">
+      ·업무 처리 과정 등에 대한 안내 모음입니다. 
+    </p>
+
+    <section class="section">
+      <h2>복무 관련</h2>
+      <hr/>
+      <div class="card">
+        {{SECTION_1_BODY_HTML}}
+      </div>
+    </section>
+
+    <!-- 필요 섹션만 복붙해서 늘리기 -->
+    <section class="section dl-section">
+      <h2>첨부자료</h2>
+      <hr/>
+      <div class="grid two">
+        <div class="card">
+          <h3 class="local-h3 local-tight">이미지</h3>
+          <details class="shot-details">
+            <summary class="shot-summary">설명 이미지 1</summary>
+            <figure class="tool-shot">
+              <img src="{{IMG_1_SRC}}" alt="{{IMG_1_ALT}}">
+            </figure>
+          </details>
+        </div>
+
+        <div class="card">
+          <h3>PDF</h3>
+          <div class="row between" style="margin: 10px 0;">
+            <div>
+              <b>{{PDF_1_LABEL}}</b>
+              <div class="muted">{{PDF_1_DESC}}</div>
+            </div>
+            <div class="row gap">
+              <a class="btn primary" href="{{PDF_1_HREF}}" target="_blank" rel="noopener">열기</a>
+              <a class="btn ghost" href="{{PDF_1_HREF}}" download>다운로드</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (function () {
+      const $ = (sel, el=document) => el.querySelector(sel);
+      const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
+
+      function toast(msg) {
+        const t = $("#toast");
+        if (!t) return;
+        t.textContent = msg;
+        t.style.display = "block";
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(() => (t.style.display = "none"), 1400);
+      }
+
+      function absUrl(path) {
+        try { return new URL(path, location.origin).toString(); }
+        catch { return path; }
+      }
+
+      async function copyText(text) {
+        try {
+          await navigator.clipboard.writeText(text);
+          return true;
+        } catch (e) {
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          ta.style.position = "fixed";
+          ta.style.left = "-9999px";
+          document.body.appendChild(ta);
+          ta.focus();
+          ta.select();
+          let ok = false;
+          try { ok = document.execCommand("copy"); } catch {}
+          ta.remove();
+          return ok;
+        }
+      }
+
+      $$(".btnCopy").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          const url = btn.dataset.url ? absUrl(btn.dataset.url) : location.href;
+          const ok = await copyText(url);
+          toast(ok ? "링크 복사 완료" : "복사 실패");
+        });
+      });
+    })();
+  </script>
+
+  <script src="/static/disable-copy.js"></script>
+  <script src="/static/footer.js"></script>
+  <script src="/static/global-loader.js?v=1"></script>
+</body>
+</html>
