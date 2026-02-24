@@ -734,6 +734,37 @@ body h2 + hr {
   background: #D7E8FF;
 }
 
+/* =============================
+   파스텔 핑크 버튼 (paste-pink)
+   사용 예: class="btn paste-pink"
+   ============================= */
+
+.btn.paste-pink{
+  background: #ffe4ef;   /* 연한 파스텔 분홍 */
+  border-color: #222;    /* 기존 btn 느낌 유지 */
+  color: #111;           /* 가독성 */
+}
+
+.btn.paste-pink:hover{
+  background: #ffd4e4;   /* hover 시 살짝 진해짐 */
+}
+
+/* (선택) 키보드 포커스 접근성까지 챙기고 싶으면 아래도 추가 */
+.btn.paste-pink:focus-visible{
+  outline: 2px solid rgba(255, 123, 176, 0.55);
+  outline-offset: 2px;
+}
+
+
+
+
+
+
+
+
+
+
+
 .dash-summary{
   display:flex;
   align-items:baseline;
