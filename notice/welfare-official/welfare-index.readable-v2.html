@@ -1,0 +1,710 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>2026년 공무원 맞춤형복지 주요 안내사항</title>
+
+  <link rel="icon" href="/static/favicon.ico" />
+  <link rel="stylesheet" href="/static/style.css" />
+
+  <style>
+    /* =========================================================
+       이 페이지 전용: PC/모바일 가독성 강화(최소 스타일)
+       - 기존 /static/style.css 톤을 유지하면서 "읽기" 중심으로만 보강
+       ========================================================= */
+
+    :root{
+      --prose-max: 72ch;
+      --card-gap: 14px;
+      --soft-border: #e5e5e5;
+      --soft-bg: #fafafa;
+    }
+
+    /* 섹션 앵커 이동 시 제목이 너무 위로 붙지 않도록 */
+    section[id]{ scroll-margin-top: 14px; }
+
+    /* 작은 유틸 */
+    .stack{ display:flex; flex-direction:column; gap: var(--card-gap); }
+    .stack-tight{ display:flex; flex-direction:column; gap: 8px; }
+
+    /* 요약/헤더 느낌 */
+    .pill-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+      align-items:flex-start;
+    }
+
+    /* pill은 모바일에서 누르기/읽기 쉬운 형태로 */
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap: 6px;
+      padding: 8px 10px;
+      border: 1px solid var(--soft-border);
+      border-radius: 999px;
+      background: var(--soft-bg);
+      font-size: 0.95rem;
+      color: #333;
+      font-weight: 600;
+      line-height: 1.15;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 640px){
+      .pill{ white-space: normal; }
+    }
+
+    /* 섹션/카드 내부의 '글'은 너무 길게 늘어나지 않게 */
+    .prose{
+      max-width: var(--prose-max);
+      margin-inline: auto;
+    }
+
+    /* 안내/주의: 문장 덩어리를 "박스"로 만들어 눈 피로 줄이기 */
+    .note, .callout{
+      margin: 10px 0 0;
+      padding: 10px 12px;
+      border: 1px solid var(--soft-border);
+      border-radius: 12px;
+      background: #fff;
+      color: #333;
+    }
+
+    .callout.warn{
+      background: #fff7ed; /* 연한 주황 */
+      border-color: #fed7aa;
+    }
+
+    .callout.warn b{
+      color: #9a3412;
+    }
+
+    /* hr가 너무 두껍게 느껴지지 않도록(이 페이지만) */
+    .section hr{ margin: 14px 0; }
+
+    /* =========================================================
+       ul/ol 없이 "읽기 좋은 리스트"
+       ========================================================= */
+    .line-list{ display:flex; flex-direction:column; gap: 8px; margin: 0; padding: 0; }
+    .line-item{ display:flex; gap: 10px; align-items:flex-start; }
+    .line-item .mark{
+      flex:0 0 auto;
+      min-width: 2.3em;
+      text-align:right;
+      color:#666;
+      font-weight:700;
+    }
+    .line-item .mark.dot{
+      min-width: 1.2em;
+      text-align:center;
+      color:#666;
+      font-weight:900;
+    }
+    .line-item .text{ flex: 1; }
+
+    .sublist{ margin: 6px 0 0; padding-left: 1.6em; display:flex; flex-direction:column; gap:6px; }
+    .subitem{ display:flex; gap:8px; }
+    .subitem .mark{ min-width: 1.2em; text-align:center; color:#666; font-weight:800; }
+    .subitem .text{ flex:1; }
+
+    /* 순서(1,2,3...) */
+    .steps{ counter-reset: step; display:flex; flex-direction:column; gap:8px; margin:0; padding:0; }
+    .step{ display:flex; gap:10px; align-items:flex-start; }
+    .step::before{
+      counter-increment: step;
+      content: counter(step) ".";
+      flex:0 0 auto;
+      min-width: 2.3em;
+      text-align:right;
+      color:#111;
+      font-weight:800;
+    }
+    .step .text{ flex:1; }
+
+    /* =========================================================
+       TOC(목차): PC에서는 그리드, 모바일은 한 줄씩 + 터치 영역 확대
+       ========================================================= */
+    .toc-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .toc-link{
+      display:block;
+      padding: 10px 12px;
+      border: 1px solid var(--soft-border);
+      border-radius: 12px;
+      background: var(--soft-bg);
+      color: #111;
+      text-decoration: none;
+      line-height: 1.25;
+    }
+    .toc-link:hover{ background: #f3f4f6; }
+    .toc-link:focus-visible{
+      outline: 2px solid rgba(17,17,17,0.35);
+      outline-offset: 2px;
+    }
+
+    /* =========================================================
+       버튼: 모바일에서 터치 영역/줄바꿈 안정화(이 페이지만)
+       ========================================================= */
+    .container .btn{
+      line-height: 1.2;
+      white-space: normal;
+    }
+
+    .hero-actions .btn{
+      display:inline-block;
+    }
+
+    @media (max-width: 640px){
+      .hero-actions .btn{
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    /* =========================================================
+       테이블 가독성(줄무늬/패딩/가로 스크롤 부담 완화)
+       ========================================================= */
+    .table-wrap table{ min-width: 720px; }
+    .sheetlike tbody tr:nth-child(even){ background: #fcfcfd; }
+    .sheetlike tbody tr:hover{ background: #f7f7fb; }
+
+    /* 모바일에서 카드/섹션 패딩 과하지 않게 */
+    @media (max-width: 640px){
+      .section{ padding: 16px 16px; }
+      .card{ padding: 12px 12px; }
+    }
+
+    /* details(접기/펼치기): 요약 제목을 더 '클릭 가능'하게 */
+    .shot-summary{
+      padding: 6px 0;
+    }
+
+    /* 토스트 */
+    .toast{
+      position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%);
+      padding: 10px 12px; border: 1px solid var(--soft-border); border-radius: 12px;
+      background: rgba(255,255,255,0.95); box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      font-size: 0.95rem; color:#111; z-index: 9999;
+      display:none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="container">
+
+    <h1>2026년 공무원 맞춤형복지 주요 안내사항</h1>
+    <p class="muted subtitle">
+      ·관련: "[알림] 2026년 맞춤형 복지제도 운영계획 알림", 도교육청 총무과-2238(2026.2.3.)
+    </p>
+
+    <hr/>
+
+    <!-- ========================= 포탈 링크 ========================= -->
+    <section class="section">
+      <div class="stack hero-actions">
+        <h2>맞춤형 복지 사이트</h2>
+        <a class="btn primary" href="https://www.gwp.or.kr" target="_blank" rel="noopener">맞춤형 복지 포탈 바로가기(링크)</a>
+        <p class="muted">·공무원 연금공단 맞춤형 복지 포탈에서 이용 가능합니다. (이지웰 X)</p>
+      </div>
+    </section>
+
+    <!-- ========================= 요약 정리 ========================= -->
+    <section class="section">
+      <div class="stack">
+        <div class="stack-tight">
+          <h2>주요 내용 요약</h2>
+          <div class="pill-row" aria-label="주요 일정">
+            <span class="pill">오픈: 2026.02.12.(목) 예정</span>
+            <span class="pill">자율항목 마감: 2026.12.09.(수)</span>
+          </div>
+        </div>
+
+        <hr/>
+
+        <div class="card stack">
+          <div class="stack-tight prose">
+            <p class="local-tight"><b>1. 오픈 및 마감 일정</b></p>
+
+            <div class="line-list" role="list" aria-label="오픈 및 마감 일정">
+              <div class="line-item" role="listitem">
+                <span class="mark dot">·</span>
+                <div class="text">오픈 일자: <b>2026.2.12.(목)</b></div>
+              </div>
+              <div class="line-item" role="listitem">
+                <span class="mark dot">·</span>
+                <div class="text">청구 마감 일자: <b>2026.12.9.(수)</b>까지 청구 가능</div>
+              </div>
+            </div>
+
+            <div class="callout warn">
+              <b>※</b> 마감일 이후 청구 및 지급 불가하며, 미사용 점수는 이월 또는 현금화할 수 없습니다.
+              12월은 청구 신청이 몰리는 기간이므로 <b>2026.11월까지 사용 완료</b>하시기를 권장드립니다.
+            </div>
+          </div>
+
+          <div class="stack-tight prose">
+            <p class="local-tight"><b>2. 사용자 필수 확인 사항</b></p>
+
+            <div class="stack-tight">
+              <p class="muted local-tight"><b>1) 배정 점수 및 지급 계좌 확인</b></p>
+
+              <div class="line-list" role="list" aria-label="배정 점수 및 지급 계좌 확인">
+                <div class="line-item" role="listitem">
+                  <span class="mark dot">·</span>
+                  <div class="text">포탈 로그인 후 복지점수를 사용자 본인이 직접 확인합니다. (확인 항목: 기본, 근속, 가족 점수)</div>
+                </div>
+                <div class="line-item" role="listitem">
+                  <span class="mark dot">·</span>
+                  <div class="text">지급 계좌가 <b>본인 명의</b>인지 확인합니다.</div>
+                </div>
+              </div>
+
+              <p class="note">→ 잘못 배정된 경우 즉시 맞춤형 복지 담당자인 고주무관에게 변경을 요청하여 주십시오.</p>
+            </div>
+
+            <div class="stack-tight">
+              <p class="muted local-tight"><b>2) 인사 변동자 청구 관련</b></p>
+
+              <div class="line-list" role="list" aria-label="인사 변동자 청구 관련">
+                <div class="line-item" role="listitem">
+                  <span class="mark dot">·</span>
+                  <div class="text">2026.3.1.일자 인사발령자는 <b>2026.2.26.(목) 24:00</b>까지 청구 완료하여 주십시오. (이후 일괄 승인처리 예정)</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= 목차별 바로가기 ========================= -->
+    <section class="section">
+      <div class="stack">
+        <h2>페이지 목차 (빠른 이동)</h2>
+
+        <nav class="toc-grid" aria-label="페이지 목차">
+          <a class="toc-link" href="#sec-1">1. 운영 일정 및 시스템 이용 안내</a>
+          <a class="toc-link" href="#sec-2">2. 복지점수 구성 및 배정</a>
+          <a class="toc-link" href="#sec-3">3. 특별 지원 및 건강검진 관련 안내</a>
+          <a class="toc-link" href="#sec-4">4. 단체보험 및 항목 선택</a>
+          <a class="toc-link" href="#sec-5">5. 신분 변동 시 유의 사항</a>
+          <a class="toc-link" href="#sec-6">6. 결제 및 청구 방식 안내</a>
+          <a class="toc-link" href="#sec-7">각종 서식 및 FAQ 다운로드</a>
+        </nav>
+      </div>
+    </section>
+
+    <!-- ========================= 1 ========================= -->
+    <section class="section" id="sec-1">
+      <h2>1. 운영 일정 및 시스템 이용 안내</h2>
+      <hr/>
+
+      <div class="card prose">
+        <div class="line-list" role="list" aria-label="운영 일정 및 시스템 이용 안내">
+          <div class="line-item" role="listitem">
+            <span class="mark dot">·</span>
+            <div class="text">맞춤형 복지 포탈 오픈: <b>2026.2.12.(목)</b></div>
+          </div>
+          <div class="line-item" role="listitem">
+            <span class="mark dot">·</span>
+            <div class="text">자율항목 청구 기간: <b>~2026.12.9.(수)</b>까지 가능. (※이후 청구 및 지급 불가하므로 2026.11월까지 사용 권장)</div>
+          </div>
+          <div class="line-item" role="listitem">
+            <span class="mark dot">·</span>
+            <div class="text">사이트 주소: 공무원연금공단 맞춤형복지 포탈 (<b>www.gwp.or.kr</b>)</div>
+          </div>
+          <div class="line-item" role="listitem">
+            <span class="mark dot">·</span>
+            <div class="text">개인별 확인 사항: 사용자 본인 복지점수가 맞게 배정됐는지, 지급 계좌가 본인 명의가 맞는지 확인하여 주십시오. 오배정 시 담당자(고주무관)에게 즉시 변경 요청</div>
+          </div>
+          <div class="line-item" role="listitem">
+            <span class="mark dot">·</span>
+            <div class="text">인사변동자: 인사변동자는 해당 일자 이후에 시스템상 전보(전출)처리 가능하므로 그 전에 청구 및 승인 완료할 것.</div>
+          </div>
+        </div>
+
+        <p class="note">(※ 2026.3.1.일자 인사변동자의 경우 2026.2.26.(목) 24:00까지 청구 완료.)</p>
+      </div>
+    </section>
+
+    <!-- ========================= 2 ========================= -->
+    <section class="section" id="sec-2">
+      <h2>2. 복지점수 구성 및 배정 기준</h2>
+      <hr/>
+
+      <div class="table-wrap" aria-label="복지점수 구성 표">
+        <table class="sheetlike simple-table">
+          <caption class="muted" style="caption-side: top; text-align:left; padding: 0 0 10px;">
+            ·모바일에서는 표가 좌우로 스크롤됩니다.
+          </caption>
+          <thead>
+            <tr>
+              <th>항목명</th>
+              <th>부여 점수</th>
+              <th>비고</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>기본 점수</td>
+              <td>1,200점</td>
+              <td>전 직원 일률 배정</td>
+            </tr>
+            <tr>
+              <td>근속점수</td>
+              <td>150~350점</td>
+              <td>근속연수에 따라 차등 배정</td>
+            </tr>
+            <tr>
+              <td>가족점수(배우자)</td>
+              <td>100점</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>가족점수 (직계존속)</td>
+              <td>1인당 100점</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>가족점수 (직계비속)</td>
+              <td>첫째: 100점/ 둘째: 200점/ 셋째 이상: 300점</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>난임 지원 점수</td>
+              <td>500점</td>
+              <td>재직 중 1회</td>
+            </tr>
+            <tr>
+              <td>태아·산모 검진 지원 점수</td>
+              <td>100점</td>
+              <td>자녀 1명 당 100점</td>
+            </tr>
+            <tr>
+              <td>특별건강검진 점수</td>
+              <td>300점</td>
+              <td>격년 지원. 2026년은 짝수년도 출생자</td>
+            </tr>
+            <tr>
+              <td>전통시장·지역사랑 상품권</td>
+              <td>자율항목(보험료 제외) 금액의 10%</td>
+              <td>자동 전환 배정</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="note">(※ 전통시장 지역사랑 상품권 구매 점수는 자율항목에서 보험료를 제외한 실사용 가능액 기준으로 10%임)</p>
+      </div>
+    </section>
+
+    <!-- ========================= 3 ========================= -->
+    <section class="section" id="sec-3">
+      <h2>3. 특별 지원 및 건강검진 안내</h2>
+      <hr/>
+
+      <details class="shot-details" data-open-desktop>
+        <summary class="shot-summary">특별건강검진 (격년 배정)</summary>
+
+        <div class="card prose" style="margin-top:10px;">
+          <div class="line-list" role="list" aria-label="특별건강검진 안내">
+            <div class="line-item" role="listitem">
+              <span class="mark dot">·</span>
+              <div class="text">2026년 대상자: 짝수년도 출생자</div>
+            </div>
+            <div class="line-item" role="listitem">
+              <span class="mark dot">·</span>
+              <div class="text">지원 한도: 300점(금300,000원) 한도 내 실지출한 금액에 대해 지급 (월할계산 하지 않음)</div>
+            </div>
+            <div class="line-item" role="listitem">
+              <span class="mark dot">·</span>
+              <div class="text">
+                배정 대상: 휴직자 포함 배정.
+                <div class="sublist" role="list" aria-label="배정 대상 세부">
+                  <div class="subitem" role="listitem"><span class="mark">-</span><div class="text">육아휴직자는 재직자와 동일하게 기간 상관 없이 지원</div></div>
+                  <div class="subitem" role="listitem"><span class="mark">-</span><div class="text">질병휴직 및 난임휴직: 1년 이내</div></div>
+                  <div class="subitem" role="listitem"><span class="mark">-</span><div class="text">공무상 질병휴직: 3년 이내</div></div>
+                  <div class="subitem" role="listitem"><span class="mark">-</span><div class="text">가사휴직: 1년 이내</div></div>
+                </div>
+              </div>
+            </div>
+            <div class="line-item" role="listitem">
+              <span class="mark dot">·</span>
+              <div class="text">사용 범위: 본인 검진 가능. 본인이 비용을 지출한 경우 가족 건강 검진에도 사용 가능 (배우자, 직계 존·비속 및 배우자의 직계존속)</div>
+            </div>
+            <div class="line-item" role="listitem">
+              <span class="mark dot">·</span>
+              <div class="text">일정: 2026.12.9.(수)일자까지 건강검진 조정점수 및 영수증 청구를 사용자 본인이 완료해야 합니다.</div>
+            </div>
+          </div>
+
+          <div class="callout" style="margin-top:12px;">
+            <p class="muted local-tight" style="margin:0 0 8px;"><b>진행 순서</b></p>
+            <div class="steps" role="list" aria-label="특별건강검진 진행 순서">
+              <div class="step" role="listitem"><div class="text">검진</div></div>
+              <div class="step" role="listitem"><div class="text">사용자가 직접 포탈에서 조정점수 신청</div></div>
+              <div class="step" role="listitem"><div class="text">맞춤형 복지 담당자 승인</div></div>
+              <div class="step" role="listitem"><div class="text">사용자가 영수증 청구 (증빙서류 첨부 필수)</div></div>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="shot-details" data-open-desktop>
+        <summary class="shot-summary">출산·난임·태아·산모 검진 지원</summary>
+
+        <div class="card prose" style="margin-top:10px;">
+          <div class="line-list" role="list" aria-label="출산·난임·태아·산모 검진 지원 안내">
+            <div class="line-item" role="listitem">
+              <span class="mark dot">·</span>
+              <div class="text">출산 축하 점수: 자녀당 1회 지급. 첫째 1,000점/ 둘째 3,000점/ 셋째 이상 5,000점</div>
+            </div>
+            <div class="line-item" role="listitem">
+              <span class="mark dot">·</span>
+              <div class="text">신청 기한: 출생 연도 포함 3년 이내 신청 가능</div>
+            </div>
+            <div class="line-item" role="listitem">
+              <span class="mark dot">·</span>
+              <div class="text">난임 지원: 재직 중 1회, 500점</div>
+            </div>
+            <div class="line-item" role="listitem">
+              <span class="mark dot">·</span>
+              <div class="text">태아·산모 검진: 자녀 수 1명당 100점 배정</div>
+            </div>
+          </div>
+
+          <p class="note">※ 증빙서류 제출하셔야 합니다. 지원청에 현황 보고해야 합니다.</p>
+
+          <div class="line-list" role="list" aria-label="제출 서류">
+            <div class="line-item" role="listitem">
+              <span class="mark dot">·</span>
+              <div class="text">제출: 맞춤형 복지 신청서 (서명 날인) + 증빙서류 일체</div>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="shot-details" data-open-desktop>
+        <summary class="shot-summary">유의사항</summary>
+
+        <div class="card prose" style="margin-top:10px;">
+          <div class="steps" role="list" aria-label="유의사항 흐름 요약">
+            <div class="step" role="listitem"><div class="text"><b>사용자:</b> 검진 등 사유 발생 후 증빙서류 첨부하여 <b>조정점수 신청</b></div></div>
+            <div class="step" role="listitem"><div class="text"><b>담당자:</b> 조정점수 <b>승인</b> → 여기까지 하면 점수가 배정된 상태</div></div>
+            <div class="step" role="listitem"><div class="text"><b>사용자:</b> 포탈에서 <b>영수증 청구</b> 진행 → 점수가 배정됐으니 청구 신청해야 함</div></div>
+            <div class="step" role="listitem"><div class="text"><b>담당자:</b> 승인관리에서 <b>청구 내역을 최종 승인</b>하면 <b>다음 달 급여일에 지급됨.</b></div></div>
+          </div>
+        </div>
+      </details>
+
+    </section>
+
+    <!-- ========================= 4 ========================= -->
+    <section class="section" id="sec-4">
+      <h2>4. 단체보험 및 항목 선택</h2>
+      <hr/>
+
+      <div class="card prose">
+        <div class="line-list" role="list" aria-label="단체보험 및 항목 선택">
+          <div class="line-item" role="listitem">
+            <span class="mark dot">·</span>
+            <div class="text"><b>필수 항목:</b> 생명·상해 보장보험은 의무 가입(보장금액 5천만/1억/2억 중 선택)</div>
+          </div>
+          <div class="line-item" role="listitem">
+            <span class="mark dot">·</span>
+            <div class="text"><b>선택 항목:</b> 특정질병 진단비, 치아보험, 실손의료비 등은 개인 필요에 따라 선택</div>
+          </div>
+          <div class="line-item" role="listitem">
+            <span class="mark dot">·</span>
+            <div class="text"><b>실손보험 중복 확인:</b> 개인 실손보험이 있으면 단체 실손보험 가입 중지 가능 → 중복 여부 확인</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= 5 ========================= -->
+    <section class="section" id="sec-5">
+      <h2>5. 신분 변동 시 유의사항</h2>
+      <hr/>
+
+      <div class="card prose">
+        <div class="line-list" role="list" aria-label="신분 변동 시 유의사항">
+          <div class="line-item" role="listitem">
+            <span class="mark dot">·</span>
+            <div class="text"><b>월할 계산:</b> 신규 임용/퇴직/휴직 등 변동 발생 시 실제 근무한 달 기준으로 점수 월할</div>
+          </div>
+          <div class="line-item" role="listitem">
+            <span class="mark dot">·</span>
+            <div class="text"><b>퇴직 예정자:</b> 정년·명예퇴직 예정자는 <b>퇴직 전</b> 점수 사용 권장 (퇴직 후 2개월 이내에만 청구 가능)</div>
+          </div>
+          <div class="line-item" role="listitem">
+            <span class="mark dot">·</span>
+            <div class="text"><b>퇴직 후 마감:</b> 사용점수 확인 후, (잔액이 있어도) 퇴직 후 2개월 경과 시 <b>퇴직 처리현황</b>에서 “정산중” 클릭 → 팝업 하단 “정산완료”</div>
+          </div>
+          <div class="line-item" role="listitem">
+            <span class="mark dot">·</span>
+            <div class="text"><b>이월·현금화 불가:</b> 당해 연도 미사용 점수는 다음 연도 이월/금전 보상 불가 → 기한 내 전액 사용 독려</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= 6 ========================= -->
+    <section class="section" id="sec-6">
+      <h2>6. 결제 및 청구 방식</h2>
+      <hr/>
+
+      <div class="card prose">
+        <div class="line-list" role="list" aria-label="결제 및 청구 방식">
+          <div class="line-item" role="listitem">
+            <span class="mark dot">·</span>
+            <div class="text"><b>카드 등록:</b> 포탈에 복지카드 등록 후 <b>자동청구 또는 수동청구</b> 중 선택</div>
+          </div>
+          <div class="line-item" role="listitem">
+            <span class="mark dot">·</span>
+            <div class="text"><b>사용 제한:</b> 사행성 지출, 유흥비, 미용 관련 의료행위(성형/치열교정 등), 일반 상품권 구매 등은 사용 제한</div>
+          </div>
+          <div class="line-item" role="listitem">
+            <span class="mark dot">·</span>
+            <div class="text"><b>간편결제:</b> PAYCO/네이버페이 사용자는 일부 항목(특별검진 등)에서 <b>영수증 청구 불가</b> → 조정점수 부여 후 자율항목으로 사용</div>
+          </div>
+        </div>
+      </div>
+
+      <details class="shot-details" data-open-desktop>
+        <summary class="shot-summary">지급 시기 및 문의처</summary>
+
+        <div class="card prose" style="margin-top:10px;">
+          <div class="line-list" role="list" aria-label="지급 시기 및 문의처">
+            <div class="line-item" role="listitem">
+              <span class="mark dot">·</span>
+              <div class="text"><b>지급 시기:</b> 승인일의 <b>다음 달 급여일</b> 지급 (예: 2월 승인 → 3월 급여일 지급)</div>
+            </div>
+            <div class="line-item" role="listitem">
+              <span class="mark dot">·</span>
+              <div class="text"><b>지급 문의:</b> 교육공무원은 유초등교육과/ 지방공무원은 도교육청 총무과에 문의하십시오.</div>
+            </div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- ========================= 첨부자료 ========================= -->
+    <section class="section dl-section" id="sec-7">
+      <h2>첨부 자료</h2>
+      <p class="muted">·서식, 운영계획 등 다운로드 및 웹에서 뷰어로 바로 보기도 가능</p>
+      <hr/>
+
+      <div class="btn-stack">
+        <div class="grid three">
+
+          <div class="card">
+            <div><b>맞춤형 복지 자주 묻는 질문</b></div>
+            <hr/>
+            <div class="row gap">
+              <a class="btn" href="/notice/welfare-official/assets/welfare-guide-01.pdf" download>다운로드</a>
+              <a class="btn ghost" href="/notice/welfare-official/assets/welfare-guide-01.pdf" target="_blank" rel="noopener">뷰어로 열기</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <div><b>2026년 맞춤형 복지 운영계획</b></div>
+            <hr/>
+            <div class="row gap">
+              <a class="btn" href="/notice/welfare-official/assets/welfare-guide-02.pdf" download>다운로드</a>
+              <a class="btn ghost" href="/notice/welfare-official/assets/welfare-guide-02.pdf" target="_blank" rel="noopener">뷰어로 열기</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <div><b>신청서 엑셀 파일 (서식)</b></div>
+            <hr/>
+            <div class="row gap">
+              <a class="btn" href="/notice/welfare-official/assets/welfare-excel-form.pdf" download>다운로드</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (function () {
+      const $ = (sel, el=document) => el.querySelector(sel);
+      const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
+
+      function toast(msg) {
+        const t = $("#toast");
+        if (!t) return;
+        t.textContent = msg;
+        t.style.display = "block";
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(() => (t.style.display = "none"), 1400);
+      }
+
+      function absUrl(path) {
+        try { return new URL(path, location.origin).toString(); }
+        catch { return path; }
+      }
+
+      async function copyText(text) {
+        try {
+          await navigator.clipboard.writeText(text);
+          return true;
+        } catch (e) {
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          ta.style.position = "fixed";
+          ta.style.left = "-9999px";
+          document.body.appendChild(ta);
+          ta.focus();
+          ta.select();
+          let ok = false;
+          try { ok = document.execCommand("copy"); } catch {}
+          ta.remove();
+          return ok;
+        }
+      }
+
+      $$(".btnCopy").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          const url = btn.dataset.url ? absUrl(btn.dataset.url) : location.href;
+          const ok = await copyText(url);
+          toast(ok ? "링크 복사 완료" : "복사 실패");
+        });
+      });
+
+      /* PC에서는 details를 기본으로 펼치고, 모바일에서는 접어둠 */
+      const mq = window.matchMedia("(min-width: 900px)");
+      function syncDetailsOpen(){
+        $$("details[data-open-desktop]").forEach(d => {
+          if (mq.matches) d.setAttribute("open", "");
+          else d.removeAttribute("open");
+        });
+      }
+      syncDetailsOpen();
+      if (mq.addEventListener) mq.addEventListener("change", syncDetailsOpen);
+      else if (mq.addListener) mq.addListener(syncDetailsOpen);
+    })();
+  </script>
+
+  <script src="/static/disable-copy.js"></script>
+  <script src="/static/footer.js"></script>
+  <script src="/static/global-loader.js?v=1"></script>
+
+</body>
+</html>
