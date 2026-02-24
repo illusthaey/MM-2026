@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>2026년 맞춤형복지 주요 안내사항 (교직원용)</title>
+
+  <link rel="icon" href="/static/favicon.ico" />
+  <link rel="stylesheet" href="/static/style.css" />
+
+  <style>
+    /* 이 페이지에서만 쓰는 소량 스타일(기존 톤/간격 유지) */
+    .kicker { text-align:center; margin: 10px 0 0; color:#666; font-size:0.95rem; }
+    .pill { display:inline-block; padding:6px 10px; border:1px solid #e5e5e5; border-radius:999px; background:#fafafa; font-size:0.9rem; color:#444; }
+    .right { display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
+    .toast {
+      position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%);
+      padding: 10px 12px; border: 1px solid #e5e5e5; border-radius: 12px;
+      background: rgba(255,255,255,0.95); box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      font-size: 0.95rem; color:#111; z-index: 9999;
+      display:none;
+    }
+    /* 작은 TOC */
+    .toc a { text-decoration: underline; text-underline-offset: 2px; }
+  </style>
+</head>
+
+<body>
+
+  <!-- 메인으로 -->
+  <div class="home-link-wrap">
+    <a class="btn-home" href="/">← 메인으로</a>
+    <button class="btn-home btnCopy" type="button" data-url="/notice/staff-welfare/index.html">이 페이지 링크 복사</button>
+  </div>
+
+  <main class="container">
+
+    <h1>2026년 맞춤형복지<br/>주요 안내사항</h1>
+    <p class="subtitle">- 강원특별자치도교육청 / 교직원 대상</p>
+    <p class="kicker">업데이트: 2026.02.24.</p>
+
+    <!-- ========================= 한눈에 보기 ========================= -->
+    <section class="section">
+      <div class="row between">
+        <div>
+          <h2 class="local-h2 local-tight">한눈에 보기</h2>
+          <p class="muted">
+            ·아래 5개만 지켜도 “대부분의 사고”는 예방됩니다. (인간은 원래 까먹는 생물입니다 🧠)
+          </p>
+        </div>
+        <div class="right">
+          <span class="pill">포털 개통: 2026.02.12.(목) 예정</span>
+          <span class="pill">자율항목 마감: 2026.12.09.(수)</span>
+        </div>
+      </div>
+      <hr/>
+
+      <div class="grid two">
+        <div class="card">
+          <h3 class="local-h3 local-tight">필수 체크</h3>
+          <ul>
+            <li>포털 로그인 후 <b>복지점수(기본/근속/가족)</b>를 본인이 직접 확인</li>
+            <li>오류 있으면 <b>즉시 담당자에게 변경 요청</b></li>
+            <li><b>지급 계좌</b>가 본인 명의인지 확인</li>
+            <li>자율항목(보험료 제외) 금액의 <b>10%</b>는 전통시장(온누리) 또는 지역사랑 상품권 포인트로 자동 전환</li>
+            <li>마감(2026.12.09.) 이후 <b>신청/지급 불가</b> → 미사용 점수는 이월·현금화 불가</li>
+          </ul>
+
+          <details class="shot-details">
+            <summary class="shot-summary">헷갈림 TOP 3 (꼭 읽어주세요)</summary>
+            <div class="muted" style="margin-top:10px;">
+              <ul>
+                <li><b>전출/전보 처리 시점:</b> 인사발령 “이전” 선처리 금지. <b>3.1.자 전출자는 3.1. 이후 전출처리</b>가 원칙입니다. (2.12.~2.28. 청구건 처리 후 전출처리 권장)</li>
+                <li><b>간편결제(PAYCO/네이버페이):</b> 영수증 청구 불가 → <b>조정점수로 특별검진비 부여</b> 후 <b>자율항목으로 사용</b>(지난해 동일).</li>
+                <li><b>퇴직자 건강검진:</b> <b>재직기간 내</b> 받은 검진만 청구 가능(예: 2.28 퇴직, 3.15 검진은 지급 불가).</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+
+        <div class="card">
+          <h3 class="local-h3 local-tight">바로가기</h3>
+          <p class="muted local-tight">·공무원연금공단 맞춤형복지 포털</p>
+          <div class="row gap">
+            <a class="btn primary" href="https://www.gwp.or.kr" target="_blank" rel="noopener">포털 열기</a>
+            <button class="btn ghost btnCopy" type="button" data-url="https://www.gwp.or.kr">포털 주소 복사</button>
+          </div>
+
+          <details class="shot-details" style="margin-top:14px;">
+            <summary class="shot-summary">이 페이지 구성(빠른 이동)</summary>
+            <div class="toc" style="margin-top:10px;">
+              <ul>
+                <li><a href="#sec-1">1. 운영 일정 및 시스템 이용</a></li>
+                <li><a href="#sec-2">2. 복지점수 구성 및 배정</a></li>
+                <li><a href="#sec-3">3. 특별 지원/건강검진</a></li>
+                <li><a href="#sec-4">4. 단체보험 및 항목 선택</a></li>
+                <li><a href="#sec-5">5. 신분 변동 시 유의</a></li>
+                <li><a href="#sec-6">6. 결제 및 청구 방식</a></li>
+                <li><a href="#sec-7">첨부자료(이미지 2 + PDF 2)</a></li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= 1 ========================= -->
+    <section class="section" id="sec-1">
+      <h2>1. 운영 일정 및 시스템 이용 안내</h2>
+      <hr/>
+
+      <div class="card">
+        <ul>
+          <li><b>복지시스템(포털) 개통:</b> 2026년 2월 12일(목) 예정</li>
+          <li><b>자율항목 청구 기간:</b> 시스템 개통 이후 ~ 2026년 12월 9일(수)까지 (마감 이후 신청/지급 불가)</li>
+          <li><b>접속 주소:</b> 공무원연금공단 맞춤형복지 포털 (www.gwp.or.kr)</li>
+          <li><b>개인별 확인:</b> 로그인 후 본인 복지점수 확인 → 오류 시 즉시 변경 요청 / 지급 계좌 본인 명의 확인</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3 class="local-h3 local-tight">인사변동 처리 일정(담당자 메모)</h3>
+        <ul>
+          <li><b>3.1.자 전출자:</b> <b>3.1. 이후</b> 시스템 전출처리 (인사발령 “이전” 선처리 금지)</li>
+          <li><b>권장 흐름:</b> 시스템 개통(2.12.) 이후 <b>2.12.~2.28. 청구건을 먼저 처리</b>한 뒤, 3.1. 이후 전출처리</li>
+        </ul>
+        <p class="muted local-tight">※ 기관별 운영/권한에 따라 처리 순서가 달라질 수 있으니, 관할 지침을 우선합니다.</p>
+      </div>
+
+      <details class="shot-details">
+        <summary class="shot-summary">실무 팁(담당자/교직원 공통)</summary>
+        <div class="muted" style="margin-top:10px;">
+          <ul>
+            <li>개통 초기에 “로그인/계좌/점수” 문의가 몰립니다 → 체크리스트로 안내하면 민원 소음이 줄어듭니다.</li>
+            <li>마감 직전에는 증빙 누락이 폭증합니다 → 11월 말쯤 “사전 점검” 공지 1회 추천.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <!-- ========================= 2 ========================= -->
+    <section class="section" id="sec-2">
+      <h2>2. 복지점수 구성 및 배정 기준</h2>
+      <hr/>
+
+      <div class="table-wrap">
+        <table class="sheetlike simple-table">
+          <thead>
+            <tr>
+              <th>구분</th>
+              <th>점수</th>
+              <th>비고</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>기본점수</td>
+              <td>1,200점</td>
+              <td>전 직원 일률 배정</td>
+            </tr>
+            <tr>
+              <td>근속점수</td>
+              <td>150~350점</td>
+              <td>근무연수에 따라 차등</td>
+            </tr>
+            <tr>
+              <td>가족점수(배우자)</td>
+              <td>100점</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>가족점수(직계존속)</td>
+              <td>1인당 100점</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>가족점수(직계비속)</td>
+              <td>첫째 100 / 둘째 200 / 셋째↑ 300점</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>전통시장·지역사랑 상품권</td>
+              <td>자율항목(보험료 제외) 금액의 10%</td>
+              <td>자동 전환 배정</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="note">※ “자율항목”에서 보험료를 제외한 사용액 기준으로 10%가 포인트로 배정됩니다.</p>
+      </div>
+    </section>
+
+    <!-- ========================= 3 ========================= -->
+    <section class="section" id="sec-3">
+      <h2>3. 특별 지원 및 건강검진 안내</h2>
+      <hr/>
+
+      <details class="shot-details" open>
+        <summary class="shot-summary">특별건강검진(2년 주기)</summary>
+        <div class="card" style="margin-top:10px;">
+          <ul>
+            <li><b>2026년 대상:</b> 짝수년도 출생자</li>
+            <li><b>지원 한도:</b> 30만 원(300점) 한도 내 실지급액</li>
+            <li><b>배정 대상(휴직자 포함):</b> <b>육아휴직자도 배정 대상</b>입니다. (질병휴직 1년 이내, 공무상 질병휴직 3년 이내, 가사휴직 1년 이내 등 일반휴직자 포함)</li>
+            <li><b>사용 범위:</b> 본인 검진뿐 아니라, <b>본인이 비용을 지출한 경우</b> 가족(배우자, 직계 존·비속 및 배우자의 직계존속) 건강검진에도 사용 가능</li>
+            <li><b>신청 마감:</b> 2026년 12월 9일(수)까지 <b>조정점수 신청 + 영수증 청구</b> 완료</li>
+            <li><b>진행 순서:</b> 검진 → 포털에서 <b>조정점수 신청</b> → 승인 → <b>영수증 청구</b> (증빙서류 첨부)</li>
+          </ul>
+          <p class="muted local-tight">※ 세부 기준은 “질의응답(건강검진편)” 운영 기준을 따릅니다.</p>
+        </div>
+      </details>
+
+      <details class="shot-details">
+        <summary class="shot-summary">건강검진 유의사항(담당자/퇴직자)</summary>
+        <div class="card" style="margin-top:10px;">
+          <ul>
+            <li><b>퇴직일자 입력 상태</b>에서는 조정점수 배정이 불가할 수 있습니다 → <b>퇴직처리 취소</b> 후 조정점수 입력/승인 → 다시 퇴직처리</li>
+            <li><b>월할배정 하지 않음:</b> 신규임용/휴직/퇴직자 및 타시도 전출자도 (대상 요건 충족 시) <b>30만 원 전액</b> 지원 가능</li>
+            <li><b>퇴직자 청구 범위:</b> 재직기간 내 사용한 검진비만 청구 가능 (예: <b>2.28. 퇴직</b> 후 <b>3.15. 검진</b>은 지급 불가)</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="shot-details">
+        <summary class="shot-summary">간편결제 유의사항(PAYCO, 네이버페이)</summary>
+        <div class="card" style="margin-top:10px;">
+          <ul>
+            <li><b>간편결제 사용자는 영수증 청구가 불가</b>합니다.</li>
+            <li>특별검진비는 담당자가 <b>조정점수로 특별검진비용을 부여</b>한 뒤, 사용자가 <b>자율항목으로 사용</b>하는 방식입니다(지난해 동일).</li>
+            <li><b>일반 결제 사용자</b>는 증빙 첨부 후 영수증 청구가 가능합니다.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="shot-details">
+        <summary class="shot-summary">출산·난임·태아·산모 검진 지원</summary>
+        <div class="card" style="margin-top:10px;">
+          <ul>
+            <li><b>출산 축하(자녀당 1회):</b> 첫째 1,000점 / 둘째 3,000점 / 셋째↑ 5,000점</li>
+            <li><b>신청 기한:</b> 출생 연도 포함 3년 이내 신청 가능</li>
+            <li><b>난임 지원:</b> 재직 중 1회, 500점</li>
+            <li><b>태아·산모 검진:</b> 자녀 수 1명당 100점 배정</li>
+          </ul>
+
+          <hr style="margin: 14px 0;" />
+
+          <p class="muted local-tight"><b>보고(유·초·중만 해당 / 원주교육지원청 행정과)</b></p>
+          <ul>
+            <li>출산축하·난임지원·태아·산모 검진 지원은 <b>점수 배정</b>뿐 아니라 <b>현황 보고</b>가 필요합니다.</li>
+            <li><b>제출:</b> 신청서(엑셀 서식) + 증빙서류(스캔본) 첨부하여 제출</li>
+            <li><b>원본:</b> 증빙서류 원본은 <b>학교(기관) 자체 보관</b></li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <!-- ========================= 4 ========================= -->
+    <section class="section" id="sec-4">
+      <h2>4. 단체보험 및 항목 선택</h2>
+      <hr/>
+      <div class="card">
+        <ul>
+          <li><b>필수 항목:</b> 생명·상해 보장보험은 의무 가입(보장금액 5천만/1억/2억 중 선택)</li>
+          <li><b>선택 항목:</b> 특정질병 진단비, 치아보험, 실손의료비 등은 개인 필요에 따라 선택</li>
+          <li><b>실손보험 중복 확인:</b> 개인 실손보험이 있으면 단체 실손보험 가입 중지 가능 → 중복 여부 확인 안내</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ========================= 5 ========================= -->
+    <section class="section" id="sec-5">
+      <h2>5. 신분 변동 시 유의사항</h2>
+      <hr/>
+
+      <div class="card">
+        <ul>
+          <li><b>월할 계산:</b> 신규 임용/퇴직/휴직 등 변동 발생 시 실제 근무한 달 기준으로 점수 월할</li>
+          <li><b>퇴직 예정자:</b> 정년·명예퇴직 예정자는 <b>퇴직 전</b> 점수 사용 권장 (퇴직 후 2개월 이내에만 청구 가능)</li>
+          <li><b>이월·현금화 불가:</b> 당해 연도 미사용 점수는 다음 연도 이월/금전 보상 불가 → 기한 내 전액 사용 독려</li>
+        </ul>
+      </div>
+
+      <details class="shot-details" open>
+        <summary class="shot-summary">전보/전출 처리(강원도 내 이동 포함)</summary>
+        <div class="card" style="margin-top:10px;">
+          <ul>
+            <li><b>강원도 내 기관 이동</b>은 전출이 아니라 <b>전보 처리</b>입니다. (전출처리 X)</li>
+            <li>만약 <b>잘못 전보처리</b>했을 경우, 전입 기관에서 <b>인사변동 취소 처리</b>로 되돌립니다.</li>
+            <li><b>인사발령 시점 이전 선처리 금지:</b> 3.1.자 전출자는 <b>3.1. 이후 시스템 전출처리</b></li>
+            <li><b>추가 메모:</b> 2.12.~2.28. 사이 청구건을 처리한 뒤, 3.1. 이후 전출처리</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="shot-details">
+        <summary class="shot-summary">퇴직 처리(담당자 메모)</summary>
+        <div class="card" style="margin-top:10px;">
+          <ul>
+            <li><b>퇴직일자 입력:</b> 마지막 근무일로 입력 후 퇴직 저장 (예: 2.28. 명퇴자 → 2.28 입력)</li>
+            <li><b>퇴직 후 마감:</b> 사용점수 확인 후, (잔액이 있어도) 퇴직 후 2개월 경과 시 <b>퇴직 처리현황</b>에서 “정산중” 클릭 → 팝업 하단 “정산완료”</li>
+          </ul>
+          <p class="muted local-tight">※ 메뉴명/위치는 시스템 업데이트로 달라질 수 있습니다.</p>
+        </div>
+      </details>
+    </section>
+
+    <!-- ========================= 6 ========================= -->
+    <section class="section" id="sec-6">
+      <h2>6. 결제 및 청구 방식</h2>
+      <hr/>
+
+      <div class="card">
+        <ul>
+          <li><b>카드 등록:</b> 포털에 복지카드 등록 후 <b>자동청구 또는 수동청구</b> 중 선택</li>
+          <li><b>사용 제한:</b> 사행성 지출, 유흥비, 미용 관련 의료행위(성형/치열교정 등), 일반 상품권 구매 등은 사용 제한</li>
+          <li><b>간편결제:</b> PAYCO/네이버페이 사용자는 일부 항목(특별검진 등)에서 <b>영수증 청구 불가</b> → 조정점수 부여 후 자율항목 사용</li>
+        </ul>
+      </div>
+
+      <details class="shot-details" open>
+        <summary class="shot-summary">조정점수 승인 ≠ 지급 시작 (흐름 요약)</summary>
+        <div class="card" style="margin-top:10px;">
+          <ol>
+            <li><b>사용자:</b> (검진/사유 발생 후) 증빙 첨부하여 <b>조정점수 신청</b></li>
+            <li><b>담당자:</b> 조정점수 <b>승인</b> (점수 배정 상태)</li>
+            <li><b>사용자:</b> 포털에서 <b>영수증 청구</b> 진행 (승인된 점수로 청구)</li>
+            <li><b>담당자:</b> 승인관리에서 <b>최종 승인</b> → <b>다음 달 급여일 지급</b></li>
+          </ol>
+          <p class="muted local-tight"><b>포인트:</b> “승인”만 해놓고 “영수증 청구”가 안 되어 있으면, 지급이 안 됩니다.</p>
+        </div>
+      </details>
+
+      <details class="shot-details">
+        <summary class="shot-summary">영수증 대리청구(필요 시, 담당자)</summary>
+        <div class="card" style="margin-top:10px;">
+          <ul>
+            <li><b>경로 예시:</b> [복지점수 관리] → [청구관리] → <b>[영수증 대리청구]</b></li>
+            <li>대상자 검색 → 하단 <b>[영수증 청구]</b> 클릭 → 영수증 일자/금액 입력 후 저장</li>
+            <li>복지항목은 예: <b>‘병의원진료’</b> 등으로 입력</li>
+            <li>대리청구 후에도 <b>승인관리에서 승인 처리</b>를 완료해야 지급 대상에 포함됩니다.</li>
+          </ul>
+          <p class="muted local-tight">※ 메뉴명은 시스템 버전에 따라 약간 다를 수 있습니다.</p>
+        </div>
+      </details>
+
+      <details class="shot-details">
+        <summary class="shot-summary">지급 시기 및 문의처</summary>
+        <div class="card" style="margin-top:10px;">
+          <ul>
+            <li><b>지급 시기:</b> 승인일의 <b>다음 달 급여일</b> 지급 (예: 2월 승인 → 3월 급여일 지급)</li>
+            <li><b>지급 문의:</b> 교원 → <b>유초등교육과</b> / 지방공무원 → <b>총무과</b></li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <!-- ========================= 첨부자료 ========================= -->
+    <section class="section dl-section" id="sec-7">
+      <h2>첨부자료</h2>
+      <hr/>
+      <p class="muted">
+        ·아래 파일은 <b>/notice/staff-welfare/assets/</b> 폴더에 넣어두고 링크만 교체하면 됩니다.
+      </p>
+
+      <div class="grid two">
+        <div class="card">
+          <h3 class="local-h3 local-tight">설명 이미지 (JPG 2개)</h3>
+          <p class="muted local-tight">·클릭하면 크게 보이는 “접기/펼치기” 방식</p>
+
+          <details class="shot-details">
+            <summary class="shot-summary">이미지 1 — 포털 로그인/점수 확인</summary>
+            <figure class="tool-shot">
+              <img src="/notice/staff-welfare/assets/welfare-step-01.jpg" alt="맞춤형복지 포털 로그인 및 점수 확인 안내 이미지 1">
+            </figure>
+          </details>
+
+          <details class="shot-details">
+            <summary class="shot-summary">이미지 2 — 조정점수 신청→승인→영수증 청구</summary>
+            <figure class="tool-shot">
+              <img src="/notice/staff-welfare/assets/welfare-step-02.jpg" alt="맞춤형복지 청구 절차 안내 이미지 2">
+            </figure>
+          </details>
+        </div>
+
+        <div class="card">
+          <h3 class="local-h3 local-tight">첨부 PDF (2개)</h3>
+          <p class="muted local-tight">·버튼으로 바로 열기/다운로드</p>
+
+          <div class="row between" style="margin: 10px 0;">
+            <div>
+              <b>PDF 1</b>
+              <div class="muted">예: 2026 맞춤형복지 안내문</div>
+            </div>
+            <div class="row gap">
+              <a class="btn primary" href="/notice/staff-welfare/assets/welfare-guide-01.pdf" target="_blank" rel="noopener">열기</a>
+              <a class="btn ghost" href="/notice/staff-welfare/assets/welfare-guide-01.pdf" download>다운로드</a>
+            </div>
+          </div>
+
+          <div class="row between" style="margin: 10px 0;">
+            <div>
+              <b>PDF 2</b>
+              <div class="muted">예: 자율항목/증빙 체크리스트</div>
+            </div>
+            <div class="row gap">
+              <a class="btn primary" href="/notice/staff-welfare/assets/welfare-guide-02.pdf" target="_blank" rel="noopener">열기</a>
+              <a class="btn ghost" href="/notice/staff-welfare/assets/welfare-guide-02.pdf" download>다운로드</a>
+            </div>
+          </div>
+
+          <details class="shot-details">
+            <summary class="shot-summary">PDF를 페이지에 “바로 보여주기”(선택)</summary>
+            <div class="muted" style="margin-top:10px;">
+              ·모바일/브라우저 환경에 따라 PDF 임베드가 잘 안 보일 수 있어 기본은 “열기 버튼”을 추천합니다.
+            </div>
+            <div style="margin-top:10px;">
+              <iframe
+                title="맞춤형복지 안내문 PDF 미리보기"
+                src="/notice/staff-welfare/assets/welfare-guide-01.pdf"
+                style="width:100%; height: 420px; border:1px solid #e5e5e5; border-radius:12px; background:#fff;">
+              </iframe>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="local-h3 local-tight">파일명만 바꾸고 싶을 때</h3>
+        <p class="muted local-tight">
+          ·위의 <span style="font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">welfare-step-01.jpg</span> 같은 파일명만
+          실제 파일명으로 바꿔주면 끝입니다.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (function () {
+      const $ = (sel, el=document) => el.querySelector(sel);
+      const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
+
+      function toast(msg) {
+        const t = $("#toast");
+        if (!t) return;
+        t.textContent = msg;
+        t.style.display = "block";
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(() => (t.style.display = "none"), 1400);
+      }
+
+      function absUrl(path) {
+        try { return new URL(path, location.origin).toString(); }
+        catch { return path; }
+      }
+
+      async function copyText(text) {
+        try {
+          await navigator.clipboard.writeText(text);
+          return true;
+        } catch (e) {
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          ta.style.position = "fixed";
+          ta.style.left = "-9999px";
+          document.body.appendChild(ta);
+          ta.focus();
+          ta.select();
+          let ok = false;
+          try { ok = document.execCommand("copy"); } catch {}
+          ta.remove();
+          return ok;
+        }
+      }
+
+      $$(".btnCopy").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          const url = btn.dataset.url ? absUrl(btn.dataset.url) : location.href;
+          const ok = await copyText(url);
+          toast(ok ? "링크 복사 완료" : "복사 실패");
+        });
+      });
+    })();
+  </script>
+
+  <script src="/static/disable-copy.js"></script>
+  <script src="/static/footer.js"></script>
+  <script src="/static/global-loader.js?v=1"></script>
+
+</body>
+</html>
