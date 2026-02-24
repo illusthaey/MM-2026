@@ -1,0 +1,1658 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <link rel="icon" href="/static/favicon.ico" />
+  <link rel="stylesheet" href="/static/style.css" />
+  <title>원본대조필 도장 자동 찍어줌</title>
+
+  <!-- pdf-lib (PDF 편집/저장) -->
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+
+  <!-- PDF.js (미리보기 렌더링) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+  <style>
+    /* 추가 CSS 파일은 금지이므로, 필수 UI(드롭존/오버레이)만 최소 인라인 스타일 */
+    .dropzone {
+      border: 2px dashed #d4d4d8;
+      border-radius: 14px;
+      padding: 16px;
+      background: #fafafa;
+      cursor: pointer;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+    }
+    .dropzone.dragover {
+      border-color: #111;
+      background: #f3f4f6;
+    }
+    .dropzone .dz-title { font-weight: 800; color: #111; }
+    .dropzone .dz-sub { font-size: 0.95rem; color: #555; }
+    .dropzone .dz-file { font-size: 0.95rem; color: #111; }
+    .dropzone input[type="file"] { display: none; }
+
+    .stage-wrap { margin-top: 14px; }
+    .stage {
+      position: relative;
+      display: inline-block;
+      max-width: 100%;
+      touch-action: none;
+      user-select: none;
+    }
+    #pdfCanvas {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #e5e5e5;
+      border-radius: 12px;
+      background: #fff;
+    }
+
+    #stampOverlay {
+      position: absolute;
+      box-sizing: border-box;
+      border: 2px solid rgba(17, 24, 39, 0.65);
+      border-radius: 10px;
+      cursor: grab;
+      touch-action: none;
+      user-select: none;
+      transform-origin: center center;
+      background: rgba(255,255,255,0.10);
+      backdrop-filter: blur(0.2px);
+    }
+    #stampOverlay.dragging { cursor: grabbing; }
+
+    #stampOverlay img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      pointer-events: none;
+      border-radius: 8px;
+    }
+
+    #innerGuide {
+      position: absolute;
+      pointer-events: none;
+      border: 2px dashed rgba(17, 24, 39, 0.35);
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+
+    #overlayBadge {
+      position: absolute;
+      left: 8px;
+      top: 8px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      background: rgba(255,255,255,0.90);
+      border: 1px solid rgba(0,0,0,0.08);
+      pointer-events: none;
+      color: #111;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    /* 회전 핸들: 회전 체크 시, 오버레이에 마우스를 올리면 ↻↺ 표시 */
+    #rotateHandle {
+      position: absolute;
+      right: -14px;
+      top: -14px;
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,0.12);
+      background: rgba(255,255,255,0.96);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      cursor: grab;
+      opacity: 0;
+      pointer-events: none;
+      user-select: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
+    #rotateHandle.dragging { cursor: grabbing; }
+    #stampOverlay.rotatable:hover #rotateHandle {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    .warn { color: #b42318; font-weight: 700; }
+    .ok { color: #166534; font-weight: 700; }
+
+    .chip-wrap { display:flex; flex-wrap:wrap; gap:8px; margin-top: 8px; }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border: 1px solid #d4d4d8;
+      border-radius: 999px;
+      background: #f3f4f6;
+    }
+    .chip .chip-link {
+      cursor: pointer;
+      font-weight: 800;
+      color: #111;
+      background: transparent;
+      border: 0;
+      padding: 0;
+    }
+    .chip .chip-x {
+      cursor: pointer;
+      font-weight: 900;
+      color: #111;
+      background: transparent;
+      border: 0;
+      padding: 0 2px;
+      line-height: 1;
+      font-size: 16px;
+    }
+
+    .small-input { max-width: 220px; width: 100%; }
+    .page-input { max-width: 110px; width: 110px; }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+      <h1>원본대조필 도장 자동 찍기</h1>
+      <p class="muted">
+        ·도장 실제 크기로 PDF에 삽입됩니다. (A4 기준 가로 6.1cm × 세로 2.5cm) <br/>
+        ·인쇄 시 페이지에 맞춤을 사용하면 크기가 달라질 수 있으니 미사용하는 걸 권장드립니다.
+      </p>
+
+      <hr/>
+
+      <!-- 1) PDF 업로드 -->
+      <section class="section">
+        <h2>1. PDF 파일 업로드</h2>
+          <div class="muted local-small" style="margin-top:10px;">
+            ·원본대조필 도장은 기본 이미지파일이 내장되어있습니다. 별도의 업로드 불필요
+          </div>
+        <div class="card">
+          <div class="dropzone" id="pdfDrop">
+            <div class="dz-title">드래그하여 PDF파일을 업로드하십시오. </div>
+            <div class="dz-sub">여기에 PDF를 드래그하거나 클릭해서 파일 선택</div>
+            <div class="dz-file" id="pdfFileName">(선택된 파일 없음)</div>
+            <input id="pdfInput" type="file" accept="application/pdf" />
+          </div>
+        </div>
+      </section>
+
+      <!-- 2) 기준/시작 설정 -->
+      <section class="section">
+        <h2>2. 도장 위치 기준 설정 </h2>
+        <div class="card">
+          <div>
+            <p>
+              <div>시작 페이지</div>
+              <div class="muted">
+                ·도장을 찍기 시작할 페이지를 선택합니다. <br/>
+                예를 들어 첫 장 제외시 2라고 쓰시면 됩니다.</div>
+              <input id="startPageInput" type="number" min="1" step="1" value="1" />
+            </p>
+
+            <p>
+              <div>기준 설정 페이지</div>
+              <div class="muted">
+                ·해당 페이지의 도장 위치를 전체 페이지에 적용합니다. <br/>
+                ·시작 페이지와 기준 페이지는 서로 독립입니다. 시작 페이지부터 도장이 적용되고, 기준 페이지에서 기준 위치를 잡습니다.
+              </div>
+              <div class="row gap" style="margin-top:10px;">
+                <input id="basePageInput" class="page-input" type="number" min="1" step="1" value="1" />
+                <button id="goBasePage" class="btn ghost" type="button">기준 페이지로 이동</button>
+              </div>
+            </p>
+
+            <p>
+              <div class="local-small muted" style="margin-bottom:6px;">불투명도</div>
+              <div class="muted local-small" style="margin-top:6px;">0.35~0.6 추천</div>
+              <input id="opacity" type="number" min="0.1" max="1" step="0.05" value="0.50" />
+            </p>
+          </div>
+
+          <hr/>
+
+          <div class="row between" style="align-items:center;">
+            <label class="row" style="gap:8px;">
+              <input id="rotateEnable" type="checkbox" />
+              <span>마우스로 도장 회전하기</span>
+            </label>
+
+            <button id="confirmBase" class="btn primary" type="button">기준 위치 확정하기</button>
+          </div>
+
+          <div class="muted local-small" style="margin-top:10px;">
+            ·기본 도장 위치는 좌측 상단에서 시작합니다. 아래 미리보기 화면에서 드래그하여 이동하십시오.<br/>
+            ·도장 회전하기에 체크 시, 도장에 마우스를 올리면 ↻ ↺가 뜹니다. ↻ ↺를 클릭한 채로 드래그하면 도장이 회전합니다.<br/>
+            ·기준 위치 확정 전에는 기준 페이지에서만 도장이 보입니다. 확정 후에 페이지별 상세 수정하십시오.
+          </div>
+        </div>
+      </section>
+
+      <!-- 3) 페이지 이동 + 페이지별 액션 -->
+      <section class="section">
+        <h2>3. 페이지별 도장 위치 상세 설정</h2>
+
+        <div class="card">
+          <div>
+            <p>
+              <div>페이지 이동</div>
+              <div class="row gap">
+                <button id="prevPage" class="btn ghost" type="button">←</button>
+
+                <div class="row" style="gap:6px; align-items:center;">
+                  <input id="pageInput" class="page-input" type="number" min="1" step="1" placeholder="페이지" />
+                  <span class="muted local-small">/ <span id="totalPages">-</span></span>
+                </div>
+
+                <button id="nextPage" class="btn ghost" type="button">→</button>
+              </div>
+
+              <div class="muted local-small" style="margin-top:6px;">
+                숫자 입력 후 Enter(또는 포커스 밖) → 이동
+              </div>
+            </p>
+
+            <div class="row gap">
+              <button id="resetThisPage" class="btn ghost" type="button">이 페이지 위치 되돌리기</button>
+              <button id="toggleStampPage" class="btn ghost" type="button">이 페이지 도장 삭제하기</button>
+            </div>
+          </div>
+
+          <div style="margin-top:14px; font-weight:800;">수정/삭제된 페이지</div>
+          <div id="markList" class="chip-wrap"></div>
+          <div id="markEmpty" class="muted local-small" style="margin-top:8px;">(없음)</div>
+        </div>
+      </section>
+
+      <!-- 4) 미리보기 + 결과 생성 -->
+      <section class="section">
+        <h2>4. 화면 미리보기</h2>
+
+          <div class="muted local-small" style="margin-bottom:8px;">
+            ·미리보기에서 도장을 드래그해서 옮기거나, 옮기고 싶은 위치를 클릭하면 도장 위치가 바뀝니다.<br/>
+            ·기준 확정 이후: 특정 페이지만 위치를 바꾸면 자동으로 “그 페이지만” 저장됩니다.
+          </div>
+        <div class="card">
+          <div class="stage-wrap" id="stageWrap" style="display:none;">
+            <div class="stage" id="stage">
+              <canvas id="pdfCanvas"></canvas>
+
+              <div id="stampOverlay" aria-label="stamp overlay">
+                <img id="stampOverlayImg" alt="" style="display:none;" />
+                <div id="innerGuide"></div>
+                <div id="overlayBadge">6.1×2.5cm</div>
+                <div id="rotateHandle" title="드래그해서 회전">↻↺</div>
+              </div>
+            </div>
+
+            <div class="mono muted local-small" id="coordReadout" style="margin-top:10px;"></div>
+            <div class="local-small" id="warnMsg" style="margin-top:6px;"></div>
+            <div class="muted local-small" id="previewHint" style="margin-top:8px;"></div>
+          </div>
+
+          <div class="row between" style="margin-top:16px;">
+            <button id="downloadBtn" class="btn primary" type="button">문서에 도장 찍고 다운로드</button>
+            <div id="status" class="muted local-small"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+  <script>
+    "use strict";
+
+    // =========================
+    // PDF.js worker 설정
+    // =========================
+    if (!window.pdfjsLib) {
+      console.error("PDF.js 로드 실패");
+    } else {
+      pdfjsLib.GlobalWorkerOptions.workerSrc =
+        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+    }
+
+    // =========================
+    // 실측 고정: cm -> pt
+    // =========================
+    const CM_TO_PT = 72 / 2.54;
+    const STAMP_W_PT = 6.1 * CM_TO_PT;  // 172.913...
+    const STAMP_H_PT = 2.5 * CM_TO_PT;  // 70.866...
+    const BORDER_PT  = 0.5 * CM_TO_PT;  // 14.173...
+    const DEFAULT_MARGIN_PT = 36;       // 기본 시작 위치(좌측 상단) 여백
+
+    const MAX_PDF_BYTES = 30 * 1024 * 1024;
+
+    // 기본 도장 경로(HTML과 같은 폴더에 stamp_copy.png를 두세요)
+    const DEFAULT_STAMP_URL = "./stamp_copy.png";
+
+    // =========================
+    // DOM helpers
+    // =========================
+    const $ = (sel) => document.querySelector(sel);
+
+    const pdfDrop = $("#pdfDrop");
+    const pdfInput = $("#pdfInput");
+    const pdfFileName = $("#pdfFileName");
+
+    const startPageInput = $("#startPageInput");
+    const basePageInput = $("#basePageInput");
+    const goBasePageBtn = $("#goBasePage");
+    const confirmBaseBtn = $("#confirmBase");
+
+    const opacityInput = $("#opacity");
+    const rotateEnable = $("#rotateEnable");
+
+    const prevPageBtn = $("#prevPage");
+    const nextPageBtn = $("#nextPage");
+    const pageInput = $("#pageInput");
+    const totalPagesEl = $("#totalPages");
+
+    const resetThisPageBtn = $("#resetThisPage");
+    const toggleStampPageBtn = $("#toggleStampPage");
+
+    const markList = $("#markList");
+    const markEmpty = $("#markEmpty");
+
+    const stageWrap = $("#stageWrap");
+    const stage = $("#stage");
+    const canvas = $("#pdfCanvas");
+    const overlay = $("#stampOverlay");
+    const overlayImg = $("#stampOverlayImg");
+    const rotateHandle = $("#rotateHandle");
+    const innerGuide = $("#innerGuide");
+    const coordReadout = $("#coordReadout");
+    const warnMsg = $("#warnMsg");
+    const previewHint = $("#previewHint");
+
+    const downloadBtn = $("#downloadBtn");
+    const statusEl = $("#status");
+
+    function setStatus(msg) { statusEl.textContent = msg || ""; }
+
+    function setWarn(message, isWarn) {
+      if (!message) {
+        warnMsg.textContent = "";
+        warnMsg.className = "local-small";
+        return;
+      }
+      warnMsg.textContent = message;
+      warnMsg.className = "local-small " + (isWarn ? "warn" : "ok");
+    }
+
+    function clamp(n, min, max) {
+      return Math.max(min, Math.min(max, n));
+    }
+
+    function downloadBlob(blob, filename) {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function readFileAsArrayBuffer(file) {
+      return new Promise((resolve, reject) => {
+        const r = new FileReader();
+        r.onload = () => resolve(r.result);
+        r.onerror = () => reject(r.error);
+        r.readAsArrayBuffer(file);
+      });
+    }
+
+    // =========================
+    // 상태
+    // =========================
+    const state = {
+      files: {
+        pdf: null
+      },
+      pdf: {
+        bytesForSave: null,  // ArrayBuffer (pdf-lib용: detached 방지 복사본)
+        doc: null,           // PDF.js doc
+        numPages: 0,
+        currentPage: 1,
+        page: null,          // PDFPageProxy
+        viewport: null,      // viewport
+        pageBox: { x0: 0, y0: 0, wPt: 0, hPt: 0 },
+        renderTask: null
+      },
+      stamp: {
+        pngBytes: null,      // Uint8Array
+        previewUrl: null     // ObjectURL
+      },
+      config: {
+        startPage: 1,        // 도장 시작 페이지(이전 페이지는 출력 시 도장 없음)
+        basePage: 1,         // 기준 설정 페이지
+        baseLocked: false    // 기준 위치 확정 여부
+      },
+      placement: {
+        baseDraft: null,     // 기준 확정 전: 기준 페이지에서 잡아둔 위치/각도
+        default: null,       // 기준 확정 후: 전체 적용 위치/각도
+        overrides: {},       // { [pageNum]: {normX, normY, angleDeg} }
+        disabled: {}         // { [pageNum]: true } (이 페이지 도장 삭제)
+      },
+      overlay: {
+        wPx: 0,
+        hPx: 0,
+        cxPx: 0,
+        cyPx: 0,
+        angleDeg: 0          // 화면 기준(+는 시계방향처럼 보임)
+      },
+      drag: {
+        active: false,
+        pointerId: null,
+        dx: 0,
+        dy: 0,
+        moved: false
+      },
+      rotate: {
+        enabled: false,
+        active: false,
+        pointerId: null,
+        startPointerRad: 0,
+        startAngleDeg: 0,
+        moved: false
+      }
+    };
+
+    // =========================
+    // 드롭존 설정
+    // =========================
+    function setupDropZone(zoneEl, inputEl, onFile) {
+      zoneEl.addEventListener("click", () => inputEl.click());
+
+      inputEl.addEventListener("change", async () => {
+        const f = inputEl.files && inputEl.files[0];
+        if (f) await onFile(f);
+      });
+
+      const add = () => zoneEl.classList.add("dragover");
+      const remove = () => zoneEl.classList.remove("dragover");
+
+      zoneEl.addEventListener("dragenter", (e) => { e.preventDefault(); add(); });
+      zoneEl.addEventListener("dragover", (e) => { e.preventDefault(); add(); });
+      zoneEl.addEventListener("dragleave", () => remove());
+      zoneEl.addEventListener("drop", async (e) => {
+        e.preventDefault();
+        remove();
+        const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+        if (f) await onFile(f);
+      });
+    }
+
+    // =========================
+    // 도장: 트림 + 배경 투명화 (기본 내장용)
+    // =========================
+    function loadImageFromArrayBuffer(ab) {
+      return new Promise((resolve, reject) => {
+        const blob = new Blob([ab]);
+        const url = URL.createObjectURL(blob);
+        const img = new Image();
+        img.decoding = "async";
+        img.onload = () => { URL.revokeObjectURL(url); resolve(img); };
+        img.onerror = () => { URL.revokeObjectURL(url); reject(new Error("도장 이미지 로드 실패")); };
+        img.src = url;
+      });
+    }
+
+    async function canvasToPngBytes(c) {
+      const blob = await new Promise((resolve) => c.toBlob(resolve, "image/png"));
+      const ab = await blob.arrayBuffer();
+      return new Uint8Array(ab);
+    }
+
+    function computeBBox(imgData, bgThreshold = 245) {
+      const { data, width, height } = imgData;
+      let minX = width, minY = height, maxX = -1, maxY = -1;
+      let found = 0;
+
+      for (let y = 0; y < height; y++) {
+        const row = y * width;
+        for (let x = 0; x < width; x++) {
+          const i = (row + x) * 4;
+          const r = data[i], g = data[i + 1], b = data[i + 2], a = data[i + 3];
+
+          const isTransparentBg = a < 16;
+          const isWhiteBg = (r >= bgThreshold && g >= bgThreshold && b >= bgThreshold);
+          const isBg = isTransparentBg || isWhiteBg;
+
+          if (!isBg) {
+            found++;
+            if (x < minX) minX = x;
+            if (y < minY) minY = y;
+            if (x > maxX) maxX = x;
+            if (y > maxY) maxY = y;
+          }
+        }
+      }
+      if (!found || maxX < 0) return null;
+
+      const pad = 1;
+      minX = Math.max(0, minX - pad);
+      minY = Math.max(0, minY - pad);
+      maxX = Math.min(width - 1, maxX + pad);
+      maxY = Math.min(height - 1, maxY + pad);
+
+      return { minX, minY, maxX, maxY };
+    }
+
+    async function trimAndTransparentizeStampFromArrayBuffer(ab) {
+      const img = await loadImageFromArrayBuffer(ab);
+
+      const srcW = img.naturalWidth || img.width;
+      const srcH = img.naturalHeight || img.height;
+
+      const srcCanvas = document.createElement("canvas");
+      srcCanvas.width = srcW;
+      srcCanvas.height = srcH;
+
+      const sctx = srcCanvas.getContext("2d", { willReadFrequently: true });
+      sctx.drawImage(img, 0, 0);
+
+      const imgData = sctx.getImageData(0, 0, srcW, srcH);
+      const bbox = computeBBox(imgData, 245);
+      if (!bbox) throw new Error("기본 도장 이미지에서 도장을 찾지 못했습니다(투명/배경 확인).");
+
+      const w = bbox.maxX - bbox.minX + 1;
+      const h = bbox.maxY - bbox.minY + 1;
+
+      const outCanvas = document.createElement("canvas");
+      outCanvas.width = w;
+      outCanvas.height = h;
+
+      const octx = outCanvas.getContext("2d", { willReadFrequently: true });
+      octx.drawImage(srcCanvas, bbox.minX, bbox.minY, w, h, 0, 0, w, h);
+
+      // 흰 배경 투명화(비투명 이미지 대비)
+      const outData = octx.getImageData(0, 0, w, h);
+      const p = outData.data;
+      const t = 245;
+      for (let i = 0; i < p.length; i += 4) {
+        const r = p[i], g = p[i + 1], b = p[i + 2], a = p[i + 3];
+        if (a < 16) { p[i + 3] = 0; continue; }
+        if (r >= t && g >= t && b >= t) p[i + 3] = 0;
+      }
+      octx.putImageData(outData, 0, 0);
+
+      const pngBytes = await canvasToPngBytes(outCanvas);
+      const blob = new Blob([pngBytes], { type: "image/png" });
+      const url = URL.createObjectURL(blob);
+
+      return { pngBytes, previewUrl: url };
+    }
+
+    function setStampPreview(url) {
+      if (state.stamp.previewUrl) {
+        try { URL.revokeObjectURL(state.stamp.previewUrl); } catch (_) {}
+      }
+      state.stamp.previewUrl = url;
+      overlayImg.src = url;
+      overlayImg.style.display = "block";
+      updateOverlayOpacity();
+    }
+
+    async function loadBuiltInStamp() {
+      setStatus("기본 도장 로딩 중…");
+      const res = await fetch(DEFAULT_STAMP_URL, { cache: "no-store" });
+      if (!res.ok) throw new Error("기본 도장(stamp_copy.png)을 찾지 못했습니다. HTML과 같은 폴더에 두세요.");
+      const ab = await res.arrayBuffer();
+
+      const { pngBytes, previewUrl } = await trimAndTransparentizeStampFromArrayBuffer(ab);
+      state.stamp.pngBytes = pngBytes;
+      setStampPreview(previewUrl);
+
+      setStatus("기본 도장 준비 완료.");
+    }
+
+    // =========================
+    // PDF 미리보기 렌더링
+    // =========================
+    function getFitScale(viewportAt1, targetCssWidth) {
+      const scale = targetCssWidth / viewportAt1.width;
+      return clamp(scale, 0.25, 3.0);
+    }
+
+    function computePageBoxPt(viewportAt1) {
+      const vb = viewportAt1.viewBox; // [xMin, yMin, xMax, yMax]
+      const x0 = vb[0], y0 = vb[1], x1 = vb[2], y1 = vb[3];
+      return { x0, y0, wPt: (x1 - x0), hPt: (y1 - y0) };
+    }
+
+    function pxPerPtFromViewport(viewport, pageBox) {
+      const [xA, yA] = viewport.convertToViewportPoint(pageBox.x0, pageBox.y0);
+      const [xB, yB] = viewport.convertToViewportPoint(pageBox.x0 + 1, pageBox.y0);
+      const [xC, yC] = viewport.convertToViewportPoint(pageBox.x0, pageBox.y0 + 1);
+      const sx = Math.hypot(xB - xA, yB - yA);
+      const sy = Math.hypot(xC - xA, yC - yA);
+      return { sx, sy };
+    }
+
+    function computeTopLeftPlacement(pageBox) {
+      const cxPt = pageBox.x0 + DEFAULT_MARGIN_PT + (STAMP_W_PT / 2);
+      const cyPt = pageBox.y0 + pageBox.hPt - DEFAULT_MARGIN_PT - (STAMP_H_PT / 2);
+      return {
+        normX: (cxPt - pageBox.x0) / pageBox.wPt,
+        normY: (cyPt - pageBox.y0) / pageBox.hPt,
+        angleDeg: 0
+      };
+    }
+
+    function isPageStampEnabled(pageNum) {
+      // 기준 확정 전: 기준 페이지에서만 편집 가능
+      if (!state.config.baseLocked) return pageNum === state.config.basePage;
+
+      // 기준 확정 후: 시작 페이지 이전은 도장 없음
+      if (pageNum < state.config.startPage) return false;
+
+      // 개별 삭제 처리
+      if (state.placement.disabled[pageNum]) return false;
+
+      return true;
+    }
+
+    function getPlacementForPage(pageNum) {
+      if (!state.config.baseLocked) {
+        // 기준 확정 전
+        if (pageNum !== state.config.basePage) return null;
+        return state.placement.baseDraft || computeTopLeftPlacement(state.pdf.pageBox);
+      }
+
+      // 기준 확정 후
+      if (!isPageStampEnabled(pageNum)) return null;
+      return state.placement.overrides[pageNum] || state.placement.default;
+    }
+
+    async function renderPage(pageNum) {
+      if (!state.pdf.doc) return;
+
+      try {
+        if (state.pdf.renderTask && state.pdf.renderTask.cancel) state.pdf.renderTask.cancel();
+      } catch (_) {}
+
+      setStatus(`페이지 렌더링 중… (${pageNum}/${state.pdf.numPages})`);
+
+      const page = await state.pdf.doc.getPage(pageNum);
+
+      const viewportAt1 = page.getViewport({ scale: 1 });
+      const pageBox = computePageBoxPt(viewportAt1);
+
+      const containerW = Math.max(320, Math.min(stageWrap.clientWidth || 860, 860));
+      const scale = getFitScale(viewportAt1, containerW);
+
+      const viewport = page.getViewport({ scale });
+
+      state.pdf.page = page;
+      state.pdf.viewport = viewport;
+      state.pdf.pageBox = pageBox;
+      state.pdf.currentPage = pageNum;
+
+      const dpr = window.devicePixelRatio || 1;
+      const ctx = canvas.getContext("2d", { alpha: false });
+
+      canvas.width = Math.floor(viewport.width * dpr);
+      canvas.height = Math.floor(viewport.height * dpr);
+      canvas.style.width = `${Math.floor(viewport.width)}px`;
+      canvas.style.height = `${Math.floor(viewport.height)}px`;
+
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, viewport.width, viewport.height);
+
+      stageWrap.style.display = "block";
+
+      const task = page.render({ canvasContext: ctx, viewport });
+      state.pdf.renderTask = task;
+      await task.promise;
+
+      // 오버레이 크기(px): pt -> viewport px
+      const { sx, sy } = pxPerPtFromViewport(viewport, pageBox);
+      state.overlay.wPx = STAMP_W_PT * sx;
+      state.overlay.hPx = STAMP_H_PT * sy;
+
+      overlay.style.width = `${state.overlay.wPx}px`;
+      overlay.style.height = `${state.overlay.hPx}px`;
+
+      // 테두리 가이드 0.5cm
+      const borderPx = BORDER_PT * sx;
+      innerGuide.style.left = `${borderPx}px`;
+      innerGuide.style.top = `${borderPx}px`;
+      innerGuide.style.width = `${Math.max(0, state.overlay.wPx - 2 * borderPx)}px`;
+      innerGuide.style.height = `${Math.max(0, state.overlay.hPx - 2 * borderPx)}px`;
+
+      // 이 페이지에 표시할 placement 결정
+      const placement = getPlacementForPage(pageNum);
+
+      if (!placement) {
+        overlay.style.display = "none";
+        previewHint.textContent = getPreviewHintForPage(pageNum);
+        setWarn("", false);
+        coordReadout.textContent = "";
+      } else {
+        overlay.style.display = "block";
+        previewHint.textContent = "";
+
+        applyPlacementToOverlay(placement);
+        updateOverlayTransform();
+        updateOverlayOpacity();
+        updateOutOfBoundsWarning();
+        updateCoordReadout();
+      }
+
+      updatePageUI();
+      updatePageActionsUI();
+      renderMarkListUI();
+
+      setStatus("미리보기에서 위치를 조정하세요.");
+    }
+
+    function getPreviewHintForPage(pageNum) {
+      if (!state.pdf.doc) return "";
+      if (!state.config.baseLocked) {
+        if (pageNum !== state.config.basePage) return "기준 위치 확정 전입니다. 기준 페이지에서 위치를 맞춘 뒤 “기준 위치 확정하기”를 눌러주세요.";
+        return "";
+      }
+      if (pageNum < state.config.startPage) {
+        return `시작 페이지(${state.config.startPage}) 이전입니다. 이 페이지에는 도장이 찍히지 않습니다.`;
+      }
+      if (state.placement.disabled[pageNum]) {
+        return "이 페이지는 ‘도장 삭제’로 설정되어 있습니다. (오른쪽 버튼으로 다시 켤 수 있음)";
+      }
+      return "";
+    }
+
+    function applyPlacementToOverlay(placement) {
+      const vp = state.pdf.viewport;
+      const pb = state.pdf.pageBox;
+      if (!vp || !pb || !placement) return;
+
+      const cxPt = pb.x0 + placement.normX * pb.wPt;
+      const cyPt = pb.y0 + placement.normY * pb.hPt;
+      const [cxPx, cyPx] = vp.convertToViewportPoint(cxPt, cyPt);
+
+      state.overlay.cxPx = cxPx;
+      state.overlay.cyPx = cyPx;
+      state.overlay.angleDeg = Number.isFinite(placement.angleDeg) ? placement.angleDeg : 0;
+
+      overlay.style.left = `${cxPx - state.overlay.wPx / 2}px`;
+      overlay.style.top = `${cyPx - state.overlay.hPx / 2}px`;
+    }
+
+    function overlayCenterToNorm() {
+      const vp = state.pdf.viewport;
+      const pb = state.pdf.pageBox;
+      if (!vp || !pb) return null;
+
+      const [cxPt, cyPt] = vp.convertToPdfPoint(state.overlay.cxPx, state.overlay.cyPx);
+      const normX = (cxPt - pb.x0) / pb.wPt;
+      const normY = (cyPt - pb.y0) / pb.hPt;
+      return { normX, normY, angleDeg: state.overlay.angleDeg, cxPt, cyPt };
+    }
+
+    function persistPlacementFromOverlay() {
+      const info = overlayCenterToNorm();
+      if (!info) return;
+
+      const pageNum = state.pdf.currentPage;
+
+      // 기준 확정 전: 기준 페이지에서만 draft 저장
+      if (!state.config.baseLocked) {
+        if (pageNum !== state.config.basePage) return;
+        state.placement.baseDraft = { normX: info.normX, normY: info.normY, angleDeg: info.angleDeg };
+        updateCoordReadout();
+        updateOutOfBoundsWarning();
+        return;
+      }
+
+      // 기준 확정 후: 도장이 존재하는 페이지에서만 override 저장
+      if (!isPageStampEnabled(pageNum)) return;
+
+      state.placement.overrides[pageNum] = { normX: info.normX, normY: info.normY, angleDeg: info.angleDeg };
+      renderMarkListUI();
+      updatePageActionsUI();
+      updateCoordReadout();
+      updateOutOfBoundsWarning();
+    }
+
+    // =========================
+    // 미리보기: 불투명도
+    // =========================
+    function getOpacity() {
+      return clamp(parseFloat(opacityInput.value || "0.50"), 0.1, 1.0);
+    }
+    function updateOverlayOpacity() {
+      const op = getOpacity();
+      overlayImg.style.opacity = String(op);
+    }
+    opacityInput.addEventListener("input", updateOverlayOpacity);
+
+    // =========================
+    // 미리보기: 회전(마우스)
+    // =========================
+    function setRotateEnabled(enabled) {
+      state.rotate.enabled = !!enabled;
+      if (state.rotate.enabled) overlay.classList.add("rotatable");
+      else overlay.classList.remove("rotatable");
+    }
+
+    rotateEnable.addEventListener("change", () => setRotateEnabled(rotateEnable.checked));
+
+    function updateOverlayTransform() {
+      const angle = state.overlay.angleDeg || 0;
+      overlay.style.transform = `rotate(${angle}deg)`;
+    }
+
+    function wrapRadDelta(delta) {
+      // [-pi, pi]로 wrap
+      const twoPi = Math.PI * 2;
+      let d = (delta + Math.PI) % twoPi;
+      if (d < 0) d += twoPi;
+      return d - Math.PI;
+    }
+
+    function getStagePoint(e) {
+      const r = stage.getBoundingClientRect();
+      return { x: e.clientX - r.left, y: e.clientY - r.top };
+    }
+
+    function getOverlayCenterPx() {
+      return { x: state.overlay.cxPx, y: state.overlay.cyPx };
+    }
+
+    rotateHandle.addEventListener("pointerdown", (e) => {
+      if (!state.rotate.enabled) return;
+      if (!state.pdf.viewport) return;
+      if (overlay.style.display === "none") return;
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      const p = getStagePoint(e);
+      const c = getOverlayCenterPx();
+
+      state.rotate.active = true;
+      state.rotate.pointerId = e.pointerId;
+      state.rotate.startPointerRad = Math.atan2(p.y - c.y, p.x - c.x);
+      state.rotate.startAngleDeg = state.overlay.angleDeg || 0;
+      state.rotate.moved = false;
+
+      rotateHandle.classList.add("dragging");
+      rotateHandle.setPointerCapture(e.pointerId);
+    });
+
+    rotateHandle.addEventListener("pointermove", (e) => {
+      if (!state.rotate.active || e.pointerId !== state.rotate.pointerId) return;
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      const p = getStagePoint(e);
+      const c = getOverlayCenterPx();
+      const rad = Math.atan2(p.y - c.y, p.x - c.x);
+
+      const delta = wrapRadDelta(rad - state.rotate.startPointerRad);
+      const degDelta = delta * 180 / Math.PI;
+
+      state.overlay.angleDeg = state.rotate.startAngleDeg + degDelta;
+      // 너무 큰 값으로 튀는 것을 방지(시각적)
+      if (state.overlay.angleDeg > 1800) state.overlay.angleDeg = 1800;
+      if (state.overlay.angleDeg < -1800) state.overlay.angleDeg = -1800;
+
+      updateOverlayTransform();
+      state.rotate.moved = true;
+
+      persistPlacementFromOverlay();
+    });
+
+    function endRotate(e) {
+      if (e.pointerId !== state.rotate.pointerId) return;
+      state.rotate.active = false;
+      state.rotate.pointerId = null;
+      rotateHandle.classList.remove("dragging");
+      try { rotateHandle.releasePointerCapture(e.pointerId); } catch (_) {}
+    }
+
+    rotateHandle.addEventListener("pointerup", endRotate);
+    rotateHandle.addEventListener("pointercancel", endRotate);
+
+    // =========================
+    // 페이지 UI
+    // =========================
+    function updatePageUI() {
+      const n = state.pdf.currentPage;
+      const total = state.pdf.numPages || 0;
+
+      totalPagesEl.textContent = total ? String(total) : "-";
+
+      // 사용자가 입력 중이면 강제로 덮어쓰지 않기(실수 방지)
+      const isFocused = (document.activeElement === pageInput);
+      if (!isFocused) pageInput.value = String(n);
+
+      prevPageBtn.disabled = (n <= 1);
+      nextPageBtn.disabled = (n >= total);
+    }
+
+    async function gotoPage(n) {
+      const total = state.pdf.numPages;
+      if (!total) return;
+      const pageNum = clamp(Math.floor(n), 1, total);
+      await renderPage(pageNum);
+    }
+
+    prevPageBtn.addEventListener("click", async () => { if (state.pdf.doc) await gotoPage(state.pdf.currentPage - 1); });
+    nextPageBtn.addEventListener("click", async () => { if (state.pdf.doc) await gotoPage(state.pdf.currentPage + 1); });
+
+    function tryGotoFromPageInput() {
+      if (!state.pdf.doc) return;
+      const n = parseInt(pageInput.value, 10);
+      if (Number.isFinite(n)) gotoPage(n);
+    }
+
+    pageInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        tryGotoFromPageInput();
+        pageInput.blur();
+      }
+    });
+    pageInput.addEventListener("blur", () => tryGotoFromPageInput());
+
+    // =========================
+    // 페이지별 액션 UI
+    // =========================
+    function updatePageActionsUI() {
+      const pageNum = state.pdf.currentPage;
+      const hasPdf = !!state.pdf.doc;
+
+      // 기본적으로 비활성
+      resetThisPageBtn.disabled = true;
+      toggleStampPageBtn.disabled = true;
+
+      if (!hasPdf) return;
+
+      // 기준 확정 전에는 페이지별 작업 금지(기준 페이지에서만 위치 조정)
+      if (!state.config.baseLocked) {
+        resetThisPageBtn.disabled = true;
+        toggleStampPageBtn.disabled = true;
+        toggleStampPageBtn.textContent = "이 페이지 도장 삭제하기";
+        return;
+      }
+
+      // 시작 페이지 이전은 도장 없음
+      if (pageNum < state.config.startPage) {
+        resetThisPageBtn.disabled = true;
+        toggleStampPageBtn.disabled = true;
+        toggleStampPageBtn.textContent = `시작 이전(도장 없음)`;
+        return;
+      }
+
+      toggleStampPageBtn.disabled = false;
+
+      const isDisabled = !!state.placement.disabled[pageNum];
+      toggleStampPageBtn.textContent = isDisabled ? "이 페이지 도장 다시 켜기" : "이 페이지 도장 삭제하기";
+
+      const hasOverride = !!state.placement.overrides[pageNum];
+      resetThisPageBtn.disabled = !(hasOverride && !isDisabled);
+    }
+
+    resetThisPageBtn.addEventListener("click", async () => {
+      if (!state.pdf.doc) return;
+      if (!state.config.baseLocked) { setStatus("기준 위치를 먼저 확정하세요."); return; }
+
+      const pageNum = state.pdf.currentPage;
+      if (pageNum < state.config.startPage) return;
+      if (state.placement.disabled[pageNum]) return;
+
+      delete state.placement.overrides[pageNum];
+      setStatus("이 페이지 위치를 기본(기준)으로 되돌렸습니다.");
+
+      const placement = getPlacementForPage(pageNum);
+      if (placement) {
+        applyPlacementToOverlay(placement);
+        updateOverlayTransform();
+        updateOverlayOpacity();
+        updateOutOfBoundsWarning();
+        updateCoordReadout();
+      }
+
+      renderMarkListUI();
+      updatePageActionsUI();
+    });
+
+    toggleStampPageBtn.addEventListener("click", async () => {
+      if (!state.pdf.doc) return;
+      if (!state.config.baseLocked) { setStatus("기준 위치를 먼저 확정하세요."); return; }
+
+      const pageNum = state.pdf.currentPage;
+      if (pageNum < state.config.startPage) return;
+
+      if (state.placement.disabled[pageNum]) {
+        delete state.placement.disabled[pageNum];
+        setStatus("이 페이지 도장을 다시 켰습니다.");
+      } else {
+        state.placement.disabled[pageNum] = true;
+        setStatus("이 페이지 도장을 삭제했습니다(출력에서 제외).");
+      }
+
+      await renderPage(pageNum);
+    });
+
+    // =========================
+    // 수정/삭제 목록 UI
+    // =========================
+    function renderMarkListUI() {
+      const overridePages = Object.keys(state.placement.overrides)
+        .map(x => parseInt(x, 10))
+        .filter(Number.isFinite)
+        .filter(p => p >= state.config.startPage)
+        .filter(p => !state.placement.disabled[p])
+        .sort((a, b) => a - b);
+
+      const disabledPages = Object.keys(state.placement.disabled)
+        .map(x => parseInt(x, 10))
+        .filter(Number.isFinite)
+        .filter(p => p >= state.config.startPage)
+        .sort((a, b) => a - b);
+
+      markList.innerHTML = "";
+
+      const items = [];
+
+      for (const p of overridePages) items.push({ page: p, type: "override" });
+      for (const p of disabledPages) items.push({ page: p, type: "disabled" });
+
+      items.sort((a, b) => a.page - b.page || a.type.localeCompare(b.type));
+
+      if (!items.length) {
+        markEmpty.style.display = "block";
+        return;
+      }
+      markEmpty.style.display = "none";
+
+      for (const it of items) {
+        const chip = document.createElement("div");
+        chip.className = "chip";
+
+        const link = document.createElement("button");
+        link.type = "button";
+        link.className = "chip-link";
+        link.textContent = it.type === "override" ? `p${it.page} 수정` : `p${it.page} 삭제`;
+        link.addEventListener("click", async () => await gotoPage(it.page));
+
+        const xBtn = document.createElement("button");
+        xBtn.type = "button";
+        xBtn.className = "chip-x";
+        xBtn.textContent = "×";
+        xBtn.title = "해제";
+
+        xBtn.addEventListener("click", async (e) => {
+          e.stopPropagation();
+          if (it.type === "override") delete state.placement.overrides[it.page];
+          else delete state.placement.disabled[it.page];
+
+          if (state.pdf.currentPage === it.page) await renderPage(it.page);
+          else {
+            renderMarkListUI();
+            updatePageActionsUI();
+          }
+        });
+
+        chip.appendChild(link);
+        chip.appendChild(xBtn);
+        markList.appendChild(chip);
+      }
+    }
+
+    // =========================
+    // 경고: 페이지 밖(회전 포함, screen px)
+    // =========================
+    function rotatedCorners(cx, cy, w, h, angleDeg) {
+      const t = angleDeg * Math.PI / 180; // screen y-down에서 +는 시계방향처럼 보임
+      const cos = Math.cos(t);
+      const sin = Math.sin(t);
+      const hw = w / 2, hh = h / 2;
+
+      const pts = [
+        [-hw, -hh],
+        [ hw, -hh],
+        [ hw,  hh],
+        [-hw,  hh]
+      ];
+
+      const out = [];
+      for (const [x, y] of pts) {
+        const xr = x * cos - y * sin;
+        const yr = x * sin + y * cos;
+        out.push([cx + xr, cy + yr]);
+      }
+      return out;
+    }
+
+    function updateOutOfBoundsWarning() {
+      const vp = state.pdf.viewport;
+      if (!vp) return;
+      if (overlay.style.display === "none") return;
+
+      const stageW = vp.width;
+      const stageH = vp.height;
+
+      const cx = state.overlay.cxPx;
+      const cy = state.overlay.cyPx;
+      const w = state.overlay.wPx;
+      const h = state.overlay.hPx;
+      const angle = state.overlay.angleDeg || 0;
+
+      const corners = rotatedCorners(cx, cy, w, h, angle);
+
+      let out = false;
+      for (const [x, y] of corners) {
+        if (x < 0 || x > stageW || y < 0 || y > stageH) { out = true; break; }
+      }
+
+      if (out) {
+        overlay.style.borderColor = "rgba(180, 35, 24, 0.95)";
+        setWarn("경고: 도장이 페이지 밖으로 나갑니다(회전 포함). 위치를 안쪽으로 옮기세요.", true);
+      } else {
+        overlay.style.borderColor = "rgba(17, 24, 39, 0.65)";
+        setWarn("정상: 도장이 페이지 안에 있습니다.", false);
+      }
+    }
+
+    // =========================
+    // 좌표 표시
+    // =========================
+    function updateCoordReadout() {
+      const info = overlayCenterToNorm();
+      if (!info) { coordReadout.textContent = ""; return; }
+
+      const pb = state.pdf.pageBox;
+      const ptToCm = 2.54 / 72;
+
+      const pageNum = state.pdf.currentPage;
+
+      let mode = "";
+      if (!state.config.baseLocked) mode = "기준 설정(미확정)";
+      else if (state.placement.disabled[pageNum]) mode = "이 페이지: 도장 삭제됨";
+      else if (state.placement.overrides[pageNum]) mode = "이 페이지: 개별 수정";
+      else mode = "기준(전체 적용)";
+
+      const cxCm = info.cxPt * ptToCm;
+      const cyCm = info.cyPt * ptToCm;
+
+      coordReadout.textContent =
+        `[${mode}]  normX=${info.normX.toFixed(4)}, normY=${info.normY.toFixed(4)}, angle=${(info.angleDeg || 0).toFixed(1)}° | ` +
+        `중심: X=${info.cxPt.toFixed(1)}pt(${cxCm.toFixed(2)}cm), Y=${info.cyPt.toFixed(1)}pt(${cyCm.toFixed(2)}cm) | ` +
+        `페이지: ${pb.wPt.toFixed(1)}×${pb.hPt.toFixed(1)}pt`;
+    }
+
+    // =========================
+    // 오버레이 드래그/클릭 이동 (자동: 페이지별 override 저장)
+    // =========================
+    overlay.addEventListener("pointerdown", (e) => {
+      if (!state.pdf.viewport) return;
+      if (overlay.style.display === "none") return;
+
+      // 회전 핸들 드래그는 별도 처리
+      if (e.target === rotateHandle) return;
+
+      e.preventDefault();
+
+      const p = getStagePoint(e);
+      const left = parseFloat(overlay.style.left || "0");
+      const top  = parseFloat(overlay.style.top || "0");
+
+      state.drag.active = true;
+      state.drag.pointerId = e.pointerId;
+      state.drag.dx = p.x - left;
+      state.drag.dy = p.y - top;
+      state.drag.moved = false;
+
+      overlay.classList.add("dragging");
+      overlay.setPointerCapture(e.pointerId);
+    });
+
+    overlay.addEventListener("pointermove", (e) => {
+      if (!state.drag.active || e.pointerId !== state.drag.pointerId) return;
+      e.preventDefault();
+
+      const vp = state.pdf.viewport;
+      if (!vp) return;
+
+      const stageW = vp.width;
+      const stageH = vp.height;
+
+      const p = getStagePoint(e);
+
+      let left = p.x - state.drag.dx;
+      let top  = p.y - state.drag.dy;
+
+      // 너무 멀리 벗어나면 안 보이므로 절반만 나가게 제한
+      left = clamp(left, -state.overlay.wPx / 2, stageW - state.overlay.wPx / 2);
+      top  = clamp(top,  -state.overlay.hPx / 2, stageH - state.overlay.hPx / 2);
+
+      overlay.style.left = `${left}px`;
+      overlay.style.top  = `${top}px`;
+
+      state.overlay.cxPx = left + state.overlay.wPx / 2;
+      state.overlay.cyPx = top + state.overlay.hPx / 2;
+
+      state.drag.moved = true;
+      persistPlacementFromOverlay();
+    });
+
+    function endDrag(e) {
+      if (e.pointerId !== state.drag.pointerId) return;
+      state.drag.active = false;
+      state.drag.pointerId = null;
+      overlay.classList.remove("dragging");
+      try { overlay.releasePointerCapture(e.pointerId); } catch (_) {}
+    }
+    overlay.addEventListener("pointerup", endDrag);
+    overlay.addEventListener("pointercancel", endDrag);
+
+    stage.addEventListener("click", (e) => {
+      if (!state.pdf.viewport) return;
+      if (overlay.style.display === "none") return;
+      if (state.drag.moved) { state.drag.moved = false; return; }
+      if (state.rotate.moved) { state.rotate.moved = false; return; }
+
+      const vp = state.pdf.viewport;
+      const stageW = vp.width;
+      const stageH = vp.height;
+
+      const p = getStagePoint(e);
+
+      const cx = clamp(p.x, 0, stageW);
+      const cy = clamp(p.y, 0, stageH);
+
+      state.overlay.cxPx = cx;
+      state.overlay.cyPx = cy;
+
+      overlay.style.left = `${cx - state.overlay.wPx / 2}px`;
+      overlay.style.top  = `${cy - state.overlay.hPx / 2}px`;
+
+      persistPlacementFromOverlay();
+    });
+
+    // =========================
+    // 기준 설정(시작/기준 페이지) 이벤트
+    // =========================
+    function syncConfigInputsMax() {
+      const total = state.pdf.numPages || 1;
+      startPageInput.max = String(total);
+      basePageInput.max = String(total);
+      pageInput.max = String(total);
+    }
+
+    function readIntOr(n, fallback) {
+      const v = parseInt(String(n ?? "").trim(), 10);
+      return Number.isFinite(v) ? v : fallback;
+    }
+
+    function applyStartPageFromInput() {
+      if (!state.pdf.doc) return;
+      const total = state.pdf.numPages;
+      const n = clamp(readIntOr(startPageInput.value, state.config.startPage || 1), 1, total);
+      state.config.startPage = n;
+      startPageInput.value = String(n);
+    }
+
+    startPageInput.addEventListener("change", async () => {
+      if (!state.pdf.doc) return;
+      applyStartPageFromInput();
+
+      // 기준 확정 전이면: 기준 페이지에서 계속 기준 위치를 맞추도록 유지
+      if (!state.config.baseLocked) {
+        await gotoPage(state.config.basePage);
+      } else {
+        await renderPage(state.pdf.currentPage);
+      }
+    });
+
+
+    // Enter 키로도 즉시 반영(숫자 입력 후 Enter)
+    startPageInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        startPageInput.blur(); // blur → change 이벤트로 이어짐
+      }
+    });
+
+    basePageInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        goBasePageBtn.click();
+        basePageInput.blur();
+      }
+    });
+
+
+    goBasePageBtn.addEventListener("click", async () => {
+      if (!state.pdf.doc) { setStatus("PDF를 먼저 업로드하세요."); return; }
+
+      // 입력만 하고 blur/change가 안 난 경우를 대비해 startPage도 먼저 동기화
+      applyStartPageFromInput();
+
+      const total = state.pdf.numPages;
+      const n = clamp(readIntOr(basePageInput.value, state.config.basePage), 1, total);
+
+      // 기준 페이지만 변경(시작 페이지는 독립)
+      state.config.basePage = n;
+      state.config.baseLocked = false;
+
+      basePageInput.value = String(n);
+
+      // 기준을 바꾸면 기존 설정 초기화(안전)
+      state.placement.baseDraft = null;
+      state.placement.default = null;
+      state.placement.overrides = {};
+      state.placement.disabled = {};
+      renderMarkListUI();
+      updatePageActionsUI();
+
+      setStatus(`기준 페이지를 ${n}로 설정했습니다. 시작 페이지는 ${state.config.startPage}입니다. 이 페이지에서 위치/회전을 맞춘 뒤 “기준 위치 확정하기”를 누르세요.`);
+      await gotoPage(n);
+      updateDownloadAvailability();
+    });
+
+    confirmBaseBtn.addEventListener("click", async () => {
+      if (!state.pdf.doc) { setStatus("PDF를 먼저 업로드하세요."); return; }
+      if (!state.stamp.pngBytes) { setStatus("기본 도장을 불러오지 못했습니다(stamp_copy.png 확인)."); return; }
+
+      const base = state.config.basePage;
+
+      // 기준 페이지가 아니라면 자동 이동
+      if (state.pdf.currentPage !== base) {
+        setStatus("기준 페이지에서 위치를 맞춘 뒤 확정합니다. 기준 페이지로 이동합니다…");
+        await gotoPage(base);
+        return;
+      }
+
+      // 기준 페이지에서 현재 오버레이 위치를 default로 확정
+      const info = overlayCenterToNorm();
+      if (!info) { setStatus("현재 위치를 읽지 못했습니다."); return; }
+
+      const placement = { normX: info.normX, normY: info.normY, angleDeg: info.angleDeg || 0 };
+
+      state.placement.default = placement;
+      state.config.baseLocked = true;
+
+      // 기준 확정 이후: baseDraft는 그대로 두되, default가 우선
+      setStatus("기준 위치 확정 완료. 이제 페이지 이동 후 필요한 페이지만 수정/삭제하세요.");
+      updateDownloadAvailability();
+
+      // 현재 페이지 다시 렌더(모드 전환 반영)
+      await renderPage(state.pdf.currentPage);
+    });
+
+    function updateDownloadAvailability() {
+      const ok = !!(state.pdf.doc && state.stamp.pngBytes && state.config.baseLocked && state.placement.default);
+      downloadBtn.disabled = !ok;
+      confirmBaseBtn.disabled = !(state.pdf.doc && state.stamp.pngBytes);
+    }
+
+    // =========================
+    // 파일 핸들러 (PDF)
+    // =========================
+    async function handlePdfFile(file) {
+      if (!file) return;
+
+      const isPdf = (file.type === "application/pdf") || /\.pdf$/i.test(file.name);
+      if (!isPdf) { setStatus("PDF 파일만 업로드할 수 있습니다."); return; }
+      if (file.size > MAX_PDF_BYTES) { setStatus("PDF 파일이 너무 큽니다(30MB 이하 권장)."); return; }
+      if (!window.pdfjsLib) { setStatus("PDF.js 로드 실패(CDN 차단 여부 확인)."); return; }
+
+      setStatus("PDF 로딩 중…");
+      downloadBtn.disabled = true;
+
+      try {
+        const abOriginal = await readFileAsArrayBuffer(file);
+
+        // 헤더 체크
+        const head = new TextDecoder("ascii").decode(new Uint8Array(abOriginal).slice(0, 1024));
+        if (!head.includes("%PDF-")) throw new Error("PDF로 보이지 않습니다. 파일을 확인해주세요.");
+
+        // detached 방지: pdf-lib 저장용은 복사본으로 보관
+        state.pdf.bytesForSave = abOriginal.slice(0);
+
+        // 새 PDF 상태 초기화
+        state.files.pdf = file;
+        pdfFileName.textContent = file.name;
+
+        state.pdf.doc = null;
+        state.pdf.page = null;
+        state.pdf.viewport = null;
+        state.pdf.pageBox = { x0: 0, y0: 0, wPt: 0, hPt: 0 };
+        state.pdf.numPages = 0;
+        state.pdf.currentPage = 1;
+
+        // 설정 초기화
+        state.config.baseLocked = false;
+        state.placement.baseDraft = null;
+        state.placement.default = null;
+        state.placement.overrides = {};
+        state.placement.disabled = {};
+        renderMarkListUI();
+
+        // 미리보기(PDF.js)용
+        const loadingTask = pdfjsLib.getDocument({ data: new Uint8Array(abOriginal) });
+        const pdfDoc = await loadingTask.promise;
+
+        state.pdf.doc = pdfDoc;
+        state.pdf.numPages = pdfDoc.numPages;
+
+        syncConfigInputsMax();
+
+        // 시작/기준 페이지는 서로 독립 (입력값 우선)
+        const total = state.pdf.numPages;
+
+        const start = clamp(readIntOr(startPageInput.value, 1), 1, total);
+        state.config.startPage = start;
+        startPageInput.value = String(start);
+
+        const base = clamp(readIntOr(basePageInput.value, start), 1, total);
+        state.config.basePage = base;
+        basePageInput.value = String(base);
+
+        setStatus(`PDF 로드 완료. 시작 페이지: ${start} / 기준 페이지: ${base}. 기준 페이지에서 위치를 맞춘 뒤 확정하세요.`);
+        updateDownloadAvailability();
+
+        await renderPage(base);
+      } catch (err) {
+        setStatus(err && err.message ? err.message : String(err));
+      } finally {
+        updateDownloadAvailability();
+      }
+    }
+
+    setupDropZone(pdfDrop, pdfInput, handlePdfFile);
+
+    // =========================
+    // 저장 직전: 페이지 밖 검사(PT 기준) + 생성
+    // =========================
+    function isOutOfBoundsPt(pageW, pageH, placement) {
+      const angleDegUser = placement.angleDeg || 0;
+
+      // 사용자 각도(+ 시계방향) → PDF(y-up)에서는 음수 회전이 시계방향
+      const theta = (-angleDegUser) * Math.PI / 180;
+      const cos = Math.cos(theta);
+      const sin = Math.sin(theta);
+
+      const CX = placement.normX * pageW;
+      const CY = placement.normY * pageH;
+
+      const hw = STAMP_W_PT / 2;
+      const hh = STAMP_H_PT / 2;
+
+      const corners = [
+        [-hw, -hh],
+        [ hw, -hh],
+        [ hw,  hh],
+        [-hw,  hh]
+      ];
+
+      for (const [x, y] of corners) {
+        const xr = x * cos - y * sin;
+        const yr = x * sin + y * cos;
+        const X = CX + xr;
+        const Y = CY + yr;
+        if (X < 0 || X > pageW || Y < 0 || Y > pageH) return true;
+      }
+      return false;
+    }
+
+    async function stampAndDownload() {
+      if (!state.pdf.bytesForSave || !state.files.pdf) throw new Error("PDF 파일을 업로드하세요.");
+      if (!state.stamp.pngBytes) throw new Error("기본 도장(stamp_copy.png)을 불러오지 못했습니다.");
+      if (!state.config.baseLocked || !state.placement.default) throw new Error("기준 위치를 먼저 확정하세요.");
+      if (!window.PDFLib) throw new Error("pdf-lib 로드 실패(CDN 차단 여부 확인).");
+
+      const opacity = getOpacity();
+      const { PDFDocument, degrees } = PDFLib;
+
+      setStatus("PDF 처리 준비 중…");
+      const pdfDoc = await PDFDocument.load(state.pdf.bytesForSave);
+
+      const stampImg = await pdfDoc.embedPng(state.stamp.pngBytes);
+      const pages = pdfDoc.getPages();
+
+      // 생성 전: 페이지 밖 검증
+      const outPages = [];
+      for (let i = 0; i < pages.length; i++) {
+        const pageNum = i + 1;
+
+        // 시작 페이지 이전 스킵
+        if (pageNum < state.config.startPage) continue;
+
+        // 삭제 페이지 스킵
+        if (state.placement.disabled[pageNum]) continue;
+
+        const placement = state.placement.overrides[pageNum] || state.placement.default;
+        if (!placement) continue;
+
+        const page = pages[i];
+        const { width: pageW, height: pageH } = page.getSize();
+
+        if (isOutOfBoundsPt(pageW, pageH, placement)) outPages.push(pageNum);
+      }
+
+      if (outPages.length) {
+        const list = outPages.slice(0, 30).join(", ") + (outPages.length > 30 ? " …" : "");
+        const ok = confirm(
+          `도장이 페이지 밖으로 나가는 페이지가 있습니다:\n${list}\n\n그래도 PDF를 생성할까요?`
+        );
+        if (!ok) throw new Error("사용자가 취소했습니다.");
+      }
+
+      for (let i = 0; i < pages.length; i++) {
+        const pageNum = i + 1;
+
+        // 시작 페이지 이전 스킵
+        if (pageNum < state.config.startPage) continue;
+
+        // 삭제 페이지 스킵
+        if (state.placement.disabled[pageNum]) continue;
+
+        const placement = state.placement.overrides[pageNum] || state.placement.default;
+        if (!placement) continue;
+
+        const angleDegUser = placement.angleDeg || 0;
+        const pdfRotateDeg = -angleDegUser;
+
+        const theta = pdfRotateDeg * Math.PI / 180;
+        const cos = Math.cos(theta);
+        const sin = Math.sin(theta);
+
+        // 회전 중심(센터) 보정
+        const cxRot = (STAMP_W_PT / 2) * cos - (STAMP_H_PT / 2) * sin;
+        const cyRot = (STAMP_W_PT / 2) * sin + (STAMP_H_PT / 2) * cos;
+
+        const page = pages[i];
+        const { width: pageW, height: pageH } = page.getSize();
+
+        const CX = placement.normX * pageW;
+        const CY = placement.normY * pageH;
+
+        const x = CX - cxRot;
+        const y = CY - cyRot;
+
+        page.drawImage(stampImg, {
+          x, y,
+          width: STAMP_W_PT,
+          height: STAMP_H_PT,
+          rotate: degrees(pdfRotateDeg),
+          opacity
+        });
+
+        if (i === pages.length - 1 || i % 2 === 0) {
+          setStatus(`페이지 처리 중… (${i + 1}/${pages.length})`);
+          await new Promise(r => setTimeout(r, 0));
+        }
+      }
+
+      const outBytes = await pdfDoc.save({ useObjectStreams: true });
+      const outBlob = new Blob([outBytes], { type: "application/pdf" });
+
+      const base = state.files.pdf.name.replace(/\.pdf$/i, "");
+      downloadBlob(outBlob, `stamped_${base}.pdf`);
+      setStatus("완료! 다운로드가 시작되었습니다.");
+    }
+
+    downloadBtn.addEventListener("click", async () => {
+      downloadBtn.disabled = true;
+      try {
+        await stampAndDownload();
+      } catch (err) {
+        setStatus(err && err.message ? err.message : String(err));
+      } finally {
+        updateDownloadAvailability();
+      }
+    });
+
+    // =========================
+    // 리사이즈: 현재 페이지 재렌더
+    // =========================
+    let resizeTimer = null;
+    window.addEventListener("resize", () => {
+      if (!state.pdf.doc) return;
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(async () => {
+        try { await renderPage(state.pdf.currentPage); } catch (_) {}
+      }, 200);
+    });
+
+    // =========================
+    // 부팅: 기본 도장 로드
+    // =========================
+    (async () => {
+      try {
+        await loadBuiltInStamp();
+      } catch (err) {
+        setStatus(err && err.message ? err.message : String(err));
+      } finally {
+        updateDownloadAvailability();
+      }
+    })();
+  </script>
+
+  <script src="/static/disable-copy.js"></script>
+  <script src="/static/footer.js"></script>
+  <script src="/static/global-loader.js?v=1"></script>
+</body>
+</html>
