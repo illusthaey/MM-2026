@@ -886,3 +886,7 @@ body h2 + hr {
 }
 
 
+.table-wrap .simple-table th,
+.table-wrap .simple-table td {
+  text-align: center;
+}
