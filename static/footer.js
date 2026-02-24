@@ -12,7 +12,7 @@
 <footer class="site-footer">
   <div class="shell">
     © <span id="footer-year"></span>.
-    업무천재 고주무관. All rights reserved. · Contact: edusproutcomics@naver.com · 개인 제작·운영 웹페이지.<br/>
+    문막사랑 업무천재 고주무관♡♡. All rights reserved. · Contact: edusproutcomics@naver.com · 개인 제작·운영 웹페이지.<br/>
     </div>
 </footer>
 `.trim();
