@@ -1,7 +1,7 @@
 // /static/disable-copy.js
 (function(){
   const host = location.hostname||""
-  const ok = ["edusprouthaey.co.kr","narcolepsyhaeyisking.co.kr","localhost","127.0.0.1"].includes(host)
+  const ok = ["edusprouthaey.co.kr","eduworkhaey.co.kr","localhost","127.0.0.1"].includes(host)
   if(!ok) return
 
   try{document.title+=" •"}catch(_){}
