@@ -1,1 +1,271 @@
-11
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+
+  <!-- ✅ TODO: 페이지 제목 바꾸기 -->
+  <title>유용한 기능 모음</title>
+
+  <link rel="icon" href="/static/favicon.ico" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+
+<body>
+<main class="container" id="pageMain">
+
+  <!-- ✅ TODO: 페이지 제목/설명 바꾸기 -->
+  <h1>유용한 기능 모음</h1>
+  <p class="muted">
+    ·업무 처리에 도움이 되는 각종 유용한 기능을 모아두는 페이지입니다. 
+  </p>
+  <hr/>
+
+  <!-- 안내/주의 -->
+  <section class="section">
+    <h2>서류 작성 관련</h2>
+    <hr/>
+    <p class="muted">
+      ·<br/>
+    </p>
+  </section>
+
+  <!-- 입력 -->
+  <section class="section" id="secInput">
+    <h2 class="local-h2">입력</h2>
+    <hr/>
+
+    <div class="grid two">
+      <div class="field">
+        <label for="inputA"><strong>입력 A</strong></label><br/>
+        <input
+          id="inputA"
+          type="number"
+          inputmode="numeric"
+          placeholder="예: 100000"
+        />
+        <div class="muted local-small">·입력 A 설명(단위/범위/주의사항)</div>
+      </div>
+
+      <div class="field">
+        <label for="inputB"><strong>입력 B</strong></label><br/>
+        <input
+          id="inputB"
+          type="number"
+          inputmode="decimal"
+          placeholder="예: 3.5"
+          step="0.01"
+        />
+        <div class="muted local-small">·입력 B 설명(단위/범위/주의사항)</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="row gap">
+        <button class="btn primary" type="button" id="btnCalc">계산하기</button>
+        <button class="btn ghost" type="button" id="btnReset">초기화</button>
+      </div>
+      <p class="note muted" id="msg" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <!-- 결과 -->
+  <section class="section" id="secResult">
+    <h2 class="local-h2">결과</h2>
+    <hr/>
+
+    <div class="grid two">
+      <div class="card">
+        <h3 class="local-h3 local-tight">결과 1</h3>
+        <div class="row between">
+          <div class="muted">요약</div>
+          <strong id="out1">-</strong>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="local-h3 local-tight">결과 2</h3>
+        <div class="row between">
+          <div class="muted">요약</div>
+          <strong id="out2">-</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- 필요하면 표로 상세 결과 -->
+    <div class="table-wrap">
+      <table class="sheetlike simple-table" aria-label="상세 결과 표">
+        <thead>
+          <tr>
+            <th>항목</th>
+            <th>값</th>
+          </tr>
+        </thead>
+        <tbody id="detailBody">
+          <tr>
+            <td>예시</td>
+            <td class="numeric">-</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="muted local-small">
+      ·결과는 참고용이며, 최종 판단/검증은 사용자 책임입니다.
+    </p>
+  </section>
+
+  <noscript>
+    <section class="section">
+      <h2 class="local-h2">안내</h2>
+      <hr/>
+      <p class="muted">이 페이지는 JavaScript가 필요합니다. 브라우저 설정에서 JavaScript를 활성화해 주세요.</p>
+    </section>
+  </noscript>
+
+</main>
+
+<!-- ========================= 페이지 전용 스크립트 ========================= -->
+<script>
+(() => {
+  "use strict";
+
+  const $ = (id) => document.getElementById(id);
+
+  function setMsg(text) {
+    const el = $("msg");
+    if (!el) return;
+    el.textContent = text || "";
+  }
+
+  function toNumber(v) {
+    // "1,234" 같은 입력도 대비
+    const n = Number(String(v ?? "").replace(/,/g, "").trim());
+    return Number.isFinite(n) ? n : NaN;
+  }
+
+  function fmt(n, digits = 0) {
+    if (!Number.isFinite(n)) return "-";
+    return n.toLocaleString("ko-KR", {
+      minimumFractionDigits: digits,
+      maximumFractionDigits: digits,
+    });
+  }
+
+  function clearOutputs() {
+    const out1 = $("out1");
+    const out2 = $("out2");
+    if (out1) out1.textContent = "-";
+    if (out2) out2.textContent = "-";
+
+    const detailBody = $("detailBody");
+    if (detailBody) {
+      detailBody.innerHTML = '<tr><td>예시</td><td class="numeric">-</td></tr>';
+    }
+  }
+
+  function validateInputs(a, b) {
+    // ✅ TODO: 각 페이지 요구사항에 맞게 검증 규칙 수정
+    if (!Number.isFinite(a)) return "입력 A가 숫자가 아닙니다.";
+    if (!Number.isFinite(b)) return "입력 B가 숫자가 아닙니다.";
+    if (a < 0) return "입력 A는 0 이상이어야 합니다.";
+    if (b < 0) return "입력 B는 0 이상이어야 합니다.";
+    return "";
+  }
+
+  function calculate(a, b) {
+    // ✅ TODO: 여기서 “진짜 계산 로직” 작성
+    // 템플릿 기본은 데모용: (A * B)와 (A + B)
+    const r1 = a * b;
+    const r2 = a + b;
+
+    // 표로 뿌릴 상세항목 예시
+    const details = [
+      ["입력 A", fmt(a)],
+      ["입력 B", fmt(b, 2)],
+      ["A × B", fmt(r1, 2)],
+      ["A + B", fmt(r2, 2)],
+    ];
+
+    return { r1, r2, details };
+  }
+
+  function render(result) {
+    $("out1").textContent = fmt(result.r1, 2);
+    $("out2").textContent = fmt(result.r2, 2);
+
+    const detailBody = $("detailBody");
+    if (detailBody) {
+      detailBody.innerHTML = result.details
+        .map(([k, v]) => `<tr><td>${escapeHtml(k)}</td><td class="numeric">${escapeHtml(v)}</td></tr>`)
+        .join("");
+    }
+  }
+
+  function escapeHtml(s) {
+    return String(s ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    // 뒤로가기 버튼
+    const back = $("btnBack");
+    if (back) {
+      back.addEventListener("click", () => {
+        if (history.length > 1) history.back();
+        else location.href = "/";
+      });
+    }
+
+    // 초기화
+    const reset = $("btnReset");
+    if (reset) {
+      reset.addEventListener("click", () => {
+        $("inputA").value = "";
+        $("inputB").value = "";
+        setMsg("");
+        clearOutputs();
+      });
+    }
+
+    // 계산
+    const calc = $("btnCalc");
+    if (calc) {
+      calc.addEventListener("click", () => {
+        setMsg("");
+
+        const a = toNumber($("inputA").value);
+        const b = toNumber($("inputB").value);
+
+        const err = validateInputs(a, b);
+        if (err) {
+          setMsg("· " + err);
+          clearOutputs();
+          return;
+        }
+
+        const result = calculate(a, b);
+        render(result);
+        setMsg("· 계산 완료");
+      });
+    }
+
+    // 첫 로딩 시 출력 초기화
+    clearOutputs();
+  });
+})();
+</script>
+
+<!-- ✅ 요청한 공통 스크립트 3종: body 닫기 직전에 삽입 -->
+<script src="/static/disable-copy.js"></script>
+<script src="/static/footer.js"></script>
+<script src="/static/global-loader.js?v=1"></script>
+
+</body>
+</html>
+
