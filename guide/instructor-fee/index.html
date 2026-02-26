@@ -2,156 +2,926 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="color-scheme" content="light" />
-  <title>강사료 지급 요청: 제출물/절차</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>방과후 외 일회성 강사료 지급 안내</title>
 
-  <link rel="icon" href="/static/favicon.ico" />
+  <!-- ✅ 공통 스타일(이미 static에 존재) -->
   <link rel="stylesheet" href="/static/style.css" />
 
   <style>
-    .toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);padding:10px 12px;border:1px solid #e5e5e5;border-radius:12px;background:rgba(255,255,255,0.95);box-shadow:0 10px 25px rgba(0,0,0,0.08);font-size:0.95rem;color:#111;z-index:9999;display:none;}
-    .refcode{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:0.95rem;}
-    .stamp{display:inline-block;padding:6px 10px;border:1px solid #e5e5e5;border-radius:999px;background:#fafafa;font-size:0.9rem;color:#444;}
+    /* =========================
+       이 페이지 전용 최소 보강
+       ========================= */
+
+    .top-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:center;
+      margin: 10px 0 0;
+    }
+
+    .pill {
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 6px 12px;
+      border: 1px solid #e5e7eb;
+      border-radius: 999px;
+      background: #fafafa;
+      font-size: 0.95rem;
+      color:#444;
+    }
+
+    .callout{
+      border: 1px solid #e5e5e5;
+      border-radius: 12px;
+      padding: 14px 16px;
+      background:#fafafa;
+      margin: 10px 0;
+    }
+
+    .callout strong{ color:#111; }
+
+    .toc{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      justify-content:center;
+      margin: 12px 0 0;
+    }
+
+    .toc a{
+      display:inline-block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid #d4d4d8;
+      background:#fff;
+      font-size: 0.95rem;
+    }
+
+    .toc a:hover{ background:#f3f4f6; }
+
+    /* --- 표(단가/요약) --- */
+    .mini-table{
+      width:100%;
+      border-collapse: collapse;
+      background:#fff;
+      overflow:hidden;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+    }
+    .mini-table th, .mini-table td{
+      border-bottom: 1px solid #eef2f7;
+      padding: 10px 12px;
+      text-align:left;
+      vertical-align: top;
+      font-size: 1rem;
+    }
+    .mini-table th{
+      background:#f9fafb;
+      font-weight: 700;
+      width: 32%;
+    }
+    .mini-table tr:last-child th,
+    .mini-table tr:last-child td{ border-bottom:none; }
+
+    /* =========================
+       체크리스트(커스텀 체크박스)
+       - PDF 캡처 안정성을 위해 input은 숨기고 label에 표시
+       ========================= */
+    .check-wrap{
+      display:grid;
+      gap:12px;
+    }
+
+    .check-meta{
+      display:grid;
+      gap:12px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    .field{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .field label{
+      font-size: 0.95rem;
+      color:#555;
+    }
+
+    .check-group{
+      border: 1px solid #e5e5e5;
+      background:#fff;
+      border-radius: 12px;
+      padding: 14px 14px;
+    }
+
+    .check-group h3{
+      margin-top:0;
+      display:flex;
+      align-items:baseline;
+      gap:10px;
+    }
+
+    .check-list{
+      display:grid;
+      gap:10px;
+      margin-top: 10px;
+    }
+
+    .check-item{
+      position: relative;
+      border: 1px solid #eef2f7;
+      background:#fafafa;
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+
+    .check-item input[type="checkbox"]{
+      position:absolute;
+      opacity:0;
+      pointer-events:none;
+    }
+
+    .check-item label{
+      position: relative;
+      display:block;
+      padding-left: 34px;
+      cursor:pointer;
+      color:#222;
+    }
+
+    .check-item label::before{
+      content:"";
+      position:absolute;
+      left: 0;
+      top: 2px;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #111;
+      border-radius: 4px;
+      background:#fff;
+      box-sizing:border-box;
+    }
+
+    .check-item input:checked + label::after{
+      content:"✓";
+      position:absolute;
+      left: 4px;
+      top: -1px;
+      font-size: 20px;
+      font-weight: 900;
+      color:#111;
+      line-height: 1;
+    }
+
+    .check-title{
+      font-weight: 800;
+      color:#111;
+    }
+    .check-desc{
+      margin-top: 4px;
+      color:#444;
+      font-size: 0.98rem;
+      line-height: 1.5;
+    }
+
+    .hint{
+      font-size: 0.95rem;
+      color:#666;
+      margin-top: 6px;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding: .2em .6em;
+      border-radius: 999px;
+      border: 1px solid #e5e7eb;
+      background:#fff;
+      font-size: 0.9rem;
+      color:#555;
+      font-weight: 700;
+    }
+
+    /* PDF 캡처 시 버튼/가이드 숨김 */
+    .is-exporting [data-export-hide="1"]{
+      display:none !important;
+    }
+
+    /* PDF 로딩 오버레이 */
+    .pdf-busy{
+      position: fixed;
+      inset: 0;
+      z-index: 2147483647;
+      background: rgba(0,0,0,0.45);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 20px;
+    }
+    .pdf-busy[hidden]{ display:none; }
+    .pdf-busy-card{
+      width:min(520px, 92vw);
+      border-radius: 16px;
+      background:#fff;
+      border: 1px solid #e5e7eb;
+      padding: 18px 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+    }
+    .pdf-busy-title{
+      font-size: 1.15rem;
+      font-weight: 900;
+      color:#111;
+      margin: 0 0 6px;
+    }
+    .pdf-busy-desc{
+      margin:0;
+      color:#555;
+      font-size: 1rem;
+      line-height: 1.55;
+    }
+
+    /* 출력(인쇄) 대비: 혹시 인쇄로도 저장할 때 버튼 숨김 */
+    @media print{
+      [data-export-hide="1"]{ display:none !important; }
+      .site-header{ display:none !important; }
+      body{ background:#fff; }
+      main.container{ padding-top: 0 !important; }
+    }
   </style>
 </head>
 
 <body>
-  <div class="home-link-wrap">
-    <a class="btn-home" href="/index.html">← 메인으로</a>
-    <button class="btn btn-lightgrey" type="button" id="btnCopy">이 페이지 링크 복사</button>
-  </div>
-
-  <header class="site-header">
+  <header class="site-header" data-export-hide="1">
     <div class="shell">
-      <h1>강사료 지급 요청: 제출물/절차</h1>
-      <p class="subtitle">제출물 미비 시 반려합니다. (추가요청으로 왕복하지 않음)</p>
+      <div class="row between">
+        <div class="pill">
+          <span class="accent">교직원 안내</span>
+          <span class="muted">· 방과후(늘봄) 강사 제외</span>
+        </div>
+        <div class="row gap">
+          <a class="btn ghost" href="#checklist">체크리스트로 이동</a>
+          <a class="btn ghost" href="#faq">자주 묻는 질문</a>
+        </div>
+      </div>
     </div>
   </header>
 
   <main class="container">
+    <h1>방과후 외 <span class="accent text-sky">일회성 강사료</span> 지급 안내</h1>
+    <p class="subtitle">
+      단회 특강·진로강연·행사 강의 등 “일시적 초빙” 지급을 빠르게 정리한 안내 페이지입니다.
+      (세부 적용은 학교 계약 형태/업무 성격에 따라 달라질 수 있습니다.)
+    </p>
 
-    <section class="section">
-      <div class="row between">
-        <h2 class="local-h2 local-tight">적용범위 · 처리기준 · 근거</h2>
-        <span class="stamp">미비=반려</span>
-      </div>
-      <div class="card">
-        <p><b>적용범위</b>: 강사료 지급(외부강사 포함) 요청 및 정산</p>
-        <p><b>처리기준(요약)</b>: (1) 산출표(엑셀) (2) 출석/운영 증빙 (3) 지급정보 (4) 계약/위촉 근거 (5) 마감 준수</p>
-        <hr />
-        <p><b>근거(문서번호/지침)</b></p>
+    <div class="toc" data-export-hide="1">
+      <a href="#scope">① 적용 범위</a>
+      <a href="#withholding">② 원천징수(세금)</a>
+      <a href="#docs">③ 구비서류</a>
+      <a href="#process">④ 지급 절차</a>
+      <a href="#checklist">⑤ 체크리스트(PDF)</a>
+    </div>
+
+    <section class="section" id="scope">
+      <h2>① 적용 범위: “방과후 제외, 단회 지급”이 핵심</h2>
+
+      <div class="callout">
+        <p style="margin-top:0;">
+          이 페이지는 주로 아래 상황을 대상으로 합니다.
+        </p>
         <ul>
-          <li><span class="refcode">[강사료 지급 안내]</span> 문서번호: <span class="refcode">[예: 2026-○○○○]</span></li>
-          <li><span class="refcode">[학교회계 집행/마감]</span> 문서번호: <span class="refcode">[예: 2026-○○○○]</span></li>
+          <li><strong>단회 특강/진로강연/행사 강의</strong> 등 일시적 강의 용역</li>
+          <li>학교가 강사를 “외부에서 초빙”하여 <strong>한 번(또는 짧은 기간)</strong> 강의하고 종료되는 경우</li>
+          <li>학교회계 예산상 <strong>운영수당(외부강사 수당 등)</strong>으로 집행되는 유형</li>
         </ul>
+        <p class="muted" style="margin-bottom:0;">
+          반복·계속적으로 운영되는 방과후/늘봄 강의는 과세(사업소득)·보험(노무제공자) 적용이 달라질 수 있어, 별도 안내를 권장합니다.
+        </p>
+      </div>
+
+      <h3>예산 편성/집행 메모</h3>
+      <table class="mini-table" aria-label="예산 메모">
+        <tr>
+          <th>편성 비목(실무 메모)</th>
+          <td>
+            학교회계 운영비 &gt; 학교운영비 &gt; 일반운영비 &gt; <strong>운영수당</strong><br/>
+            <span class="muted">※ 외부강사 수당, 외부강사 교통비·숙박비 등 실비성 지급이 이 범주에 포함될 수 있음</span>
+          </td>
+        </tr>
+        <tr>
+          <th>지급 원칙(권장)</th>
+          <td>
+            강의 종료 후 <strong>14일 이내 지급</strong>을 내부 기준으로 잡아두면 민원/정산 지연이 줄어듭니다.<br/>
+            정당한 채권자(강사 본인) 계좌로 지급하는 방식이 안전합니다.
+          </td>
+        </tr>
+      </table>
+
+      <h3>단가(등급) 안내</h3>
+      <div class="card">
+        <p style="margin-top:0;">
+          강사료 단가는 <strong>강사 경력·자격·직위</strong>에 따라 달라질 수 있으므로, 사업부서 품의 단계에서
+          <strong>강사 구분(특별/일반 등)</strong>을 먼저 확인하도록 안내하세요.
+        </p>
+        <ul>
+          <li><strong>특별강사</strong>: 전·현직 장관/국회의원/대학총장 등(기관 내부 기준표 적용)</li>
+          <li><strong>일반강사(상)</strong>: 고경력 공무원/대학 부교수 이상/전문직 등</li>
+          <li><strong>일반강사(하)</strong>: 그 외 일반 강사</li>
+        </ul>
+        <p class="muted" style="margin-bottom:0;">
+          단가 표는 연도/기관 지침에 따라 달라질 수 있으니 “해당 연도 기준단가표”를 우선 적용하세요.
+        </p>
+      </div>
+
+      <div class="callout">
+        <p style="margin:0;">
+          <strong>지급 제한(원칙)</strong>: <strong>본교 소속 교직원</strong>은 자기 소속 학교에서의 강의에 대해
+          강사료 지급이 제한되는 경우가 많습니다. <span class="muted">(예외 가능성은 별도 규정/사전 승인 여부 확인)</span>
+        </p>
       </div>
     </section>
 
-    <section class="section">
-      <h2>필수 제출물 체크리스트</h2>
-      <div class="card">
-        <ul>
-          <li><b>강사료 산출내역(엑셀)</b>: 시간×단가×횟수, 합계 확인 가능</li>
-          <li><b>출석/운영 증빙</b>: 운영일지 또는 출석부(서명 포함)</li>
-          <li><b>강사 지급정보</b>: 통장사본 등</li>
-          <li><b>계약/위촉 근거</b>: 계약서/위촉장 등</li>
-        </ul>
-      </div>
-    </section>
+    <section class="section" id="withholding">
+      <h2>② 원천징수(세금): “기타소득 8.8%”가 가장 흔한 케이스</h2>
 
-    <section class="section">
-      <h2>반려 기준(대표)</h2>
       <div class="grid two">
         <div class="card">
-          <h3 class="local-h3">서류 미비</h3>
+          <h3 class="local-h2" style="margin-top:0;">기타소득(일시적 초빙)</h3>
           <ul>
-            <li>산출표 누락 또는 합계 불일치</li>
-            <li>출석/운영 증빙 없음</li>
-            <li>지급정보 누락</li>
+            <li>전문 강사업이 “본업”이 아닌 사람이 <strong>단회로 강의</strong>하는 경우가 대표적</li>
+            <li>
+              원천징수는 보통 <strong>8.8%</strong>로 안내합니다.<br/>
+              <span class="muted">계산 논리: 총지급액 × (1-필요경비60%) = 소득금액(40%) → 그 금액에 세율(소득세+지방소득세)을 적용</span>
+            </li>
+            <li>
+              <strong>과세최저한</strong>: 소득금액(총액의 40%)이 <strong>5만원 이하</strong>면 원천징수 세액이 발생하지 않는 구조라,
+              총지급액 기준으로는 <strong>125,000원 이하</strong>가 실무 기준선으로 자주 쓰입니다.
+            </li>
           </ul>
         </div>
+
         <div class="card">
-          <h3 class="local-h3">근거 불명확</h3>
+          <h3 class="local-h2" style="margin-top:0;">사업소득(계속·반복)</h3>
           <ul>
-            <li>단가 근거 누락</li>
-            <li>계약/위촉 절차 미이행</li>
+            <li>강사가 <strong>독립된 자격</strong>으로 계속/반복 강의(예: 방과후·늘봄, 상시 위탁 등)</li>
+            <li><strong>3.3%</strong> 원천징수가 통상 안내되는 구간</li>
+            <li class="muted">※ 반복성/계속성 판단은 계약 형태·기간·대체 가능성 등 사실관계에 따라 달라질 수 있음</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout">
+        <p style="margin:0;">
+          <strong>사회보험(고용·산재) 메모</strong>: “노무제공자” 성격(계속 제공/계약 형태)에 해당하면 보험 적용 및 신고가 필요할 수 있습니다.
+          <span class="muted">요율은 연도별로 변동 가능성이 있으니 공단 고시 기준으로 확인하는 흐름을 권장합니다.</span>
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="docs">
+      <h2>③ 필수 구비서류: “정산에 필요한 최소 + 학생 대면 시 추가”로 나누기</h2>
+
+      <div class="grid two">
+        <div class="card">
+          <h3 class="local-h2" style="margin-top:0;">정산/지급 필수(기본)</h3>
+          <ul>
+            <li>강사 본인 명의 <strong>통장 사본</strong></li>
+            <li><strong>신분증 사본</strong>(본인 확인)</li>
+            <li><strong>강의 확인서</strong>(출석부/운영일지/강의시간 확인 자료)</li>
+            <li>
+              원천징수 신고에 필요한 인적사항<br/>
+              <span class="muted">(주민등록번호/외국인등록번호, 주소 등은 최소 수집·안전 보관)</span>
+            </li>
+            <li><strong>계약서</strong>(용역/위탁/강의계약 등 학교 내부 기준에 맞는 서면)</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3 class="local-h2" style="margin-top:0;">해당 시 추가(학생 대면/반복 운영 등)</h3>
+          <ul>
+            <li>
+              학생을 직접 지도·접촉하는 강의라면<br/>
+              <strong>성범죄 경력 및 아동학대 관련 범죄전력 조회</strong> 동의/확인 절차를 사전에 진행
+            </li>
+            <li>장기간/반복 강의·상시 운영 형태라면 보험/신고·추가 서류가 늘어날 수 있음</li>
+            <li class="muted">※ 어떤 추가 서류가 “의무”인지는 강사 역할(대면·단독 지도 등)과 지침 적용 범위에 따라 달라질 수 있습니다.</li>
           </ul>
         </div>
       </div>
     </section>
 
+    <section class="section" id="process">
+      <h2>④ 지급 절차(권장 흐름): “사전 품의 → 강의 확인 → 공제/지급 → 보고”</h2>
+
+      <div class="card">
+        <ol style="margin:0;">
+          <li>
+            <strong>사전 품의(사업부서)</strong>:
+            강사 구분/단가, 강의 시간, 계약 형태, 예산 비목(운영수당), 소득 유형(기타/사업)까지 한 번에 정리
+          </li>
+          <li>
+            <strong>계약 체결</strong>:
+            강의 일시·장소·내용·금액·지급일(또는 “종료 후 ○일 이내”) 명시
+          </li>
+          <li>
+            <strong>강의 완료 확인</strong>:
+            출석부/확인서로 실제 강의시간 확정(정산 근거)
+          </li>
+          <li>
+            <strong>원천징수/공제 산정(행정실)</strong>:
+            기타소득/사업소득 구분 후 원천징수 적용, 필요 시 보험 적용 여부 점검
+          </li>
+          <li>
+            <strong>지급(계좌이체)</strong>:
+            강사 본인 계좌로 지급(증빙 정리)
+          </li>
+          <li>
+            <strong>사후 보고/제출</strong>:
+            지급명세서(간이지급명세서 등) 및 관련 신고는 학교 내부 캘린더로 마감 관리
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" id="checklist">
+      <h2>⑤ 강사료 지급 체크리스트 (웹 체크 + PDF 저장)</h2>
+
+      <div class="callout" data-export-hide="1">
+        <p style="margin:0;">
+          아래 체크리스트는 <strong>자동저장</strong>됩니다.  
+          버튼으로 <strong>빈 템플릿 PDF</strong> 또는 <strong>현재 체크 상태 PDF</strong>를 다운로드할 수 있습니다.
+        </p>
+      </div>
+
+      <div class="row gap" data-export-hide="1" style="justify-content:center; margin-top: 12px;">
+        <button class="btn pastel-blue" id="btnPdfBlank" type="button">빈 템플릿 PDF 다운로드</button>
+        <button class="btn pastel-green" id="btnPdfCurrent" type="button">현재 체크 상태로 PDF 저장</button>
+        <button class="btn pastel-grey" id="btnReset" type="button">초기화</button>
+        <span class="badge" id="saveBadge" title="브라우저에 자동 저장됩니다">자동저장: 켜짐</span>
+      </div>
+
+      <!-- ✅ PDF 캡처 대상 영역 -->
+      <div id="pdfCapture" class="check-wrap" style="margin-top: 14px;">
+        <div class="check-group">
+          <h3 style="margin-top:0;">기본 정보</h3>
+          <div class="check-meta">
+            <div class="field">
+              <label for="fTitle">사업(행사)명</label>
+              <input id="fTitle" type="text" placeholder="예: 2026 진로특강(1차)" />
+            </div>
+            <div class="field">
+              <label for="fLecturer">강사 성명</label>
+              <input id="fLecturer" type="text" placeholder="예: 홍길동" />
+            </div>
+            <div class="field">
+              <label for="fDept">담당 부서/담당자</label>
+              <input id="fDept" type="text" placeholder="예: 교무부 / ○○○" />
+            </div>
+            <div class="field">
+              <label for="fDate">강의(행사) 일자</label>
+              <input id="fDate" type="date" />
+            </div>
+            <div class="field">
+              <label for="fPayDate">지급(예정)일</label>
+              <input id="fPayDate" type="date" />
+            </div>
+            <div class="field">
+              <label for="fAmount">총 지급액(원)</label>
+              <input id="fAmount" type="number" inputmode="numeric" placeholder="예: 200000" />
+            </div>
+          </div>
+          <p class="hint" style="margin-bottom:0;">
+            메모: 단회 특강은 보통 <strong>기타소득(8.8%)</strong> 안내가 많고, 반복·계속이면 <strong>사업소득(3.3%)</strong> 가능성을 점검합니다.
+          </p>
+        </div>
+
+        <div class="check-group">
+          <h3 style="margin-top:0;">1) 채용/계약 단계 (사전 확인)</h3>
+          <div class="check-list">
+            <div class="check-item">
+              <input type="checkbox" id="c1" />
+              <label for="c1">
+                <div class="check-title">강사 구분·자격 확인(단가 기준)</div>
+                <div class="check-desc">특별/일반 등 내부 기준표에 따라 단가 적용이 맞는지 확인</div>
+              </label>
+            </div>
+
+            <div class="check-item">
+              <input type="checkbox" id="c2" />
+              <label for="c2">
+                <div class="check-title">지급 제한 대상 점검</div>
+                <div class="check-desc">본교 소속 교직원 등 “원칙적 제한” 대상인지 확인(예외는 승인/근거 확인)</div>
+              </label>
+            </div>
+
+            <div class="check-item">
+              <input type="checkbox" id="c3" />
+              <label for="c3">
+                <div class="check-title">계약서(강의계약/용역계약) 작성</div>
+                <div class="check-desc">강의일시·시간·금액·지급시기·취소 규정·원천징수/보험 적용 여부 명시</div>
+              </label>
+            </div>
+
+            <div class="check-item">
+              <input type="checkbox" id="c4" />
+              <label for="c4">
+                <div class="check-title">예산 비목 확인(운영수당 등)</div>
+                <div class="check-desc">해당 사업 예산 범위 내 집행 가능 여부 확인(부서 품의 단계에서 고정)</div>
+              </label>
+            </div>
+
+            <div class="check-item">
+              <input type="checkbox" id="c5" />
+              <label for="c5">
+                <div class="check-title">학생 대면 강의라면(해당 시) 사전 조회/확인</div>
+                <div class="check-desc">성범죄·아동학대 관련 범죄전력 조회 등 “학생 보호” 절차가 필요한지 점검</div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="check-group">
+          <h3 style="margin-top:0;">2) 강의 이행/확인 단계</h3>
+          <div class="check-list">
+            <div class="check-item">
+              <input type="checkbox" id="c6" />
+              <label for="c6">
+                <div class="check-title">강의 확인서(출석부/운영일지) 수합</div>
+                <div class="check-desc">실제 강의시간·일자·대상·운영 결과가 확인되는 서류 확보</div>
+              </label>
+            </div>
+
+            <div class="check-item">
+              <input type="checkbox" id="c7" />
+              <label for="c7">
+                <div class="check-title">지급액 확정(시간·횟수·단가 재확인)</div>
+                <div class="check-desc">품의·계약 내용과 실제 이행이 일치하는지 확인 후 확정</div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="check-group">
+          <h3 style="margin-top:0;">3) 세금/보험 산정 단계</h3>
+          <div class="check-list">
+            <div class="check-item">
+              <input type="checkbox" id="c8" />
+              <label for="c8">
+                <div class="check-title">소득 유형 구분(기타소득 vs 사업소득)</div>
+                <div class="check-desc">단회·일시성은 기타소득 가능성이 높고, 계속·반복이면 사업소득 가능성 점검</div>
+              </label>
+            </div>
+
+            <div class="check-item">
+              <input type="checkbox" id="c9" />
+              <label for="c9">
+                <div class="check-title">원천징수 적용 및 과세최저한 점검</div>
+                <div class="check-desc">기타소득은 “총액 125,000원 이하” 등 실무 기준선 해당 여부 확인(구조상 소득금액 5만원 이하)</div>
+              </label>
+            </div>
+
+            <div class="check-item">
+              <input type="checkbox" id="c10" />
+              <label for="c10">
+                <div class="check-title">(해당 시) 노무제공자 보험 적용 여부 확인</div>
+                <div class="check-desc">계약 형태/반복성에 따라 고용·산재 적용 가능. 요율/신고는 공단 기준 확인</div>
+              </label>
+            </div>
+          </div>
+
+          <div class="hint">
+            계산 메모(기타소득 8.8% 안내 방식): <strong>총지급액 × 8.8%</strong> (필요경비 60% 공제 구조를 반영한 실무형 표기)
+          </div>
+        </div>
+
+        <div class="check-group">
+          <h3 style="margin-top:0;">4) 지급/보고 단계</h3>
+          <div class="check-list">
+            <div class="check-item">
+              <input type="checkbox" id="c11" />
+              <label for="c11">
+                <div class="check-title">통장/신분증 등 지급 필수 서류 확보</div>
+                <div class="check-desc">강사 본인 계좌로 지급하기 위한 증빙 확보(개인정보 최소 수집/안전 보관)</div>
+              </label>
+            </div>
+
+            <div class="check-item">
+              <input type="checkbox" id="c12" />
+              <label for="c12">
+                <div class="check-title">강사 본인 계좌로 지급(공제 후 실지급액)</div>
+                <div class="check-desc">세금/보험 공제 후 이체, 지출증빙과 함께 정리</div>
+              </label>
+            </div>
+
+            <div class="check-item">
+              <input type="checkbox" id="c13" />
+              <label for="c13">
+                <div class="check-title">지급명세서/신고 마감 관리(해당 시)</div>
+                <div class="check-desc">월별/연간 제출 대상이 있는지 확인하고 내부 캘린더로 마감 관리</div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="check-group">
+          <h3 style="margin-top:0;">메모</h3>
+          <div class="field">
+            <label for="fMemo">추가 특이사항(선택)</label>
+            <textarea id="fMemo" rows="4" placeholder="예: 지급 제한 예외 승인 근거, 계약 변경 사항, 담당자 확인 메모 등"></textarea>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <h2>자주 묻는 질문</h2>
+
+      <div class="card">
+        <h3 class="local-h2" style="margin-top:0;">Q1. “일회성”인데도 사업소득(3.3%)으로 보는 경우가 있나요?</h3>
+        <p>
+          강의가 사실상 <strong>계속·반복</strong> 운영이거나, 강사가 독립적으로 동일 유형의 용역을 상시 제공하는 구조라면
+          사업소득으로 판단될 여지가 있습니다. 핵심은 “계약/운영의 반복성”과 사실관계입니다.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3 class="local-h2" style="margin-top:0;">Q2. 기타소득 125,000원 기준은 왜 나오나요?</h3>
+        <p style="margin-bottom:0;">
+          기타소득은 실무에서 “필요경비 60% 공제 후 소득금액”을 기준으로 원천징수를 계산합니다.
+          소득금액이 5만원 이하가 되면 원천징수 세액이 발생하지 않는 구조라,
+          총액 기준으로는 125,000원(= 50,000 ÷ 0.4)이 자주 쓰이는 기준선이 됩니다.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3 class="local-h2" style="margin-top:0;">Q3. PDF가 여러 장으로 나뉘어 저장돼요.</h3>
+        <p style="margin-bottom:0;">
+          체크리스트가 A4 한 장을 넘으면 자동으로 여러 페이지로 분할됩니다. (의도된 동작)
+        </p>
+      </div>
+    </section>
+
     <section class="section">
-      <h2>표준 안내 문구(복사)</h2>
-
+      <h2>참고 메모</h2>
       <div class="card">
-        <div class="row between">
-          <h3 class="local-h3 local-tight">[반려] 제출물 미비</h3>
-          <button class="btn ghost copy" data-copy="강사료 지급 요청은 제출물 완비 후 처리합니다. 산출내역(엑셀)·출석/운영 증빙·지급정보 누락으로 반려합니다. (근거: [강사료 문서번호])">문구 복사</button>
-        </div>
+        <ul style="margin:0;">
+          <li>세율/보험 적용은 제도 개정으로 변동될 수 있으니, 연도별 지침·공단 기준을 우선 확인하세요.</li>
+          <li>개인정보(주민등록번호 등)는 “원천징수/지급명세서에 필요한 범위”에서 최소 수집·안전 보관이 원칙입니다.</li>
+        </ul>
       </div>
-
-      <div class="card">
-        <div class="row between">
-          <h3 class="local-h3 local-tight">[요청] 엑셀 산출내역 제출</h3>
-          <button class="btn ghost copy" data-copy="강사료 산출내역은 엑셀 파일로 제출 바랍니다(시간×단가×횟수 및 합계 확인 가능). 이미지/문장만으로는 처리할 수 없습니다. (근거: [강사료 문서번호])">문구 복사</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="row between">
-          <h3 class="local-h3 local-tight">[안내] 마감</h3>
-          <button class="btn ghost copy" data-copy="마감 이후 접수 건은 다음 회차 처리될 수 있습니다. 기한 내 제출 바랍니다. (근거: [회계마감 문서번호])">문구 복사</button>
-        </div>
-      </div>
-
     </section>
 
   </main>
 
-  <footer class="site-footer">
-    <div class="shell">
-      <p>본 문서는 안내용입니다. 최종 기준은 관련 지침·공문·결재 문서입니다.</p>
+  <!-- PDF 생성 로딩 오버레이 -->
+  <div id="pdfBusy" class="pdf-busy" hidden data-export-hide="1">
+    <div class="pdf-busy-card">
+      <p class="pdf-busy-title">PDF를 생성 중입니다</p>
+      <p class="pdf-busy-desc">체크리스트가 길면 브라우저가 잠깐 바쁠 수 있어요. 완료되면 자동으로 다운로드됩니다.</p>
     </div>
-  </footer>
+  </div>
 
-  <div class="toast" id="toast"></div>
+  <!-- ✅ 공통 스크립트(static) -->
+  <script defer src="/static/global-loader.js"></script>
+  <script defer src="/static/disable-copy.js"></script>
 
-  <script>
+  <!-- ✅ footer.js가 footer + 상단이동 버튼을 강제로 주입함 (HTML에 footer 만들지 말 것) -->
+  <script defer src="/static/footer.js"></script>
+
+  <!-- ✅ PDF 라이브러리(CDN) -->
+  <script defer src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
+  <script defer>
     (function(){
-      const $ = (s, el=document) => el.querySelector(s);
-      const $$ = (s, el=document) => Array.from(el.querySelectorAll(s));
+      const STORAGE_KEY = "eduworkhaey_oneoff_lecturer_fee_checklist_v1";
 
-      function toast(msg){
-        const t=$("#toast");
-        t.textContent=msg;
-        t.style.display="block";
-        clearTimeout(toast._timer);
-        toast._timer=setTimeout(()=>t.style.display="none",1400);
+      const $ = (sel) => document.querySelector(sel);
+      const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+      const elCapture = $("#pdfCapture");
+      const elBusy = $("#pdfBusy");
+
+      const fields = ["fTitle","fLecturer","fDept","fDate","fPayDate","fAmount","fMemo"].map(id => $("#"+id));
+      const checks = Array.from({length: 13}, (_,i) => $("#c"+(i+1)));
+
+      function nowYmdCompact(){
+        const d = new Date();
+        const yyyy = String(d.getFullYear());
+        const mm = String(d.getMonth()+1).padStart(2,"0");
+        const dd = String(d.getDate()).padStart(2,"0");
+        return `${yyyy}${mm}${dd}`;
       }
 
-      async function copyText(text){
-        try{ await navigator.clipboard.writeText(text); return true; }
-        catch{
-          const ta=document.createElement("textarea");
-          ta.value=text; ta.style.position="fixed"; ta.style.left="-9999px";
-          document.body.appendChild(ta); ta.focus(); ta.select();
-          let ok=false; try{ ok=document.execCommand("copy"); }catch{}
-          ta.remove(); return ok;
+      function safeValue(el){
+        if(!el) return "";
+        if(el.type === "checkbox") return !!el.checked;
+        return String(el.value || "");
+      }
+
+      function applyValue(el, val){
+        if(!el) return;
+        if(el.type === "checkbox") el.checked = !!val;
+        else el.value = (val ?? "");
+      }
+
+      function collectState(){
+        const state = {
+          _v: 1,
+          fields: {},
+          checks: {}
+        };
+        fields.forEach(el => state.fields[el.id] = safeValue(el));
+        checks.forEach(el => state.checks[el.id] = safeValue(el));
+        return state;
+      }
+
+      function saveState(){
+        try{
+          const state = collectState();
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        }catch(_){}
+      }
+
+      function restoreState(){
+        try{
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if(!raw) return;
+          const state = JSON.parse(raw);
+          if(!state || typeof state !== "object") return;
+
+          fields.forEach(el => applyValue(el, state.fields?.[el.id]));
+          checks.forEach(el => applyValue(el, state.checks?.[el.id]));
+        }catch(_){}
+      }
+
+      function resetAll(){
+        fields.forEach(el => applyValue(el, ""));
+        checks.forEach(el => applyValue(el, false));
+        try{ localStorage.removeItem(STORAGE_KEY); }catch(_){}
+      }
+
+      // ===== PDF 생성(캔버스 → A4 분할) =====
+      async function elementToCanvas(targetEl){
+        // 캡처 중 UI 숨김
+        document.body.classList.add("is-exporting");
+        elBusy.hidden = false;
+
+        // html2canvas는 스크롤/뷰포트 영향이 있을 수 있어 옵션을 보수적으로 설정
+        const canvas = await window.html2canvas(targetEl, {
+          scale: 2,
+          backgroundColor: "#ffffff",
+          useCORS: true
+        });
+
+        elBusy.hidden = true;
+        document.body.classList.remove("is-exporting");
+
+        return canvas;
+      }
+
+      function canvasToA4Pdf(canvas, filename){
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF("p", "mm", "a4");
+
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+
+        const margin = 10;
+        const usableWidth = pageWidth - margin*2;
+        const usableHeight = pageHeight - margin*2;
+
+        const canvasWidth = canvas.width;
+        const canvasHeight = canvas.height;
+
+        // A4 비율에 맞는 "페이지당 픽셀 높이"
+        const pageHeightPx = Math.floor(canvasWidth * (usableHeight / usableWidth));
+
+        let renderedHeight = 0;
+        let pageIndex = 0;
+
+        while(renderedHeight < canvasHeight){
+          const sliceHeight = Math.min(pageHeightPx, canvasHeight - renderedHeight);
+
+          const pageCanvas = document.createElement("canvas");
+          pageCanvas.width = canvasWidth;
+          pageCanvas.height = sliceHeight;
+
+          const ctx = pageCanvas.getContext("2d");
+          ctx.fillStyle = "#ffffff";
+          ctx.fillRect(0, 0, pageCanvas.width, pageCanvas.height);
+
+          ctx.drawImage(
+            canvas,
+            0, renderedHeight, canvasWidth, sliceHeight,
+            0, 0, canvasWidth, sliceHeight
+          );
+
+          const imgData = pageCanvas.toDataURL("image/png", 1.0);
+          const imgHeightMm = sliceHeight * (usableWidth / canvasWidth);
+
+          if(pageIndex > 0) pdf.addPage();
+          pdf.addImage(imgData, "PNG", margin, margin, usableWidth, imgHeightMm);
+
+          renderedHeight += sliceHeight;
+          pageIndex++;
+        }
+
+        pdf.save(filename);
+      }
+
+      // 빈 템플릿: DOM 복제 후 값/체크 제거
+      function makeBlankClone(){
+        const wrapper = document.createElement("div");
+        wrapper.style.position = "fixed";
+        wrapper.style.left = "-99999px";
+        wrapper.style.top = "0";
+        wrapper.style.width = (elCapture.offsetWidth || 880) + "px";
+        wrapper.style.background = "#fff";
+        wrapper.style.padding = "0";
+        wrapper.style.zIndex = "-1";
+
+        const clone = elCapture.cloneNode(true);
+
+        // id 중복 방지
+        clone.id = "pdfCaptureBlank";
+
+        // 입력값 초기화
+        clone.querySelectorAll("input, textarea, select").forEach((el) => {
+          if(el.type === "checkbox") el.checked = false;
+          else el.value = "";
+        });
+
+        wrapper.appendChild(clone);
+        document.body.appendChild(wrapper);
+
+        return { wrapper, clone };
+      }
+
+      async function exportPdf(mode){
+        try{
+          if(!window.html2canvas || !window.jspdf){
+            alert("PDF 라이브러리 로드에 실패했습니다. 네트워크 상태를 확인해 주세요.");
+            return;
+          }
+
+          let target = elCapture;
+          let cleanup = null;
+
+          if(mode === "blank"){
+            const made = makeBlankClone();
+            target = made.clone;
+            cleanup = () => { try{ made.wrapper.remove(); }catch(_){ } };
+          }
+
+          const canvas = await elementToCanvas(target);
+
+          const who = ($("#fLecturer")?.value || "").trim();
+          const title = ($("#fTitle")?.value || "").trim();
+
+          const baseName = (mode === "blank")
+            ? `일회성_강사료_체크리스트_템플릿_${nowYmdCompact()}.pdf`
+            : `일회성_강사료_체크리스트_${(who || "강사")}_${nowYmdCompact()}.pdf`;
+
+          // 파일명 너무 길어지면 축약
+          const safeName = baseName.length > 80 ? baseName.slice(0, 80) + ".pdf" : baseName;
+
+          canvasToA4Pdf(canvas, safeName);
+
+          if(cleanup) cleanup();
+        }catch(e){
+          try{ elBusy.hidden = true; }catch(_){}
+          document.body.classList.remove("is-exporting");
+          console.error(e);
+          alert("PDF 생성 중 오류가 발생했습니다. 브라우저를 새로고침 후 다시 시도해 주세요.");
         }
       }
 
-      $("#btnCopy").addEventListener("click", async ()=>{
-        const ok = await copyText(location.href);
-        toast(ok ? "링크 복사 완료" : "복사 실패");
-      });
+      // 이벤트 바인딩
+      function bind(){
+        // 자동 저장
+        const onChange = () => saveState();
+        fields.forEach(el => el.addEventListener("input", onChange));
+        checks.forEach(el => el.addEventListener("change", onChange));
 
-      $$(".copy").forEach(btn=>{
-        btn.addEventListener("click", async ()=>{
-          const ok = await copyText(btn.dataset.copy || "");
-          toast(ok ? "문구 복사 완료" : "복사 실패");
+        $("#btnReset").addEventListener("click", () => {
+          const ok = confirm("체크/입력 내용을 모두 초기화할까요?");
+          if(!ok) return;
+          resetAll();
         });
-      });
+
+        $("#btnPdfBlank").addEventListener("click", () => exportPdf("blank"));
+        $("#btnPdfCurrent").addEventListener("click", () => exportPdf("current"));
+      }
+
+      // 초기화
+      restoreState();
+      bind();
     })();
   </script>
 </body>
