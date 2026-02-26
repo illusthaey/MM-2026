@@ -10,10 +10,30 @@
   <link rel="stylesheet" href="/static/style.css" />
 
   <style>
-    /* 이 페이지에서만 쓰는 소량 스타일(기존 톤/간격 유지) */
+    /* 이 페이지에서만 쓰는 소량 스타일(기존 톤/간격 유지 + 가독성 보강) */
     .kicker { text-align:center; margin: 10px 0 0; color:#666; font-size:0.95rem; }
     .pill { display:inline-block; padding:6px 10px; border:1px solid #e5e5e5; border-radius:999px; background:#fafafa; font-size:0.9rem; color:#444; }
+    .left { display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-start; }
     .right { display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
+    .section-head { display:flex; align-items:flex-end; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+    .section-head h2 { margin:0; }
+    .toc a { text-decoration: underline; text-underline-offset: 2px; }
+
+    .callout {
+      border: 1px solid #e5e5e5;
+      border-radius: 12px;
+      background: #fafafa;
+      padding: 12px 14px;
+    }
+    .callout b { color:#111; }
+    .callout .muted { margin:6px 0 0; }
+
+    .checklist { margin: 10px 0 0; padding-left: 18px; }
+    .checklist li { margin: 6px 0; }
+
+    .steps { margin: 10px 0 0; padding-left: 18px; }
+    .steps li { margin: 6px 0; }
+
     .toast {
       position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%);
       padding: 10px 12px; border: 1px solid #e5e5e5; border-radius: 12px;
@@ -21,13 +41,10 @@
       font-size: 0.95rem; color:#111; z-index: 9999;
       display:none;
     }
-    /* 작은 TOC */
-    .toc a { text-decoration: underline; text-underline-offset: 2px; }
   </style>
 </head>
 
 <body>
-
   <main class="container">
 
     <h1>2026년 공무원 맞춤형복지 주요 안내사항</h1>
@@ -35,82 +52,90 @@
       ·관련: "[알림] 2026년 맞춤형 복지제도 운영계획 알림", 도교육청 총무과-2238(2026.2.3.)
     </p>
 
-<hr/>
+    <hr/>
 
     <!-- ========================= 포탈 링크 ========================= -->
     <section class="section">
-
-       <div>
-         <h2>맞춤형 복지 사이트</h2>
-         <a class="btn" href="https://www.gwp.or.kr" target="_blank" rel="noopener">맞춤형 복지 포탈 바로가기(링크)</a>
-         <p class="muted">
-           ·공무원 연금공단 맞춤형 복지 포탈에서 이용 가능합니다. (이지웰 X)
-       </div>
+      <div class="section-head">
+        <h2>맞춤형 복지 사이트</h2>
+        <div class="right">
+          <a class="btn" href="https://www.gwp.or.kr" target="_blank" rel="noopener">포탈 바로가기</a>
+          <button class="btn ghost btnCopy" type="button" data-url="https://www.gwp.or.kr">링크 복사</button>
+        </div>
+      </div>
+      <p class="muted" style="margin-top:10px;">
+        ·공무원연금공단 맞춤형 복지 포탈에서 이용 가능합니다. (이지웰 X)
+      </p>
     </section>
 
-
-
-
-    <!-- ========================= 요약 정리 ========================= -->    
-
-<section class="section">
-        <div>
-          <h2>주요 내용 요약</h2>
+    <!-- ========================= 요약 정리 ========================= -->
+    <section class="section">
+      <div class="section-head">
+        <h2>주요 내용 요약</h2>
         <div class="left">
           <span class="pill">오픈: 2026.02.12.(목) 예정</span>
           <span class="pill">자율항목 마감: 2026.12.09.(수)</span>
+          <span class="pill">인사변동자(3/1): 2026.02.26.(목) 24:00까지 청구</span>
         </div>
-        </div>
+      </div>
+
       <hr/>
 
-        <div class="card">
-          <p>
-            <h3>1. 오픈 및 마감 일정</h3> <br/>
-            <br/>
-            <b>·오픈 일자</b>: 2026.2.12.(목) <br/>
-            <b>·청구 마감 일자</b>: 2026.12.9.(수)까지 청구 가능. <br/>
-            (※마감일 이후 청구 및 지급 불가하며, 미사용 점수는 이월 또는 현금화할 수 없습니다. 12월은 청구 신청이 몰리는 기간이므로 2026.11월까지 사용 완료하시기를 권장드립니다.)
-            <br/>
-          </p>
+      <div class="card">
+        <h3 style="margin-top:0;">1. 오픈 및 마감 일정</h3>
+        <ul class="checklist">
+          <li><b>오픈 일자</b>: 2026.02.12.(목)</li>
+          <li><b>청구 마감 일자</b>: 2026.12.09.(수)까지 청구 가능</li>
+        </ul>
 
-          <p>
-            <b>2. 사용자 필수 확인 사항</b> <br/>
-            <br/>
-            1) 배정 점수 및 지급 계좌 확인
-            - 포탈 로그인 후 복지점수를 사용자 본인이 직접 확인합니다. (확인 항목: 기본, 근속, 가족 점수) <br/>
-            - 지급 계좌가 본인 명의인지 확인합니다. <br/>
-            ---> 잘못 배정된 경우 즉시 맞춤형 복지 담당자인 고주무관에게 변경을 요청하여 주십시오. <br/>
-            <br/>
-            
-            2) 인사 변동자 청구 관련
-            - 2026.3.1.일자 인사발령자는 2026.2.26.(목) 24:00까지 청구 완료하여 주십시오. (이후 일괄 승인처리 예정) <br/>
-            <br/>
+        <div class="callout" style="margin-top:10px;">
+          <b>마감 이후 유의</b>
+          <p class="muted" style="margin:6px 0 0;">
+            ·마감일 이후 청구 및 지급 불가<br/>
+            ·미사용 점수는 이월 또는 현금화 불가<br/>
+            ·12월은 청구 신청이 몰리므로 <b>2026.11월까지 사용 완료 권장</b>
           </p>
         </div>
-        </section>
 
+        <hr/>
 
-    
-    <!-- ========================= 목차별 바로가기 ========================= -->
-    <section class="section">
+        <h3 style="margin-top:0;">2. 사용자 필수 확인 사항</h3>
 
-       <div>
-         <h2>페이지 목차 (빠른 이동)</h2>
+        <h4 style="margin:10px 0 6px;">(1) 배정 점수 및 지급 계좌 확인</h4>
+        <ul class="checklist">
+          <li>포탈 로그인 후 복지점수를 사용자 본인이 직접 확인(기본/근속/가족 점수 등)</li>
+          <li>지급 계좌가 <b>본인 명의</b>인지 확인</li>
+          <li>오배정 시: 맞춤형 복지 담당자(고주무관)에게 즉시 변경 요청</li>
+        </ul>
 
-         <div class="toc" style="margin-top:10px;">
-           <b>
-             <p><a href="#sec-1">1. 운영 일정 및 시스템 이용 안내</a></p>
-             <p><a href="#sec-2">2. 복지점수 구성 및 배정</a> </p>
-             <p><a href="#sec-3">3. 특별 지원 및 건강검진 관련 안내</a> </p>
-             <p><a href="#sec-4">4. 단체보험 및 항목 선택</a> </p>
-             <p><a href="#sec-5">5. 신분 변동 시 유의 사항</a> </p>
-             <p><a href="#sec-6">6. 결제 및 청구 방식 안내</a> </p>
-             <p><a href="#sec-7">각종 서식 및 FAQ 다운로드</a> </p>
-           </b>
-       </div>
-       </div>
+        <h4 style="margin:10px 0 6px;">(2) 인사 변동자 청구 관련</h4>
+        <div class="callout">
+          <b>2026.03.01. 인사발령자</b>
+          <p class="muted" style="margin:6px 0 0;">
+            ·시스템상 전보(전출) 처리는 인사발령 이후 가능하므로, <b>발령 전</b> 청구/승인 완료가 안전합니다.<br/>
+            ·권장 마감: <b>2026.02.26.(목) 24:00까지</b> 청구 완료(이후 일괄 승인 처리 예정)
+          </p>
+        </div>
+      </div>
     </section>
-    
+
+    <!-- ========================= 목차 ========================= -->
+    <section class="section">
+      <div>
+        <h2>페이지 목차 (빠른 이동)</h2>
+        <div class="toc" style="margin-top:10px;">
+          <b>
+            <p><a href="#sec-1">1. 운영 일정 및 시스템 이용 안내</a></p>
+            <p><a href="#sec-2">2. 복지점수 구성 및 배정</a></p>
+            <p><a href="#sec-3">3. 특별 지원 및 건강검진 관련 안내</a></p>
+            <p><a href="#sec-4">4. 단체보험 및 항목 선택</a></p>
+            <p><a href="#sec-5">5. 신분 변동 시 유의 사항</a></p>
+            <p><a href="#sec-6">6. 결제 및 청구 방식 안내</a></p>
+            <p><a href="#sec-7">각종 서식 및 FAQ 다운로드</a></p>
+          </b>
+        </div>
+      </div>
+    </section>
 
     <!-- ========================= 1 ========================= -->
     <section class="section" id="sec-1">
@@ -118,12 +143,20 @@
       <hr/>
 
       <div class="card">
-        ·맞춤형 복지 포탈 오픈: 2026.2.12.(목) <br/>
-        ·자율항목 청구 기간: ~2026.12.9.(수)까지 가능. (※이후 청구 및 지급 불가하므로 2026.11월까지 사용 권장) <br/>
-        ·사이트 주소: 공무원연금공단 맞춤형복지 포탈 (www.gwp.or.kr) <br/>
-        ·개인별 확인 사항: 사용자 본인 복지점수가 맞게 배정됐는지, 지급 계좌가 본인 명의가 맞는지 확인하여 주십시오. 오배정 시 담당자(고주무관)에게 즉시 변경 요청 <br/>
-        ·인사변동자: 인사변동자는 해당 일자 이후에 시스템상 전보(전출)처리 가능하므로 그 전에 청구 및 승인 완료할 것. <br/>
-        (※ 2026.3.1.일자 인사변동자의 경우 2026.2.27.(목) 24:00까지 청구 완료.) <br/>
+        <ul class="checklist" style="margin-top:0;">
+          <li><b>맞춤형 복지 포탈 오픈</b>: 2026.02.12.(목)</li>
+          <li><b>자율항목 청구 기간</b>: ~2026.12.09.(수)까지 가능 (이후 청구/지급 불가 → 11월까지 사용 권장)</li>
+          <li><b>사이트 주소</b>: 공무원연금공단 맞춤형복지 포탈 (www.gwp.or.kr)</li>
+          <li><b>개인별 확인</b>: 배정 점수 및 지급 계좌(본인 명의) 확인 / 오배정 시 담당자에게 변경 요청</li>
+          <li><b>인사변동자</b>: 전보/전출 처리가 인사발령 이후 반영되므로 <b>발령 전 청구·승인 완료</b> 권장</li>
+        </ul>
+
+        <div class="callout" style="margin-top:10px;">
+          <b>3/1 인사변동자 권장</b>
+          <p class="muted" style="margin:6px 0 0;">
+            ·2026.02.26.(목) 24:00까지 청구 완료 권장
+          </p>
+        </div>
       </div>
     </section>
 
@@ -150,7 +183,7 @@
             <tr>
               <td>근속점수</td>
               <td>150~350점</td>
-              <td>근속연수에 따라 차등 배</td>
+              <td>근속연수에 따라 차등 배정</td>
             </tr>
             <tr>
               <td>가족점수(배우자)</td>
@@ -164,7 +197,7 @@
             </tr>
             <tr>
               <td>가족점수 (직계비속)</td>
-              <td>첫째: 100점/ 둘째: 200점/ 셋째 이상: 300점</td>
+              <td>첫째: 100점 / 둘째: 200점 / 셋째 이상: 300점</td>
               <td></td>
             </tr>
             <tr>
@@ -189,6 +222,7 @@
             </tr>
           </tbody>
         </table>
+
         <p class="note">
           (※ 전통시장 지역사랑 상품권 구매 점수는 자율항목에서 보험료를 제외한 실사용 가능액 기준으로 10%임)
         </p>
@@ -198,56 +232,73 @@
     <!-- ========================= 3 ========================= -->
     <section class="section" id="sec-3">
       <h2>3. 특별 지원 및 건강검진 안내</h2>
-
       <hr/>
+
       <details class="shot-details" open>
         <summary class="shot-summary">특별건강검진 (격년 배정)</summary>
-          ·2026년 대상자: 짝수년도 출생자 <br/>
-          ·지원 한도: 300점(금300,000원) 한도 내 실지출한 금액에 대해 지급 (월할계산 하지 않음)<br/>
-          ·배정 대상: 휴직자 포함 배정. <br/>
-          - 육아휴직자는 재직자와 동일하게 기간 상관 없이 지원 <br/>
-          - 질병휴직 및 난임휴직: 1년 이내 <br/>
-          - 공무상 질병휴직: 3년 이내 <br/>
-          - 가사휴직: 1년 이내 <br/>
-           <br/>
-          ·사용 범위: 본인 검진 가능. 본인이 비용을 지출한 경우 가족 건강 검진에도 사용 가능 (배우자, 직계 존·비속 및 배우자의 직계존속) <br/>
-          ·일정: 2026.12.9.(수)일자까지 건강검진 조정점수 및 영수증 청구를 사용자 본인이 완료해야 합니다. <br/>
-          ·진행 순서: 검진 → 사용자가 직접 포탈에서 조정점수 신청 → 맞춤형 복지 담당자 승인 → 사용자가 영수증 청구 (증빙서류 첨부 필수) <br/>
-          <br/>
-      </details>
+        <div style="margin-top:10px;">
+          <ul class="checklist">
+            <li><b>2026년 대상자</b>: 짝수년도 출생자</li>
+            <li><b>지원 한도</b>: 300점(금300,000원) 한도 내 실지출 금액 지급 (월할계산 하지 않음)</li>
+            <li><b>배정 대상</b>: 휴직자 포함 배정</li>
+            <li><b>사용 범위</b>: 본인 검진 가능 / 본인 지출 시 가족 검진에도 사용 가능(배우자, 직계 존·비속 및 배우자의 직계존속)</li>
+            <li><b>마감</b>: 2026.12.09.(수)까지 조정점수 및 영수증 청구를 사용자 본인이 완료</li>
+          </ul>
 
+          <div class="callout">
+            <b>진행 순서</b>
+            <ol class="steps">
+              <li>검진</li>
+              <li>사용자: 포탈에서 조정점수 신청</li>
+              <li>담당자: 승인</li>
+              <li>사용자: 영수증 청구(증빙서류 첨부 필수)</li>
+            </ol>
+          </div>
+        </div>
+      </details>
 
       <details class="shot-details" open>
         <summary class="shot-summary">출산·난임·태아·산모 검진 지원</summary>
-          ·출산 축하 점수: 자녀당 1회 지급. 첫째 1,000점/ 둘째 3,000점/ 셋째 이상 5,000점 <br/>
-          ·신청 기한: 출생 연도 포함 3년 이내 신청 가능 <br/>
-          ·난임 지원: 재직 중 1회, 500점 <br/>
-          ·태아·산모 검진: 자녀 수 1명당 100점 배정 <br/>
-          <br/>
-          ※ 증빙서류 제출하셔야 합니다. 지원청에 현황 보고해야 합니다. <br/>
-          - 제출: 맞춤형 복지 신청서 (서명 날인) + 증빙서류 일체 <br/>
+        <div style="margin-top:10px;">
+          <ul class="checklist">
+            <li><b>출산 축하 점수</b>: 자녀당 1회(첫째 1,000점 / 둘째 3,000점 / 셋째 이상 5,000점)</li>
+            <li><b>신청 기한</b>: 출생 연도 포함 3년 이내</li>
+            <li><b>난임 지원</b>: 재직 중 1회, 500점</li>
+            <li><b>태아·산모 검진</b>: 자녀 수 1명당 100점</li>
+          </ul>
+
+          <p class="muted" style="margin:6px 0 0;">
+            ※ 증빙서류 제출 필요(지원청 현황 보고).<br/>
+            - 제출: 맞춤형 복지 신청서(서명 날인) + 증빙서류 일체
+          </p>
+        </div>
       </details>
 
-      
       <details class="shot-details" open>
-        <summary class="shot-summary">유의사항</summary>
-        <p><b>·사용자:</b> 검진 등 사유 발생 후 증빙서류 첨부하여 <b>조정점수 신청</b></p>
-        <p><b>·담당자:</b> 조정점수 <b>승인</b> --> 여기까지 하면 점수가 배정된 상태 </p>
-        <p><b>·사용자:</b> 포탈에서 <b>영수증 청구</b> 진행 --> 점수가 배정됐으니 청구 신청해야 함</p>
-        <p><b>·담당자:</b> 승인관리에서 <b>청구 내역을 최종 승인</b>하면 <b>다음 달 급여일에 지급됨.</b></p>
+        <summary class="shot-summary">유의사항(승인/청구 흐름)</summary>
+        <div style="margin-top:10px;">
+          <ol class="steps">
+            <li><b>사용자</b>: 사유 발생 후 증빙서류 첨부 → <b>조정점수 신청</b></li>
+            <li><b>담당자</b>: 조정점수 <b>승인</b> (여기까지 = 점수 배정 상태)</li>
+            <li><b>사용자</b>: 포탈에서 <b>영수증 청구</b> 진행</li>
+            <li><b>담당자</b>: 청구 내역 <b>최종 승인</b> → <b>다음 달 급여일 지급</b></li>
+          </ol>
+        </div>
       </details>
-      
     </section>
 
     <!-- ========================= 4 ========================= -->
     <section class="section" id="sec-4">
       <h2>4. 단체보험 및 항목 선택</h2>
       <hr/>
-        <ul>
-          <li><b>필수 항목:</b> 생명·상해 보장보험은 의무 가입(보장금액 5천만/1억/2억 중 선택)</li>
-          <li><b>선택 항목:</b> 특정질병 진단비, 치아보험, 실손의료비 등은 개인 필요에 따라 선택</li>
-          <li><b>실손보험 중복 확인:</b> 개인 실손보험이 있으면 단체 실손보험 가입 중지 가능 → 중복 여부 확인</li>
+
+      <div class="card">
+        <ul class="checklist" style="margin-top:0;">
+          <li><b>필수 항목</b>: 생명·상해 보장보험 의무 가입(보장금액 5천만/1억/2억 중 선택)</li>
+          <li><b>선택 항목</b>: 특정질병 진단비, 치아보험, 실손의료비 등은 개인 필요에 따라 선택</li>
+          <li><b>실손보험 중복 확인</b>: 개인 실손보험이 있으면 단체 실손보험 가입 중지 가능 → 중복 여부 확인</li>
         </ul>
+      </div>
     </section>
 
     <!-- ========================= 5 ========================= -->
@@ -255,34 +306,39 @@
       <h2>5. 신분 변동 시 유의사항</h2>
       <hr/>
 
-        <ul>
-          <li><b>월할 계산:</b> 신규 임용/퇴직/휴직 등 변동 발생 시 실제 근무한 달 기준으로 점수 월할</li>
-          <li><b>퇴직 예정자:</b> 정년·명예퇴직 예정자는 <b>퇴직 전</b> 점수 사용 권장 (퇴직 후 2개월 이내에만 청구 가능)</li>
-          <li><b>퇴직 후 마감:</b> 사용점수 확인 후, (잔액이 있어도) 퇴직 후 2개월 경과 시 <b>퇴직 처리현황</b>에서 “정산중” 클릭 → 팝업 하단 “정산완료”</li>
-          <li><b>이월·현금화 불가:</b> 당해 연도 미사용 점수는 다음 연도 이월/금전 보상 불가 → 기한 내 전액 사용 독려</li>
+      <div class="card">
+        <ul class="checklist" style="margin-top:0;">
+          <li><b>월할 계산</b>: 신규 임용/퇴직/휴직 등 변동 발생 시 실제 근무한 달 기준으로 점수 월할</li>
+          <li><b>퇴직 예정자</b>: 정년·명예퇴직 예정자는 <b>퇴직 전</b> 점수 사용 권장 (퇴직 후 2개월 이내에만 청구 가능)</li>
+          <li><b>퇴직 후 마감 처리</b>: 퇴직 후 2개월 경과 시 “퇴직 처리현황”에서 “정산중” → 팝업 하단 “정산완료”</li>
+          <li><b>이월·현금화 불가</b>: 당해 연도 미사용 점수는 다음 연도 이월/금전 보상 불가 → 기한 내 전액 사용</li>
         </ul>
-
+      </div>
     </section>
 
     <!-- ========================= 6 ========================= -->
     <section class="section" id="sec-6">
       <h2>6. 결제 및 청구 방식</h2>
       <hr/>
-        <ul>
-          <li><b>카드 등록:</b> 포탈에 복지카드 등록 후 <b>자동청구 또는 수동청구</b> 중 선택</li>
-          <li><b>사용 제한:</b> 사행성 지출, 유흥비, 미용 관련 의료행위(성형/치열교정 등), 일반 상품권 구매 등은 사용 제한</li>
-          <li><b>간편결제:</b> PAYCO/네이버페이 사용자는 일부 항목(특별검진 등)에서 <b>영수증 청구 불가</b> → 조정점수 부여 후 자율항목으로 사용</li>
+
+      <div class="card">
+        <ul class="checklist" style="margin-top:0;">
+          <li><b>카드 등록</b>: 포탈에 복지카드 등록 후 <b>자동청구 또는 수동청구</b> 선택</li>
+          <li><b>사용 제한</b>: 사행성 지출, 유흥비, 미용 관련 의료행위(성형/치열교정 등), 일반 상품권 구매 등 제한</li>
+          <li><b>간편결제 유의</b>: PAYCO/네이버페이 사용자는 일부 항목(특별검진 등)에서 <b>영수증 청구 불가</b> → 조정점수 부여 후 자율항목으로 사용</li>
         </ul>
 
-      <details class="shot-details" open>
-        <summary class="shot-summary">지급 시기 및 문의처</summary>
-          <b>·지급 시기:</b> 승인일의 <b>다음 달 급여일</b> 지급 (예: 2월 승인 → 3월 급여일 지급) <br/>
-          <b>·지급 문의:</b> 교육공무원은 유초등교육과/ 지방공무원은 도교육청 총무과에 문의하십시오. <br/>
-      </details>
+        <details class="shot-details" open style="margin-top:10px;">
+          <summary class="shot-summary">지급 시기 및 문의처</summary>
+          <div style="margin-top:10px;">
+            <p style="margin:0;">
+              <b>·지급 시기</b>: 승인일의 <b>다음 달 급여일</b> 지급 (예: 2월 승인 → 3월 급여일 지급)<br/>
+              <b>·지급 문의</b>: 교육공무원은 유초등교육과 / 지방공무원은 도교육청 총무과 문의
+            </p>
+          </div>
+        </details>
+      </div>
     </section>
-
-
-    
 
     <!-- ========================= 첨부자료 ========================= -->
     <section class="section dl-section" id="sec-7">
@@ -292,61 +348,40 @@
       </p>
       <hr/>
 
+      <div class="btn-stack">
+        <div class="grid three">
 
-  <div class="btn-stack">
-    <div class="grid three">
-      
-    <div class="card">
-            <div>
-              <b>맞춤형 복지 자주 묻는 질문</b>
-            </div>
-      <hr/>
+          <div class="card">
+            <div><b>맞춤형 복지 자주 묻는 질문</b></div>
+            <hr/>
             <div class="row gap">
               <a class="btn" href="/notice/welfare-official/assets/welfare-guide-01.pdf" download>다운로드</a>
               <a class="btn ghost" href="/notice/welfare-official/assets/welfare-guide-01.pdf" target="_blank" rel="noopener">뷰어 열기</a>
+              <button class="btn ghost btnCopy" type="button" data-url="/notice/welfare-official/assets/welfare-guide-01.pdf">링크 복사</button>
             </div>
           </div>
 
-      
           <div class="card">
-            <div>
-              <b>2026년 맞춤형 복지 운영계획</b>
-            </div>
-      <hr/>
+            <div><b>2026년 맞춤형 복지 운영계획</b></div>
+            <hr/>
             <div class="row gap">
               <a class="btn" href="/notice/welfare-official/assets/welfare-guide-02.pdf" download>다운로드</a>
               <a class="btn ghost" href="/notice/welfare-official/assets/welfare-guide-02.pdf" target="_blank" rel="noopener">뷰어 열기</a>
+              <button class="btn ghost btnCopy" type="button" data-url="/notice/welfare-official/assets/welfare-guide-02.pdf">링크 복사</button>
             </div>
           </div>
 
-    <!--
-          <details class="shot-details">
-            <summary class="shot-summary">맞춤형복지 FAQ</summary>
-            <div class="muted" style="margin-top:10px;">
-              ·모바일/브라우저 환경에 따라 안 보일 수 있음
-            </div>
-            <div style="margin-top:10px;">
-              <iframe
-                title="맞춤형복지 FAQ"
-                src="/notice/welfare-official/assets/welfare-guide-01.pdf"
-                style="width:100%; height: 420px; border:1px solid #e5e5e5; border-radius:12px; background:#fff;">
-              </iframe>
-            </div>
-          </details>
-
-    -->
-      
-           <div class="card">
-            <div>
-              <b>신청서 엑셀 파일 (서식)</b>
-            </div>
-      <hr/>
+          <div class="card">
+            <div><b>신청서 엑셀 파일 (서식)</b></div>
+            <hr/>
             <div class="row gap">
               <a class="btn" href="/notice/welfare-official/assets/welfare-excel-form.pdf" download>다운로드</a>
+              <button class="btn ghost btnCopy" type="button" data-url="/notice/welfare-official/assets/welfare-excel-form.pdf">링크 복사</button>
             </div>
           </div>
+
+        </div>
       </div>
-  </div>
     </section>
 
   </main>
