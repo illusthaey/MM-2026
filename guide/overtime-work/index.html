@@ -266,40 +266,21 @@
           <div class="checkitem" data-only="inside">
             <input type="checkbox" id="c_finger_in">
             <div class="meta">
-              <b>(교내) 초과근무 시작 시각의 “출근 지문”이 있습니다</b>
-              <div class="muted">예: 06:40~08:40 초과근무면 06:40 전후 출근 지문 필요</div>
+              <b>초과근무 시작할 때 출근 지문을 찍었습니다.</b>
             </div>
           </div>
 
           <div class="checkitem" data-only="inside">
             <input type="checkbox" id="c_finger_out">
             <div class="meta">
-              <b>(교내) 초과근무 종료 시각의 “퇴근 지문”이 있습니다</b>
-              <div class="muted">예: 06:40~08:40 초과근무면 08:40 전후 퇴근 지문 필요</div>
+              <b>초과근무를 마친 후 퇴근 지문을 찍었습니다.</b>
             </div>
           </div>
 
           <div class="checkitem" data-only="outside">
             <input type="checkbox" id="c_manual_log">
             <div class="meta">
-              <b>(교외) 초과근무 확인 수기대장에 기재했습니다</b>
-              <div class="muted">출장과 별도로 초과근무 결재를 받아야 “기재 근거”가 생깁니다.</div>
-            </div>
-          </div>
-
-          <div class="checkitem">
-            <input type="checkbox" id="c_no_dupe">
-            <div class="meta">
-              <b>동일 시간대에 중복수당(강사료·감독수당 등)이 없습니다</b>
-              <div class="muted">같은 시간에 다른 보상이 있으면 초과근무수당과 중복 지급 불가.</div>
-            </div>
-          </div>
-
-          <div class="checkitem" data-role="labor">
-            <input type="checkbox" id="c_break">
-            <div class="meta">
-              <b>(근로기준법 적용자) 휴게시간을 공제하여 상신/산정했습니다</b>
-              <div class="muted">예: 4시간 이상 30분, 8시간 이상 1시간 등(무급 휴게시간)</div>
+              <b>초과근무 확인수기대장에 기재했습니다. </b>
             </div>
           </div>
         </div>
@@ -307,8 +288,8 @@
         <hr/>
 
         <div class="resultBox" id="resultBox">
-          <p class="title" id="resultTitle">체크 결과를 계산 중입니다…</p>
-          <div class="muted" id="resultDesc">체크 항목을 선택하면 자동으로 결과가 나옵니다.</div>
+          <p class="title" id="resultTitle">결과 확인 중입니다.</p>
+          <div class="muted" id="resultDesc">해당 항목에 표시하면 자동으로 결과가 산출됩니다.</div>
           <div id="missingWrap" style="margin-top:10px; display:none;">
             <b>누락 항목</b>
             <ul id="missingList" style="margin: 6px 0 0; padding-left: 18px;"></ul>
