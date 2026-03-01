@@ -890,3 +890,79 @@ body h2 + hr {
 .table-wrap .simple-table td {
   text-align: center;
 }
+
+
+
+details.img-zoom {
+  margin: 0;
+}
+
+details.img-zoom > summary {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: block;
+  cursor: zoom-in;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.img-zoom > summary::-webkit-details-marker {
+  display: none;
+}
+
+details.img-zoom > summary img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  background: #fff;
+  cursor: inherit; /* summary의 zoom-in/out 커서 상속 */
+}
+
+/* 열림(확대) 상태: summary를 전체 화면 오버레이로 */
+details.img-zoom[open] > summary {
+  cursor: zoom-out;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+  background: rgba(0, 0, 0, 0.65);
+}
+
+/* 열림 상태에서 이미지 크기 제한(화면에 맞추기) */
+details.img-zoom[open] > summary img {
+  width: auto;
+  max-width: 96vw;
+  max-height: 92vh;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
+}
+
+/* 키보드 접근성(탭) */
+details.img-zoom > summary:focus-visible {
+  outline: 2px solid rgba(17, 17, 17, 0.35);
+  outline-offset: 4px;
+  border-radius: 14px;
+}
+
+details.img-zoom[open] > summary:focus-visible {
+  outline-color: rgba(255, 255, 255, 0.65);
+}
+
+/* 열려 있을 때 배경 스크롤 잠금(지원 브라우저 한정) */
+@supports selector(body:has(details[open])) {
+  body:has(details.img-zoom[open]) {
+    overflow: hidden;
+  }
+}
+
+/* 기존 .thumb 이미지에도 '확대 가능' 커서(감각적 힌트) */
+img.thumb {
+  cursor: zoom-in;
+}
