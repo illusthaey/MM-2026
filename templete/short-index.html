@@ -1,0 +1,206 @@
+
+
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>{{페이지 제목}}</title>
+
+  <link rel="icon" href="/static/favicon.ico" />
+  <link rel="stylesheet" href="/static/style.css" />
+
+  <!-- (선택) 이 페이지 전용 스타일: 링크복사 토스트만 최소로 추가 -->
+  <style>
+    .toast {
+      position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%);
+      padding: 10px 12px; border: 1px solid #e5e5e5; border-radius: 12px;
+      background: rgba(255,255,255,0.95); box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      font-size: 0.95rem; color:#111; z-index: 9999;
+      display:none;
+    }
+    .content a { text-decoration: underline; text-underline-offset: 2px; }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+
+    <h1>{{상세페이지 제목}}</h1>
+    <p class="muted">
+      ·관련: {{근거/문서번호/일자}}<br/>
+      ·최종 업데이트: {{YYYY.MM.DD}}
+    </p>
+
+    <hr/>
+
+    <!-- ========================= 상단 요약 ========================= -->
+    <section class="section">
+      <h2>핵심 요약</h2>
+      <hr/>
+
+      <div class="card">
+        <ul style="margin: 0; padding-left: 18px;">
+          <li><b>대상</b>: {{대상}}</li>
+          <li><b>기간</b>: {{기간}}</li>
+          <li><b>해야 할 일</b>: {{핵심 액션}}</li>
+        </ul>
+      </div>
+
+      <div class="row gap" style="margin-top: 12px;">
+        <a class="btn primary" href="{{주요 링크}}" target="_blank" rel="noopener">관련 시스템/페이지</a>
+        <button class="btn ghost btnCopy" type="button" data-url="{{복사할 링크}}">
+          링크 복사
+        </button>
+      </div>
+    </section>
+
+    <!-- ========================= 본문 ========================= -->
+    <section class="section content" id="sec-main">
+      <h2>안내 내용</h2>
+      <hr/>
+
+      <div class="card">
+        <h3 style="margin-top:0;">1) {{소제목}}</h3>
+        <p class="muted" style="margin: 6px 0 0;">
+          ·{{설명}}
+        </p>
+      </div>
+
+      <!-- 접기/펼치기(shot-details) : style.css에 이미 정의돼 있음 -->
+      <details class="shot-details" open>
+        <summary class="shot-summary">추가 설명 / 예시 (접기·펼치기)</summary>
+        <div style="margin-top:10px;">
+          <ul style="margin: 0; padding-left: 18px;">
+            <li>{{항목}}</li>
+            <li>{{항목}}</li>
+          </ul>
+        </div>
+      </details>
+
+      <!-- 표(테이블) -->
+      <div class="table-wrap">
+        <table class="sheetlike simple-table">
+          <thead>
+            <tr>
+              <th>항목</th>
+              <th>내용</th>
+              <th>비고</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{항목}}</td>
+              <td>{{내용}}</td>
+              <td>{{비고}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="note">(※ {{각주/추가 안내}})</p>
+      </div>
+    </section>
+
+    <!-- ========================= 첨부/서식 다운로드 ========================= -->
+    <section class="section dl-section" id="sec-files">
+      <div class="row between">
+        <h2 style="margin:0;">첨부/서식</h2>
+        <button class="btn ghost btnCopy" type="button" data-url="{{현재 페이지 링크}}">
+          이 페이지 링크 복사
+        </button>
+      </div>
+      <p class="muted dl-desc">·버튼은 필요에 따라 삭제/추가하세요.</p>
+      <hr/>
+
+      <div class="grid three">
+        <div class="card">
+          <div><b>{{파일 제목 1}}</b></div>
+          <hr/>
+          <div class="row gap">
+            <a class="btn" href="{{파일경로1}}" download>다운로드</a>
+            <a class="btn ghost" href="{{파일경로1}}" target="_blank" rel="noopener">뷰어 열기</a>
+            <button class="btn ghost btnCopy" type="button" data-url="{{파일경로1}}">링크 복사</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div><b>{{파일 제목 2}}</b></div>
+          <hr/>
+          <div class="row gap">
+            <a class="btn" href="{{파일경로2}}" download>다운로드</a>
+            <button class="btn ghost btnCopy" type="button" data-url="{{파일경로2}}">링크 복사</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div><b>{{파일 제목 3}}</b></div>
+          <hr/>
+          <div class="row gap">
+            <a class="btn" href="{{파일경로3}}" download>다운로드</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 토스트 (링크 복사 알림) -->
+  <div class="toast" id="toast"></div>
+
+  <!-- 링크 복사 스크립트 (welfare 페이지 패턴 기반) -->
+  <script>
+    (function () {
+      const $ = (sel, el=document) => el.querySelector(sel);
+      const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
+
+      function toast(msg) {
+        const t = $("#toast");
+        if (!t) return;
+        t.textContent = msg;
+        t.style.display = "block";
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(() => (t.style.display = "none"), 1400);
+      }
+
+      function absUrl(path) {
+        try { return new URL(path, location.origin).toString(); }
+        catch { return path; }
+      }
+
+      async function copyText(text) {
+        try {
+          await navigator.clipboard.writeText(text);
+          return true;
+        } catch (e) {
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          ta.style.position = "fixed";
+          ta.style.left = "-9999px";
+          document.body.appendChild(ta);
+          ta.focus();
+          ta.select();
+          let ok = false;
+          try { ok = document.execCommand("copy"); } catch {}
+          ta.remove();
+          return ok;
+        }
+      }
+
+      $$(".btnCopy").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          const url = btn.dataset.url ? absUrl(btn.dataset.url) : location.href;
+          const ok = await copyText(url);
+          toast(ok ? "링크 복사 완료" : "복사 실패");
+        });
+      });
+    })();
+  </script>
+
+  <!-- 공통 스크립트 (기존 페이지와 동일) -->
+  <script src="/static/disable-copy.js"></script>
+  <script src="/static/footer.js"></script>
+  <script src="/static/global-loader.js?v=1"></script>
+
+</body>
+</html>
