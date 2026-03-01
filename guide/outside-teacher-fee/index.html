@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>교직원 초과근무 복무·증빙 안내</title>
+
+  <link rel="icon" href="/static/favicon.ico" />
+  <link rel="stylesheet" href="/static/style.css" />
+
+  <!-- 이 페이지 전용 스타일(토스트 + 소소한 보조 스타일) -->
+  <style>
+    .toast {
+      position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%);
+      padding: 10px 12px; border: 1px solid #e5e5e5; border-radius: 12px;
+      background: rgba(255,255,255,0.95); box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      font-size: 0.95rem; color:#111; z-index: 9999;
+      display:none;
+    }
+    .content a { text-decoration: underline; text-underline-offset: 2px; }
+    .mini { font-size: 0.95rem; }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+
+    <h1>교직원 초과근무 복무·증빙 안내</h1>
+    <p class="muted">
+      ·관련: [행정실] 초과근무 증빙 안내(2025.08.25.), 근로기준법 적용자 휴게시간 안내(2025.09.17.), 2026회계 학교행정 업무편람(초과근무/복무관리)<br/>
+      ·최종 업데이트: 2026.03.01
+    </p>
+
+    <hr/>
+
+    <!-- ========================= 상단 요약 ========================= -->
+    <section class="section">
+      <h2>핵심 요약</h2>
+      <hr/>
+
+      <div class="card">
+        <ul style="margin: 0; padding-left: 18px;">
+          <li><b>대상</b>: 문막초 교직원(공무원·교원·교육공무직·학교장 임용 직원)</li>
+          <li><b>적용</b>: 초과근무 발생 시(조기출근/정규근무 이후/토·일·공휴일 등)</li>
+          <li><b>해야 할 일(3단계)</b>:
+            <br/>① <b>결재(명령) 완료</b> → ② <b>근무지에 맞는 증빙 확보</b>(교내=지문 / 교외=수기대장) → ③ <b>신분별 시간 산정</b>(공무원=평일 1시간 공제 / 근로기준법 적용자=휴게시간 공제)
+          </li>
+        </ul>
+      </div>
+
+      <div class="row gap" style="margin-top: 12px;">
+        <a class="btn primary" href="https://www.neis.go.kr" target="_blank" rel="noopener">나이스(NEIS) 바로가기</a>
+        <!-- data-url 비워두면 현재 페이지 주소가 복사됩니다 -->
+        <button class="btn ghost btnCopy" type="button" data-url="">
+          이 페이지 링크 복사
+        </button>
+      </div>
+
+      <p class="note mini" style="margin-top:10px;">
+        ※ 아래 “파일/이미지 경로”는 학교 홈페이지(eduworkhaey.co.kr) 업로드 위치에 맞게 수정하세요.
+      </p>
+    </section>
+
+    <!-- ========================= 본문 ========================= -->
+    <section class="section content" id="sec-main">
+      <h2>안내 내용</h2>
+      <hr/>
+
+      <!-- 빠른 이동 -->
+      <div class="card">
+        <h3 style="margin-top:0;">빠른 이동</h3>
+        <div class="grid two" style="margin-top:10px;">
+          <a class="btn ghost" href="#sec-check">0) 3단계 체크(결재→근무지→증빙)</a>
+          <a class="btn ghost" href="#sec-neis">1) NEIS(나이스) 신청·완결 확인</a>
+          <a class="btn ghost" href="#sec-proof">2) 근무지별 증빙(교내/교외)</a>
+          <a class="btn ghost" href="#sec-civil">3) 공무원(교원·지방공무원) 산정·한도</a>
+          <a class="btn ghost" href="#sec-labor">4) 근로기준법 적용자(공무직 등) 산정</a>
+          <a class="btn ghost" href="#sec-faq">5) 자주 묻는 질문(사례 포함)</a>
+        </div>
+      </div>
+
+      <!-- 0) 체크리스트 -->
+      <div class="card" id="sec-check">
+        <h3 style="margin-top:0;">0) 초과근무 3단계 체크 (결재 → 근무지 → 증빙)</h3>
+
+        <div class="callout warn">
+          <b>가장 흔한 미인정 사유는 “결재 누락” 또는 “증빙 누락(지문 한쪽만)”입니다.</b><br/>
+          원칙은 사전 신청·승인(명령)이며, 부득이한 경우에도 <u>퇴청 시 당직 확인 + 다음 날까지 사후결재</u>가 필요합니다.
+        </div>
+
+        <div class="tool-shot" style="margin-top:10px;">
+          <!-- ✅ 이미지 경로 수정 -->
+          <img class="tool-img" src="/static/img/overwork_checklist.jpg" alt="초과근무 발생 시 체크리스트(결재-근무지-증빙)">
+          <p class="tool-caption">초과근무 발생 시 체크리스트(흐름도)</p>
+        </div>
+
+        <ul style="margin: 12px 0 0; padding-left: 18px;">
+          <li><b>1단계(결재)</b>: 초과근무 복무 상신이 “완결” 되었나요?</li>
+          <li><b>2단계(근무지)</b>: 근무지가 <b>학교 안</b>인가요, <b>학교 밖</b>인가요?</li>
+          <li><b>3단계(증빙)</b>:
+            <br/>- 교내: 초과근무 구간의 <b>출근·퇴근 지문 모두</b> 필요
+            <br/>- 교외: <b>초과근무 확인 수기대장</b> 기재(출장과 별도로 초과근무 결재 필요)
+          </li>
+        </ul>
+      </div>
+
+      <!-- 1) NEIS -->
+      <div class="card" id="sec-neis">
+        <h3 style="margin-top:0;">1) NEIS(나이스) 초과근무 신청·완결 확인</h3>
+        <p class="muted" style="margin: 6px 0 0;">
+          ·초과근무는 “신청 → 승인(명령) → 확인 → 월별집계(급여반영)” 흐름으로 관리됩니다.
+        </p>
+
+        <div class="table-wrap" style="margin-top:12px;">
+          <table class="sheetlike simple-table">
+            <thead>
+              <tr>
+                <th style="width:130px;">단계</th>
+                <th>무엇을 하나요</th>
+                <th style="width:260px;">NEIS 경로(요약)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>신청(상신)</b></td>
+                <td>
+                  ·초과근무 일시/사유/해야 할 일(구체 업무)을 입력하고 승인 요청<br/>
+                  ·승인자 지정 후 결재 상신 → <b>기결함에서 “완결” 확인</b>
+                </td>
+                <td>
+                  <span class="kbd">복무</span> → <span class="kbd">개인초과근무관리</span> → <span class="kbd">신청</span>
+                </td>
+              </tr>
+              <tr>
+                <td><b>확인(증빙)</b></td>
+                <td>
+                  ·근무지에 맞는 증빙(지문/수기대장)으로 실제 근무 사실을 확인<br/>
+                  ·복무담당이 <b>초과근무확인</b>에 시간 입력/마감(NEIS 활용)
+                </td>
+                <td>
+                  <span class="kbd">복무</span> → <span class="kbd">초과근무관리</span> → <span class="kbd">초과근무확인</span>
+                </td>
+              </tr>
+              <tr>
+                <td><b>월별집계</b></td>
+                <td>·다음 달 급여 반영을 위해 월별 집계/생성 및 저장(정액분 포함)</td>
+                <td>
+                  <span class="kbd">복무</span> → <span class="kbd">초과근무관리</span> → <span class="kbd">초과근무월별집계</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="note">
+            (※ “사전 승인”은 초과근무 “명령”으로 간주됩니다. 사전 명령 없이 근무했거나 명령시간을 초과한 경우, 퇴청 시 당직 확인 후 다음 날까지 사후결재가 필요할 수 있습니다.)
+          </p>
+        </div>
+      </div>
+
+      <!-- 2) 근무지별 증빙 -->
+      <div class="card" id="sec-proof">
+        <h3 style="margin-top:0;">2) 근무지별 증빙 방법 (교내/교외)</h3>
+
+        <div class="callout danger">
+          <b>교내 초과근무는 지문 “출근·퇴근” 둘 다 있어야 인정됩니다.</b><br/>
+          정규근무와 초과근무 사이에 공백이 없더라도, 초과근무 구간의 지문이 누락되면 “증명 불가”로 미인정될 수 있습니다.
+        </div>
+
+        <div class="table-wrap" style="margin-top:12px;">
+          <table class="sheetlike simple-table">
+            <thead>
+              <tr>
+                <th style="width:120px;">구분</th>
+                <th>증빙자료</th>
+                <th style="width:180px;">확인수기대장</th>
+                <th>주의사항</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>교내 근무</b></td>
+                <td>지문 출퇴근 내역(초과근무 구간의 출근·퇴근 모두)</td>
+                <td>기재 <b>X</b></td>
+                <td>
+                  ·정규근무(예: 8:40~16:40)와 초과근무는 별개<br/>
+                  ·출근만/퇴근만 있는 경우 “근무 시간”으로 인정 불가 사례가 많습니다
+                </td>
+              </tr>
+              <tr>
+                <td><b>교외 근무</b></td>
+                <td>초과근무 확인 수기대장 기재(필요 시 활동 증빙 첨부)</td>
+                <td>기재 <b>O</b></td>
+                <td>
+                  ·<b>출장과 별도로</b> 초과근무 결재(명령)가 있어야 “기재 근거”가 생깁니다<br/>
+                  ·출장 중 초과근무는 원칙적으로 인정되지 않으나, 목적상 필연적으로 발생이 예상되는 경우 명령에 따라 지급 가능(사안별 확인)
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="note">(※ 교외 근무는 상황이 다양하므로, “결재(명령) + 수기대장”을 기본으로 생각하시면 안전합니다.)</p>
+        </div>
+      </div>
+
+      <!-- 3) 공무원 -->
+      <details class="shot-details" open id="sec-civil">
+        <summary class="shot-summary">3) 공무원(교원·지방공무원) 초과근무: 인정/산정/한도</summary>
+        <div style="margin-top:10px;">
+
+          <div class="card">
+            <h3 style="margin-top:0;">핵심 포인트</h3>
+            <ul style="margin: 0; padding-left: 18px;">
+              <li><b>한도</b>: <b>1일 4시간</b>, <b>월 57시간</b> 이내(근무명령시간 상한)</li>
+              <li><b>평일 산정</b>: 정규근무 전/후 시간외근무는 <b>1일 1시간 공제</b> 후 매분 단위 합산(공제 후 1시간 미만이면 미지급)</li>
+              <li><b>휴무토/휴일</b>: 1시간 이상이면 공제 없이 매분 단위 인정(단, 1일 4시간 상한)</li>
+              <li><b>정액분</b>: 월간 출근근무일수 15일 이상이면 <b>월 10시간분 정액 지급</b>(조건 미달 시 일할 계산)</li>
+              <li><b>대체휴무</b>: 토·일·공휴일에 <b>연속 8시간 이상</b> 근무한 경우, 수당 대신 다음 정상근무일(또는 6주 이내 지정일) 휴무 부여 가능</li>
+              <li><b>중복 지급 금지</b>: 동일 업무에 대해 시험감시·보충수업 지도 등 <b>다른 방식의 금전 보상</b>을 받는 경우, 해당 시간외근무수당 지급 제외 대상이 될 수 있음</li>
+            </ul>
+          </div>
+
+          <div class="table-wrap">
+            <table class="sheetlike simple-table">
+              <thead>
+                <tr>
+                  <th style="width:160px;">항목</th>
+                  <th>기준(요약)</th>
+                  <th style="width:260px;">예시/비고</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>지급시간 상한</b></td>
+                  <td>1일 4시간 / 월 57시간 이내</td>
+                  <td>근무명령 시간 기준 상한</td>
+                </tr>
+                <tr>
+                  <td><b>평일(정규근무 전/후)</b></td>
+                  <td>1일 1시간 공제 후 매분 단위 합산(공제 후 1시간 미만: 미지급)</td>
+                  <td>조기출근 + 퇴근 후 근무는 합산 후 공제</td>
+                </tr>
+                <tr>
+                  <td><b>휴무토/휴일</b></td>
+                  <td>1시간 이상이면 공제 없이 매분 단위 인정(1일 4시간 상한)</td>
+                  <td>1시간 미만: 미지급</td>
+                </tr>
+                <tr>
+                  <td><b>정액분(월 10시간)</b></td>
+                  <td>출근근무일수 15일 이상: 10시간 정액 / 15일 미만: (출근근무일수/20)*10</td>
+                  <td>정액분은 별도 명령 없이 지급 가능(조건 충족 시)</td>
+                </tr>
+                <tr>
+                  <td><b>대체휴무</b></td>
+                  <td>토·일·공휴일에 연속 8시간 이상 근무 시 다음 정상근무일 휴무(또는 6주 이내 지정)</td>
+                  <td>기관 사정에 따라 조정 가능</td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="note">
+              (※ 세부 해석/예외는 업무편람 및 복무규정, 그리고 학교 내부 운영 기준을 따릅니다.)
+            </p>
+          </div>
+
+        </div>
+      </details>
+
+      <!-- 4) 근로기준법 적용자 -->
+      <details class="shot-details" open id="sec-labor">
+        <summary class="shot-summary">4) 교육공무직·학교장 임용 직원(근로기준법 적용자) 초과근무: 휴게시간/연장근로</summary>
+        <div style="margin-top:10px;">
+
+          <div class="callout info">
+            <b>핵심:</b> 근로기준법 적용자는 <u>휴게시간을 공제</u>하여 근무시간을 산정합니다.<br/>
+            4시간 이상 근무 시 최소 30분, 8시간 이상 근무 시 최소 1시간 휴게가 필요하며, <b>무급 휴게시간을 제외</b>하고 NEIS에 상신합니다.
+          </div>
+
+          <div class="table-wrap" style="margin-top:12px;">
+            <table class="sheetlike simple-table">
+              <thead>
+                <tr>
+                  <th style="width:170px;">항목</th>
+                  <th>기준(요약)</th>
+                  <th style="width:260px;">비고</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>법정근로시간</b></td>
+                  <td>1일 8시간, 1주 40시간(휴게시간 제외)</td>
+                  <td>연장근로·휴일근로는 별도 기준 적용</td>
+                </tr>
+                <tr>
+                  <td><b>연장근로 한도</b></td>
+                  <td>당사자 합의로 1주 12시간 한도</td>
+                  <td>강제 지시는 불가(합의 필요)</td>
+                </tr>
+                <tr>
+                  <td><b>야간근로</b></td>
+                  <td>22:00~06:00 사이의 근로</td>
+                  <td>야간 가산수당 대상</td>
+                </tr>
+                <tr>
+                  <td><b>가산수당</b></td>
+                  <td>연장·야간·휴일근로는 통상임금의 50% 이상 가산</td>
+                  <td>휴일 중첩 등은 규정에 따라 달라질 수 있음</td>
+                </tr>
+                <tr>
+                  <td><b>휴게시간 반영</b></td>
+                  <td>NEIS 상신 시 휴게시간을 제외하고 시간 수정(무급 휴게 공제)</td>
+                  <td>학교별 직종별 휴게시간은 별도 문서(문막초-4064) 참고</td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="note">
+              (※ 근로시간/휴게시간은 “직종별”로 정해진 기준이 있으니, 학교 내부 문서(문막초-4064)로 본인 직종 기준을 확인하세요.)
+            </p>
+          </div>
+        </div>
+      </details>
+
+      <!-- 5) FAQ / 사례 -->
+      <div class="card" id="sec-faq">
+        <h3 style="margin-top:0;">5) 자주 묻는 질문(FAQ) · 실제 사례</h3>
+
+        <details class="shot-details" open>
+          <summary class="shot-summary">Q1. 교내 초과근무인데 “출근 지문만” 또는 “퇴근 지문만” 찍었어요.</summary>
+          <div style="margin-top:10px;">
+            <div class="callout danger">
+              <b>인정 불가(증명 불가) 사례가 매우 많습니다.</b><br/>
+              정규근무와 공백이 없고 실제로 계속 근무했더라도, 초과근무 구간의 출·퇴근 지문이 모두 있어야 “초과근무 종료 시각”을 증명할 수 있습니다.
+            </div>
+            <ul style="margin:0; padding-left:18px;">
+              <li>조기출근 초과근무 후 정규근무를 계속한 경우라도, <b>초과근무 종료(예: 08:40) 지문</b>이 없으면 불인정될 수 있습니다.</li>
+              <li>정규근무 후 초과근무를 이어서 한 경우라도, <b>초과근무 시작(예: 16:40) 지문</b>이 없으면 불인정될 수 있습니다.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="shot-details">
+          <summary class="shot-summary">Q2. 교외(학교 밖) 초과근무는 어떻게 증빙하나요?</summary>
+          <div style="margin-top:10px;">
+            <div class="callout info">
+              <b>원칙:</b> 교외 근무는 <u>초과근무 확인 수기대장</u> 기재가 기본입니다.<br/>
+              <b>중요:</b> 출장과 별도로 “초과근무 결재(명령)”가 있어야 수당 지급 근거가 됩니다.
+            </div>
+            <ul style="margin:0; padding-left:18px;">
+              <li>현장체험학습, 대회·행사 인솔, 외부 교육/연수 등으로 학교 밖에서 초과근무가 발생하면 <b>수기대장</b>에 기재합니다.</li>
+              <li>출장 중 초과근무는 원칙적으로 인정되지 않으나, 목적상 필연적으로 발생이 예상되는 경우 <b>시간외근무명령</b>에 따라 지급 가능한 예외가 있을 수 있습니다(사전 상담 권장).</li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="shot-details">
+          <summary class="shot-summary">Q3. 결재는 했는데, 왜 “일부만 인정”되나요?</summary>
+          <div style="margin-top:10px;">
+            <p class="muted" style="margin:0;">
+              ·초과근무는 <b>결재(명령) + 증빙(교내 지문/교외 수기대장)</b>이 함께 충족되어야 인정됩니다.
+            </p>
+
+            <div class="table-wrap" style="margin-top:10px;">
+              <table class="sheetlike simple-table">
+                <thead>
+                  <tr>
+                    <th style="width:120px;">사람</th>
+                    <th style="width:140px;">사전결재</th>
+                    <th style="width:140px;">출근 지문</th>
+                    <th style="width:140px;">퇴근 지문</th>
+                    <th>결과(예시)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><b>A</b></td>
+                    <td>O</td>
+                    <td>O</td>
+                    <td>O</td>
+                    <td><b>인정</b> (결재+증빙 충족)</td>
+                  </tr>
+                  <tr>
+                    <td><b>B</b></td>
+                    <td>O</td>
+                    <td>O</td>
+                    <td>X</td>
+                    <td><b>미인정</b> (증빙 누락)</td>
+                  </tr>
+                  <tr>
+                    <td><b>C</b></td>
+                    <td>X</td>
+                    <td>O</td>
+                    <td>O</td>
+                    <td><b>미인정</b> (결재 누락)</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p class="note">(※ 실제 사례에서도 “동일 사유”라도 조건 미충족 시 미인정된 경우가 있습니다.)</p>
+            </div>
+
+            <div class="tool-shot" style="margin-top:10px;">
+              <!-- ✅ 이미지 경로 수정(개인정보 포함 가능: 게시용 업로드 전 가림 처리 권장) -->
+              <img class="tool-img" src="/static/img/overwork_case_example.jpg" alt="동일 사유 초과근무 실제 사례(1명만 인정)">
+              <p class="tool-caption">예시 화면(개인정보가 포함될 수 있으니 게시용 업로드 전 가림처리 권장)</p>
+            </div>
+          </div>
+        </details>
+
+        <details class="shot-details">
+          <summary class="shot-summary">Q4. 교육공무직(근로기준법 적용자)도 “평일 1시간 공제”하나요?</summary>
+          <div style="margin-top:10px;">
+            <div class="callout ok">
+              교육공무직은 공무원 방식의 “일괄 1시간 공제”가 아니라, <b>실제 휴게시간을 공제</b>하여 산정합니다.
+            </div>
+            <ul style="margin:0; padding-left:18px;">
+              <li>4시간 이상 근무 시 최소 30분, 8시간 이상 근무 시 최소 1시간 휴게시간을 고려해 NEIS 상신 시간을 조정합니다.</li>
+              <li>직종별 고정 휴게시간이 있는 경우, 학교 문서(문막초-4064)를 기준으로 합니다.</li>
+            </ul>
+          </div>
+        </details>
+
+        <div class="callout warn" style="margin-top:12px;">
+          <b>문의</b>: 결재/증빙/시간 산정이 애매할 때는 “상신 전에” 행정실(복무 담당)로 먼저 상담하면
+          재상신/미인정 리스크를 크게 줄일 수 있습니다.
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================= 첨부/서식 다운로드 ========================= -->
+    <section class="section dl-section" id="sec-files">
+      <div class="row between">
+        <h2 style="margin:0;">첨부/서식</h2>
+        <button class="btn ghost btnCopy" type="button" data-url="">
+          이 페이지 링크 복사
+        </button>
+      </div>
+      <p class="muted dl-desc">·파일 경로는 업로드 위치에 맞게 수정하세요.</p>
+      <hr/>
+
+      <div class="grid three">
+        <div class="card">
+          <div><b>초과근무 증빙 관련 안내(자주 묻는 질문) (2025.08.25.)</b></div>
+          <hr/>
+          <div class="row gap">
+            <a class="btn" href="/static/files/overwork_faq_20250825.pdf" download>다운로드</a>
+            <a class="btn ghost" href="/static/files/overwork_faq_20250825.pdf" target="_blank" rel="noopener">뷰어 열기</a>
+            <button class="btn ghost btnCopy" type="button" data-url="/static/files/overwork_faq_20250825.pdf">링크 복사</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div><b>근로기준법 적용자 휴게시간 안내(공무직/학교장 임용) (2025.09.17.)</b></div>
+          <hr/>
+          <div class="row gap">
+            <a class="btn" href="/static/files/labor_breaktime_notice_20250917.pdf" download>다운로드</a>
+            <a class="btn ghost" href="/static/files/labor_breaktime_notice_20250917.pdf" target="_blank" rel="noopener">뷰어 열기</a>
+            <button class="btn ghost btnCopy" type="button" data-url="/static/files/labor_breaktime_notice_20250917.pdf">링크 복사</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div><b>문막초-4064(2025.03.27.) 교육공무직/특수운영직군 근로시간·휴게시간 안내</b></div>
+          <hr/>
+          <div class="row gap">
+            <a class="btn" href="/static/files/munmak_4064_worktime_breaktime_20250327.pdf" download>다운로드</a>
+            <a class="btn ghost" href="/static/files/munmak_4064_worktime_breaktime_20250327.pdf" target="_blank" rel="noopener">뷰어 열기</a>
+            <button class="btn ghost btnCopy" type="button" data-url="/static/files/munmak_4064_worktime_breaktime_20250327.pdf">링크 복사</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px;">
+        <b>이미지 업로드(선택)</b>
+        <hr/>
+        <div class="mini muted">
+          ·체크리스트 이미지: <span class="kbd">/static/img/overwork_checklist.jpg</span><br/>
+          ·실제 사례 이미지: <span class="kbd">/static/img/overwork_case_example.jpg</span> (개인정보 가림 처리 권장)
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- 토스트 (링크 복사 알림) -->
+  <div class="toast" id="toast"></div>
+
+  <!-- 링크 복사 스크립트 (welfare 페이지 패턴 기반) -->
+  <script>
+    (function () {
+      const $ = (sel, el=document) => el.querySelector(sel);
+      const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
+
+      function toast(msg) {
+        const t = $("#toast");
+        if (!t) return;
+        t.textContent = msg;
+        t.style.display = "block";
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(() => (t.style.display = "none"), 1400);
+      }
+
+      function absUrl(path) {
+        try { return new URL(path, location.origin).toString(); }
+        catch { return path; }
+      }
+
+      async function copyText(text) {
+        try {
+          await navigator.clipboard.writeText(text);
+          return true;
+        } catch (e) {
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          ta.style.position = "fixed";
+          ta.style.left = "-9999px";
+          document.body.appendChild(ta);
+          ta.focus();
+          ta.select();
+          let ok = false;
+          try { ok = document.execCommand("copy"); } catch {}
+          ta.remove();
+          return ok;
+        }
+      }
+
+      $$(".btnCopy").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          const url = btn.dataset.url ? absUrl(btn.dataset.url) : location.href;
+          const ok = await copyText(url);
+          toast(ok ? "링크 복사 완료" : "복사 실패");
+        });
+      });
+    })();
+  </script>
+
+  <!-- 공통 스크립트 (기존 페이지와 동일) -->
+  <script src="/static/disable-copy.js"></script>
+  <script src="/static/footer.js"></script>
+  <script src="/static/global-loader.js?v=1"></script>
+
+</body>
+</html>
