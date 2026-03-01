@@ -5,12 +5,11 @@
   <meta name="robots" content="noindex">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light" />
-  <title>교직원 초과근무 복무·증빙 안내</title>
+  <title>단발성 외부강사 방문·강사료 집행 안내</title>
 
   <link rel="icon" href="/static/favicon.ico" />
   <link rel="stylesheet" href="/static/style.css" />
 
-  <!-- 이 페이지 전용 스타일(토스트 + 소소한 보조 스타일) -->
   <style>
     .toast {
       position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%);
@@ -20,462 +19,602 @@
       display:none;
     }
     .content a { text-decoration: underline; text-underline-offset: 2px; }
-    .mini { font-size: 0.95rem; }
+
+    /* 페이지 전용: 빠른이동/체크리스트 가독성만 살짝 */
+    .toc-wrap .btn { margin: 0 8px 8px 0; }
+    .checklist label { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; }
+    .checklist input { transform: translateY(2px); }
+    .chip {
+      display:inline-block; padding: 2px 8px; border:1px solid #e5e5e5; border-radius:999px;
+      font-size: 0.85rem; color:#444; background:#fafafa;
+    }
   </style>
 </head>
 
 <body>
   <main class="container">
 
-    <h1>교직원 초과근무 복무·증빙 안내</h1>
+    <h1>단발성 외부강사 방문·강사료 집행 안내</h1>
     <p class="muted">
-      ·관련: [행정실] 초과근무 증빙 안내(2025.08.25.), 근로기준법 적용자 휴게시간 안내(2025.09.17.), 2026회계 학교행정 업무편람(초과근무/복무관리)<br/>
+      ·관련: 2026회계 학교행정 업무편람(세무관리/증빙서류 정리/용역계약/결격사유조회 등), 학교회계 예산편성기본지침(증빙서류/편철)<br/>
       ·최종 업데이트: 2026.03.01
     </p>
 
     <hr/>
 
     <!-- ========================= 상단 요약 ========================= -->
-    <section class="section">
+    <section class="section" id="sec-top">
       <h2>핵심 요약</h2>
       <hr/>
 
       <div class="card">
         <ul style="margin: 0; padding-left: 18px;">
-          <li><b>대상</b>: 문막초 교직원(공무원·교원·교육공무직·학교장 임용 직원)</li>
-          <li><b>적용</b>: 초과근무 발생 시(조기출근/정규근무 이후/토·일·공휴일 등)</li>
-          <li><b>해야 할 일(3단계)</b>:
-            <br/>① <b>결재(명령) 완료</b> → ② <b>근무지에 맞는 증빙 확보</b>(교내=지문 / 교외=수기대장) → ③ <b>신분별 시간 산정</b>(공무원=평일 1시간 공제 / 근로기준법 적용자=휴게시간 공제)
+          <li><b>대상</b>: 1회성 특강·진로체험·행사 등으로 <b>개인 외부강사</b>를 초빙하는 경우(학교가 강사 개인에게 직접 지급)</li>
+          <li><b>기간</b>: 1회 방문(단기) / 강의 종료 후 14일 이내 지급 권장(학교 여건·계약 내용에 따라 운영)</li>
+          <li><b>해야 할 일</b>:
+            <span class="chip">지급 전 서류</span> →
+            <span class="chip">성범죄·아동학대 조회</span> →
+            <span class="chip">강의 확인</span> →
+            <span class="chip">원천징수</span> →
+            <span class="chip">K-에듀파인 지출</span> →
+            <span class="chip">증빙 편철</span>
           </li>
         </ul>
       </div>
 
-      <div class="row gap" style="margin-top: 12px;">
-        <a class="btn primary" href="https://www.neis.go.kr" target="_blank" rel="noopener">나이스(NEIS) 바로가기</a>
-        <!-- data-url 비워두면 현재 페이지 주소가 복사됩니다 -->
-        <button class="btn ghost btnCopy" type="button" data-url="">
+      <div class="card toc-wrap" style="margin-top: 12px;">
+        <div><b>빠른 이동</b></div>
+        <hr/>
+        <div class="row gap" style="flex-wrap: wrap;">
+          <a class="btn ghost" href="#sec-judge">0. 개인/업체 구분</a>
+          <a class="btn ghost" href="#sec-before">1. 지급 전 서류</a>
+          <a class="btn ghost" href="#sec-check">2. 범죄경력 조회</a>
+          <a class="btn ghost" href="#sec-proof">3. 강의 확인서</a>
+          <a class="btn ghost" href="#sec-tax">4. 원천징수</a>
+          <a class="btn ghost" href="#sec-pay">5. 지출·편철</a>
+          <a class="btn ghost" href="#sec-outsourcing">6. 업체 위탁(용역)</a>
+          <a class="btn ghost" href="#sec-checklist">체크리스트</a>
+          <a class="btn ghost" href="#sec-faq">FAQ</a>
+          <a class="btn ghost" href="#sec-files">첨부/서식</a>
+        </div>
+      </div>
+
+      <div class="row gap" style="margin-top: 12px; flex-wrap: wrap;">
+        <a class="btn primary" href="https://next.share.go.kr" target="_blank" rel="noopener">행정정보공동이용</a>
+        <a class="btn" href="https://www.hometax.go.kr" target="_blank" rel="noopener">홈택스(원천세)</a>
+        <a class="btn" href="https://www.wetax.go.kr" target="_blank" rel="noopener">위택스(지방소득세)</a>
+        <button class="btn ghost btnCopy" type="button" data-url="/guides/external-lecturer-oneoff.html">
           이 페이지 링크 복사
         </button>
       </div>
 
-      <p class="note mini" style="margin-top:10px;">
-        ※ 아래 “파일/이미지 경로”는 학교 홈페이지(eduworkhaey.co.kr) 업로드 위치에 맞게 수정하세요.
-      </p>
+      <p class="note">(※ 외부 사이트는 기관/브라우저 보안 정책에 따라 접근이 제한될 수 있습니다.)</p>
     </section>
 
-    <!-- ========================= 본문 ========================= -->
-    <section class="section content" id="sec-main">
-      <h2>안내 내용</h2>
+    <!-- ========================= 0. 구분 ========================= -->
+    <section class="section content" id="sec-judge">
+      <h2>0. 먼저 구분하세요: 개인 초빙 vs 업체 위탁</h2>
       <hr/>
 
-      <!-- 빠른 이동 -->
-      <div class="card">
-        <h3 style="margin-top:0;">빠른 이동</h3>
-        <div class="grid two" style="margin-top:10px;">
-          <a class="btn ghost" href="#sec-check">0) 3단계 체크(결재→근무지→증빙)</a>
-          <a class="btn ghost" href="#sec-neis">1) NEIS(나이스) 신청·완결 확인</a>
-          <a class="btn ghost" href="#sec-proof">2) 근무지별 증빙(교내/교외)</a>
-          <a class="btn ghost" href="#sec-civil">3) 공무원(교원·지방공무원) 산정·한도</a>
-          <a class="btn ghost" href="#sec-labor">4) 근로기준법 적용자(공무직 등) 산정</a>
-          <a class="btn ghost" href="#sec-faq">5) 자주 묻는 질문(사례 포함)</a>
+      <div class="grid two">
+        <div class="card">
+          <h3 style="margin-top:0;">A) 개인 외부강사(학교 → 강사 개인에게 직접 지급)</h3>
+          <ul style="margin: 0; padding-left: 18px;">
+            <li><b>회계 성격</b>: 강사 개인에게 대가 지급(인적용역 성격)</li>
+            <li><b>핵심 포인트</b>: <b>원천징수</b> + <b>성범죄·아동학대 조회</b> + <b>강의 확인</b></li>
+            <li><b>증빙 핵심</b>: 신분증/통장 사본, 각종 동의서, 조회 결과(회보서), 강의 확인서, 지출결의서, 이체결과</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-top:0;">B) 업체 위탁(학교 → 업체에 지급) <span class="chip">용역계약</span></h3>
+          <ul style="margin: 0; padding-left: 18px;">
+            <li><b>회계 성격</b>: 업체로부터 <b>교육 서비스(용역)</b>를 구매</li>
+            <li><b>예시</b>: 민간참여 컴퓨터교육, 방과후업체 위탁 프로그램(위탁영어 등)처럼 “교육 관련 용역”으로 분류되는 사례가 있음</li>
+            <li><b>핵심 포인트</b>: 계약·검수·대가지급(세금계산서/계산서 등) 중심 + 강사 대면 안전절차는 업체/학교 기준으로 <b>확인</b></li>
+          </ul>
         </div>
       </div>
 
-      <!-- 0) 체크리스트 -->
-      <div class="card" id="sec-check">
-        <h3 style="margin-top:0;">0) 초과근무 3단계 체크 (결재 → 근무지 → 증빙)</h3>
+      <div class="table-wrap" style="margin-top: 12px;">
+        <table class="sheetlike simple-table">
+          <thead>
+            <tr>
+              <th>구분</th>
+              <th>개인 외부강사(직접 지급)</th>
+              <th>업체 위탁(용역계약)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>계약 상대</td>
+              <td>강사 개인</td>
+              <td>용역업체(프로그램 운영 업체)</td>
+            </tr>
+            <tr>
+              <td>세무 처리</td>
+              <td>학교가 원천징수(기타소득/사업소득 구분)</td>
+              <td>대금은 업체에 지급(세금계산서/계산서 등) + 업체 내부 인력비 처리는 업체 책임</td>
+            </tr>
+            <tr>
+              <td>대표 증빙</td>
+              <td>동의서·사본·조회회보·강의확인·지출결의·이체결과</td>
+              <td>계약서·견적서·청구서(세금계산서 등)·검수/완료 자료·지출결의·이체결과</td>
+            </tr>
+            <tr>
+              <td>주의</td>
+              <td>“일시 강연비/강사비”는 기타소득 판단 가능, 반복/계속이면 사업소득 가능</td>
+              <td>“교육 관련 용역”에 해당하면 용역계약 절차로 처리</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="note">(※ 용역은 “재물 형태가 아닌 서비스 제공”으로 정의되며, 교육 관련 용역 예시가 업무편람에 제시되어 있습니다.)</p>
+      </div>
 
-        <div class="callout warn">
-          <b>가장 흔한 미인정 사유는 “결재 누락” 또는 “증빙 누락(지문 한쪽만)”입니다.</b><br/>
-          원칙은 사전 신청·승인(명령)이며, 부득이한 경우에도 <u>퇴청 시 당직 확인 + 다음 날까지 사후결재</u>가 필요합니다.
+      <details class="shot-details">
+        <summary class="shot-summary">판단 팁 (접기·펼치기)</summary>
+        <div style="margin-top:10px;">
+          <ul style="margin: 0; padding-left: 18px;">
+            <li><b>1회성 특강</b>처럼 “일시적인 강연 후 지급”은 기타소득으로 보는 흐름이 있습니다.</li>
+            <li><b>계속적·반복적</b>으로 독립된 자격으로 강의하는 형태면 사업소득 가능성이 커집니다.</li>
+            <li>업체와 계약하고 강사가 파견되는 구조라면, 회계·계약 측면은 “용역계약”으로 정리하는 게 깔끔합니다.</li>
+          </ul>
         </div>
+      </details>
+    </section>
 
-        <div class="tool-shot" style="margin-top:10px;">
-          <!-- ✅ 이미지 경로 수정 -->
-          <img class="tool-img" src="/static/img/overwork_checklist.jpg" alt="초과근무 발생 시 체크리스트(결재-근무지-증빙)">
-          <p class="tool-caption">초과근무 발생 시 체크리스트(흐름도)</p>
+    <!-- ========================= 1. 지급 전 서류 ========================= -->
+    <section class="section content" id="sec-before">
+      <h2>1. 지급 전(필수): 강사에게 받는 서류</h2>
+      <hr/>
+
+      <div class="card">
+        <p style="margin:0;">
+          아래 서류는 <b>지급 전에</b> 확보하는 게 안전합니다. (나중에 “주민번호/계좌번호/동의서” 빠지면 회계·세무가 한 번에 멈춥니다.)
+        </p>
+      </div>
+
+      <div class="table-wrap" style="margin-top: 12px;">
+        <table class="sheetlike simple-table">
+          <thead>
+            <tr>
+              <th>서류</th>
+              <th>누가 작성/서명</th>
+              <th>목적</th>
+              <th>체크</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>신분증 사본</b></td>
+              <td>강사</td>
+              <td>원천징수/지급명세서 등 인적사항 확인</td>
+              <td>□</td>
+            </tr>
+            <tr>
+              <td><b>통장 사본</b></td>
+              <td>강사</td>
+              <td>계좌이체(본인 명의 계좌 원칙)</td>
+              <td>□</td>
+            </tr>
+            <tr>
+              <td><b>성범죄 경력 및 아동학대 관련 범죄전력 조회 동의서</b></td>
+              <td>강사</td>
+              <td>학교 교육활동 참여 외부인력 조회 절차</td>
+              <td>□</td>
+            </tr>
+            <tr>
+              <td><b>행정정보 공동이용 사전 동의서</b></td>
+              <td>강사</td>
+              <td>행정정보공동이용 시스템을 통한 조회에 필요한 동의</td>
+              <td>□</td>
+            </tr>
+            <tr>
+              <td><b>개인정보 수집·이용 및 제공 동의서</b></td>
+              <td>강사</td>
+              <td>강사료 지급/조회 업무를 위한 개인정보 처리 동의</td>
+              <td>□</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="note">(※ “원본주의”가 원칙이므로, 가능한 한 원본 서명본을 확보하고 사본 제출이 불가피한 경우는 “원본 확인” 등 내부 절차를 갖추세요.)</p>
+      </div>
+
+      <details class="shot-details">
+        <summary class="shot-summary">보관 팁 (접기·펼치기)</summary>
+        <div style="margin-top:10px;">
+          <ul style="margin: 0; padding-left: 18px;">
+            <li>동의서는 <b>서명/날인</b>, <b>작성일</b>, <b>조회 목적</b>이 빠지지 않게 확인</li>
+            <li>통장 사본은 <b>예금주명</b>이 신분증과 일치하는지 확인</li>
+            <li>신분증 사본은 민감정보이므로 <b>접근 권한/보관 장소</b>를 최소화</li>
+          </ul>
         </div>
+      </details>
+    </section>
 
-        <ul style="margin: 12px 0 0; padding-left: 18px;">
-          <li><b>1단계(결재)</b>: 초과근무 복무 상신이 “완결” 되었나요?</li>
-          <li><b>2단계(근무지)</b>: 근무지가 <b>학교 안</b>인가요, <b>학교 밖</b>인가요?</li>
-          <li><b>3단계(증빙)</b>:
-            <br/>- 교내: 초과근무 구간의 <b>출근·퇴근 지문 모두</b> 필요
-            <br/>- 교외: <b>초과근무 확인 수기대장</b> 기재(출장과 별도로 초과근무 결재 필요)
-          </li>
+    <!-- ========================= 2. 범죄경력/아동학대 조회 ========================= -->
+    <section class="section content" id="sec-check">
+      <h2>2. 조회(필수): 성범죄·아동학대 관련 범죄전력 조회</h2>
+      <hr/>
+
+      <div class="card">
+        <h3 style="margin-top:0;">처리 흐름(권장)</h3>
+        <ol style="margin: 0; padding-left: 18px;">
+          <li><b>동의서 징구</b> (성범죄·아동학대 조회 동의서 + 행정정보 공동이용 사전 동의서 + 개인정보 제공 동의서)</li>
+          <li><b>행정정보공동이용시스템</b> 등을 통해 조회</li>
+          <li><b>조회 회보서(결과)</b> 수령 → 결과 검토</li>
+          <li>이상 없으면 <b>위촉/강의 진행</b> 및 강사료 집행 절차 진행</li>
+        </ol>
+        <p class="note" style="margin-top:10px;">
+          (※ 업무편람에는 조회방법으로 행정정보공동이용시스템 활용 및 필요한 동의서 종류가 정리되어 있습니다.)
+        </p>
+      </div>
+
+      <div class="table-wrap" style="margin-top: 12px;">
+        <table class="sheetlike simple-table">
+          <thead>
+            <tr>
+              <th>단계</th>
+              <th>담당(예시)</th>
+              <th>산출물(증빙)</th>
+              <th>자주 터지는 실수</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>동의서 확보</td>
+              <td>업무담당/행정실</td>
+              <td>서명된 동의서 3종</td>
+              <td>서명/작성일 누락, 주민등록번호 오기재</td>
+            </tr>
+            <tr>
+              <td>조회 실행</td>
+              <td>행정실</td>
+              <td>조회내역(시스템 기록)</td>
+              <td>조회 사유/근거 누락</td>
+            </tr>
+            <tr>
+              <td>회보서 확인</td>
+              <td>행정실</td>
+              <td>회보서(결과)</td>
+              <td>결과 확인만 하고 보관 누락</td>
+            </tr>
+            <tr>
+              <td>강의 진행</td>
+              <td>업무담당</td>
+              <td>강의 확인서/일지</td>
+              <td>강사 서명 누락, 시간/장소 불명확</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ========================= 3. 강의 확인 ========================= -->
+    <section class="section content" id="sec-proof">
+      <h2>3. 강의 종료 후(필수): 강의 확인서(또는 강의일지)</h2>
+      <hr/>
+
+      <div class="card">
+        <p style="margin:0;">
+          “진짜 강의가 진행됐는가?”를 가장 깔끔하게 증명하는 건 <b>강사 서명</b>이 들어간 확인서입니다.
+          (사진은 보조증빙, 서명은 메인증빙)
+        </p>
+        <hr/>
+        <ul style="margin: 0; padding-left: 18px;">
+          <li><b>필수 기재</b>: 일시(시간 포함), 장소, 대상(학년/인원), 강의 주제, 강사 성명, 서명/날인</li>
+          <li><b>선택 기재</b>: 강의자료 제출 여부, 만족도 조사 여부, 특이사항</li>
+          <li><b>보관</b>: 지출증빙 묶음 안에 “청구서류” 역할로 함께 편철</li>
         </ul>
       </div>
 
-      <!-- 1) NEIS -->
-      <div class="card" id="sec-neis">
-        <h3 style="margin-top:0;">1) NEIS(나이스) 초과근무 신청·완결 확인</h3>
-        <p class="muted" style="margin: 6px 0 0;">
-          ·초과근무는 “신청 → 승인(명령) → 확인 → 월별집계(급여반영)” 흐름으로 관리됩니다.
-        </p>
+      <details class="shot-details">
+        <summary class="shot-summary">현장 팁 (접기·펼치기)</summary>
+        <div style="margin-top:10px;">
+          <ul style="margin: 0; padding-left: 18px;">
+            <li>강의가 끝나고 강사가 바로 떠나면 서명 받기 어려움 → <b>강의 시작 전</b> 양식 미리 전달</li>
+            <li>외부강사가 여러 명이면 “강사별 확인서” 또는 “명단 + 일괄 서명” 방식 중 하나로 통일</li>
+          </ul>
+        </div>
+      </details>
+    </section>
 
-        <div class="table-wrap" style="margin-top:12px;">
+    <!-- ========================= 4. 원천징수 ========================= -->
+    <section class="section content" id="sec-tax">
+      <h2>4. 원천징수/세무 처리</h2>
+      <hr/>
+
+      <div class="card">
+        <h3 style="margin-top:0;">4-1) 기타소득(일시적 강연·특강 등)로 보는 경우</h3>
+        <p class="muted" style="margin: 6px 0 0;">
+          ·업무편람에서는 “일시적인 강연 후 지급받는 강연비 또는 강사비”를 예로 들고, 기타소득은 <b>필요경비 60%</b> 공제 후 남은 금액의 20%를 적용(지방소득세는 소득세의 10%)하는 방식이 정리돼 있습니다.
+        </p>
+        <hr/>
+        <ul style="margin: 0; padding-left: 18px;">
+          <li><b>개념</b>: 소득금액 = 총지급액 × 40%(= 필요경비 60% 공제)</li>
+          <li><b>소득세</b>: 소득금액 × 20% (= 총지급액 × 8%)</li>
+          <li><b>지방소득세</b>: 소득세 × 10% (= 총지급액 × 0.8%)</li>
+          <li><b>합계 원천징수</b>: 총지급액 × 8.8% (실무상 대표값)</li>
+        </ul>
+
+        <div class="table-wrap" style="margin-top: 12px;">
           <table class="sheetlike simple-table">
             <thead>
               <tr>
-                <th style="width:130px;">단계</th>
-                <th>무엇을 하나요</th>
-                <th style="width:260px;">NEIS 경로(요약)</th>
+                <th>총지급액</th>
+                <th>필요경비(60%)</th>
+                <th>소득금액(40%)</th>
+                <th>소득세(20%)</th>
+                <th>지방소득세(10%)</th>
+                <th>실지급액(예시)</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><b>신청(상신)</b></td>
-                <td>
-                  ·초과근무 일시/사유/해야 할 일(구체 업무)을 입력하고 승인 요청<br/>
-                  ·승인자 지정 후 결재 상신 → <b>기결함에서 “완결” 확인</b>
-                </td>
-                <td>
-                  <span class="kbd">복무</span> → <span class="kbd">개인초과근무관리</span> → <span class="kbd">신청</span>
-                </td>
+                <td>200,000</td>
+                <td>120,000</td>
+                <td>80,000</td>
+                <td>16,000</td>
+                <td>1,600</td>
+                <td>182,400</td>
               </tr>
               <tr>
-                <td><b>확인(증빙)</b></td>
-                <td>
-                  ·근무지에 맞는 증빙(지문/수기대장)으로 실제 근무 사실을 확인<br/>
-                  ·복무담당이 <b>초과근무확인</b>에 시간 입력/마감(NEIS 활용)
-                </td>
-                <td>
-                  <span class="kbd">복무</span> → <span class="kbd">초과근무관리</span> → <span class="kbd">초과근무확인</span>
-                </td>
-              </tr>
-              <tr>
-                <td><b>월별집계</b></td>
-                <td>·다음 달 급여 반영을 위해 월별 집계/생성 및 저장(정액분 포함)</td>
-                <td>
-                  <span class="kbd">복무</span> → <span class="kbd">초과근무관리</span> → <span class="kbd">초과근무월별집계</span>
-                </td>
+                <td>300,000</td>
+                <td>180,000</td>
+                <td>120,000</td>
+                <td>24,000</td>
+                <td>2,400</td>
+                <td>273,600</td>
               </tr>
             </tbody>
           </table>
-          <p class="note">
-            (※ “사전 승인”은 초과근무 “명령”으로 간주됩니다. 사전 명령 없이 근무했거나 명령시간을 초과한 경우, 퇴청 시 당직 확인 후 다음 날까지 사후결재가 필요할 수 있습니다.)
+          <p class="note">(※ 숫자는 이해를 돕기 위한 예시입니다. 실제 적용은 학교(교육청) 세무 처리 기준을 따르세요.)</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 12px;">
+        <h3 style="margin-top:0;">4-2) 사업소득(계속적·반복적 강의 등)로 보는 경우</h3>
+        <p class="muted" style="margin: 6px 0 0;">
+          ·업무편람(방과후 등 강사비 집행 안내)에는 “독립된 자격으로 계속적·반복적으로 강의하는 것은 사업소득”으로 보고,
+          소득세 3% + 지방소득세(소득세의 10%)를 안내하고 있습니다.
+        </p>
+        <hr/>
+        <ul style="margin: 0; padding-left: 18px;">
+          <li><b>원천징수</b>: 일반적으로 총지급액의 3% + 지방소득세 0.3% = <b>3.3%</b> (대표값)</li>
+          <li><b>주의</b>: 반복성/계속성 판단은 케이스가 갈립니다. “단발성 특강”과 “정기 강좌”는 취급이 달라질 수 있어요.</li>
+        </ul>
+      </div>
+
+      <details class="shot-details">
+        <summary class="shot-summary">지급명세서/신고 메모 (접기·펼치기)</summary>
+        <div style="margin-top:10px;">
+          <ul style="margin: 0; padding-left: 18px;">
+            <li>기타소득/사업소득 등은 지급명세서/간이지급명세서 제출 기한이 다릅니다. 학교 내부 세무 담당 흐름(홈택스/위택스)을 따르세요.</li>
+            <li>원천징수 유형(기타/사업)을 잘못 잡으면 수정신고가 귀찮아집니다. 처음에 구분이 반입니다.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <!-- ========================= 5. 지출 + 편철 ========================= -->
+    <section class="section content" id="sec-pay">
+      <h2>5. K-에듀파인 지출 + 증빙 편철(보관)</h2>
+      <hr/>
+
+      <div class="card">
+        <h3 style="margin-top:0;">5-1) 지출 처리(개요)</h3>
+        <ul style="margin: 0; padding-left: 18px;">
+          <li><b>지출결의서</b> 생성(시스템)</li>
+          <li><b>원천징수</b> 반영(공제 후 실지급액 이체)</li>
+          <li><b>이체 처리</b> 후 <b>이체결과(무통장입금표/이체처리결과서)</b> 확보</li>
+          <li><b>증빙서류</b>를 월별/분기별로 편철 보관</li>
+        </ul>
+      </div>
+
+      <div class="table-wrap" style="margin-top: 12px;">
+        <table class="sheetlike simple-table">
+          <thead>
+            <tr>
+              <th>권장 편철 순서(상단 → 하단)</th>
+              <th>외부강사(직접지급) 적용 예</th>
+              <th>비고</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1) 지출결의서</td>
+              <td>K-에듀파인 지출결의서 출력/결재문서</td>
+              <td>“지출”의 대표 문서</td>
+            </tr>
+            <tr>
+              <td>2) 무통장입금표(영수증)</td>
+              <td>이체처리결과서/이체확인증</td>
+              <td>실제 지급 증빙</td>
+            </tr>
+            <tr>
+              <td>3) 청구서(증빙)</td>
+              <td>강의 확인서(서명본), 필요 시 청구서</td>
+              <td>“서비스 제공” 증빙</td>
+            </tr>
+            <tr>
+              <td>4) 청구서류(첨부)</td>
+              <td>신분증·통장 사본, 동의서, 조회 회보서</td>
+              <td>개인정보 포함 → 보관 주의</td>
+            </tr>
+            <tr>
+              <td>5) (필요 시) 계약/품의</td>
+              <td>내부결재(강사 초빙 계획/방침), 위촉 관련 문서</td>
+              <td>사전 의사결정 근거</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="note">
+          (※ 업무편람의 “지출서류 건별 편철 순서(지출결의서→무통장입금표→청구서…)” 흐름을 외부강사 케이스에 맞춰 번역한 버전입니다.)
+        </p>
+      </div>
+
+      <details class="shot-details">
+        <summary class="shot-summary">원본/사본 처리 메모 (접기·펼치기)</summary>
+        <div style="margin-top:10px;">
+          <ul style="margin: 0; padding-left: 18px;">
+            <li>회계 붙임서류는 <b>원본 첨부</b>가 원칙(불가피한 사본은 “원본 확인” 등 내부 확인 절차를 갖추는 방식으로 대응)</li>
+            <li>증빙서는 <b>월별 또는 분기별</b>로 구분 편철하고 표지에 건수/매수/금액 등을 관리하는 흐름을 권장</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <!-- ========================= 6. 업체 위탁(용역계약) ========================= -->
+    <section class="section content" id="sec-outsourcing">
+      <h2>6. 업체 위탁 외부강사인 경우(용역계약) 포인트</h2>
+      <hr/>
+
+      <div class="card">
+        <p style="margin:0;">
+          업체를 통해 프로그램을 운영하고 강사가 파견되는 구조라면, 회계·계약 관점에서 <b>용역계약</b>으로 정리하는 게 자연스럽습니다.
+          용역은 “서비스 제공(재물 형태 아님)”으로 정의되며, 교육 관련 용역 예시(민간참여 컴퓨터교육, 방과후업체 위탁 프로그램 등)가 제시돼 있습니다.
+        </p>
+      </div>
+
+      <div class="table-wrap" style="margin-top: 12px;">
+        <table class="sheetlike simple-table">
+          <thead>
+            <tr>
+              <th>항목</th>
+              <th>학교가 챙길 것(예시)</th>
+              <th>비고</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>계약/대금</td>
+              <td>계약서(또는 계약 성립 증빙), 견적서, 청구서/세금계산서(또는 계산서), 이체결과</td>
+              <td>대상은 “업체”</td>
+            </tr>
+            <tr>
+              <td>검수/완료</td>
+              <td>수업 운영 결과(출석/운영일지/결과보고 등) 자료 확보</td>
+              <td>학교 내부 기준으로 “완료 확인” 남기기</td>
+            </tr>
+            <tr>
+              <td>대면 안전 절차</td>
+              <td>강사 대면 인력의 성범죄·아동학대 조회가 필요한지 <b>업체 제출 자료로 확인</b> 또는 학교 절차로 확인</td>
+              <td>학교/교육청 내부 기준 우선</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="note">(※ 업체 위탁은 “강사 개인 사본/원천징수”가 아니라 “업체 계약 증빙”이 중심이 됩니다.)</p>
+      </div>
+    </section>
+
+    <!-- ========================= 체크리스트 ========================= -->
+    <section class="section content" id="sec-checklist">
+      <h2>현장용 체크리스트(클릭 가능)</h2>
+      <hr/>
+
+      <div class="card checklist">
+        <h3 style="margin-top:0;">A. 개인 외부강사(직접 지급)</h3>
+        <div style="display:grid; gap:10px;">
+          <label><input type="checkbox"> (지급 전) 신분증 사본 확보</label>
+          <label><input type="checkbox"> (지급 전) 통장 사본 확보</label>
+          <label><input type="checkbox"> (지급 전) 성범죄·아동학대 조회 동의서 확보</label>
+          <label><input type="checkbox"> (지급 전) 행정정보 공동이용 사전 동의서 확보</label>
+          <label><input type="checkbox"> (지급 전) 개인정보 수집·이용·제공 동의서 확보</label>
+          <label><input type="checkbox"> (지급 전) 조회 실행 및 회보서 보관</label>
+          <label><input type="checkbox"> (강의 후) 강의 확인서(서명) 수령</label>
+          <label><input type="checkbox"> (지출) 원천징수 반영 후 이체</label>
+          <label><input type="checkbox"> (보관) 지출결의서/이체결과/청구서류/첨부서류 편철</label>
+        </div>
+      </div>
+
+      <div class="card checklist" style="margin-top: 12px;">
+        <h3 style="margin-top:0;">B. 업체 위탁(용역계약)</h3>
+        <div style="display:grid; gap:10px;">
+          <label><input type="checkbox"> 계약 방식(용역) 및 계약상대(업체) 확정</label>
+          <label><input type="checkbox"> 견적/계약서(또는 계약 성립 증빙) 확보</label>
+          <label><input type="checkbox"> 운영 완료 확인 자료(결과보고/일지 등) 확보</label>
+          <label><input type="checkbox"> 청구서류(세금계산서/계산서 등) 확보</label>
+          <label><input type="checkbox"> 대금 이체 및 이체결과 확보</label>
+          <label><input type="checkbox"> (필요 시) 대면 강사 안전 관련 확인자료 확보</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= FAQ ========================= -->
+    <section class="section content" id="sec-faq">
+      <h2>FAQ</h2>
+      <hr/>
+
+      <details class="shot-details">
+        <summary class="shot-summary">Q1. “단발성 특강”인데 사업소득/기타소득이 헷갈립니다.</summary>
+        <div style="margin-top:10px;">
+          <p class="muted" style="margin:0;">
+            업무편람에는 “일시적 강연비/강사비” 예시는 기타소득, “계속적·반복적 강의”는 사업소득 가능 포인트가 정리돼 있습니다.
+            학교(교육청) 내부 세무 처리 기준과 실제 운영 형태(반복성/계속성)를 함께 보고 결정하는 게 안전합니다.
           </p>
         </div>
-      </div>
+      </details>
 
-      <!-- 2) 근무지별 증빙 -->
-      <div class="card" id="sec-proof">
-        <h3 style="margin-top:0;">2) 근무지별 증빙 방법 (교내/교외)</h3>
-
-        <div class="callout danger">
-          <b>교내 초과근무는 지문 “출근·퇴근” 둘 다 있어야 인정됩니다.</b><br/>
-          정규근무와 초과근무 사이에 공백이 없더라도, 초과근무 구간의 지문이 누락되면 “증명 불가”로 미인정될 수 있습니다.
-        </div>
-
-        <div class="table-wrap" style="margin-top:12px;">
-          <table class="sheetlike simple-table">
-            <thead>
-              <tr>
-                <th style="width:120px;">구분</th>
-                <th>증빙자료</th>
-                <th style="width:180px;">확인수기대장</th>
-                <th>주의사항</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><b>교내 근무</b></td>
-                <td>지문 출퇴근 내역(초과근무 구간의 출근·퇴근 모두)</td>
-                <td>기재 <b>X</b></td>
-                <td>
-                  ·정규근무(예: 8:40~16:40)와 초과근무는 별개<br/>
-                  ·출근만/퇴근만 있는 경우 “근무 시간”으로 인정 불가 사례가 많습니다
-                </td>
-              </tr>
-              <tr>
-                <td><b>교외 근무</b></td>
-                <td>초과근무 확인 수기대장 기재(필요 시 활동 증빙 첨부)</td>
-                <td>기재 <b>O</b></td>
-                <td>
-                  ·<b>출장과 별도로</b> 초과근무 결재(명령)가 있어야 “기재 근거”가 생깁니다<br/>
-                  ·출장 중 초과근무는 원칙적으로 인정되지 않으나, 목적상 필연적으로 발생이 예상되는 경우 명령에 따라 지급 가능(사안별 확인)
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <p class="note">(※ 교외 근무는 상황이 다양하므로, “결재(명령) + 수기대장”을 기본으로 생각하시면 안전합니다.)</p>
-        </div>
-      </div>
-
-      <!-- 3) 공무원 -->
-      <details class="shot-details" open id="sec-civil">
-        <summary class="shot-summary">3) 공무원(교원·지방공무원) 초과근무: 인정/산정/한도</summary>
+      <details class="shot-details">
+        <summary class="shot-summary">Q2. 강의 확인서는 꼭 받아야 하나요?</summary>
         <div style="margin-top:10px;">
-
-          <div class="card">
-            <h3 style="margin-top:0;">핵심 포인트</h3>
-            <ul style="margin: 0; padding-left: 18px;">
-              <li><b>한도</b>: <b>1일 4시간</b>, <b>월 57시간</b> 이내(근무명령시간 상한)</li>
-              <li><b>평일 산정</b>: 정규근무 전/후 시간외근무는 <b>1일 1시간 공제</b> 후 매분 단위 합산(공제 후 1시간 미만이면 미지급)</li>
-              <li><b>휴무토/휴일</b>: 1시간 이상이면 공제 없이 매분 단위 인정(단, 1일 4시간 상한)</li>
-              <li><b>정액분</b>: 월간 출근근무일수 15일 이상이면 <b>월 10시간분 정액 지급</b>(조건 미달 시 일할 계산)</li>
-              <li><b>대체휴무</b>: 토·일·공휴일에 <b>연속 8시간 이상</b> 근무한 경우, 수당 대신 다음 정상근무일(또는 6주 이내 지정일) 휴무 부여 가능</li>
-              <li><b>중복 지급 금지</b>: 동일 업무에 대해 시험감시·보충수업 지도 등 <b>다른 방식의 금전 보상</b>을 받는 경우, 해당 시간외근무수당 지급 제외 대상이 될 수 있음</li>
-            </ul>
-          </div>
-
-          <div class="table-wrap">
-            <table class="sheetlike simple-table">
-              <thead>
-                <tr>
-                  <th style="width:160px;">항목</th>
-                  <th>기준(요약)</th>
-                  <th style="width:260px;">예시/비고</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><b>지급시간 상한</b></td>
-                  <td>1일 4시간 / 월 57시간 이내</td>
-                  <td>근무명령 시간 기준 상한</td>
-                </tr>
-                <tr>
-                  <td><b>평일(정규근무 전/후)</b></td>
-                  <td>1일 1시간 공제 후 매분 단위 합산(공제 후 1시간 미만: 미지급)</td>
-                  <td>조기출근 + 퇴근 후 근무는 합산 후 공제</td>
-                </tr>
-                <tr>
-                  <td><b>휴무토/휴일</b></td>
-                  <td>1시간 이상이면 공제 없이 매분 단위 인정(1일 4시간 상한)</td>
-                  <td>1시간 미만: 미지급</td>
-                </tr>
-                <tr>
-                  <td><b>정액분(월 10시간)</b></td>
-                  <td>출근근무일수 15일 이상: 10시간 정액 / 15일 미만: (출근근무일수/20)*10</td>
-                  <td>정액분은 별도 명령 없이 지급 가능(조건 충족 시)</td>
-                </tr>
-                <tr>
-                  <td><b>대체휴무</b></td>
-                  <td>토·일·공휴일에 연속 8시간 이상 근무 시 다음 정상근무일 휴무(또는 6주 이내 지정)</td>
-                  <td>기관 사정에 따라 조정 가능</td>
-                </tr>
-              </tbody>
-            </table>
-            <p class="note">
-              (※ 세부 해석/예외는 업무편람 및 복무규정, 그리고 학교 내부 운영 기준을 따릅니다.)
-            </p>
-          </div>
-
+          <p class="muted" style="margin:0;">
+            회계에서 중요한 건 “대가를 지급할 만큼의 서비스가 제공되었는지” 입증입니다. 강사 서명이 들어간 확인서는 그 입증을 제일 단단하게 만들어 줍니다.
+          </p>
         </div>
       </details>
 
-      <!-- 4) 근로기준법 적용자 -->
-      <details class="shot-details" open id="sec-labor">
-        <summary class="shot-summary">4) 교육공무직·학교장 임용 직원(근로기준법 적용자) 초과근무: 휴게시간/연장근로</summary>
+      <details class="shot-details">
+        <summary class="shot-summary">Q3. 업체 위탁이면 강사 신분증/통장 사본도 받아야 하나요?</summary>
         <div style="margin-top:10px;">
-
-          <div class="callout info">
-            <b>핵심:</b> 근로기준법 적용자는 <u>휴게시간을 공제</u>하여 근무시간을 산정합니다.<br/>
-            4시간 이상 근무 시 최소 30분, 8시간 이상 근무 시 최소 1시간 휴게가 필요하며, <b>무급 휴게시간을 제외</b>하고 NEIS에 상신합니다.
-          </div>
-
-          <div class="table-wrap" style="margin-top:12px;">
-            <table class="sheetlike simple-table">
-              <thead>
-                <tr>
-                  <th style="width:170px;">항목</th>
-                  <th>기준(요약)</th>
-                  <th style="width:260px;">비고</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><b>법정근로시간</b></td>
-                  <td>1일 8시간, 1주 40시간(휴게시간 제외)</td>
-                  <td>연장근로·휴일근로는 별도 기준 적용</td>
-                </tr>
-                <tr>
-                  <td><b>연장근로 한도</b></td>
-                  <td>당사자 합의로 1주 12시간 한도</td>
-                  <td>강제 지시는 불가(합의 필요)</td>
-                </tr>
-                <tr>
-                  <td><b>야간근로</b></td>
-                  <td>22:00~06:00 사이의 근로</td>
-                  <td>야간 가산수당 대상</td>
-                </tr>
-                <tr>
-                  <td><b>가산수당</b></td>
-                  <td>연장·야간·휴일근로는 통상임금의 50% 이상 가산</td>
-                  <td>휴일 중첩 등은 규정에 따라 달라질 수 있음</td>
-                </tr>
-                <tr>
-                  <td><b>휴게시간 반영</b></td>
-                  <td>NEIS 상신 시 휴게시간을 제외하고 시간 수정(무급 휴게 공제)</td>
-                  <td>학교별 직종별 휴게시간은 별도 문서(문막초-4064) 참고</td>
-                </tr>
-              </tbody>
-            </table>
-            <p class="note">
-              (※ 근로시간/휴게시간은 “직종별”로 정해진 기준이 있으니, 학교 내부 문서(문막초-4064)로 본인 직종 기준을 확인하세요.)
-            </p>
-          </div>
+          <p class="muted" style="margin:0;">
+            계약 상대가 “업체”라면 회계 증빙의 중심은 업체의 계약/청구/검수 자료입니다. 강사 개인 사본은 “직접 지급” 케이스에서 핵심입니다.
+            다만, 학생 대면 안전절차(조회 등)는 학교 내부 기준에 따라 업체 자료로 확인이 필요할 수 있습니다.
+          </p>
         </div>
       </details>
-
-      <!-- 5) FAQ / 사례 -->
-      <div class="card" id="sec-faq">
-        <h3 style="margin-top:0;">5) 자주 묻는 질문(FAQ) · 실제 사례</h3>
-
-        <details class="shot-details" open>
-          <summary class="shot-summary">Q1. 교내 초과근무인데 “출근 지문만” 또는 “퇴근 지문만” 찍었어요.</summary>
-          <div style="margin-top:10px;">
-            <div class="callout danger">
-              <b>인정 불가(증명 불가) 사례가 매우 많습니다.</b><br/>
-              정규근무와 공백이 없고 실제로 계속 근무했더라도, 초과근무 구간의 출·퇴근 지문이 모두 있어야 “초과근무 종료 시각”을 증명할 수 있습니다.
-            </div>
-            <ul style="margin:0; padding-left:18px;">
-              <li>조기출근 초과근무 후 정규근무를 계속한 경우라도, <b>초과근무 종료(예: 08:40) 지문</b>이 없으면 불인정될 수 있습니다.</li>
-              <li>정규근무 후 초과근무를 이어서 한 경우라도, <b>초과근무 시작(예: 16:40) 지문</b>이 없으면 불인정될 수 있습니다.</li>
-            </ul>
-          </div>
-        </details>
-
-        <details class="shot-details">
-          <summary class="shot-summary">Q2. 교외(학교 밖) 초과근무는 어떻게 증빙하나요?</summary>
-          <div style="margin-top:10px;">
-            <div class="callout info">
-              <b>원칙:</b> 교외 근무는 <u>초과근무 확인 수기대장</u> 기재가 기본입니다.<br/>
-              <b>중요:</b> 출장과 별도로 “초과근무 결재(명령)”가 있어야 수당 지급 근거가 됩니다.
-            </div>
-            <ul style="margin:0; padding-left:18px;">
-              <li>현장체험학습, 대회·행사 인솔, 외부 교육/연수 등으로 학교 밖에서 초과근무가 발생하면 <b>수기대장</b>에 기재합니다.</li>
-              <li>출장 중 초과근무는 원칙적으로 인정되지 않으나, 목적상 필연적으로 발생이 예상되는 경우 <b>시간외근무명령</b>에 따라 지급 가능한 예외가 있을 수 있습니다(사전 상담 권장).</li>
-            </ul>
-          </div>
-        </details>
-
-        <details class="shot-details">
-          <summary class="shot-summary">Q3. 결재는 했는데, 왜 “일부만 인정”되나요?</summary>
-          <div style="margin-top:10px;">
-            <p class="muted" style="margin:0;">
-              ·초과근무는 <b>결재(명령) + 증빙(교내 지문/교외 수기대장)</b>이 함께 충족되어야 인정됩니다.
-            </p>
-
-            <div class="table-wrap" style="margin-top:10px;">
-              <table class="sheetlike simple-table">
-                <thead>
-                  <tr>
-                    <th style="width:120px;">사람</th>
-                    <th style="width:140px;">사전결재</th>
-                    <th style="width:140px;">출근 지문</th>
-                    <th style="width:140px;">퇴근 지문</th>
-                    <th>결과(예시)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><b>A</b></td>
-                    <td>O</td>
-                    <td>O</td>
-                    <td>O</td>
-                    <td><b>인정</b> (결재+증빙 충족)</td>
-                  </tr>
-                  <tr>
-                    <td><b>B</b></td>
-                    <td>O</td>
-                    <td>O</td>
-                    <td>X</td>
-                    <td><b>미인정</b> (증빙 누락)</td>
-                  </tr>
-                  <tr>
-                    <td><b>C</b></td>
-                    <td>X</td>
-                    <td>O</td>
-                    <td>O</td>
-                    <td><b>미인정</b> (결재 누락)</td>
-                  </tr>
-                </tbody>
-              </table>
-              <p class="note">(※ 실제 사례에서도 “동일 사유”라도 조건 미충족 시 미인정된 경우가 있습니다.)</p>
-            </div>
-
-            <div class="tool-shot" style="margin-top:10px;">
-              <!-- ✅ 이미지 경로 수정(개인정보 포함 가능: 게시용 업로드 전 가림 처리 권장) -->
-              <img class="tool-img" src="/static/img/overwork_case_example.jpg" alt="동일 사유 초과근무 실제 사례(1명만 인정)">
-              <p class="tool-caption">예시 화면(개인정보가 포함될 수 있으니 게시용 업로드 전 가림처리 권장)</p>
-            </div>
-          </div>
-        </details>
-
-        <details class="shot-details">
-          <summary class="shot-summary">Q4. 교육공무직(근로기준법 적용자)도 “평일 1시간 공제”하나요?</summary>
-          <div style="margin-top:10px;">
-            <div class="callout ok">
-              교육공무직은 공무원 방식의 “일괄 1시간 공제”가 아니라, <b>실제 휴게시간을 공제</b>하여 산정합니다.
-            </div>
-            <ul style="margin:0; padding-left:18px;">
-              <li>4시간 이상 근무 시 최소 30분, 8시간 이상 근무 시 최소 1시간 휴게시간을 고려해 NEIS 상신 시간을 조정합니다.</li>
-              <li>직종별 고정 휴게시간이 있는 경우, 학교 문서(문막초-4064)를 기준으로 합니다.</li>
-            </ul>
-          </div>
-        </details>
-
-        <div class="callout warn" style="margin-top:12px;">
-          <b>문의</b>: 결재/증빙/시간 산정이 애매할 때는 “상신 전에” 행정실(복무 담당)로 먼저 상담하면
-          재상신/미인정 리스크를 크게 줄일 수 있습니다.
-        </div>
-      </div>
-
     </section>
 
     <!-- ========================= 첨부/서식 다운로드 ========================= -->
     <section class="section dl-section" id="sec-files">
       <div class="row between">
         <h2 style="margin:0;">첨부/서식</h2>
-        <button class="btn ghost btnCopy" type="button" data-url="">
+        <button class="btn ghost btnCopy" type="button" data-url="/guides/external-lecturer-oneoff.html">
           이 페이지 링크 복사
         </button>
       </div>
-      <p class="muted dl-desc">·파일 경로는 업로드 위치에 맞게 수정하세요.</p>
+      <p class="muted dl-desc">·아래 파일 경로는 예시입니다. 학교/기관 서식 경로에 맞게 수정하세요.</p>
       <hr/>
 
       <div class="grid three">
         <div class="card">
-          <div><b>초과근무 증빙 관련 안내(자주 묻는 질문) (2025.08.25.)</b></div>
+          <div><b>성범죄·아동학대 범죄전력 조회 동의서(서식)</b></div>
           <hr/>
           <div class="row gap">
-            <a class="btn" href="/static/files/overwork_faq_20250825.pdf" download>다운로드</a>
-            <a class="btn ghost" href="/static/files/overwork_faq_20250825.pdf" target="_blank" rel="noopener">뷰어 열기</a>
-            <button class="btn ghost btnCopy" type="button" data-url="/static/files/overwork_faq_20250825.pdf">링크 복사</button>
+            <a class="btn" href="/files/forms/consent_crime_check.hwp" download>다운로드</a>
+            <a class="btn ghost" href="/files/forms/consent_crime_check.hwp" target="_blank" rel="noopener">뷰어 열기</a>
+            <button class="btn ghost btnCopy" type="button" data-url="/files/forms/consent_crime_check.hwp">링크 복사</button>
           </div>
         </div>
 
         <div class="card">
-          <div><b>근로기준법 적용자 휴게시간 안내(공무직/학교장 임용) (2025.09.17.)</b></div>
+          <div><b>개인정보 수집·이용·제공 동의서 + 행정정보 공동이용 사전 동의서</b></div>
           <hr/>
           <div class="row gap">
-            <a class="btn" href="/static/files/labor_breaktime_notice_20250917.pdf" download>다운로드</a>
-            <a class="btn ghost" href="/static/files/labor_breaktime_notice_20250917.pdf" target="_blank" rel="noopener">뷰어 열기</a>
-            <button class="btn ghost btnCopy" type="button" data-url="/static/files/labor_breaktime_notice_20250917.pdf">링크 복사</button>
+            <a class="btn" href="/files/forms/consent_privacy_share.hwp" download>다운로드</a>
+            <button class="btn ghost btnCopy" type="button" data-url="/files/forms/consent_privacy_share.hwp">링크 복사</button>
           </div>
         </div>
 
         <div class="card">
-          <div><b>문막초-4064(2025.03.27.) 교육공무직/특수운영직군 근로시간·휴게시간 안내</b></div>
+          <div><b>외부강사 강의 확인서(서식)</b></div>
           <hr/>
           <div class="row gap">
-            <a class="btn" href="/static/files/munmak_4064_worktime_breaktime_20250327.pdf" download>다운로드</a>
-            <a class="btn ghost" href="/static/files/munmak_4064_worktime_breaktime_20250327.pdf" target="_blank" rel="noopener">뷰어 열기</a>
-            <button class="btn ghost btnCopy" type="button" data-url="/static/files/munmak_4064_worktime_breaktime_20250327.pdf">링크 복사</button>
+            <a class="btn" href="/files/forms/lecture_confirmation.hwp" download>다운로드</a>
+            <button class="btn ghost btnCopy" type="button" data-url="/files/forms/lecture_confirmation.hwp">링크 복사</button>
           </div>
         </div>
       </div>
-
-      <div class="card" style="margin-top:14px;">
-        <b>이미지 업로드(선택)</b>
-        <hr/>
-        <div class="mini muted">
-          ·체크리스트 이미지: <span class="kbd">/static/img/overwork_checklist.jpg</span><br/>
-          ·실제 사례 이미지: <span class="kbd">/static/img/overwork_case_example.jpg</span> (개인정보 가림 처리 권장)
-        </div>
-      </div>
-
     </section>
 
   </main>
@@ -483,7 +622,7 @@
   <!-- 토스트 (링크 복사 알림) -->
   <div class="toast" id="toast"></div>
 
-  <!-- 링크 복사 스크립트 (welfare 페이지 패턴 기반) -->
+  <!-- 링크 복사 스크립트 (기존 페이지 패턴 기반) -->
   <script>
     (function () {
       const $ = (sel, el=document) => el.querySelector(sel);
@@ -508,6 +647,7 @@
           await navigator.clipboard.writeText(text);
           return true;
         } catch (e) {
+          // fallback(환경에 따라 copy 이벤트 차단 시 실패할 수 있음)
           const ta = document.createElement("textarea");
           ta.value = text;
           ta.style.position = "fixed";
@@ -532,7 +672,7 @@
     })();
   </script>
 
-  <!-- 공통 스크립트 (기존 페이지와 동일) -->
+  <!-- 공통 스크립트 -->
   <script src="/static/disable-copy.js"></script>
   <script src="/static/footer.js"></script>
   <script src="/static/global-loader.js?v=1"></script>
