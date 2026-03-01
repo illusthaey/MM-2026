@@ -1,0 +1,859 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>초과근무(시간외근무) 복무·증빙 안내 + 자가진단(PDF/이미지 저장)</title>
+
+  <link rel="icon" href="/static/favicon.ico" />
+  <link rel="stylesheet" href="/static/style.css" />
+
+  <style>
+    /* 링크 복사 토스트 */
+    .toast{
+      position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%);
+      padding: 10px 12px; border: 1px solid #e5e5e5; border-radius: 12px;
+      background: rgba(255,255,255,0.95); box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      font-size: 0.95rem; color:#111; z-index: 9999;
+      display:none;
+    }
+
+    .content a{ text-decoration: underline; text-underline-offset: 2px; }
+
+    /* 체크리스트 UI */
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 6px 10px; border-radius: 999px;
+      border: 1px solid #e5e5e5; background:#fafafa;
+      font-size: 0.95rem;
+    }
+    .pill input[type="radio"]{ transform: translateY(1px); }
+
+    .checklist{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .checkitem{
+      display:flex;
+      align-items:flex-start;
+      gap: 10px;
+      padding: 12px;
+      border: 1px solid #eaeaea;
+      border-radius: 14px;
+      background: #fff;
+    }
+    .checkitem input[type="checkbox"]{
+      width: 18px; height: 18px;
+      margin-top: 2px;
+      flex: 0 0 auto;
+    }
+    .checkitem .meta{
+      flex:1 1 auto;
+    }
+    .checkitem .meta b{
+      display:block;
+      margin-bottom: 4px;
+    }
+
+    .resultBox{
+      border-radius: 14px;
+      padding: 12px;
+      border: 1px solid #e5e5e5;
+      background: #fcfcfc;
+    }
+    .resultBox.ok{
+      border-color: #cfe9d6;
+      background: #f3fbf5;
+    }
+    .resultBox.bad{
+      border-color: #f2c8c8;
+      background: #fff5f5;
+    }
+    .resultBox .title{
+      margin: 0 0 6px;
+      font-weight: 800;
+    }
+
+    /* 내보내기(캡처) 영역: 출력용으로 조금 더 '문서' 느낌 */
+    #exportArea{
+      background: #fff;
+      border: 1px solid #eaeaea;
+      border-radius: 14px;
+      padding: 14px;
+    }
+    #exportArea h3{
+      margin: 0 0 6px;
+    }
+    #exportArea .small{
+      font-size: 0.92rem;
+      color: #555;
+    }
+    #exportArea .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    @media (max-width: 720px){
+      #exportArea .grid2{ grid-template-columns: 1fr; }
+    }
+    #exportArea .field{
+      border: 1px solid #eee;
+      border-radius: 12px;
+      padding: 10px;
+      background: #fafafa;
+    }
+    #exportArea .field b{ display:block; margin-bottom: 4px; }
+    #exportArea .checkline{
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+      padding: 8px 0;
+      border-bottom: 1px dashed #eee;
+    }
+    #exportArea .checkline:last-child{ border-bottom: 0; }
+    #exportArea .mark{
+      width: 22px;
+      flex: 0 0 auto;
+      font-weight: 900;
+    }
+    #exportArea .mark.ok{ color: #0b7a2b; }
+    #exportArea .mark.no{ color: #c02626; }
+
+    /* 내보내기 버튼 줄 */
+    .export-actions{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items:center;
+    }
+    .export-actions .btn{ white-space: nowrap; }
+
+    /* 이미지 썸네일 */
+    .thumb{
+      max-width: 100%;
+      border: 1px solid #eee;
+      border-radius: 12px;
+    }
+
+    /* 내보내기 진행 표시 */
+    .loadingTag{
+      display:none;
+      margin-left: 8px;
+      font-size: 0.95rem;
+      color: #555;
+    }
+    .loadingTag.on{ display:inline-block; }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+
+    <h1>초과근무(시간외근무) 복무·증빙 안내 + 자가진단(PDF/이미지 저장)</h1>
+    <p class="muted">
+      ·관련: 행정실 안내(2025. 8. 25. / 2025. 9. 17. 발송) 및 학교 내부 운영 기준<br/>
+      ·최종 업데이트: 2026. 3. 1.
+    </p>
+
+    <hr/>
+
+    <!-- ========================= 상단 요약 ========================= -->
+    <section class="section">
+      <h2>핵심 요약</h2>
+      <hr/>
+
+      <div class="card">
+        <ul style="margin: 0; padding-left: 18px;">
+          <li><b>대상</b>: 전체 교직원(공무원·교원 / 교육공무직 / 학교장 임용 직원)</li>
+          <li><b>원칙</b>: <b>사전 초과근무 복무 결재(명령)</b> + <b>근무지별 증빙</b>이 있어야 수당 인정 가능</li>
+          <li><b>교내 근무</b>: <b>출근·퇴근 지문 모두</b> 있어야 “초과근무 시간”으로 증명 가능</li>
+          <li><b>교외 근무</b>: <b>초과근무 확인 수기대장</b> 기재(출장과 별개로 <b>초과근무 결재</b> 필요)</li>
+        </ul>
+      </div>
+
+      <div class="row gap" style="margin-top: 12px;">
+        <a class="btn primary" href="#" target="_blank" rel="noopener">NEIS(초과근무 신청)</a>
+        <button class="btn ghost btnCopy" type="button" data-url="#">
+          이 페이지 링크 복사
+        </button>
+      </div>
+      <p class="note" style="margin-top:8px;">
+        (※ 링크는 학교/교육청 환경에 맞게 수정하세요.)
+      </p>
+    </section>
+
+    <!-- ========================= 본문 ========================= -->
+    <section class="section content" id="sec-main">
+      <h2>안내 내용</h2>
+      <hr/>
+
+      <div class="card">
+        <h3 style="margin-top:0;">1) “사전 결재 + 증빙”이 없으면 수당 지급 근거가 없습니다</h3>
+        <p class="muted" style="margin: 6px 0 0;">
+          ·초과근무는 정규근무(예: 08:40~16:40)와 별개로 관리됩니다. <br/>
+          ·<b>지문 기록이 있어도</b> 초과근무 <b>사전 결재(명령)</b>가 없으면 원칙적으로 지급 근거가 되지 않습니다.
+        </p>
+      </div>
+
+      <details class="shot-details" open>
+        <summary class="shot-summary">자주 헷갈리는 포인트 (접기·펼치기)</summary>
+        <div style="margin-top:10px;">
+          <ul style="margin: 0; padding-left: 18px;">
+            <li><b>교내 초과근무</b>: “초과근무 시간대”의 <b>출근 지문</b>과 <b>퇴근 지문</b>이 모두 필요합니다.</li>
+            <li><b>교외 초과근무</b>: 출장 상신과 별도로 <b>초과근무 결재</b>를 받아야, 수기대장 기재가 ‘근거’가 됩니다.</li>
+            <li>같은 사유라도 <b>증빙이 다른 사람만 인정</b>될 수 있습니다(아래 예시 참고).</li>
+          </ul>
+        </div>
+      </details>
+
+      <div class="card">
+        <h3 style="margin-top:0;">2) 신분별 추가 유의사항</h3>
+        <p class="muted" style="margin: 6px 0 0;">
+          아래 내용은 “자가진단 체크리스트”의 판단 항목과 연결됩니다.
+        </p>
+        <hr/>
+        <div class="grid two">
+          <div class="card" style="margin:0;">
+            <b>공무원·교원</b>
+            <ul style="margin: 10px 0 0; padding-left: 18px;">
+              <li><b>사전 신청·승인(명령)</b> 원칙</li>
+              <li><b>근무지별 증빙</b> 일치(교내=지문 / 교외=수기대장)</li>
+              <li><b>중복수당</b>(강사료·시험감독수당 등) 시간대 겹치면 지급 불가</li>
+            </ul>
+          </div>
+          <div class="card" style="margin:0;">
+            <b>교육공무직·학교장 임용 직원(근로기준법 적용)</b>
+            <ul style="margin: 10px 0 0; padding-left: 18px;">
+              <li>연장근로도 <b>사전 동의/결재</b> 및 증빙이 필요합니다(기관 운영 기준).</li>
+              <li><b>휴게시간</b>은 근로기준법 기준에 따라 반영(예: 4시간 이상 30분, 8시간 이상 1시간)하여 상신합니다.</li>
+              <li>휴게시간은 “근무시간”이 아니므로 <b>무급 공제</b> 대상입니다.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0;">3) 한 장 요약 이미지(학교 내부 체크리스트)</h3>
+        <p class="muted" style="margin: 6px 0 10px;">
+          ·파일 경로는 실제 업로드 위치에 맞게 수정하세요.
+        </p>
+        <img class="thumb" src="/static/files/overtime/초과근무-체크리스트.jpg" alt="초과근무 발생 시 체크리스트">
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0;">4) 실제 사례 예시(동일 사유, 1명만 인정)</h3>
+        <img class="thumb" src="/static/files/overtime/초과근무-예시-동일사유-1명인정.jpg" alt="초과근무 복무 상신 및 증빙 관련 예시">
+        <p class="note" style="margin-top:10px;">
+          (핵심: <b>결재/지문 누락</b>이 있으면 실제 근무 여부와 무관하게 “미인정” 될 수 있습니다.)
+        </p>
+      </div>
+
+    </section>
+
+    <!-- ========================= 자가진단 + 내보내기 ========================= -->
+    <section class="section" id="sec-selfcheck">
+      <div class="row between">
+        <h2 style="margin:0;">자가진단 체크리스트 (체크 후 PDF/이미지 저장)</h2>
+        <button class="btn ghost btnCopy" type="button" data-url="#sec-selfcheck">
+          이 섹션 링크 복사
+        </button>
+      </div>
+      <p class="muted">
+        ·이 체크는 “행정실 최종 확인”을 대체하지 않습니다. 다만 <b>누락으로 인한 미인정</b>을 줄이기 위한 빠른 점검용입니다.<br/>
+        ·체크 후 아래 “내보내기” 버튼으로 <b>PDF 또는 이미지</b>로 저장할 수 있습니다.
+      </p>
+      <hr/>
+
+      <div class="card">
+        <h3 style="margin-top:0;">0) 내 신분 선택</h3>
+        <div class="row gap" style="flex-wrap: wrap;">
+          <label class="pill"><input type="radio" name="role" value="civil" checked> 공무원·교원</label>
+          <label class="pill"><input type="radio" name="role" value="labor"> 교육공무직·학교장 임용 직원(근로기준법 적용)</label>
+        </div>
+
+        <hr/>
+
+        <h3 style="margin-top:0;">1) 근무 형태 선택</h3>
+        <div class="row gap" style="flex-wrap: wrap;">
+          <label class="pill"><input type="radio" name="place" value="inside" checked> 교내 근무(지문 증빙)</label>
+          <label class="pill"><input type="radio" name="place" value="outside"> 교외 근무(수기대장 증빙)</label>
+        </div>
+
+        <hr/>
+
+        <h3 style="margin-top:0;">2) 체크 항목</h3>
+
+        <div class="checklist" id="checklist">
+          <div class="checkitem">
+            <input type="checkbox" id="c_approve">
+            <div class="meta">
+              <b>사전 초과근무 복무 결재(명령)를 받았습니다</b>
+              <div class="muted">사전 결재가 없으면, 지문/수기대장이 있어도 지급 근거가 약해집니다.</div>
+            </div>
+          </div>
+
+          <div class="checkitem" data-only="inside">
+            <input type="checkbox" id="c_finger_in">
+            <div class="meta">
+              <b>(교내) 초과근무 시작 시각의 “출근 지문”이 있습니다</b>
+              <div class="muted">예: 06:40~08:40 초과근무면 06:40 전후 출근 지문 필요</div>
+            </div>
+          </div>
+
+          <div class="checkitem" data-only="inside">
+            <input type="checkbox" id="c_finger_out">
+            <div class="meta">
+              <b>(교내) 초과근무 종료 시각의 “퇴근 지문”이 있습니다</b>
+              <div class="muted">예: 06:40~08:40 초과근무면 08:40 전후 퇴근 지문 필요</div>
+            </div>
+          </div>
+
+          <div class="checkitem" data-only="outside">
+            <input type="checkbox" id="c_manual_log">
+            <div class="meta">
+              <b>(교외) 초과근무 확인 수기대장에 기재했습니다</b>
+              <div class="muted">출장과 별도로 초과근무 결재를 받아야 “기재 근거”가 생깁니다.</div>
+            </div>
+          </div>
+
+          <div class="checkitem">
+            <input type="checkbox" id="c_no_dupe">
+            <div class="meta">
+              <b>동일 시간대에 중복수당(강사료·감독수당 등)이 없습니다</b>
+              <div class="muted">같은 시간에 다른 보상이 있으면 초과근무수당과 중복 지급 불가.</div>
+            </div>
+          </div>
+
+          <div class="checkitem" data-role="labor">
+            <input type="checkbox" id="c_break">
+            <div class="meta">
+              <b>(근로기준법 적용자) 휴게시간을 공제하여 상신/산정했습니다</b>
+              <div class="muted">예: 4시간 이상 30분, 8시간 이상 1시간 등(무급 휴게시간)</div>
+            </div>
+          </div>
+        </div>
+
+        <hr/>
+
+        <div class="resultBox" id="resultBox">
+          <p class="title" id="resultTitle">체크 결과를 계산 중입니다…</p>
+          <div class="muted" id="resultDesc">체크 항목을 선택하면 자동으로 결과가 나옵니다.</div>
+          <div id="missingWrap" style="margin-top:10px; display:none;">
+            <b>누락 항목</b>
+            <ul id="missingList" style="margin: 6px 0 0; padding-left: 18px;"></ul>
+          </div>
+        </div>
+
+        <hr/>
+
+        <h3 style="margin:0;">3) 내보내기용 “결과지” 미리보기</h3>
+        <p class="muted" style="margin: 6px 0 12px;">
+          ·아래 박스가 PDF/이미지로 저장됩니다. (필요 시 성명/일시/사유를 적어두세요)
+        </p>
+
+        <div id="exportArea">
+          <h3>초과근무 자가진단 결과지</h3>
+          <div class="small" id="exportMeta">생성일시: -</div>
+
+          <div class="grid2">
+            <div class="field">
+              <b>성명</b>
+              <input class="input" id="f_name" placeholder="예: 홍길동" style="width:100%;" />
+            </div>
+            <div class="field">
+              <b>신분</b>
+              <div id="f_role_txt" class="small">공무원·교원</div>
+            </div>
+            <div class="field">
+              <b>근무 형태</b>
+              <div id="f_place_txt" class="small">교내 근무(지문 증빙)</div>
+            </div>
+            <div class="field">
+              <b>초과근무 일시(선택)</b>
+              <input class="input" id="f_time" placeholder="예: 2026. 3. 1.(월) 06:40~08:40" style="width:100%;" />
+            </div>
+          </div>
+
+          <div class="field" style="margin-top:10px;">
+            <b>근무 사유(선택)</b>
+            <input class="input" id="f_reason" placeholder="예: 행사 준비 / 학생 안전지도 / 자료 정리 등" style="width:100%;" />
+          </div>
+
+          <div class="field" style="margin-top:10px;">
+            <b>체크 결과</b>
+            <div class="small" id="exportResult">-</div>
+          </div>
+
+          <div class="field" style="margin-top:10px;">
+            <b>체크 항목 상세</b>
+            <div id="exportLines"></div>
+          </div>
+
+          <div class="small" style="margin-top:10px;">
+            ※ 본 결과지는 내부 확인용이며, 최종 인정 여부는 결재/증빙 및 시스템 기록을 종합하여 판단합니다.
+          </div>
+        </div>
+
+        <hr/>
+
+        <h3 style="margin-top:0;">4) 내보내기</h3>
+
+        <div class="export-actions">
+          <label class="pill">
+            <input type="radio" name="scope" value="self" checked>
+            결과지(자가진단)만 저장
+          </label>
+          <label class="pill">
+            <input type="radio" name="scope" value="all">
+            페이지 전체 저장
+          </label>
+
+          <span class="loadingTag" id="loadingTag">생성 중…</span>
+        </div>
+
+        <div class="row gap" style="margin-top: 10px; flex-wrap: wrap;">
+          <button class="btn primary" id="btnPdf" type="button">PDF 다운로드</button>
+          <button class="btn" id="btnPng" type="button">이미지(PNG) 다운로드</button>
+          <button class="btn ghost" id="btnReset" type="button">체크/입력 초기화</button>
+        </div>
+
+        <p class="note" style="margin-top:10px;">
+          (※ PDF/이미지 저장은 브라우저 성능에 따라 수 초 걸릴 수 있습니다. 생성 중에는 버튼을 여러 번 누르지 마세요.)
+        </p>
+      </div>
+    </section>
+
+    <!-- ========================= 첨부/서식 다운로드 ========================= -->
+    <section class="section dl-section" id="sec-files">
+      <div class="row between">
+        <h2 style="margin:0;">첨부/서식</h2>
+        <button class="btn ghost btnCopy" type="button" data-url="#sec-files">
+          이 섹션 링크 복사
+        </button>
+      </div>
+      <p class="muted dl-desc">·버튼은 필요에 따라 삭제/추가하세요. (경로는 실제 업로드 위치에 맞게 수정)</p>
+      <hr/>
+
+      <div class="grid three">
+        <div class="card">
+          <div><b>초과근무 증빙 관련 안내(자주 묻는 질문)</b></div>
+          <hr/>
+          <div class="row gap">
+            <a class="btn" href="/static/files/overtime/초과근무_증빙_자주묻는질문.pdf" download>다운로드</a>
+            <a class="btn ghost" href="/static/files/overtime/초과근무_증빙_자주묻는질문.pdf" target="_blank" rel="noopener">뷰어 열기</a>
+            <button class="btn ghost btnCopy" type="button" data-url="/static/files/overtime/초과근무_증빙_자주묻는질문.pdf">링크 복사</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div><b>근로기준법 적용자 휴게시간 안내(공무직/학교장 임용)</b></div>
+          <hr/>
+          <div class="row gap">
+            <a class="btn" href="/static/files/overtime/근로기준법_휴게시간_안내.pdf" download>다운로드</a>
+            <a class="btn ghost btnCopy" type="button" data-url="/static/files/overtime/근로기준법_휴게시간_안내.pdf">링크 복사</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div><b>교육공무직·특수운영직군 근로시간/휴게시간 안내(문서)</b></div>
+          <hr/>
+          <div class="row gap">
+            <a class="btn" href="/static/files/overtime/교육공무직_근로시간_휴게시간_안내.pdf" download>다운로드</a>
+            <a class="btn ghost" href="/static/files/overtime/교육공무직_근로시간_휴게시간_안내.pdf" target="_blank" rel="noopener">뷰어 열기</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 토스트 -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ====== (1) html2canvas / jsPDF 로더: 로컬 우선 → 실패 시 CDN ====== -->
+  <script src="/static/vendor/html2canvas.min.js"
+          onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';"></script>
+
+  <script src="/static/vendor/jspdf.umd.min.js"
+          onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js';"></script>
+
+  <!-- ====== 링크 복사 + 자가진단 내보내기 스크립트 ====== -->
+  <script>
+    (function () {
+      const $ = (sel, el=document) => el.querySelector(sel);
+      const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
+
+      function toast(msg) {
+        const t = $("#toast");
+        if (!t) return;
+        t.textContent = msg;
+        t.style.display = "block";
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(() => (t.style.display = "none"), 1400);
+      }
+
+      function absUrl(path) {
+        try { return new URL(path, location.origin).toString(); }
+        catch { return path; }
+      }
+
+      async function copyText(text) {
+        try {
+          await navigator.clipboard.writeText(text);
+          return true;
+        } catch (e) {
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          ta.style.position = "fixed";
+          ta.style.left = "-9999px";
+          document.body.appendChild(ta);
+          ta.focus();
+          ta.select();
+          let ok = false;
+          try { ok = document.execCommand("copy"); } catch {}
+          ta.remove();
+          return ok;
+        }
+      }
+
+      // -----------------------------
+      // 1) 링크 복사 버튼
+      // -----------------------------
+      $$(".btnCopy").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          const url = btn.dataset.url ? absUrl(btn.dataset.url) : location.href;
+          const ok = await copyText(url);
+          toast(ok ? "링크 복사 완료" : "복사 실패");
+        });
+      });
+
+      // -----------------------------
+      // 2) 체크리스트 표시/숨김
+      // -----------------------------
+      const roleRadios = $$('input[name="role"]');
+      const placeRadios = $$('input[name="place"]');
+
+      function getRole(){ return (roleRadios.find(r => r.checked) || {}).value || "civil"; }
+      function getPlace(){ return (placeRadios.find(r => r.checked) || {}).value || "inside"; }
+
+      function applyVisibility(){
+        const role = getRole();
+        const place = getPlace();
+
+        // place 전용 항목
+        $$('#checklist [data-only="inside"]').forEach(el => el.style.display = (place === "inside" ? "flex" : "none"));
+        $$('#checklist [data-only="outside"]').forEach(el => el.style.display = (place === "outside" ? "flex" : "none"));
+
+        // role 전용 항목
+        $$('#checklist [data-role]').forEach(el => {
+          const need = el.getAttribute("data-role");
+          el.style.display = (need === role ? "flex" : "none");
+        });
+
+        // export 표기
+        $("#f_role_txt").textContent = (role === "civil") ? "공무원·교원" : "교육공무직·학교장 임용 직원(근로기준법 적용)";
+        $("#f_place_txt").textContent = (place === "inside") ? "교내 근무(지문 증빙)" : "교외 근무(수기대장 증빙)";
+
+        calc();
+      }
+
+      roleRadios.forEach(r => r.addEventListener("change", applyVisibility));
+      placeRadios.forEach(r => r.addEventListener("change", applyVisibility));
+
+      // -----------------------------
+      // 3) 결과 계산 + 내보내기 영역 동기화
+      // -----------------------------
+      const checks = {
+        approve: $("#c_approve"),
+        fingerIn: $("#c_finger_in"),
+        fingerOut: $("#c_finger_out"),
+        manualLog: $("#c_manual_log"),
+        noDupe: $("#c_no_dupe"),
+        breakDeduct: $("#c_break"),
+      };
+
+      Object.values(checks).forEach(el => {
+        if (!el) return;
+        el.addEventListener("change", () => calc());
+      });
+
+      // 입력 필드도 미리보기 반영(캡처에는 그대로 들어가지만, meta 등은 갱신)
+      ["f_name","f_time","f_reason"].forEach(id => {
+        const el = $("#"+id);
+        if (!el) return;
+        el.addEventListener("input", () => updateExportMeta());
+      });
+
+      function nowText(){
+        const d = new Date();
+        const pad = (n) => String(n).padStart(2, "0");
+        return `${d.getFullYear()}.${pad(d.getMonth()+1)}.${pad(d.getDate())}. ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+      }
+
+      function updateExportMeta(){
+        $("#exportMeta").textContent = `생성일시: ${nowText()}`;
+      }
+
+      function line(markOk, title, desc){
+        const mark = markOk ? "☑" : "☐";
+        const cls = markOk ? "ok" : "no";
+        return `
+          <div class="checkline">
+            <div class="mark ${cls}">${mark}</div>
+            <div>
+              <div style="font-weight:700;">${escapeHtml(title)}</div>
+              ${desc ? `<div class="small">${escapeHtml(desc)}</div>` : ""}
+            </div>
+          </div>
+        `;
+      }
+
+      function escapeHtml(str){
+        return String(str||"").replace(/[&<>"']/g, (m) => ({
+          "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+        }[m]));
+      }
+
+      function calc(){
+        updateExportMeta();
+
+        const role = getRole();
+        const place = getPlace();
+
+        // 필요한 항목 정의
+        const required = [];
+        required.push({ key: "approve", title:"사전 초과근무 복무 결재(명령) 완료", desc:"사전 결재가 없으면 수당 근거 부족" });
+        required.push({ key: "noDupe", title:"동일 시간대 중복수당 없음", desc:"강사료·감독수당 등과 중복 불가" });
+
+        if (place === "inside") {
+          required.push({ key: "fingerIn", title:"(교내) 초과근무 출근 지문", desc:"초과근무 시작 시각 전후 기록" });
+          required.push({ key: "fingerOut", title:"(교내) 초과근무 퇴근 지문", desc:"초과근무 종료 시각 전후 기록" });
+        } else {
+          required.push({ key: "manualLog", title:"(교외) 확인 수기대장 기재", desc:"출장과 별개로 초과근무 결재 필요" });
+        }
+
+        if (role === "labor") {
+          required.push({ key: "breakDeduct", title:"(근로기준법) 휴게시간 공제 반영", desc:"4시간≥30분, 8시간≥1시간 등" });
+        }
+
+        // 누락 계산
+        const missing = [];
+        required.forEach(r => {
+          const el = (r.key === "breakDeduct") ? checks.breakDeduct : checks[r.key];
+          const ok = el && el.checked;
+          if (!ok) missing.push(r.title);
+        });
+
+        // 결과 UI
+        const box = $("#resultBox");
+        const titleEl = $("#resultTitle");
+        const descEl = $("#resultDesc");
+        const missingWrap = $("#missingWrap");
+        const missingList = $("#missingList");
+
+        // exportResult + exportLines
+        const exportResult = $("#exportResult");
+        const exportLines = $("#exportLines");
+
+        const okAll = (missing.length === 0);
+
+        if (okAll) {
+          box.classList.remove("bad");
+          box.classList.add("ok");
+          titleEl.textContent = "✅ 현재 체크 기준으로는 ‘인정 가능성 높음’";
+          descEl.textContent = "사전 결재 + 증빙 + (해당자) 휴게시간 반영 + 중복수당 없음 조건이 충족되었습니다. (최종 판단은 행정실/시스템 기록 기준)";
+          missingWrap.style.display = "none";
+
+          exportResult.textContent = "✅ 체크 통과(인정 가능성 높음) — 단, 최종은 행정실 확인";
+        } else {
+          box.classList.remove("ok");
+          box.classList.add("bad");
+          titleEl.textContent = "⚠️ 현재 체크 기준으로는 ‘미인정 가능성’이 있습니다";
+          descEl.textContent = "아래 누락 항목이 있으면 실제 근무 여부와 무관하게 증빙 불충분으로 미인정 될 수 있습니다.";
+          missingWrap.style.display = "block";
+          missingList.innerHTML = missing.map(x => `<li>${escapeHtml(x)}</li>`).join("");
+
+          exportResult.textContent = "⚠️ 누락 있음(미인정 가능성) — 누락 항목 보완 필요";
+        }
+
+        // 내보내기 상세 목록
+        exportLines.innerHTML = required.map(r => {
+          const el = (r.key === "breakDeduct") ? checks.breakDeduct : checks[r.key];
+          const ok = el && el.checked;
+          return line(ok, r.title, r.desc);
+        }).join("");
+
+        // 내보내기 헤더에 역할/장소 반영
+        $("#f_role_txt").textContent = (role === "civil") ? "공무원·교원" : "교육공무직·학교장 임용 직원(근로기준법 적용)";
+        $("#f_place_txt").textContent = (place === "inside") ? "교내 근무(지문 증빙)" : "교외 근무(수기대장 증빙)";
+      }
+
+      // -----------------------------
+      // 4) 내보내기(PNG/PDF)
+      // -----------------------------
+      const loadingTag = $("#loadingTag");
+      const btnPdf = $("#btnPdf");
+      const btnPng = $("#btnPng");
+
+      function setBusy(on){
+        loadingTag.classList.toggle("on", !!on);
+        [btnPdf, btnPng].forEach(b => {
+          if (!b) return;
+          b.disabled = !!on;
+          b.style.opacity = on ? "0.65" : "1";
+          b.style.pointerEvents = on ? "none" : "auto";
+        });
+      }
+
+      function getScopeNode(){
+        const scope = ($$('input[name="scope"]').find(r => r.checked) || {}).value || "self";
+        if (scope === "all") return document.querySelector("main.container");
+        return $("#exportArea");
+      }
+
+      function fileStamp(){
+        const d = new Date();
+        const pad = (n) => String(n).padStart(2, "0");
+        return `${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}_${pad(d.getHours())}${pad(d.getMinutes())}`;
+      }
+
+      async function ensureLibs(){
+        // html2canvas
+        if (typeof window.html2canvas !== "function") {
+          toast("내보내기 라이브러리(html2canvas) 로드 실패");
+          return false;
+        }
+        // jsPDF
+        const ok = !!(window.jspdf && window.jspdf.jsPDF);
+        if (!ok) {
+          toast("내보내기 라이브러리(jsPDF) 로드 실패");
+          return false;
+        }
+        return true;
+      }
+
+      async function captureCanvas(node){
+        // 스크롤 위치에 따라 캡처가 잘리는 문제를 줄이기 위한 옵션
+        const canvas = await window.html2canvas(node, {
+          scale: 2,
+          backgroundColor: "#ffffff",
+          useCORS: true,
+          logging: false,
+          scrollX: 0,
+          scrollY: -window.scrollY,
+          windowWidth: document.documentElement.clientWidth,
+          windowHeight: document.documentElement.clientHeight,
+        });
+        return canvas;
+      }
+
+      function downloadBlob(blob, filename){
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1500);
+      }
+
+      async function exportPNG(){
+        const ok = await ensureLibs();
+        if (!ok) return;
+
+        const node = getScopeNode();
+        setBusy(true);
+        toast("이미지 생성 중…");
+        try {
+          const canvas = await captureCanvas(node);
+          const name = ($("#f_name").value || "미기재").trim();
+          const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png"));
+          downloadBlob(blob, `초과근무_자가진단_${name}_${fileStamp()}.png`);
+          toast("이미지 다운로드 완료");
+        } catch (e) {
+          console.error(e);
+          toast("이미지 생성 실패(콘솔 확인)");
+        } finally {
+          setBusy(false);
+        }
+      }
+
+      async function exportPDF(){
+        const ok = await ensureLibs();
+        if (!ok) return;
+
+        const node = getScopeNode();
+        setBusy(true);
+        toast("PDF 생성 중…");
+        try {
+          const canvas = await captureCanvas(node);
+
+          const imgData = canvas.toDataURL("image/jpeg", 0.95);
+          const { jsPDF } = window.jspdf;
+
+          // A4 세로
+          const pdf = new jsPDF("p", "mm", "a4");
+          const pageW = pdf.internal.pageSize.getWidth();
+          const pageH = pdf.internal.pageSize.getHeight();
+
+          // 캔버스(px) → PDF(mm) 스케일링
+          const imgW = pageW;
+          const imgH = (canvas.height * imgW) / canvas.width;
+
+          let heightLeft = imgH;
+          let position = 0;
+
+          pdf.addImage(imgData, "JPEG", 0, position, imgW, imgH);
+          heightLeft -= pageH;
+
+          while (heightLeft > 1) {
+            pdf.addPage();
+            position = heightLeft - imgH; // 음수로 올려서 다음 영역이 보이게
+            pdf.addImage(imgData, "JPEG", 0, position, imgW, imgH);
+            heightLeft -= pageH;
+          }
+
+          const name = ($("#f_name").value || "미기재").trim();
+          pdf.save(`초과근무_자가진단_${name}_${fileStamp()}.pdf`);
+          toast("PDF 다운로드 완료");
+        } catch (e) {
+          console.error(e);
+          toast("PDF 생성 실패(콘솔 확인)");
+        } finally {
+          setBusy(false);
+        }
+      }
+
+      $("#btnPng").addEventListener("click", exportPNG);
+      $("#btnPdf").addEventListener("click", exportPDF);
+
+      // 초기화
+      $("#btnReset").addEventListener("click", () => {
+        Object.values(checks).forEach(el => { if (el) el.checked = false; });
+        $("#f_name").value = "";
+        $("#f_time").value = "";
+        $("#f_reason").value = "";
+        // 기본값 복구
+        (roleRadios.find(r => r.value === "civil") || roleRadios[0]).checked = true;
+        (placeRadios.find(r => r.value === "inside") || placeRadios[0]).checked = true;
+        applyVisibility();
+        toast("초기화 완료");
+      });
+
+      // 최초 1회 계산/표시
+      applyVisibility();
+    })();
+  </script>
+
+  <!-- 공통 스크립트 -->
+  <script src="/static/disable-copy.js"></script>
+  <script src="/static/footer.js"></script>
+  <script src="/static/global-loader.js?v=1"></script>
+</body>
+</html>
