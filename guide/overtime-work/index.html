@@ -158,8 +158,8 @@
 
             <tr>
               <td><b>수당 지급</b></td>
-              <td>내부 규정에 따라 인정 시간 산정 후 지급</td>
-              <td>익월 급여일 지급(통상)</td>
+              <td>공무원: 정액분 1시간 공제<br/> 교육공무직: 휴게시간 공제</td>
+              <td>익월 급여일 지급</td>
             </tr>
           </tbody>
         </table>
@@ -212,9 +212,8 @@
             <input type="checkbox" id="c_approve">
             <div class="meta">
               <label for="c_approve">
-                <b>사전에 초과근무 결재(명령)를 받았습니다.</b>
+                <b>사전에 초과근무 결재를 받았습니다.</b>
               </label>
-              <div class="small muted">사전 결재가 없으면 수당 지급 근거가 부족할 수 있습니다.</div>
             </div>
           </div>
 
@@ -222,9 +221,8 @@
             <input type="checkbox" id="c_finger_in">
             <div class="meta">
               <label for="c_finger_in">
-                <b>(교내) 초과근무 시작 시 출근 지문을 찍었습니다.</b>
+                <b>초과근무 시작 시 출근 지문을 찍었습니다.</b>
               </label>
-              <div class="small muted">초과근무 시작 시각 전후로 기록이 남아야 합니다.</div>
             </div>
           </div>
 
@@ -232,9 +230,8 @@
             <input type="checkbox" id="c_finger_out">
             <div class="meta">
               <label for="c_finger_out">
-                <b>(교내) 초과근무 종료 후 퇴근 지문을 찍었습니다.</b>
+                <b>초과근무 종료 후 퇴근 지문을 찍었습니다.</b>
               </label>
-              <div class="small muted">초과근무 종료 시각 전후로 기록이 남아야 합니다.</div>
             </div>
           </div>
 
@@ -242,9 +239,8 @@
             <input type="checkbox" id="c_manual_log">
             <div class="meta">
               <label for="c_manual_log">
-                <b>(교외) 초과근무 확인수기대장에 기재(서명)했습니다.</b>
+                <b>초과근무 확인수기대장에 서명했습니다.</b>
               </label>
-              <div class="small muted">출장과 별도로 초과근무 결재가 있어야 기재 근거가 됩니다.</div>
             </div>
           </div>
         </div>
@@ -262,7 +258,7 @@
         </div>
 
         <div class="row gap" style="margin-top: 12px;">
-          <button class="btn" type="button" id="btnReset">초기화</button>
+          <button class="btn" type="button" id="btnReset">초기화하기</button>
         </div>
       </div>
     </section>
@@ -270,54 +266,52 @@
     <!-- ========================= 자주 묻는 질문 ========================= -->
 <section class="section" id="sec-selfcheck">
     <div class="card" id="sec-faq">
-        <h3 style="margin-top:0;">5) 자주 묻는 질문(FAQ) · 실제 사례</h3>
+        <h3 style="margin-top:0;">자주 묻는 질문</h3>
 
         <details class="shot-details" open>
-          <summary class="shot-summary">Q1. 교내 초과근무인데 “출근 지문만” 또는 “퇴근 지문만” 찍었어요.</summary>
+          <summary class="shot-summary">Q1. 교내 초과근무 중에 지문을 한번만 찍었어요.</summary>
           <div style="margin-top:10px;">
             <div class="callout danger">
-              <b>인정 불가(증명 불가) 사례가 매우 많습니다.</b><br/>
-              정규근무와 공백이 없고 실제로 계속 근무했더라도, 초과근무 구간의 출·퇴근 지문이 모두 있어야 “초과근무 종료 시각”을 증명할 수 있습니다.
+              A. 초과근무 구간의 출·퇴근 지문이 모두 있어야 실제 근무한 것으로 증빙 가능합니다.
             </div>
             <ul style="margin:0; padding-left:18px;">
-              <li>조기출근 초과근무 후 정규근무를 계속한 경우라도, <b>초과근무 종료(예: 08:40) 지문</b>이 없으면 불인정될 수 있습니다.</li>
-              <li>정규근무 후 초과근무를 이어서 한 경우라도, <b>초과근무 시작(예: 16:40) 지문</b>이 없으면 불인정될 수 있습니다.</li>
+              <li>조기출근 후 바로 이어서 8:40부터 정규근무를 계속한 경우라도, 초과근무 종료 지문을 찍어주셔야 합니다.</li>
+              <li>16:40에 정규근무 종료 후 초과근무를 이어서 한 경우라도, 초과근무 시작 지문을 찍어주셔야 합니다.</li>
             </ul>
           </div>
         </details>
 
         <details class="shot-details">
-          <summary class="shot-summary">Q2. 교외(학교 밖) 초과근무는 어떻게 증빙하나요?</summary>
+          <summary class="shot-summary">Q2. 햑교 밖에서 초과근무는 어떻게 증빙하나요?</summary>
           <div style="margin-top:10px;">
             <div class="callout info">
-              <b>원칙:</b> 교외 근무는 <u>초과근무 확인 수기대장</u> 기재가 기본입니다.<br/>
-              <b>중요:</b> 출장과 별도로 “초과근무 결재(명령)”가 있어야 수당 지급 근거가 됩니다.
+              A. 교외 근무는 초과근무 확인 수기대장에 기재합니다. 출장 복무와는 별도로 초과근무에 대한 학교장 결재(명령)이 있어야 확인 수기대장에 기재할 수 있습니다. 
             </div>
             <ul style="margin:0; padding-left:18px;">
-              <li>현장체험학습, 대회·행사 인솔, 외부 교육/연수 등으로 학교 밖에서 초과근무가 발생하면 <b>수기대장</b>에 기재합니다.</li>
-              <li>출장 중 초과근무는 원칙적으로 인정되지 않으나, 목적상 필연적으로 발생이 예상되는 경우 <b>시간외근무명령</b>에 따라 지급 가능한 예외가 있을 수 있습니다(사전 상담 권장).</li>
+              <li>예시: 현장체험학습, 대회·행사 인솔, 외부 교육/연수 등으로 학교 밖에서 초과근무가 발생하면 확인수기대장에 기재합니다.</li>
             </ul>
           </div>
         </details>
 
         <details class="shot-details">
-          <summary class="shot-summary">Q3. 결재는 했는데, 왜 “일부만 인정”되나요?</summary>
+          <summary class="shot-summary">Q3. 초과근무 복무 결재 받은 시간 중에서 일부 시간만 인정되었어요.</summary>
           <div style="margin-top:10px;">
             <p class="muted" style="margin:0;">
-              ·초과근무는 <b>결재(명령) + 증빙(교내 지문/교외 수기대장)</b>이 함께 충족되어야 인정됩니다.
+              A. 초과근무는 결재(명령) 시간 내에서 근무했음이 증빙된 시간에 대해서 인정됩니다. 사전 결재받은 시간 외에는 실제로 근무를 했더라도 수당을 지급할 근거가 없습니다.
             </p>
 
             <div class="table-wrap" style="margin-top:10px;">
               <table class="sheetlike simple-table">
                 <thead>
                   <tr>
-                    <th style="width:120px;">사람</th>
-                    <th style="width:140px;">사전결재</th>
+                    <th style="width:120px;">예시</th>
+                    <th style="width:140px;">사전 복무 승인 여부</th>
                     <th style="width:140px;">출근 지문</th>
                     <th style="width:140px;">퇴근 지문</th>
-                    <th>결과(예시)</th>
+                    <th>결과</th>
                   </tr>
                 </thead>
+                
                 <tbody>
                   <tr>
                     <td><b>A</b></td>
