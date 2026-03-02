@@ -267,47 +267,89 @@
       </div>
     </section>
 
-    <!-- ========================= 첨부/서식 다운로드 ========================= -->
-    <section class="section dl-section" id="sec-files">
-      <div class="row between">
-        <h2 style="margin:0;">첨부/서식</h2>
-        <button class="btn ghost btnCopy" type="button" data-url="#sec-files">
-          이 섹션 링크 복사
-        </button>
-      </div>
-      <p class="muted dl-desc">·버튼은 필요에 따라 삭제/추가하세요. (경로는 실제 업로드 위치에 맞게 수정)</p>
-      <hr/>
+    <!-- ========================= 자주 묻는 질문 ========================= -->
+<section class="section" id="sec-selfcheck">
+    <div class="card" id="sec-faq">
+        <h3 style="margin-top:0;">5) 자주 묻는 질문(FAQ) · 실제 사례</h3>
 
-      <div class="grid three">
-        <div class="card">
-          <div><b>초과근무 증빙 관련 안내(자주 묻는 질문)</b></div>
-          <hr/>
-          <div class="row gap">
-            <a class="btn" href="/static/files/overtime/초과근무_증빙_자주묻는질문.pdf" download>다운로드</a>
-            <a class="btn ghost" href="/static/files/overtime/초과근무_증빙_자주묻는질문.pdf" target="_blank" rel="noopener">뷰어 열기</a>
-            <button class="btn ghost btnCopy" type="button" data-url="/static/files/overtime/초과근무_증빙_자주묻는질문.pdf">링크 복사</button>
+        <details class="shot-details" open>
+          <summary class="shot-summary">Q1. 교내 초과근무인데 “출근 지문만” 또는 “퇴근 지문만” 찍었어요.</summary>
+          <div style="margin-top:10px;">
+            <div class="callout danger">
+              <b>인정 불가(증명 불가) 사례가 매우 많습니다.</b><br/>
+              정규근무와 공백이 없고 실제로 계속 근무했더라도, 초과근무 구간의 출·퇴근 지문이 모두 있어야 “초과근무 종료 시각”을 증명할 수 있습니다.
+            </div>
+            <ul style="margin:0; padding-left:18px;">
+              <li>조기출근 초과근무 후 정규근무를 계속한 경우라도, <b>초과근무 종료(예: 08:40) 지문</b>이 없으면 불인정될 수 있습니다.</li>
+              <li>정규근무 후 초과근무를 이어서 한 경우라도, <b>초과근무 시작(예: 16:40) 지문</b>이 없으면 불인정될 수 있습니다.</li>
+            </ul>
           </div>
-        </div>
+        </details>
 
-        <div class="card">
-          <div><b>근로기준법 적용자 휴게시간 안내(공무직/학교장 임용)</b></div>
-          <hr/>
-          <div class="row gap">
-            <a class="btn" href="/static/files/overtime/근로기준법_휴게시간_안내.pdf" download>다운로드</a>
-            <button class="btn ghost btnCopy" type="button" data-url="/static/files/overtime/근로기준법_휴게시간_안내.pdf">링크 복사</button>
+        <details class="shot-details">
+          <summary class="shot-summary">Q2. 교외(학교 밖) 초과근무는 어떻게 증빙하나요?</summary>
+          <div style="margin-top:10px;">
+            <div class="callout info">
+              <b>원칙:</b> 교외 근무는 <u>초과근무 확인 수기대장</u> 기재가 기본입니다.<br/>
+              <b>중요:</b> 출장과 별도로 “초과근무 결재(명령)”가 있어야 수당 지급 근거가 됩니다.
+            </div>
+            <ul style="margin:0; padding-left:18px;">
+              <li>현장체험학습, 대회·행사 인솔, 외부 교육/연수 등으로 학교 밖에서 초과근무가 발생하면 <b>수기대장</b>에 기재합니다.</li>
+              <li>출장 중 초과근무는 원칙적으로 인정되지 않으나, 목적상 필연적으로 발생이 예상되는 경우 <b>시간외근무명령</b>에 따라 지급 가능한 예외가 있을 수 있습니다(사전 상담 권장).</li>
+            </ul>
           </div>
-        </div>
+        </details>
 
-        <div class="card">
-          <div><b>교육공무직·특수운영직군 근로시간/휴게시간 안내(문서)</b></div>
-          <hr/>
-          <div class="row gap">
-            <a class="btn" href="/static/files/overtime/교육공무직_근로시간_휴게시간_안내.pdf" download>다운로드</a>
-            <a class="btn ghost" href="/static/files/overtime/교육공무직_근로시간_휴게시간_안내.pdf" target="_blank" rel="noopener">뷰어 열기</a>
+        <details class="shot-details">
+          <summary class="shot-summary">Q3. 결재는 했는데, 왜 “일부만 인정”되나요?</summary>
+          <div style="margin-top:10px;">
+            <p class="muted" style="margin:0;">
+              ·초과근무는 <b>결재(명령) + 증빙(교내 지문/교외 수기대장)</b>이 함께 충족되어야 인정됩니다.
+            </p>
+
+            <div class="table-wrap" style="margin-top:10px;">
+              <table class="sheetlike simple-table">
+                <thead>
+                  <tr>
+                    <th style="width:120px;">사람</th>
+                    <th style="width:140px;">사전결재</th>
+                    <th style="width:140px;">출근 지문</th>
+                    <th style="width:140px;">퇴근 지문</th>
+                    <th>결과(예시)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><b>A</b></td>
+                    <td>O</td>
+                    <td>O</td>
+                    <td>O</td>
+                    <td><b>인정</b> (결재+증빙 충족)</td>
+                  </tr>
+                  <tr>
+                    <td><b>B</b></td>
+                    <td>O</td>
+                    <td>O</td>
+                    <td>X</td>
+                    <td><b>미인정</b> (증빙 누락)</td>
+                  </tr>
+                  <tr>
+                    <td><b>C</b></td>
+                    <td>X</td>
+                    <td>O</td>
+                    <td>O</td>
+                    <td><b>미인정</b> (결재 누락)</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p class="note">(※ 실제 사례에서도 “동일 사유”라도 조건 미충족 시 미인정된 경우가 있습니다.)</p>
+            </div>
           </div>
-        </div>
-      </div>
-    </section>
+        </details>
+    </div>
+</section>
+
+    
 
   </main>
 
