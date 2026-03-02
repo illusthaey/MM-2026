@@ -264,8 +264,8 @@
     </section>
 
     <!-- ========================= 자주 묻는 질문 ========================= -->
-<section class="section" id="sec-selfcheck">
-    <div class="card" id="sec-faq">
+<section class="section" id="sec-faq">
+    <div class="card">
         <h3 style="margin-top:0;">자주 묻는 질문</h3>
 
         <details class="shot-details" open>
@@ -468,6 +468,8 @@
         const missingWrap = $("#missingWrap");
         const missingList = $("#missingList");
 
+        if (!box || !titleEl || !descEl || !missingWrap || !missingList) return;
+
         const okAll = (missing.length === 0);
 
         if (okAll) {
@@ -489,12 +491,16 @@
       // -----------------------------
       // 3) 초기화
       // -----------------------------
-      $("#btnReset").addEventListener("click", () => {
-        Object.values(checks).forEach(el => { if (el) el.checked = false; });
-        (placeRadios.find(r => r.value === "inside") || placeRadios[0]).checked = true;
-        applyVisibility();
-        toast("초기화 완료");
-      });
+      const btnReset = $("#btnReset");
+      if (btnReset) {
+        btnReset.addEventListener("click", () => {
+          Object.values(checks).forEach(el => { if (el) el.checked = false; });
+          const inside = placeRadios.find(r => r.value === "inside") || placeRadios[0];
+          if (inside) inside.checked = true;
+          applyVisibility();
+          toast("초기화 완료");
+        });
+      }
 
       // 최초 1회
       applyVisibility();
