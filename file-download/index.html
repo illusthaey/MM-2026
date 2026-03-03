@@ -2,241 +2,393 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8" />
-  <meta name="robots" content="noindex">
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="color-scheme" content="light" />
-  <title>각종 편람·지침·규정 자료실</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>파일서식 다운로드</title>
 
-  <link rel="icon" href="/static/favicon.ico" />
+  <!-- 사이트 공통 스타일 -->
   <link rel="stylesheet" href="/static/style.css" />
 
   <style>
-    .refcode { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:0.95rem; }
-    .pill { display:inline-block; padding:6px 10px; border:1px solid #e5e5e5; border-radius:999px; background:#fafafa; font-size:0.9rem; color:#444; }
-    .doc-meta { margin-top:8px; }
-    .doc-actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
-    .thumb-grid { display:grid; gap:10px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
-    .thumb { border:1px solid #e5e5e5; border-radius:12px; overflow:hidden; background:#fff; }
-    .thumb img { width:100%; height:auto; display:block; cursor: zoom-in; }
-    .thumb .cap { padding:10px 12px; color:#555; font-size:0.95rem; }
-    .toast{
-      position:fixed;left:50%;bottom:18px;transform:translateX(-50%);
-      padding:10px 12px;border:1px solid #e5e5e5;border-radius:12px;
-      background:rgba(255,255,255,0.95);box-shadow:0 10px 25px rgba(0,0,0,0.08);
-      font-size:0.95rem;color:#111;z-index:9999;display:none;
+    /* 페이지 전용(최소) */
+    .page-top{
+      margin-bottom: 14px;
     }
 
-    /* 이미지 모달(간단 버전) */
-    .img-modal{ display:none; position:fixed; inset:0; z-index:9999; }
-    .img-modal-backdrop{ position:absolute; inset:0; background:rgba(0,0,0,0.65); }
-    .img-modal-body{
-      position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-      padding:18px;
+    .page-kicker{
+      margin: 0;
+      font-size: 1rem;
+      color: #555;
+      text-align: center;
     }
-    .img-modal-body img{
-      max-width:92vw; max-height:92vh; border-radius:12px; background:#fff;
-      cursor: zoom-out;
+
+    .toolbar{
+      display: grid;
+      gap: 10px;
+      grid-template-columns: 1fr;
+      margin-top: 14px;
     }
-    .img-modal-close{
-      position:absolute; top:14px; right:14px; width:40px; height:40px;
-      border-radius:999px; border:1px solid rgba(255,255,255,0.35);
-      background:rgba(0,0,0,0.45); color:#fff; font-size:28px; line-height:36px; cursor:pointer;
+
+    @media (min-width: 640px){
+      .toolbar{ grid-template-columns: 1fr 220px 180px; }
+    }
+
+    .toolbar .field{ display: grid; gap: 6px; }
+    .toolbar label{ font-weight: 700; color: #111; font-size: 0.98rem; }
+
+    .pill{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid #e5e7eb;
+      border-radius: 999px;
+      padding: 6px 10px;
+      background: #fff;
+      font-size: 0.95rem;
+      color: #444;
+    }
+
+    .file-meta{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .file-actions{
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .file-actions .btn{ margin-left: 0 !important; }
+
+    .empty{
+      border: 1px dashed #d4d4d8;
+      border-radius: 14px;
+      padding: 18px;
+      background: #fafafa;
+      color: #555;
+    }
+
+    .tiny{
+      font-size: 0.95rem;
+      color: #666;
+      margin: 8px 0 0;
+    }
+
+    /* 파일명(긴 경우) 줄바꿈 */
+    .tool-title{ word-break: break-word; }
+
+    /* 키보드 탐색 시 가시성 */
+    a.btn:focus-visible, button.btn:focus-visible{
+      outline: 2px solid rgba(17,17,17,0.35);
+      outline-offset: 3px;
     }
   </style>
 </head>
-
 <body>
-  <div class="home-link-wrap">
-    <a class="btn-home" href="/index.html">← 메인으로</a>
-  </div>
-
   <header class="site-header">
     <div class="shell">
-      <h1>각종 편람·지침·규정 자료실</h1>
-      <p class="subtitle">PDF/링크를 한 곳에 모아두고, 본문 캡처 이미지는 클릭 한 번으로 확대합니다.</p>
+      <div class="page-top">
+        <h1 style="margin-bottom: 8px;">파일서식 다운로드</h1>
+        <p class="page-kicker">HWP · PDF · DOCX · XLSX 등 업무 자료를 <b>다운로드 전용</b>으로 모아둔 페이지입니다.</p>
+        <p class="page-kicker">PDF는 <b>미리보기</b>로 확인 후 저장할 수 있고, 나머지 파일은 <b>다운로드</b>로 받으면 됩니다.</p>
+      </div>
     </div>
   </header>
 
   <main class="container">
+    <section class="section dl-section">
+      <h2 class="local-h2">빠른 받기</h2>
+      <p class="dl-desc">자주 쓰는 묶음은 한 번에 내려받고, 개별 파일은 아래 목록에서 골라 받으세요.</p>
 
-    <section class="section">
-      <div class="row between">
-        <div>
-          <h2 class="local-h2 local-tight">자료 목록</h2>
-          <p class="muted local-tight">PDF는 브라우저 뷰어로 열리고, 다운로드도 가능합니다.</p>
-        </div>
-        <span class="pill">목록 데이터: /giving-files/manifest.json</span>
+      <div class="row gap" style="flex-wrap: wrap;">
+        <a class="btn pastel-mint" href="/files/forms/eduworkhaey-forms-pack.zip" download>
+          전체 묶음 ZIP 다운로드
+        </a>
+        <a class="btn pastel-blue" href="#list">개별 파일 목록으로</a>
+        <a class="btn pastel-grey" href="#how">업로드/추가 방법</a>
       </div>
+
+      <p class="tiny">※ ZIP 파일이 아직 없다면, 아래 <b>업로드/추가 방법</b>대로 생성해서 올리면 버튼이 바로 살아납니다.</p>
     </section>
+
 
     <section class="section" id="list">
-      <div class="card">
-        <p class="muted" style="margin:0;">로딩 중…</p>
+      <div class="row between" style="align-items: flex-end; gap: 12px;">
+        <div>
+          <h2 class="local-h2" style="margin-bottom: 6px;">개별 파일 다운로드</h2>
+          <p class="sub" style="margin: 0;">검색/필터로 원하는 파일만 빠르게 찾을 수 있어요.</p>
+        </div>
+        <div class="pill" id="countPill" aria-live="polite">총 0건</div>
+      </div>
+
+      <div class="toolbar" role="search">
+        <div class="field">
+          <label for="q">검색</label>
+          <input id="q" type="text" placeholder="예: 예산, 계약제교원, 회계규칙…" autocomplete="off" />
+        </div>
+
+        <div class="field">
+          <label for="fmt">파일 형식</label>
+          <select id="fmt">
+            <option value="">전체</option>
+            <option value="PDF">PDF</option>
+            <option value="HWP">HWP</option>
+            <option value="DOCX">DOCX</option>
+            <option value="XLSX">XLSX</option>
+            <option value="PPTX">PPTX</option>
+            <option value="ZIP">ZIP</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="sort">정렬</label>
+          <select id="sort">
+            <option value="new">최신순</option>
+            <option value="old">오래된순</option>
+            <option value="name">가나다순</option>
+          </select>
+        </div>
+      </div>
+
+      <hr />
+
+      <div id="fileGrid" class="tool-grid" aria-live="polite"></div>
+
+      <div class="card" style="margin-top: 18px;">
+        <p class="muted" style="margin: 0;">
+          ⚠️ 브라우저/모바일 환경에 따라 PDF는 ‘다운로드’가 아니라 ‘열기’로 보일 수 있습니다. 그럴 땐 PDF 뷰어의 저장(⬇︎) 버튼을 사용하세요.
+        </p>
       </div>
     </section>
 
+
+    <section class="section" id="how">
+      <h2 class="local-h2">업로드/추가 방법(관리자용)</h2>
+      <div class="card">
+        <ol style="margin: 0;">
+          <li><b>파일 업로드</b>: 서버(또는 저장소)에 파일을 올립니다. 권장 경로: <code>/files/forms/</code></li>
+          <li><b>파일명 정리</b>: 한글/특수문자 파일명은 서버 환경에 따라 링크가 깨질 수 있어요. 가능하면 영문/숫자/하이픈으로 변경을 권장합니다.</li>
+          <li><b>목록 등록</b>: 이 HTML 파일 하단의 <code>FILES</code> 배열에 항목 한 줄 추가하면 끝.</li>
+          <li><b>ZIP 묶음</b>(선택): 자주 쓰는 파일은 ZIP으로 묶어 <code>/files/forms/eduworkhaey-forms-pack.zip</code>로 올리면 ‘전체 묶음’ 버튼이 동작합니다.</li>
+        </ol>
+      </div>
+
+      <h3 class="local-h3">FILES 항목 추가 예시</h3>
+      <div class="card">
+<pre style="white-space: pre-wrap; margin:0;">{
+  title: "출장신청서(서식)",
+  format: "HWP",
+  size: "92KB",
+  updated: "2026-03-02",
+  path: "/files/forms/travel-request-form.hwp",
+  originalName: "출장신청서.hwp",
+  desc: "관내/관외 출장 신청서 서식(학교 자체 양식).",
+  tags: ["출장", "복무", "서식"]
+}
+</pre>
+      </div>
+
+      <p class="muted">※ 이 페이지는 <b>다운로드 전용</b>입니다. 브라우저에서 ‘업로드 기능’까지 넣으려면 서버 측 업로드 API(권한/보안)가 필요합니다.</p>
+    </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="shell">
-      <p class="muted">정적 사이트 특성상 “업로드 버튼”은 없으며, 파일 추가는 레포/호스팅에 업로드(커밋)로 처리합니다.</p>
-    </div>
-  </footer>
-
-  <div class="toast" id="toast"></div>
-
-  <div class="img-modal" id="imgModal" aria-hidden="true">
-    <div class="img-modal-backdrop"></div>
-    <button class="img-modal-close" type="button" aria-label="닫기">×</button>
-    <div class="img-modal-body">
-      <img id="imgModalImg" alt="" />
-    </div>
-  </div>
-
-  <script src="/static/docref.js"></script>
+  <!-- 공통 스크립트(사이트 정책에 맞춰 사용) -->
+  <script src="/static/footer.js" defer></script>
+  <script src="/static/global-loader.js" defer></script>
+  <script src="/static/disable-copy.js" defer></script>
 
   <script>
-    (function(){
-      const $ = (s, el=document) => el.querySelector(s);
+    // =============================
+    // 다운로드 목록 데이터
+    // - 여기만 수정하면 페이지가 자동 갱신됩니다.
+    // =============================
+    const FILES = [
+      {
+        title: "2026회계 학교행정 업무편람",
+        format: "PDF",
+        size: "4.8MB",
+        updated: "2025-12-01",
+        path: "/files/forms/2026-school-admin-handbook.pdf",
+        originalName: "·2026회계 학교행정 업무편람.pdf",
+        desc: "2025년 12월 기준 작성. 학교 행정 전반 업무 절차/참고자료(강원교육청).",
+        tags: ["업무편람", "행정", "K-에듀파인"]
+      },
+      {
+        title: "2026년도 학교회계 예산편성 기본지침",
+        format: "PDF",
+        size: "4.0MB",
+        updated: "2026-01-01",
+        path: "/files/forms/2026-school-budget-guideline.pdf",
+        originalName: "·2026년도 학교회계 예산편성 기본지침.pdf",
+        desc: "2026년도 학교회계 예산편성 기본지침(예산편성 기준/유의사항).",
+        tags: ["예산", "학교회계", "지침"]
+      },
+      {
+        title: "2025 계약제교원 운영 지침 (2025.8.)",
+        format: "PDF",
+        size: "7.0MB",
+        updated: "2025-08-01",
+        path: "/files/forms/2025-contract-teacher-guide-2025-08.pdf",
+        originalName: "·2025 계약제교원 운영 지침 (2025.8.).pdf",
+        desc: "계약제교원 운영 관련 업무 참고용 지침(2025.8. 버전).",
+        tags: ["계약제교원", "인사", "지침"]
+      },
+      {
+        title: "[회계] 공립학교 회계규칙 (강원도)",
+        format: "PDF",
+        size: "111KB",
+        updated: "(원문 기준)",
+        path: "/files/forms/gangwon-public-school-accounting-rules.pdf",
+        originalName: "·[회계] 공립학교 회계규칙 (강원도).pdf",
+        desc: "공립학교 회계규칙(강원도) 발췌본/자료.",
+        tags: ["회계", "규칙"]
+      },
 
-      function toast(msg){
-        const t=$("#toast"); if(!t) return;
-        t.textContent=msg; t.style.display="block";
-        clearTimeout(toast._timer);
-        toast._timer=setTimeout(()=>t.style.display="none",1400);
+      // ✅ 예시(실파일 업로드 후 주석 해제해서 사용)
+      // {
+      //   title: "출장신청서(서식)",
+      //   format: "HWP",
+      //   size: "92KB",
+      //   updated: "2026-03-02",
+      //   path: "/files/forms/travel-request-form.hwp",
+      //   originalName: "출장신청서.hwp",
+      //   desc: "관내/관외 출장 신청서 서식(학교 자체 양식).",
+      //   tags: ["출장", "복무", "서식"]
+      // },
+
+      // ZIP 자체도 항목으로 노출하고 싶으면 아래 주석 해제
+      // {
+      //   title: "전체 서식 묶음(eduworkhaey-forms-pack.zip)",
+      //   format: "ZIP",
+      //   size: "(자동 계산 불가)",
+      //   updated: "2026-03-02",
+      //   path: "/files/forms/eduworkhaey-forms-pack.zip",
+      //   originalName: "eduworkhaey-forms-pack.zip",
+      //   desc: "자주 쓰는 서식/지침 파일을 한 번에 받는 ZIP 묶음.",
+      //   tags: ["묶음", "ZIP"]
+      // },
+    ];
+
+    // -----------------------------
+    // 렌더링
+    // -----------------------------
+    const elGrid = document.getElementById('fileGrid');
+    const elQ = document.getElementById('q');
+    const elFmt = document.getElementById('fmt');
+    const elSort = document.getElementById('sort');
+    const elCount = document.getElementById('countPill');
+
+    function safe(s){
+      return String(s ?? '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+    }
+
+    function parseDate(v){
+      // YYYY-MM-DD 형태면 Date로 정렬. 그 외는 아주 과거로 취급.
+      if(typeof v !== 'string') return new Date(0);
+      if(/^\d{4}-\d{2}-\d{2}$/.test(v)) return new Date(v + 'T00:00:00');
+      if(/^\d{4}-\d{2}-\d{2} /.test(v)) return new Date(v);
+      if(/^\d{4}-\d{2}-\d{2}T/.test(v)) return new Date(v);
+      return new Date(0);
+    }
+
+    function matches(item, q){
+      if(!q) return true;
+      const hay = [item.title, item.desc, item.originalName, (item.tags||[]).join(' ')].join(' ').toLowerCase();
+      return hay.includes(q.toLowerCase());
+    }
+
+    function cardHTML(item){
+      const isPDF = (item.format || '').toUpperCase() === 'PDF';
+      const fmt = safe(item.format);
+      const title = safe(item.title);
+      const desc = safe(item.desc);
+      const size = safe(item.size);
+      const updated = safe(item.updated);
+      const originalName = safe(item.originalName);
+      const path = safe(item.path);
+
+      const tags = (item.tags || []).map(t => `<span class="pill">#${safe(t)}</span>`).join(' ');
+
+      return `
+        <div class="tool-card">
+          <div class="tool-head">
+            <p class="tool-title" style="margin:0;">${title}</p>
+            <p class="tool-sub" style="margin:6px 0 0;">${desc}</p>
+          </div>
+
+          <div class="file-meta">
+            <span class="pill"><b>${fmt}</b></span>
+            <span class="pill">용량: ${size}</span>
+            <span class="pill">업데이트: ${updated}</span>
+          </div>
+
+          <p class="tiny">원본 파일명: <span class="muted">${originalName}</span></p>
+
+          <div class="file-actions">
+            ${isPDF ? `<a class="btn pastel-blue" href="${path}" target="_blank" rel="noopener">미리보기</a>` : ''}
+            <a class="btn pastel-mint" href="${path}" download>다운로드</a>
+          </div>
+
+          ${tags ? `<div class="file-meta" style="margin-top:12px;">${tags}</div>` : ''}
+        </div>
+      `.trim();
+    }
+
+    function render(){
+      const q = (elQ.value || '').trim();
+      const fmt = (elFmt.value || '').trim().toUpperCase();
+      const sort = (elSort.value || 'new');
+
+      let list = FILES
+        .filter(x => matches(x, q))
+        .filter(x => !fmt || String(x.format||'').toUpperCase() === fmt);
+
+      if(sort === 'name'){
+        list.sort((a,b) => String(a.title||'').localeCompare(String(b.title||''), 'ko'));
+      }else if(sort === 'old'){
+        list.sort((a,b) => parseDate(a.updated) - parseDate(b.updated));
+      }else{
+        list.sort((a,b) => parseDate(b.updated) - parseDate(a.updated));
       }
 
-      async function fetchJSON(url){
-        const res = await fetch(url, { cache:"no-store" });
-        if(!res.ok) throw new Error("HTTP " + res.status);
-        return await res.json();
+      if(elCount) elCount.textContent = `총 ${list.length}건`;
+
+      if(list.length === 0){
+        elGrid.innerHTML = `
+          <div class="empty">
+            <b>표시할 파일이 없습니다.</b><br/>
+            검색어/필터를 바꿔보세요.
+          </div>
+        `;
+        return;
       }
 
-      function esc(s){
-        return String(s||"").replace(/[&<>"']/g, m => ({
-          "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"
-        }[m]));
-      }
+      elGrid.innerHTML = list.map(cardHTML).join('\n');
+    }
 
-      function openModal(src, caption){
-        const modal = $("#imgModal");
-        const img = $("#imgModalImg");
-        img.src = src;
-        img.alt = caption || "";
-        modal.style.display = "block";
-        modal.setAttribute("aria-hidden","false");
-      }
-      function closeModal(){
-        const modal = $("#imgModal");
-        const img = $("#imgModalImg");
-        img.src = "";
-        modal.style.display = "none";
-        modal.setAttribute("aria-hidden","true");
-      }
+    // 이벤트 바인딩
+    ['input','change'].forEach(evt => {
+      elQ.addEventListener(evt, render);
+      elFmt.addEventListener(evt, render);
+      elSort.addEventListener(evt, render);
+    });
 
-      $("#imgModal .img-modal-backdrop")?.addEventListener("click", closeModal);
-      $("#imgModal .img-modal-close")?.addEventListener("click", closeModal);
-      $("#imgModalImg")?.addEventListener("click", closeModal);
-
-      async function render(){
-        const list = $("#list");
-        const manifest = await fetchJSON("/giving-files/manifest.json");
-        const items = Array.isArray(manifest.items) ? manifest.items : [];
-
-        // 문서번호 맵 가져오기(이미 docref.js가 로딩 시도를 하지만, 여기서는 안전하게 한 번 더)
-        let docsMap = {};
-        try{
-          const dn = await fetchJSON("/static/document-number.json");
-          docsMap = dn.docs || {};
-        }catch(e){
-          console.warn(e);
-        }
-
-        const html = items.map(it => {
-          const file = it.file || "";
-          const openPage = it.openPage ? `#page=${it.openPage}` : "";
-          const openUrl = file ? (file + openPage) : "";
-          const downloadName = (it.title || "document") + ".pdf";
-
-          const doc = it.docRefId && docsMap[it.docRefId] ? docsMap[it.docRefId] : null;
-          const docLine = doc
-            ? `<div class="doc-meta muted">
-                 근거: <span class="refcode">[${esc(doc.label)}]</span>
-                 문서번호 <span class="refcode">${esc(doc.number)}</span>
-                 / ${esc(doc.title)}
-               </div>`
-            : `<div class="doc-meta muted">근거: (미등록)</div>`;
-
-          const links = (it.links || []).map(l =>
-            `<li><a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label || l.url)}</a></li>`
-          ).join("");
-
-          const captures = (it.captures || []).map(c =>
-            `<div class="thumb">
-               <img class="cap-img" src="${esc(c.src)}" alt="${esc(c.caption || "")}" data-src="${esc(c.src)}" data-cap="${esc(c.caption || "")}" />
-               <div class="cap">${esc(c.caption || "")}</div>
-             </div>`
-          ).join("");
-
-          return `
-            <article class="tool-card" style="margin:0 0 16px;">
-              <div class="tool-head">
-                <p class="tool-title">${esc(it.title)}</p>
-                <p class="tool-sub">${esc(it.category || "")}${it.category ? " · " : ""}${esc(it.description || "")}</p>
-                ${docLine}
-              </div>
-
-              <div class="tool-body">
-                <div class="doc-actions">
-                  ${file ? `<a class="btn primary" href="${esc(openUrl)}" target="_blank" rel="noopener">PDF 열기(뷰어)</a>` : ""}
-                  ${file ? `<a class="btn ghost" href="${esc(file)}" download="${esc(downloadName)}">다운로드</a>` : ""}
-                  ${file ? `<button class="btn ghost btnCopy" type="button" data-url="${esc(openUrl)}">링크 복사</button>` : ""}
-                </div>
-
-                ${links ? `<div class="card" style="margin-top:12px;">
-                  <h3 class="local-h3">관련 링크</h3>
-                  <ul>${links}</ul>
-                </div>` : ""}
-
-                ${captures ? `<div class="card" style="margin-top:12px;">
-                  <h3 class="local-h3">본문 캡처</h3>
-                  <div class="thumb-grid">${captures}</div>
-                </div>` : ""}
-              </div>
-            </article>
-          `;
-        }).join("");
-
-        list.innerHTML = html || `<div class="card"><p class="muted" style="margin:0;">등록된 자료가 없습니다.</p></div>`;
-
-        // 링크 복사
-        list.querySelectorAll(".btnCopy").forEach(btn => {
-          btn.addEventListener("click", async () => {
-            const url = btn.dataset.url ? new URL(btn.dataset.url, location.origin).toString() : location.href;
-            let ok = false;
-            try { await navigator.clipboard.writeText(url); ok = true; }
-            catch {
-              const ta=document.createElement("textarea");
-              ta.value=url; ta.style.position="fixed"; ta.style.left="-9999px";
-              document.body.appendChild(ta); ta.focus(); ta.select();
-              try { ok=document.execCommand("copy"); } catch {}
-              ta.remove();
-            }
-            toast(ok ? "링크 복사 완료" : "복사 실패");
-          });
-        });
-
-        // 캡처 클릭 → 모달
-        list.querySelectorAll(".cap-img").forEach(img => {
-          img.addEventListener("click", () => openModal(img.dataset.src, img.dataset.cap));
-        });
-      }
-
-      render().catch(err => {
-        console.error(err);
-        toast("자료 목록 로딩 실패(경로/권한 확인)");
-      });
-    })();
+    // 최초 렌더
+    render();
   </script>
+
+  <script src="/static/disable-copy.js"></script>
+  <script src="/static/footer.js"></script>
+  <script src="/static/global-loader.js?v=1"></script>
+  
 </body>
 </html>
