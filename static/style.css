@@ -1,0 +1,445 @@
+/* /static/dmmd.css
+   ---------------------------------------------------------
+   "DMMD풍" 게임 UI 감성 (사이버/HUD/네온/글래스 패널) — CSS only
+   - 저작권 자산(폰트/이미지/텍스처) 없이, 순수 CSS로 분위기만 재현
+   - 계산 로직(JS)에는 영향 없음
+   - footer.js가 (홈 제외) 상세페이지에서만 이 파일을 자동 로드하도록 구성
+
+   적용 조건:
+   - html[data-theme="dmmd"]  또는 body.theme-dmmd
+   --------------------------------------------------------- */
+
+/* =============================
+   0) Theme Variables
+   ============================= */
+:root{
+  --dmmd-bg-0: #05070b;
+  --dmmd-bg-1: #070b14;
+  --dmmd-surface: rgba(10, 14, 22, 0.86);
+  --dmmd-surface-2: rgba(16, 22, 34, 0.78);
+  --dmmd-surface-3: rgba(255, 255, 255, 0.06);
+
+  --dmmd-text: #e9edff;
+  --dmmd-text-2: rgba(233, 237, 255, 0.74);
+  --dmmd-text-3: rgba(233, 237, 255, 0.55);
+
+  --dmmd-cyan: #33f6ff;
+  --dmmd-magenta: #ff4fd8;
+  --dmmd-green: #41ff9a;
+  --dmmd-amber: #ffd36b;
+  --dmmd-red: #ff5a6b;
+
+  --dmmd-border: rgba(51, 246, 255, 0.22);
+  --dmmd-border-strong: rgba(51, 246, 255, 0.42);
+  --dmmd-shadow: 0 18px 55px rgba(0,0,0,0.65);
+  --dmmd-glow: 0 0 0 1px rgba(51,246,255,0.16) inset, 0 0 26px rgba(51,246,255,0.08);
+  --dmmd-glow-strong: 0 0 0 1px rgba(51,246,255,0.22) inset, 0 0 36px rgba(51,246,255,0.12);
+
+  --dmmd-radius: 14px;
+  --dmmd-radius-sm: 10px;
+
+  /* 라틴은 모노로 “HUD 느낌”, 한글은 폴백으로 자연스럽게 */
+  --dmmd-font-ui: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, "Apple SD Gothic Neo", "Noto Sans KR", "맑은 고딕", sans-serif;
+  --dmmd-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Cascadia Mono", "Segoe UI Mono", "Apple SD Gothic Neo", "Noto Sans KR", "맑은 고딕", monospace;
+
+  --dmmd-scanline-opacity: 0.08;
+  --dmmd-grid-opacity: 0.14;
+}
+
+html[data-theme="dmmd"],
+body.theme-dmmd{
+  color-scheme: dark;
+}
+
+/* =============================
+   1) Page Background (HUD + grid + scanlines)
+   ============================= */
+html[data-theme="dmmd"] body,
+body.theme-dmmd{
+  font-family: var(--dmmd-font-ui);
+  background-color: var(--dmmd-bg-0);
+
+  /* 레이어 순서: 빛 번짐(네온) → 그리드 → 스캔라인 → 베이스 그라데이션 */
+  background-image:
+    radial-gradient(1200px 800px at 18% -10%, rgba(51,246,255,0.14), transparent 58%),
+    radial-gradient(1000px 780px at 112% 12%, rgba(255,79,216,0.12), transparent 62%),
+
+    /* 그리드 */
+    repeating-linear-gradient(to right,
+      rgba(255,255,255,var(--dmmd-grid-opacity)) 0px,
+      rgba(255,255,255,var(--dmmd-grid-opacity)) 1px,
+      transparent 1px,
+      transparent 84px
+    ),
+    repeating-linear-gradient(to bottom,
+      rgba(255,255,255,calc(var(--dmmd-grid-opacity) * 0.75)) 0px,
+      rgba(255,255,255,calc(var(--dmmd-grid-opacity) * 0.75)) 1px,
+      transparent 1px,
+      transparent 84px
+    ),
+
+    /* 스캔라인 */
+    repeating-linear-gradient(to bottom,
+      rgba(0,0,0,var(--dmmd-scanline-opacity)) 0px,
+      rgba(0,0,0,var(--dmmd-scanline-opacity)) 1px,
+      transparent 2px,
+      transparent 4px
+    ),
+
+    linear-gradient(180deg, var(--dmmd-bg-1), var(--dmmd-bg-0));
+
+  background-attachment: fixed;
+  color: var(--dmmd-text);
+}
+
+@media (max-width: 900px){
+  html[data-theme="dmmd"] body,
+  body.theme-dmmd{
+    background-attachment: scroll;
+  }
+}
+
+/* 텍스트 기본(기존 style.css의 회색 텍스트 강제 덮어쓰기) */
+html[data-theme="dmmd"] body p,
+html[data-theme="dmmd"] body li,
+html[data-theme="dmmd"] body div,
+html[data-theme="dmmd"] body span{
+  color: var(--dmmd-text);
+}
+
+/* muted 계열 */
+html[data-theme="dmmd"] .muted,
+html[data-theme="dmmd"] .subtitle,
+html[data-theme="dmmd"] .small,
+html[data-theme="dmmd"] .hint,
+html[data-theme="dmmd"] .note{
+  color: var(--dmmd-text-2) !important;
+}
+
+/* 링크는 HUD 느낌: 얇은 언더라인 + 네온 호버 */
+html[data-theme="dmmd"] a{
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: rgba(51,246,255,0.35);
+  text-underline-offset: 3px;
+}
+html[data-theme="dmmd"] a:hover{
+  color: var(--dmmd-cyan);
+  text-decoration-color: rgba(51,246,255,0.85);
+}
+
+/* 구분선 */
+html[data-theme="dmmd"] hr{
+  border: 0;
+  border-top: 1px solid rgba(51,246,255,0.22);
+  opacity: 1;
+}
+
+/* =============================
+   2) Focus / Accessibility
+   ============================= */
+/* 기존 style.css에서 :focus outline 제거한 것을 되살림 */
+html[data-theme="dmmd"] :focus-visible{
+  outline: 2px solid rgba(51,246,255,0.95);
+  outline-offset: 3px;
+}
+
+/* =============================
+   3) Panels: section/card/callout/tool-card
+   ============================= */
+html[data-theme="dmmd"] .section,
+html[data-theme="dmmd"] .card,
+html[data-theme="dmmd"] .callout,
+html[data-theme="dmmd"] .tool-card,
+html[data-theme="dmmd"] .shot-details,
+html[data-theme="dmmd"] details.collapse{
+  background-color: var(--dmmd-surface);
+  border: 1px solid var(--dmmd-border);
+  border-radius: var(--dmmd-radius);
+  box-shadow: var(--dmmd-shadow), var(--dmmd-glow);
+  backdrop-filter: blur(10px);
+}
+
+/* 카드(내부)는 살짝 톤 다운 */
+html[data-theme="dmmd"] .section .card,
+html[data-theme="dmmd"] .tool-card .card{
+  background-color: var(--dmmd-surface-2);
+  border-color: rgba(255,255,255,0.10);
+  box-shadow: var(--dmmd-glow);
+}
+
+/* “DMMD식” 코너 포인트(대각선 하이라이트) */
+html[data-theme="dmmd"] .section,
+html[data-theme="dmmd"] .tool-card{
+  position: relative;
+  overflow: hidden;
+}
+html[data-theme="dmmd"] .section::before,
+html[data-theme="dmmd"] .tool-card::before{
+  content:"";
+  position:absolute;
+  top:-1px; left:-1px;
+  width: 140px; height: 140px;
+  background:
+    linear-gradient(135deg, rgba(51,246,255,0.22), transparent 60%);
+  pointer-events:none;
+  transform: translate(-28px,-28px) rotate(0.0001deg);
+}
+html[data-theme="dmmd"] .section::after,
+html[data-theme="dmmd"] .tool-card::after{
+  content:"";
+  position:absolute;
+  top:-1px; right:-1px;
+  width: 180px; height: 4px;
+  background: linear-gradient(90deg, rgba(51,246,255,0.0), rgba(51,246,255,0.55), rgba(255,79,216,0.35));
+  pointer-events:none;
+  opacity: 0.9;
+}
+
+/* =============================
+   4) Headings (HUD)
+   ============================= */
+html[data-theme="dmmd"] h1,
+html[data-theme="dmmd"] h2,
+html[data-theme="dmmd"] h3,
+html[data-theme="dmmd"] .dash-title,
+html[data-theme="dmmd"] .tool-title{
+  font-family: var(--dmmd-font-mono);
+  letter-spacing: 0.02em;
+  color: var(--dmmd-text);
+  text-shadow: 0 0 18px rgba(51,246,255,0.10);
+}
+
+/* 섹션 타이틀에 왼쪽 네온 바 */
+html[data-theme="dmmd"] h2,
+html[data-theme="dmmd"] .local-h2{
+  position: relative;
+  padding-left: 12px;
+}
+html[data-theme="dmmd"] h2::before,
+html[data-theme="dmmd"] .local-h2::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0.22em;
+  width: 3px;
+  height: 1.1em;
+  background: linear-gradient(180deg, var(--dmmd-cyan), rgba(51,246,255,0.15));
+  border-radius: 2px;
+}
+
+/* =============================
+   5) Buttons
+   ============================= */
+html[data-theme="dmmd"] .btn{
+  border-radius: var(--dmmd-radius-sm);
+  border: 1px solid var(--dmmd-border);
+  color: var(--dmmd-text);
+  box-shadow: var(--dmmd-glow), 0 12px 28px rgba(0,0,0,0.55);
+  background-image: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.00));
+  text-decoration: none !important;
+  position: relative;
+  overflow: hidden;
+}
+
+html[data-theme="dmmd"] .btn:hover{
+  border-color: var(--dmmd-border-strong);
+  box-shadow: var(--dmmd-glow-strong), 0 14px 34px rgba(0,0,0,0.60);
+  transform: translateY(-1px);
+}
+
+html[data-theme="dmmd"] .btn:active{
+  transform: translateY(0px);
+}
+
+/* 버튼 “광택 스윕” (과하면 유치해지니까 얇게) */
+@media (prefers-reduced-motion: no-preference){
+  html[data-theme="dmmd"] .btn::after{
+    content:"";
+    position:absolute;
+    inset:-40% -30%;
+    background: linear-gradient(120deg,
+      transparent 0%,
+      rgba(51,246,255,0.12) 18%,
+      rgba(255,79,216,0.08) 30%,
+      transparent 48%
+    );
+    transform: translateX(-60%);
+    opacity: 0;
+    pointer-events:none;
+  }
+  html[data-theme="dmmd"] .btn:hover::after{
+    opacity: 1;
+    transform: translateX(60%);
+    transition: transform 700ms ease, opacity 200ms ease;
+  }
+}
+
+/* primary 계열은 “네온 채움” */
+html[data-theme="dmmd"] .btn.primary,
+html[data-theme="dmmd"] .btn-primary{
+  border-color: rgba(51,246,255,0.65);
+  background-color: rgba(51,246,255,0.16);
+  box-shadow:
+    0 0 0 1px rgba(51,246,255,0.22) inset,
+    0 0 22px rgba(51,246,255,0.16),
+    0 18px 46px rgba(0,0,0,0.60);
+}
+
+/* ghost는 투명 패널 느낌 */
+html[data-theme="dmmd"] .btn.ghost,
+html[data-theme="dmmd"] .btn-outline{
+  background-color: transparent;
+  border-color: rgba(255,255,255,0.18);
+}
+
+/* 기존 파스텔 버튼들은 DMMD 안에서 “기능 컬러 태그”로 변환 */
+html[data-theme="dmmd"] .btn.pastel-blue{   border-color: rgba(51,246,255,0.55); }
+html[data-theme="dmmd"] .btn.pastel-yellow{ border-color: rgba(255,211,107,0.55); }
+html[data-theme="dmmd"] .btn.paste-pink{    border-color: rgba(255,79,216,0.55); }
+html[data-theme="dmmd"] .btn.pastel-mint,
+html[data-theme="dmmd"] .btn.pastel-green{  border-color: rgba(65,255,154,0.50); }
+html[data-theme="dmmd"] .btn.pastel-purple{ border-color: rgba(167,139,250,0.55); }
+html[data-theme="dmmd"] .btn.pastel-red{    border-color: rgba(255,90,107,0.55); }
+html[data-theme="dmmd"] .btn.pastel-grey{   border-color: rgba(255,255,255,0.20); }
+
+/* =============================
+   6) Inputs / Selects / Textareas
+   ============================= */
+html[data-theme="dmmd"] input[type="text"],
+html[data-theme="dmmd"] input[type="number"],
+html[data-theme="dmmd"] input[type="time"],
+html[data-theme="dmmd"] input[type="date"],
+html[data-theme="dmmd"] select,
+html[data-theme="dmmd"] textarea,
+html[data-theme="dmmd"] .input,
+html[data-theme="dmmd"] .select{
+  background-color: rgba(0,0,0,0.28);
+  color: var(--dmmd-text);
+  border: 1px solid rgba(51,246,255,0.22);
+  border-radius: var(--dmmd-radius-sm);
+  box-shadow: 0 0 0 1px rgba(51,246,255,0.10) inset;
+  caret-color: var(--dmmd-cyan);
+}
+
+/* 포커스 */
+html[data-theme="dmmd"] input:focus,
+html[data-theme="dmmd"] select:focus,
+html[data-theme="dmmd"] textarea:focus{
+  border-color: rgba(51,246,255,0.70);
+  box-shadow:
+    0 0 0 1px rgba(51,246,255,0.22) inset,
+    0 0 0 3px rgba(51,246,255,0.22);
+}
+
+/* disabled */
+html[data-theme="dmmd"] input:disabled,
+html[data-theme="dmmd"] select:disabled,
+html[data-theme="dmmd"] textarea:disabled{
+  opacity: 0.65;
+  background-color: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.16);
+}
+
+/* 숫자 필드 우측 정렬 유지 */
+html[data-theme="dmmd"] .numeric,
+html[data-theme="dmmd"] .num{
+  text-align: right;
+}
+
+/* =============================
+   7) Tables (sheetlike)
+   ============================= */
+html[data-theme="dmmd"] .sheetlike{
+  background: transparent;
+  border-collapse: collapse;
+}
+
+html[data-theme="dmmd"] .sheetlike th,
+html[data-theme="dmmd"] .sheetlike td{
+  border: 1px solid rgba(255,255,255,0.14);
+}
+
+html[data-theme="dmmd"] .sheetlike th{
+  background:
+    linear-gradient(180deg, rgba(51,246,255,0.12), rgba(255,255,255,0.04));
+  color: var(--dmmd-text);
+  white-space: nowrap;
+}
+
+html[data-theme="dmmd"] .sheetlike td{
+  background: rgba(0,0,0,0.16);
+  color: var(--dmmd-text);
+}
+
+html[data-theme="dmmd"] .sheetlike tbody tr:nth-child(even) td{
+  background: rgba(0,0,0,0.10);
+}
+
+/* 합계행(페이지별 inline 스타일을 덮어씀) */
+html[data-theme="dmmd"] .sheetlike .sumrow td,
+html[data-theme="dmmd"] .sumrow td{
+  font-weight: 900;
+  background:
+    linear-gradient(90deg, rgba(51,246,255,0.18), rgba(255,79,216,0.10)) !important;
+}
+
+/* 테이블 스크롤 영역 */
+html[data-theme="dmmd"] .table-wrap,
+html[data-theme="dmmd"] .table-wrapper{
+  border-radius: var(--dmmd-radius);
+}
+
+/* =============================
+   8) Header / Footer / Home button area
+   ============================= */
+html[data-theme="dmmd"] .site-header,
+html[data-theme="dmmd"] .site-footer{
+  background: rgba(0,0,0,0.30);
+  border-top: 1px solid rgba(255,255,255,0.10);
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+  box-shadow: 0 -1px 0 rgba(51,246,255,0.10) inset;
+  color: var(--dmmd-text-2);
+}
+
+html[data-theme="dmmd"] .home-link-wrap{
+  padding-top: 8px;
+}
+
+/* =============================
+   9) Optional: CRT stronger (원하면 body에 dmmd-crt 클래스)
+   ============================= */
+html[data-theme="dmmd"] body.dmmd-crt{
+  --dmmd-scanline-opacity: 0.12;
+  --dmmd-grid-opacity: 0.18;
+}
+
+/* =============================
+   10) Print (어두운 UI는 인쇄에 최악이라 강제 클린)
+   ============================= */
+@media print{
+  html[data-theme="dmmd"] body{
+    background: #fff !important;
+    background-image: none !important;
+    color: #000 !important;
+  }
+
+  html[data-theme="dmmd"] .section,
+  html[data-theme="dmmd"] .card,
+  html[data-theme="dmmd"] .callout,
+  html[data-theme="dmmd"] .tool-card{
+    background: #fff !important;
+    border: 1px solid #111 !important;
+    box-shadow: none !important;
+    color: #000 !important;
+  }
+
+  html[data-theme="dmmd"] .btn{
+    box-shadow: none !important;
+    background: #fff !important;
+    border: 1px solid #111 !important;
+    color: #000 !important;
+  }
+}
