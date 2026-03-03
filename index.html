@@ -208,10 +208,11 @@
 
       <hr/>
       
-      <h3>검색 결과</h3>
-<hr/>
-      
-      <div class="tool-grid" id="grid">
+      <div id="resultsWrap" class="hidden" aria-live="polite">
+        <h3>검색 결과</h3>
+        <hr/>
+        
+        <div class="tool-grid" id="grid">
 
         <article class="tool-card item" data-keywords="공무원 맞춤형복지 교원 교사 교육공무원 복지 태아 산모 검진 건강검진 점수 문서번호 편람 규정 지침">
           <div class="tool-head">
@@ -273,6 +274,7 @@
           </div>
         </article>
 
+      </div>
       </div>
     </section>
 
@@ -340,6 +342,7 @@
       const btnSearch = $("#btnSearch");
       const btnClear = $("#btnClear");
       const items = $$(".item");
+      const resultsWrap = $("#resultsWrap");
 
       function norm(s) {
         return (s || "").toLowerCase().replace(/\s+/g, " ").trim();
@@ -349,6 +352,14 @@
       function tokens(s) {
         // "맞춤형복지,  연차  초과근무" -> ["맞춤형복지","연차","초과근무"]
         return norm(s).split(/[,\s]+/).filter(Boolean);
+      }
+
+      function showResults() {
+        resultsWrap?.classList.remove("hidden");
+      }
+
+      function hideResults() {
+        resultsWrap?.classList.add("hidden");
       }
 
       function applyFilter() {
@@ -366,31 +377,45 @@
         });
       }
 
+      // ✅ 입력 중 실시간 반영 X (조회하기/Enter로만 반영)
+      let composing = false;
+
       if (q) {
-        q.addEventListener("input", applyFilter);
+        // IME(한글) 조합 입력 중 Enter 오작동 방지
+        q.addEventListener("compositionstart", () => { composing = true; });
+        q.addEventListener("compositionend", () => { composing = false; });
 
         // Enter 키로 조회하기
         q.addEventListener("keydown", (e) => {
-          if (e.key === "Enter") {
+          if (e.key === "Enter" && !composing && !e.isComposing) {
             e.preventDefault();
+            showResults();
             applyFilter();
           }
         });
       }
 
       // 조회하기 버튼 클릭
-      if (btnSearch) btnSearch.addEventListener("click", applyFilter);
+      if (btnSearch) {
+        btnSearch.addEventListener("click", () => {
+          showResults();
+          applyFilter();
+        });
+      }
 
-      // 초기화 버튼
+      // 초기화 버튼 (결과도 다시 숨김)
       if (btnClear) {
         btnClear.addEventListener("click", () => {
           if (q) q.value = "";
-          applyFilter();
+          applyFilter();     // hidden 클래스 리셋
+          hideResults();     // 결과 영역 숨김
           q?.focus();
         });
       }
 
-      applyFilter();
+      // 초기 상태: 결과는 숨기고, 필터는 초기화(전체 공개 상태로 유지)
+      hideResults();
+      items.forEach(it => it.classList.remove("hidden"));
 
       // 문서번호 JSON 로딩 → 근거 규정 섹션 자동 채우기
       async function loadDocumentNumbers() {
