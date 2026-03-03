@@ -90,9 +90,8 @@
     <div class="footer-tools" aria-label="화면 설정">
       <div class="theme-switch" role="group" aria-label="화면 테마 선택">
         <button type="button" class="btn btn-theme" data-theme="retro" aria-pressed="false">레트로</button>
-        <button type="button" class="btn btn-theme" data-theme="classic" aria-pressed="false">깔끔</button>
+        <button type="button" class="btn btn-theme" data-theme="classic" aria-pressed="false">모던</button>
       </div>
-      <div class="muted footer-hint">·테마 설정은 이 브라우저(로컬)에 저장됩니다.</div>
     </div>
   </div>
 </footer>
