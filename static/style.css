@@ -1052,398 +1052,255 @@ section[id]{
   margin-bottom: 12px;
 }
 
-
 /* =========================================================
-   SPACE OPS THEME (우주 탐험/우주 전쟁 분위기)
-   - html[data-theme="space"] 일 때만 활성화
-   - footer.js에서 기본 테마를 space로 적용(토글 가능)
+   ✅ 레트로 감성 + 직관성 업그레이드 (2026.3.3)
+   - footer.js에서 html[data-theme] 값을 "retro" / "classic" 으로 토글
+   - 기본값은 "retro"
    ========================================================= */
 
-:root[data-theme="space"]{
-  color-scheme: dark;
-
-  --space-bg0: #050814;
-  --space-bg1: #070c1d;
-
-  --space-panel: rgba(12, 18, 38, 0.78);
-  --space-panel-2: rgba(10, 14, 30, 0.72);
-
-  --space-border: rgba(120, 180, 255, 0.26);
-  --space-border-strong: rgba(81, 214, 255, 0.58);
-
-  --space-text: rgba(245, 248, 255, 0.92);
-  --space-text-strong: rgba(255, 255, 255, 0.96);
-  --space-muted: rgba(208, 219, 255, 0.68);
-
-  --space-accent: #51d6ff;
-  --space-accent2: #ff4fd8;
-  --space-warn: #ffb703;
-  --space-danger: #ff3b5c;
-  --space-ok: #5cffaa;
-
-  --space-shadow: 0 18px 60px rgba(0, 0, 0, 0.55);
-  --space-inner: 0 0 0 1px rgba(81, 214, 255, 0.12) inset;
+/* -------------------------------
+   0) 직관성: 빠른 이동(칩) 현재 위치 표시 (공통)
+   ------------------------------- */
+.chip.is-active,
+.chip[aria-current="location"]{
+  border-color: #111;
+  background: #eef2ff;
 }
 
-:root[data-theme="space"] body{
-  background:
-    radial-gradient(900px 600px at 18% 8%, rgba(81,214,255,0.18), transparent 60%),
-    radial-gradient(800px 520px at 82% 18%, rgba(255,79,216,0.14), transparent 60%),
-    radial-gradient(900px 620px at 42% 92%, rgba(255,183,3,0.10), transparent 65%),
-    linear-gradient(180deg, var(--space-bg1), var(--space-bg0));
-  color: var(--space-text);
-  overflow-x: hidden;
-}
-
-/* 본문 기본 글자색을 어두운 테마에 맞게 일괄 보정 */
-:root[data-theme="space"] body p,
-:root[data-theme="space"] body li,
-:root[data-theme="space"] body div,
-:root[data-theme="space"] body span{
-  color: var(--space-text);
-}
-
-:root[data-theme="space"] body .muted{
-  color: var(--space-muted);
-}
-
-/* index 전용 배경(흰색 고정)을 우주 테마에서 해제 */
-:root[data-theme="space"] .page-index{
-  background: transparent;
-}
-
-/* 별/네뷸라 레이어(가벼운 CSS 타일링) */
-:root[data-theme="space"] body::before{
-  content:"";
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-  pointer-events: none;
-
-  background-image:
-    radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.85), transparent 2px),
-    radial-gradient(1px 1px at 70% 80%, rgba(255,255,255,0.70), transparent 2px),
-    radial-gradient(1px 1px at 35% 60%, rgba(255,255,255,0.55), transparent 2px),
-    radial-gradient(2px 2px at 80% 20%, rgba(81,214,255,0.32), transparent 3px),
-    radial-gradient(2px 2px at 15% 75%, rgba(255,79,216,0.22), transparent 3px);
-
-  background-size: 220px 220px, 280px 280px, 360px 360px, 520px 520px, 640px 640px;
-  background-position: 0 0, 60px 30px, 120px 90px, 10px 20px, 80px 50px;
-  opacity: 0.45;
-
-  animation: space-stars-drift 160s linear infinite;
-}
-
-@keyframes space-stars-drift{
-  from{ transform: translate3d(0,0,0); }
-  to{ transform: translate3d(-180px, 220px, 0); }
-}
-
-/* HUD 오버레이: 스캔라인 + 얇은 그리드 */
-:root[data-theme="space"] body::after{
-  content:"";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-
-  background-image:
-    repeating-linear-gradient(
-      to bottom,
-      rgba(255,255,255,0.035) 0px,
-      rgba(255,255,255,0.035) 1px,
-      transparent 4px,
-      transparent 7px
-    ),
-    linear-gradient(to right, rgba(81,214,255,0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(81,214,255,0.05) 1px, transparent 1px);
-
-  background-size:
-    auto,
-    110px 110px,
-    110px 110px;
-
-  opacity: 0.10;
-  animation: space-hud-shift 18s linear infinite;
-}
-
-@keyframes space-hud-shift{
-  from{ background-position: 0 0, 0 0, 0 0; }
-  to{ background-position: 0 160px, 120px 0, 0 120px; }
-}
-
-@media (prefers-reduced-motion: reduce){
-  :root[data-theme="space"] body::before,
-  :root[data-theme="space"] body::after{
-    animation: none !important;
-  }
-}
-
-/* 헤딩: 밝게 + 은은한 네온 */
-:root[data-theme="space"] body h1,
-:root[data-theme="space"] body h2,
-:root[data-theme="space"] body h3,
-:root[data-theme="space"] body h4{
-  color: var(--space-text-strong);
-}
-
-:root[data-theme="space"] body h1{
-  text-shadow: 0 0 22px rgba(81,214,255,0.20);
-}
-
-@supports (-webkit-background-clip: text) or (background-clip: text){
-  :root[data-theme="space"] body h1{
-    background: linear-gradient(90deg, var(--space-accent), var(--space-accent2));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    text-shadow: none;
-  }
-}
-
-:root[data-theme="space"] .subtitle{
-  color: var(--space-muted);
-}
-
-/* 구분선 */
-:root[data-theme="space"] hr{
-  border-top: 1px solid rgba(120,180,255,0.18);
-  opacity: 1;
-}
-
-/* 섹션/카드: 글래스 패널 */
-:root[data-theme="space"] .section{
-  background: linear-gradient(180deg, rgba(14, 22, 46, 0.72), rgba(10, 14, 30, 0.72));
-  border: 1px solid var(--space-border);
-  box-shadow: var(--space-shadow), var(--space-inner);
-}
-
-@supports (backdrop-filter: blur(10px)){
-  :root[data-theme="space"] .section{
-    backdrop-filter: blur(10px);
-  }
-}
-
-:root[data-theme="space"] .card,
-:root[data-theme="space"] .tool-card,
-:root[data-theme="space"] .callout,
-:root[data-theme="space"] .shot-details{
-  background: linear-gradient(180deg, rgba(10, 14, 30, 0.78), rgba(8, 12, 26, 0.78));
-  border: 1px solid rgba(120,180,255,0.20);
-  box-shadow: 0 12px 36px rgba(0,0,0,0.45), 0 0 0 1px rgba(81,214,255,0.10) inset;
-}
-
-:root[data-theme="space"] .tool-shot{
-  background: transparent;
-}
-
-:root[data-theme="space"] .tool-thumb,
-:root[data-theme="space"] details.img-zoom > summary img{
-  border-color: rgba(120,180,255,0.20) !important;
-  background: rgba(7, 12, 26, 0.55);
-}
-
-/* 빠른이동 칩 */
-:root[data-theme="space"] .quick-nav{
-  background: transparent;
-}
-
-:root[data-theme="space"] .chip{
-  background: rgba(9, 14, 30, 0.65);
-  border-color: rgba(81,214,255,0.30);
-  color: var(--space-text);
-}
-
-:root[data-theme="space"] .chip:hover{
-  background: rgba(14, 24, 46, 0.80);
-  border-color: rgba(81,214,255,0.55);
-}
-
-/* 버튼: 네온 HUD 스타일 */
-:root[data-theme="space"] .btn{
-  border-color: rgba(120,180,255,0.40);
-  color: var(--space-text-strong);
-  background: rgba(6, 10, 22, 0.62);
-  box-shadow: 0 0 0 1px rgba(81,214,255,0.10) inset;
-}
-
-:root[data-theme="space"] .btn:hover{
-  background: rgba(12, 20, 42, 0.78);
-  border-color: rgba(81,214,255,0.70);
-}
-
-:root[data-theme="space"] .btn:focus-visible{
-  outline: 2px solid rgba(81,214,255,0.55);
+/* 키보드 포커스 가시성(공통) */
+.chip:focus-visible{
+  outline: 2px solid rgba(17, 17, 17, 0.35);
   outline-offset: 2px;
 }
 
-:root[data-theme="space"] .btn.primary{
-  background: linear-gradient(90deg, rgba(81,214,255,0.95), rgba(255,79,216,0.92));
-  color: #06101f;
-  border-color: rgba(255,255,255,0.18);
-  box-shadow: 0 14px 42px rgba(0,0,0,0.55);
+/* -------------------------------
+   1) 푸터: 테마 토글 UI (공통)
+   ------------------------------- */
+.site-footer .footer-tools{
+  margin-top: 14px;
 }
-
-:root[data-theme="space"] .btn.primary:hover{
-  filter: brightness(1.06);
+.site-footer .theme-switch{
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 6px;
 }
-
-:root[data-theme="space"] .btn.ghost{
-  background: rgba(9, 14, 30, 0.55);
-  border-color: rgba(120,180,255,0.22);
-}
-
-:root[data-theme="space"] .btn.ghost:hover{
-  background: rgba(14, 24, 46, 0.68);
-  border-color: rgba(81,214,255,0.55);
-}
-
-:root[data-theme="space"] .btn-lightgrey,
-:root[data-theme="space"] .btn.pastel-grey{
-  background: rgba(9, 14, 30, 0.60);
-  border-color: rgba(120,180,255,0.20);
-  color: var(--space-text);
-}
-
-:root[data-theme="space"] .btn-desc{
-  color: var(--space-muted);
-}
-
-/* 파스텔 팔레트 버튼들을 "작전 색상"으로 재해석(어두운 배경 대비 보정) */
-:root[data-theme="space"] .btn.pastel-yellow{
-  background: rgba(255,183,3,0.16);
-  border-color: rgba(255,183,3,0.50);
-}
-:root[data-theme="space"] .btn.pastel-yellow:hover{ background: rgba(255,183,3,0.22); }
-
-:root[data-theme="space"] .btn.pastel-blue{
-  background: rgba(81,214,255,0.14);
-  border-color: rgba(81,214,255,0.55);
-}
-:root[data-theme="space"] .btn.pastel-blue:hover{ background: rgba(81,214,255,0.20); }
-
-:root[data-theme="space"] .btn.paste-pink{
-  background: rgba(255,79,216,0.14);
-  border-color: rgba(255,79,216,0.55);
-  color: var(--space-text-strong);
-}
-:root[data-theme="space"] .btn.paste-pink:hover{ background: rgba(255,79,216,0.20); }
-
-:root[data-theme="space"] .btn.pastel-mint{
-  background: rgba(92,255,170,0.12);
-  border-color: rgba(92,255,170,0.45);
-}
-:root[data-theme="space"] .btn.pastel-mint:hover{ background: rgba(92,255,170,0.18); }
-
-:root[data-theme="space"] .btn.pastel-red{
-  background: rgba(255,59,92,0.12);
-  border-color: rgba(255,59,92,0.48);
-}
-:root[data-theme="space"] .btn.pastel-red:hover{ background: rgba(255,59,92,0.18); }
-
-/* 입력 UI */
-:root[data-theme="space"] input[type="text"],
-:root[data-theme="space"] input[type="number"],
-:root[data-theme="space"] input[type="time"],
-:root[data-theme="space"] input[type="date"],
-:root[data-theme="space"] select,
-:root[data-theme="space"] textarea{
-  background: rgba(7, 12, 26, 0.70);
-  border-color: rgba(120,180,255,0.22);
-  color: var(--space-text);
-  box-shadow: 0 0 0 1px rgba(0,0,0,0.10), 0 0 0 1px rgba(81,214,255,0.06) inset;
-}
-
-:root[data-theme="space"] input:focus,
-:root[data-theme="space"] select:focus,
-:root[data-theme="space"] textarea:focus{
-  border-color: rgba(81,214,255,0.60);
-  box-shadow: 0 0 0 2px rgba(81,214,255,0.22), 0 0 0 1px rgba(81,214,255,0.12) inset;
-  background: rgba(8, 14, 30, 0.76);
-}
-
-:root[data-theme="space"] input:disabled,
-:root[data-theme="space"] select:disabled,
-:root[data-theme="space"] textarea:disabled{
-  background: rgba(8, 12, 26, 0.45);
-  color: rgba(208, 219, 255, 0.45);
-}
-
-/* 테이블 */
-:root[data-theme="space"] .sheetlike{
-  background: rgba(10, 14, 30, 0.55);
-}
-
-:root[data-theme="space"] .sheetlike th{
-  background: rgba(12, 18, 38, 0.86);
-  color: var(--space-text-strong);
-}
-
-:root[data-theme="space"] .sheetlike th,
-:root[data-theme="space"] .sheetlike td{
-  border-color: rgba(120,180,255,0.18);
-}
-
-/* 로컬 강조 색상 재정의 */
-:root[data-theme="space"] .local-accent{
-  color: var(--space-accent) !important;
-}
-
-/* 푸터 */
-:root[data-theme="space"] .site-footer{
-  background: rgba(8, 12, 26, 0.60);
-  border-top: 1px solid rgba(120,180,255,0.18);
-  color: var(--space-muted);
-}
-
-:root[data-theme="space"] .site-footer .shell{
-  color: var(--space-muted);
-}
-
-/* 스크롤바(지원 브라우저 한정) */
-:root[data-theme="space"]{
-  scrollbar-color: rgba(81,214,255,0.55) rgba(9, 14, 30, 0.80);
-}
-:root[data-theme="space"] ::-webkit-scrollbar{ width: 10px; height: 10px; }
-:root[data-theme="space"] ::-webkit-scrollbar-track{ background: rgba(9, 14, 30, 0.80); }
-:root[data-theme="space"] ::-webkit-scrollbar-thumb{
-  background: rgba(81,214,255,0.40);
+.site-footer .btn.btn-theme{
+  padding: 8px 12px;
   border-radius: 999px;
-  border: 2px solid rgba(9, 14, 30, 0.80);
+  font-size: 0.95rem;
 }
-:root[data-theme="space"] ::-webkit-scrollbar-thumb:hover{ background: rgba(81,214,255,0.60); }
+.site-footer .btn.btn-theme.is-active{
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+.site-footer .footer-hint{
+  margin-top: 8px;
+}
 
-/* 인쇄 시: 배경/오버레이를 제거하고 기존 문서처럼 또렷하게 */
-@media print{
-  :root[data-theme="space"]{
-    color-scheme: light;
+/* =========================================================
+   2) 레트로 테마 (html[data-theme="retro"])
+   - 너무 과하면 업무 사이트에서 피로해지니, '레트로 감성'은 살리고
+     가독성/정확도(실무)를 우선으로 조절
+   ========================================================= */
+
+html[data-theme="retro"]{
+  color-scheme: light;
+}
+
+html[data-theme="retro"] body{
+  /* 색 변수(레트로-문구/종이 느낌) */
+  --retro-bg: #fff5d8;          /* 따뜻한 종이색 */
+  --retro-surface: #fffdf1;     /* 카드 배경 */
+  --retro-surface-2: #ffffff;   /* 버튼/입력 기본 */
+  --retro-ink: #121212;         /* 본문 텍스트 */
+  --retro-muted: #48505c;       /* 설명 텍스트 */
+  --retro-border: #161616;      /* 굵은 라인 */
+  --retro-shadow: rgba(22, 22, 22, 0.55);
+  --retro-focus: rgba(56, 189, 248, 0.55);
+  --retro-accent: #ff5d8f;
+
+  /* 레트로 배경(얇은 그리드 + 잉크 번짐 느낌 라이트 버전) */
+  background:
+    linear-gradient(rgba(22,22,22,0.035) 1px, transparent 1px) 0 0 / 22px 22px,
+    linear-gradient(90deg, rgba(22,22,22,0.035) 1px, transparent 1px) 0 0 / 22px 22px,
+    radial-gradient(circle at 10% 0%, rgba(255, 184, 107, 0.26), transparent 45%),
+    radial-gradient(circle at 90% 18%, rgba(124, 131, 255, 0.18), transparent 52%),
+    var(--retro-bg);
+
+  color: var(--retro-ink);
+  background-attachment: fixed;
+}
+
+/* 본문/보조텍스트 톤 정리 */
+html[data-theme="retro"] body p,
+html[data-theme="retro"] body li,
+html[data-theme="retro"] body div,
+html[data-theme="retro"] body span{
+  color: #1f2937;
+}
+html[data-theme="retro"] body .muted{
+  color: var(--retro-muted);
+}
+
+/* 헤딩/컨트롤: 모노스페이스로 레트로 감성(본문은 그대로) */
+html[data-theme="retro"] body h1,
+html[data-theme="retro"] body h2,
+html[data-theme="retro"] body h3,
+html[data-theme="retro"] body h4,
+html[data-theme="retro"] body .btn,
+html[data-theme="retro"] body .chip,
+html[data-theme="retro"] body summary,
+html[data-theme="retro"] body th{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", "Apple SD Gothic Neo", "Noto Sans KR", "맑은 고딕", monospace;
+  letter-spacing: -0.01em;
+}
+
+html[data-theme="retro"] body h1,
+html[data-theme="retro"] body h2{
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.06);
+}
+
+/* 섹션/카드: 굵은 라인 + 오프셋 섀도(90s 윈도우/잡지 느낌) */
+html[data-theme="retro"] .section,
+html[data-theme="retro"] .card,
+html[data-theme="retro"] .tool-card,
+html[data-theme="retro"] .callout,
+html[data-theme="retro"] .shot-details,
+html[data-theme="retro"] .dl-shot{
+  background: var(--retro-surface);
+  border: 2px solid var(--retro-border);
+  box-shadow: 6px 6px 0 var(--retro-shadow);
+}
+
+/* 대시보드 summary/접기영역도 살짝 레트로하게 */
+html[data-theme="retro"] .dash-summary,
+html[data-theme="retro"] .shot-summary{
+  background: rgba(255,255,255,0.72);
+  border: 2px solid var(--retro-border);
+}
+
+/* 버튼: 눌리는 3D 느낌(과하지 않게) */
+html[data-theme="retro"] .btn{
+  border: 2px solid var(--retro-border);
+  border-radius: 10px;
+  background: var(--retro-surface-2);
+  box-shadow: 4px 4px 0 var(--retro-shadow);
+  transition:
+    transform 0.07s ease,
+    box-shadow 0.07s ease,
+    background-color 0.15s ease,
+    filter 0.15s ease;
+}
+
+html[data-theme="retro"] .btn:hover{
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 var(--retro-shadow);
+  filter: saturate(1.02);
+}
+
+html[data-theme="retro"] .btn:active{
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--retro-shadow);
+}
+
+html[data-theme="retro"] .btn.primary{
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+
+/* 칩도 동일한 '툭'한 느낌 */
+html[data-theme="retro"] .chip{
+  border: 2px solid var(--retro-border);
+  background: rgba(255,255,255,0.85);
+  box-shadow: 3px 3px 0 var(--retro-shadow);
+}
+
+html[data-theme="retro"] .chip:hover{
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--retro-shadow);
+}
+
+html[data-theme="retro"] .chip.is-active,
+html[data-theme="retro"] .chip[aria-current="location"]{
+  background: rgba(56,189,248,0.18);
+  border-color: var(--retro-border);
+}
+html[data-theme="retro"] .chip.is-active::after,
+html[data-theme="retro"] .chip[aria-current="location"]::after{
+  content: "●";
+  font-size: 0.7em;
+  margin-left: 6px;
+  color: var(--retro-accent);
+}
+
+/* 입력 UI: 종이 위 펜 느낌(테두리 강조) */
+html[data-theme="retro"] input[type="text"],
+html[data-theme="retro"] input[type="number"],
+html[data-theme="retro"] input[type="time"],
+html[data-theme="retro"] input[type="date"],
+html[data-theme="retro"] select,
+html[data-theme="retro"] textarea{
+  border: 2px solid var(--retro-border);
+  background: rgba(255,255,255,0.72);
+  box-shadow: inset 2px 2px 0 rgba(0,0,0,0.06);
+}
+
+html[data-theme="retro"] input:focus,
+html[data-theme="retro"] select:focus,
+html[data-theme="retro"] textarea:focus{
+  outline: 3px solid var(--retro-focus);
+  outline-offset: 2px;
+  border-color: var(--retro-border);
+  box-shadow: inset 2px 2px 0 rgba(0,0,0,0.05);
+}
+
+/* 구분선: 점선으로 레트로 느낌 */
+html[data-theme="retro"] hr{
+  border: 0;
+  border-top: 2px dashed rgba(22,22,22,0.35);
+  opacity: 1;
+}
+
+/* 표: 약간 두꺼운 선 + 헤더 배경 강조 */
+html[data-theme="retro"] .sheetlike th,
+html[data-theme="retro"] .sheetlike td{
+  border-color: rgba(22,22,22,0.35);
+}
+html[data-theme="retro"] .sheetlike th{
+  background: rgba(255, 93, 143, 0.10);
+}
+
+/* 푸터도 카드처럼 보이게 */
+html[data-theme="retro"] .site-footer{
+  background: var(--retro-surface);
+  border-top: 2px solid var(--retro-border);
+}
+
+/* 레트로 모드에서 테마 버튼 active는 포인트 컬러 */
+html[data-theme="retro"] .site-footer .btn.btn-theme.is-active{
+  background: var(--retro-accent);
+  color: #111;
+  border-color: var(--retro-border);
+}
+
+/* 모바일에서 빠른이동을 조금 더 '툴바'처럼 (너무 강하면 피곤하니 약하게) */
+@media (max-width: 640px){
+  html[data-theme="retro"] .quick-nav{
+    position: sticky;
+    top: 8px;
+    z-index: 1000;
+    backdrop-filter: blur(6px);
   }
+}
 
-  :root[data-theme="space"] body{
-    background: #fff !important;
-    color: #111 !important;
-  }
-
-  :root[data-theme="space"] body::before,
-  :root[data-theme="space"] body::after{
-    display: none !important;
-  }
-
-  :root[data-theme="space"] .section,
-  :root[data-theme="space"] .card,
-  :root[data-theme="space"] .tool-card,
-  :root[data-theme="space"] .callout,
-  :root[data-theme="space"] .shot-details{
-    background: #fff !important;
-    color: #111 !important;
-    border-color: #e5e5e5 !important;
-    box-shadow: none !important;
-  }
-
-  :root[data-theme="space"] .btn{
-    background: #fff !important;
-    color: #111 !important;
-    border-color: #111 !important;
-    box-shadow: none !important;
+/* 모바일에서는 fixed 배경이 버벅일 수 있어 스크롤로 */
+@media (max-width: 640px){
+  html[data-theme="retro"] body{
+    background-attachment: scroll;
   }
 }
