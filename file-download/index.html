@@ -6,7 +6,6 @@
   <meta name="robots" content="noindex" />
   <title>파일서식 다운로드</title>
 
-  <!-- ✅ 한 폴더(/file-download) 안에서만 동작하도록 상대경로 사용 -->
   <link rel="stylesheet" href="./style.css" />
 
   <style>
@@ -99,30 +98,27 @@
     }
   </style>
 </head>
-<body>
+
+  
+  <body>
 
   <main class="container">
     <section class="section dl-section">
-      <h2>각종 파일 서식 다운로드</h2>
-      <p class="dl-desc">자주 쓰는 묶음은 한 번에 내려받고, 개별 파일은 아래 목록에서 골라 받으세요.</p>
+      <h2>각종 서식 다운로드</h2>
+      <p class="dl-desc">검색창에 필요한 서식을 입력하세요.</p>
 
       <div class="row gap" style="flex-wrap: wrap;">
-        <a class="btn" href="./eduworkhaey-forms-pack.zip" download>
-          전체 묶음 ZIP 다운로드
+        <a class="btn" href="/" download>
+          zip파일 다운로드
         </a>
-        <a class="btn pastel-blue" href="#list">개별 파일 목록으로</a>
-        <a class="btn pastel-grey" href="#how">업로드/추가 방법</a>
+        <a class="btn" href="#list">개별 파일 목록으로</a>
       </div>
-
-      <p class="tiny">※ ZIP 파일은 같은 폴더에 <code>eduworkhaey-forms-pack.zip</code> 이름으로 두면 자동으로 동작합니다.</p>
-    </section>
-
 
     <section class="section" id="list">
       <div class="row between" style="align-items: flex-end; gap: 12px;">
         <div>
-          <h2 class="local-h2" style="margin-bottom: 6px;">개별 파일 다운로드</h2>
-          <p class="sub" style="margin: 0;">검색/필터로 원하는 파일만 빠르게 찾을 수 있어요.</p>
+          <h2>검색창</h2>
+          <p class="muted">검색창에 키워드를 입력하세요.(예시: 스쿨뱅킹 동의서, 범죄경력조회 동의서 등)</p>
         </div>
         <div class="pill" id="countPill" aria-live="polite">총 0건</div>
       </div>
