@@ -95,7 +95,6 @@
         <button type="button" class="btn btn-theme" data-theme="retro" aria-pressed="false">레트로</button>
         <button type="button" class="btn btn-theme" data-theme="classic" aria-pressed="false">깔끔</button>
       </div>
-      <div class="muted footer-hint">·테마 설정은 이 브라우저(로컬)에 저장됩니다.</div>
     </div>
   </div>
 </footer>
