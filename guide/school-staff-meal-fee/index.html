@@ -18,10 +18,14 @@
       font-size: 0.95rem; color:#111; z-index: 9999;
       display:none;
     }
-    .content a { text-decoration: underline; text-underline-offset: 2px; }
 
-    .toc { flex-wrap: wrap; }
+    /* 버튼(.btn)은 밑줄 없이, 일반 링크만 밑줄 */
+    .content a:not(.btn) { text-decoration: underline; text-underline-offset: 2px; }
+
+    /* 목차를 flex로 쓰려는 의도가 보여서 display 추가 */
+    .toc { display: flex; flex-wrap: wrap; gap: 8px; }
     .toc .btn { margin: 0; }
+    .toc p { margin: 0; }
   </style>
 </head>
 
@@ -49,14 +53,14 @@
       </div>
 
       <div class="card">
-      <h3>페이지 목차</h3>
-      <div class="toc" style="margin-top:10px;">
-        <p><a href="#sec-unit"><b>1. 2026학년도 급식비 단가</b></a></p>
-        <p><a href="#sec-collect"><b>2. 월별 급식비 납부 안내</b></a></p>
-        <p><a href="#sec-refund"><b>3. 급식비 환불 규정</b></a></p>
-        <p><a href="#sec-visitor"><b>4. 외부강사 및 보결강사의 급식비 납부</b></a></p>
-        <p><a href="#sec-faq"><b>5. 자주 묻는 질문</b></a></p>
-      </div>
+        <h3>페이지 목차</h3>
+        <div class="toc" style="margin-top:10px;">
+          <p><a href="#sec-unit"><b>1. 2026학년도 급식비 단가</b></a></p>
+          <p><a href="#sec-collect"><b>2. 월별 급식비 납부 안내</b></a></p>
+          <p><a href="#sec-refund"><b>3. 급식비 환불 규정</b></a></p>
+          <p><a href="#sec-visitor"><b>4. 외부강사 및 보결강사의 급식비 납부</b></a></p>
+          <p><a href="#sec-faq"><b>5. 자주 묻는 질문</b></a></p>
+        </div>
       </div>
     </section>
 
@@ -67,7 +71,9 @@
         ·관련: 2026년 학교급식 운영계획서(안)
       </p>
       <hr/>
-      
+
+      <!-- (수정) 누락된 카드 div 추가: 기존 </div>와 짝 맞춤 -->
+      <div class="card">
         <ul style="margin: 10px 0 0; padding-left: 18px;">
           <li><b>1회 단가</b>: 4,600원</li>
           <li><b>식품비</b>: 4,140원</li>
@@ -81,6 +87,8 @@
       <h2>2. 월별 급식비 납부 안내</h2>
       <hr/>
 
+      <!-- (수정) 누락된 카드 div 추가: 기존 </div>와 짝 맞춤 -->
+      <div class="card">
         <ul style="margin: 10px 0 0; padding-left: 18px;">
           <li><b>매월 징수</b>를 원칙으로 합니다.</li>
           <li><b>급식비 산정 기준</b>: <b>실제 급식 이용일수</b>*1식 단가</li>
@@ -116,7 +124,6 @@
           </tbody>
         </table>
       </div>
-
     </section>
 
     <!-- ========================= 환불 ========================= -->
@@ -125,7 +132,7 @@
       <hr/>
 
       <div>
-      <h3>필수 조건</h3>
+        <h3>필수 조건</h3>
         <ul style="margin: 10px 0 0; padding-left: 18px;">
           <li><b>연수·출장 등</b>의 사유로 <b>연속 3일 이상</b> 급식을 하지 못한 경우에만 환불 가능합니다.</li>
           <li><b>3일 미만</b>은 환불되지 않습니다.</li>
@@ -133,14 +140,11 @@
         </ul>
       </div>
 
-
       <div class="link-item">
         <a class="btn pastel-green" href="https://naver.me/GzdfdTnz">2026.4월 급식비 환불 요청내역 제출(링크)</a>
         <div class="btn-desc">·매달 첫째주 금요일까지 사전 환불 요청 받습니다. (이후 매달 10일에 스쿨뱅킹 출금 진행)</div>
       </div>
 
-
-    
       <div class="table-wrap">
         <table class="sheetlike simple-table">
           <thead>
@@ -168,13 +172,20 @@
 
     <!-- ========================= 외부강사/방문자 ========================= -->
     <section class="section content" id="sec-visitor">
-      <h2>5. 외부강사 및 보결강사의 급식비 납부</h2>
+      <!-- (수정) 목차와 번호 일치: 5 -> 4 -->
+      <h2>4. 외부강사 및 보결강사의 급식비 납부</h2>
       <hr/>
 
-        <ul style="margin: 10px 0 0; padding-left: 18px;">
-          <li><b>외부 강사</b>: 모든 일자 징수합니다. 방문 일정 등을 고주무관 및 영양교사 모두에게 알려주십시오.</li>
-          <li><b>보결 강사</b>: 1~2일분은 무상 제공하고 3일 이상부터 급식비 징수합니다. (2025학년도 교감-영양교사-세입담당자 협의 내용)</li>
-        </ul>
+      <ul style="margin: 10px 0 0; padding-left: 18px;">
+        <li><b>외부 강사</b>: 모든 일자 징수합니다. 방문 일정 등을 고주무관 및 영양교사 모두에게 알려주십시오.</li>
+        <li><b>보결 강사</b>: 1~2일분은 무상 제공하고 3일 이상부터 급식비 징수합니다. (2025학년도 교감-영양교사-세입담당자 협의 내용)</li>
+      </ul>
+    </section>
+
+    <!-- ========================= FAQ 앵커 (수정: 목차 링크 대상 추가) ========================= -->
+    <section class="section content" id="sec-faq">
+      <h2>5. 자주 묻는 질문</h2>
+      <hr/>
     </section>
 
   </main>
@@ -182,11 +193,25 @@
   <!-- 토스트 (링크 복사 알림) -->
   <div class="toast" id="toast"></div>
 
-  <!-- 링크 복사 스크립트 (제공 템플릿 유지) -->
+  <!-- 링크 복사 스크립트 (제공 템플릿 유지 + global-loader 충돌 방어) -->
   <script>
     (function () {
       const $ = (sel, el=document) => el.querySelector(sel);
       const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
+
+      // global-loader.js가 copy/selectstart를 막기 때문에,
+      // 복사 버튼 클릭 시에만 "한 번" 우회해서 fallback 복사가 가능하도록 함. :contentReference[oaicite:1]{index=1}
+      let __allowCopyEvent = false;
+
+      document.addEventListener("copy", (e) => {
+        if (!__allowCopyEvent) return;
+        e.stopImmediatePropagation();
+      }, true);
+
+      document.addEventListener("selectstart", (e) => {
+        if (!__allowCopyEvent) return;
+        e.stopImmediatePropagation();
+      }, true);
 
       function toast(msg) {
         const t = $("#toast");
@@ -203,21 +228,35 @@
       }
 
       async function copyText(text) {
+        // 1) Clipboard API (가능하면 이게 가장 안정적)
         try {
-          await navigator.clipboard.writeText(text);
-          return true;
-        } catch (e) {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(text);
+            return true;
+          }
+        } catch (e) {}
+
+        // 2) Fallback: execCommand('copy')
+        __allowCopyEvent = true;
+        try {
           const ta = document.createElement("textarea");
           ta.value = text;
+          ta.setAttribute("readonly", "");
           ta.style.position = "fixed";
           ta.style.left = "-9999px";
+          ta.style.top = "0";
+          ta.style.opacity = "0";
+          ta.style.userSelect = "text";
           document.body.appendChild(ta);
           ta.focus();
           ta.select();
+
           let ok = false;
           try { ok = document.execCommand("copy"); } catch {}
           ta.remove();
           return ok;
+        } finally {
+          __allowCopyEvent = false;
         }
       }
 
