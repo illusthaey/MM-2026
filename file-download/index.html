@@ -125,7 +125,7 @@
       <div class="row between" style="align-items: flex-end; gap: 12px;">
         <div>
           <h2>검색창</h2>
-          <p class="muted">검색창에 키워드를 입력하십시오. (예시: 스쿨뱅킹 동의서, 범죄경력조회 동의서 등)</p>
+          <p class="muted">검색창에 키워드를 입력하십시오. (예시: 스쿨뱅킹 동의서, 행정정보공동이용 동의서 등)</p>
         </div>
         <div class="pill" id="countPill" aria-live="polite">총 0건</div>
       </div>
@@ -165,60 +165,33 @@
 
       <div class="card" style="margin-top: 18px;">
         <p class="muted" style="margin: 0;">
-          ⚠️ 브라우저/모바일 환경에 따라 PDF는 ‘다운로드’가 아니라 ‘열기’로 보일 수 있습니다. 그럴 땐 PDF 뷰어의 저장(⬇︎) 버튼을 사용하세요.
+          ⚠️ 브라우저/모바일 환경에 따라 PDF는 ‘다운로드’가 아니라 ‘열기’로 보일 수 있습니다. 그럴 땐 PDF 뷰어의 저장(⬇︎) 버튼 사용하시오. 
         </p>
       </div>
     </section>
 
 
-    <section class="section" id="how">
-      <h2 class="local-h2">업로드/추가 방법(관리자용)</h2>
-      <div class="card">
-        <ol style="margin: 0;">
-          <li><b>파일 업로드</b>: 이 페이지(<code>index.html</code>)와 <b>같은 폴더</b>(예: <code>/file-download/</code>)에 PDF/HWP 등을 올립니다.</li>
-          <li><b>파일명 정리</b>: 한글/특수문자 파일명은 서버 환경에 따라 링크가 깨질 수 있어요. 가능하면 <b>영문/숫자/하이픈</b>으로 변경을 권장합니다.</li>
-          <li><b>목록 등록</b>: 이 HTML 파일 하단의 <code>FILES</code> 배열에 항목 한 줄 추가하면 끝.</li>
-          <li><b>ZIP 묶음</b>(선택): 자주 쓰는 파일은 ZIP으로 묶어 <code>eduworkhaey-forms-pack.zip</code>로 같은 폴더에 올리면 ‘전체 묶음’ 버튼이 동작합니다.</li>
-        </ol>
-      </div>
-
-      <h3 class="local-h3">FILES 항목 추가 예시</h3>
-      <div class="card">
-<pre style="white-space: pre-wrap; margin:0;">{
-  title: "출장신청서(서식)",
-  format: "HWP",
-  size: "92KB",
-  updated: "2026-03-02",
-  path: "./travel-request-form.hwp",
-  originalName: "출장신청서.hwp",
-  desc: "관내/관외 출장 신청서 서식(학교 자체 양식).",
-  tags: ["출장", "복무", "서식"]
-}
-</pre>
-      </div>
-
-      <p class="muted">※ 이 페이지는 <b>다운로드 전용</b>입니다. 브라우저에서 ‘업로드 기능’까지 넣으려면 서버 측 업로드 API(권한/보안)가 필요합니다.</p>
-    </section>
   </main>
-
-  <!-- 공통 스크립트(원하는 경우만 유지) -->
-  <script src="./footer.js" defer></script>
-  <script src="./global-loader.js" defer></script>
-  <script src="./disable-copy.js" defer></script>
-
   <script>
-    // =============================
-    // 다운로드 목록 데이터
-    // - 여기만 수정하면 페이지가 자동 갱신됩니다.
-    // =============================
     const FILES = [
+      
+      {
+        title: "행정정보공동이용 동의서",
+        format: "HWP",
+        size: "4.8MB",
+        updated: "2025-12-01",
+        path: "/file-download/docs/consent-form-crime-experience.hwp",
+        originalName: "consent-form-crime-experience.hwp",
+        desc: "범죄경력 조회시 작성하여 행정실에 제출",
+        tags: ["범죄경력", "조회", "범죄경력조회", "동의서", "행정정보공동이용", "서식"]
+      },
       {
         title: "2026회계 학교행정 업무편람",
         format: "PDF",
-        size: "4.8MB",
-        updated: "2025-12-01",
-        path: "./2026-school-admin-handbook.pdf",
-        originalName: "2026-school-admin-handbook.pdf",
+        size: "116KB",
+        updated: "2026-03-06",
+        path: "/file-download/docs/",
+        originalName: "",
         desc: "2025년 12월 기준 작성. 학교 행정 전반 업무 절차/참고자료(강원교육청).",
         tags: ["업무편람", "행정", "K-에듀파인"]
       },
