@@ -1,4 +1,4 @@
-/* 2026.2.25.(수) 오전 3:40 버튼 색상 팔레트 추가*/
+/* 2026.3.5.(목) 오전 7:40 버튼 색상 팔레트 추가*/
 
 * {
   box-sizing: border-box;
@@ -1303,4 +1303,10 @@ html[data-theme="retro"] .site-footer .btn.btn-theme.is-active{
   html[data-theme="retro"] body{
     background-attachment: scroll;
   }
+}
+
+
+/* ✅ retro 모드: 섹션 카드(.section) 배경만 순백으로 */
+html[data-theme="retro"] .section{
+  background: #fff;
 }
