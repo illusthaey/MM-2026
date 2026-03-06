@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>교직원 성립전예산 요구 방법 안내</title>
+
+  <link rel="icon" href="/static/favicon.ico" />
+  <link rel="stylesheet" href="/static/style.css" />
+
+  <style>
+    .content a { text-decoration: underline; text-underline-offset: 2px; }
+    .content strong { color: #111; }
+    .content .warn { color: #9a3412; font-weight: 700; }
+    .quick-note {
+      border-left: 4px solid #111;
+      padding: 10px 12px;
+      background: #fafafa;
+      border-radius: 8px;
+      margin: 12px 0 0;
+    }
+    .mini-steps {
+      counter-reset: step;
+      list-style: none;
+      padding-left: 0;
+      margin: 12px 0 0;
+      display: grid;
+      gap: 10px;
+    }
+    .mini-steps li {
+      position: relative;
+      padding: 12px 14px 12px 50px;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      background: #fff;
+      margin: 0;
+    }
+    .mini-steps li::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 14px;
+      top: 12px;
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      border: 1px solid #111;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      background: #fff;
+      color: #111;
+    }
+    .formula {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.98rem;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 8px 10px;
+      display: inline-block;
+    }
+    .check-list {
+      margin: 0;
+      padding-left: 18px;
+    }
+    .check-list li { margin: 6px 0; }
+    .simple-table td.left { text-align: left !important; }
+    .simple-table td.center { text-align: center !important; }
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid #d1d5db;
+      background: #f9fafb;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #111;
+    }
+    .k-path {
+      margin-top: 8px;
+      padding: 10px 12px;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      border-radius: 10px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.98rem;
+    }
+    .toc .chip-row { margin-top: 4px; }
+  </style>
+</head>
+
+<body>
+  <a href="#main-content" class="skip-link">본문으로 바로가기</a>
+
+  <main class="container" id="main-content">
+    <section class="page-head">
+      <h1>교직원 성립전예산 요구 방법 안내</h1>
+      <p class="muted">
+        ·관련: 강원특별자치도 공립학교 회계규칙 제11조·제14조, 2026년도 학교회계 예산편성 기본지침, 2026회계 학교행정 업무편람<br/>
+        ·최종 업데이트: 2026.03.06<br/>
+      </p>
+
+      <div class="callout">
+        <ul class="list-tight">
+          <li><strong>이 페이지는 “교직원이 행정실에 성립전예산을 요구할 때” 무엇을 확인하고 무엇을 써야 하는지</strong>를 한눈에 보도록 정리한 안내입니다.</li>
+          <li><strong>핵심은 3가지</strong>입니다. <span class="badge">요건 확인</span> → <span class="badge">세입·세출 요구서 작성</span> → <span class="badge">행정실 제출</span></li>
+          <li>예시 서식은 <strong>테니스부 학부모부담후원금</strong> 사례를 바탕으로 구성했습니다.</li>
+        </ul>
+      </div>
+    </section>
+
+    <nav class="section quick-nav toc" aria-label="빠른 이동">
+      <h2>요약 및 목차</h2>
+      <hr/>
+      <div class="card">
+        <ul style="margin: 0; padding-left: 18px;">
+          <li><b>대상</b>: 예산·지출 업무가 낯선 교직원, 부서 담당교사, 운동부·사업 담당자</li>
+          <li><b>언제 보나</b>: 목적사업비, 지원금, 수익자부담경비를 <b>추경 전 먼저 집행</b>해야 할 때</li>
+          <li><b>핵심 한 줄</b>: <b>“용도 지정 + 전액 교부(또는 사전 심의된 수익자부담)”</b>인지 먼저 확인하고, <b>단가×물량×횟수</b>로 요구서를 쓰면 됩니다.</li>
+        </ul>
+      </div>
+      <div class="chip-row">
+        <a class="chip" href="#sec-1">1. 언제 성립전예산을 요구하나요?</a>
+        <a class="chip" href="#sec-2">2. 요구서에는 무엇을 쓰나요?</a>
+        <a class="chip" href="#sec-3">3. 예시 서식은 어떻게 읽나요?</a>
+        <a class="chip" href="#sec-4">4. 제출 후 행정실은 어떻게 처리하나요?</a>
+        <a class="chip" href="#sec-5">5. 자주 틀리는 부분</a>
+        <a class="chip" href="#sec-files">첨부/서식</a>
+      </div>
+    </nav>
+
+    <section class="section content" id="sec-1">
+      <h2>1. 언제 성립전예산을 요구하나요?</h2>
+      <p class="muted">·관련: 회계규칙 제14조, 예산편성기본지침(성립전 예산 집행), 학교행정 업무편람 10-2</p>
+      <hr/>
+
+      <div class="card">
+        <h3 style="margin-top:0;">먼저 개념부터</h3>
+        <p>
+          성립전예산은 <strong>추가경정예산이 아직 확정되지 않았더라도</strong>, 법령과 지침이 허용한 경우에 한해
+          <strong>먼저 예산을 편성·집행</strong>할 수 있도록 하는 예외 절차입니다.
+        </p>
+        <div class="quick-note">
+          쉽게 말하면, <strong>“추경을 기다리기에는 사업 시기가 너무 촉박한데, 돈의 용도와 재원이 분명한 경우”</strong>에 쓰는 방식입니다.
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="sheetlike simple-table">
+          <thead>
+            <tr>
+              <th>확인 항목</th>
+              <th>요구 가능</th>
+              <th>설명</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="left"><b>목적사업비·보조금·지원금</b></td>
+              <td class="center">가능</td>
+              <td class="left">국가·지자체 등으로부터 <b>용도가 지정</b>되고 <b>소요 전액이 교부</b>된 경우</td>
+            </tr>
+            <tr>
+              <td class="left"><b>수익자부담경비</b></td>
+              <td class="center">가능</td>
+              <td class="left"><b>학교운영위원회 사전 심의</b>를 거친 학부모 부담 경비인 경우</td>
+            </tr>
+            <tr>
+              <td class="left"><b>용도 미지정 예산</b></td>
+              <td class="center">불가</td>
+              <td class="left">돈은 내려왔어도 <b>어디에 쓰라고 지정되지 않으면</b> 성립전예산 불가</td>
+            </tr>
+            <tr>
+              <td class="left"><b>일부만 교부된 예산</b></td>
+              <td class="center">불가</td>
+              <td class="left"><b>소요 전액이 아니라 일부만</b> 교부된 경우 성립전예산 불가</td>
+            </tr>
+            <tr>
+              <td class="left"><b>시간이 충분한 일반 사업</b></td>
+              <td class="center">원칙적으로 추경</td>
+              <td class="left">집행 시일이 충분하면 <b>추가경정예산에 편성</b>해서 처리</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="note">※ 성립전예산으로 사용한 내역은 <b>같은 회계연도 내 차기 추가경정예산</b>에 반드시 반영합니다.</p>
+      </div>
+
+      <details class="shot-details" open>
+        <summary class="shot-summary">교직원이 바로 체크할 3가지</summary>
+        <div style="margin-top:10px;">
+          <ul class="check-list">
+            <li>이 돈은 <b>어디에 쓰라고 정해진 돈</b>인가?</li>
+            <li>필요한 금액이 <b>전액 교부</b>되었는가? (또는 수익자부담경비라면 <b>사전 심의</b>가 되었는가?)</li>
+            <li>사업 일정상 <b>추경 확정까지 기다리기 어려운가?</b></li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <section class="section content" id="sec-2">
+      <h2>2. 요구서에는 무엇을 쓰나요?</h2>
+      <p class="muted">·관련: 회계규칙 제11조, 예산편성기본지침 10. 세입·세출예산 편성 시 유의사항</p>
+      <hr/>
+
+      <div class="card">
+        <h3 style="margin-top:0;">교직원이 제출하는 기본 원칙</h3>
+        <ul style="margin: 10px 0 0; padding-left: 18px;">
+          <li>교직원은 학교 운영 및 교육활동에 필요한 경비를 적은 <b>예산요구서</b>를 제출할 수 있습니다.</li>
+          <li>산출기초는 반드시 <b>단가 × 물량 × 횟수</b>로 구체적으로 씁니다.</li>
+          <li><span class="warn">“운영비”, “경비”, “행사비”처럼 뭉뚱그린 표현</span>은 피하고, 실제 집행 대상을 적습니다.</li>
+        </ul>
+      </div>
+
+      <div class="grid two">
+        <div class="card">
+          <h3 style="margin-top:0;">세입 요구서에 주로 쓰는 항목</h3>
+          <ul class="check-list">
+            <li>세부사업</li>
+            <li>세부항목</li>
+            <li>산출내역</li>
+            <li>산출식(단가×물량×횟수)</li>
+            <li>예산요구액</li>
+            <li>비고</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-top:0;">세출 요구서에 주로 쓰는 항목</h3>
+          <ul class="check-list">
+            <li>세부사업</li>
+            <li>세부항목</li>
+            <li>원가통계비목</li>
+            <li>성립전예산액</li>
+            <li>기정예산액</li>
+            <li>비교증감</li>
+            <li>산출내역 / 산출식 / 금액</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0;">가장 중요한 칸: 산출기초</h3>
+        <p>숫자는 한 번에 이해되도록 적는 게 핵심입니다.</p>
+        <p class="formula">예: 200,000원 × 5명 × 12회 = 12,000,000원</p>
+        <ul class="check-list">
+          <li><b>단가</b>: 1회 또는 1명 기준 금액</li>
+          <li><b>물량</b>: 인원, 개수, 수량</li>
+          <li><b>횟수</b>: 월, 일, 회 등 집행 횟수</li>
+        </ul>
+      </div>
+
+      <div class="table-wrap">
+        <table class="sheetlike simple-table">
+          <thead>
+            <tr>
+              <th>항목</th>
+              <th>좋은 작성 예</th>
+              <th>피해야 할 표현</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="left">산출내역</td>
+              <td class="left">운동부지도자 사회보험료 기관부담금</td>
+              <td class="left">운영비</td>
+            </tr>
+            <tr>
+              <td class="left">산출식</td>
+              <td class="left">19,000원 × 5명 × 12회</td>
+              <td class="left">적정액 반영</td>
+            </tr>
+            <tr>
+              <td class="left">예산요구액</td>
+              <td class="left">1,140,000원</td>
+              <td class="left">약 100만원</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="note">※ 예산 편성은 <b>천원 단위</b>로 관리하며, 지침상 <b>세입은 절사·세출은 절상</b>합니다.</p>
+      </div>
+    </section>
+
+    <section class="section content" id="sec-3">
+      <h2>3. 예시 서식은 어떻게 읽나요?</h2>
+      <p class="muted">·관련: 업로드된 예시 엑셀(테니스부 학부모부담후원금)</p>
+      <hr/>
+
+      <div class="card">
+        <h3 style="margin-top:0;">예시 구조 한눈에 보기</h3>
+        <p>
+          예시 파일은 <strong>세입 요구서 1장 + 세출 요구서 1장</strong>으로 구성되어 있습니다.
+          세입에서는 “들어오는 돈”을, 세출에서는 “어디에 나눠 집행할지”를 씁니다.
+        </p>
+      </div>
+
+      <div class="table-wrap">
+        <table class="sheetlike simple-table">
+          <thead>
+            <tr>
+              <th>구분</th>
+              <th>산출식</th>
+              <th>금액</th>
+              <th>설명</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="left">세입 총액</td>
+              <td class="left">200,000원 × 5명 × 12회</td>
+              <td>12,000,000원</td>
+              <td class="left">학부모부담후원금 총액</td>
+            </tr>
+            <tr>
+              <td class="left">세출 ① 개인부담 사회보험료</td>
+              <td class="left">16,010원 × 5명 × 12회</td>
+              <td>961,000원</td>
+              <td class="left">예시 파일에서는 천원 단위로 정리</td>
+            </tr>
+            <tr>
+              <td class="left">세출 ② 기관부담 사회보험료</td>
+              <td class="left">19,000원 × 5명 × 12회</td>
+              <td>1,140,000원</td>
+              <td class="left">법정부담금 항목</td>
+            </tr>
+            <tr>
+              <td class="left">세출 ③ 실수령액</td>
+              <td class="left">164,990원 × 5명 × 12회</td>
+              <td>9,899,000원</td>
+              <td class="left">인건비 항목</td>
+            </tr>
+            <tr>
+              <td class="left"><b>세출 합계</b></td>
+              <td class="left"><b>200,000원 × 5명 × 12회</b></td>
+              <td><b>12,000,000원</b></td>
+              <td class="left"><b>세입과 세출 총액이 맞아야 함</b></td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="note">※ 위 금액은 업로드된 예시 서식의 계산 구조를 안내용으로 풀어쓴 것입니다.</p>
+      </div>
+
+      <details class="shot-details" open>
+        <summary class="shot-summary">예시 파일에서 특히 눈여겨볼 부분</summary>
+        <div style="margin-top:10px;">
+          <ul class="check-list">
+            <li><b>세입</b>은 “무슨 돈이 들어오는지”를 한 줄로 명확히 적습니다.</li>
+            <li><b>세출</b>은 같은 돈을 <b>원가통계비목별로 나누어</b> 씁니다. 예: 법정부담금 / 인건비</li>
+            <li>합계는 반드시 <b>세입 = 세출</b>이 되어야 합니다.</li>
+            <li>산출내역은 행정실이 바로 시스템 입력할 수 있도록 <b>구체 명칭</b>으로 쓰는 것이 좋습니다.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <section class="section content" id="sec-4">
+      <h2>4. 제출 후 행정실은 어떻게 처리하나요?</h2>
+      <p class="muted">·관련: 학교행정 업무편람 10-2 성립전예산 사용</p>
+      <hr/>
+
+      <ol class="mini-steps">
+        <li><b>사업 담당자(교직원)</b>가 성립전예산 사용을 요구합니다.</li>
+        <li><b>행정실</b>이 세입·세출 요구 내용을 확인하고 성립전예산을 편성합니다.</li>
+        <li><b>학교장 결재 후 확정</b>되면 집행할 수 있습니다.</li>
+        <li>사용한 내역은 <b>같은 회계연도 차기 추가경정예산</b>에 반영합니다.</li>
+      </ol>
+
+      <div class="card">
+        <h3 style="margin-top:0;">행정실 K-에듀파인 처리 경로</h3>
+        <div class="k-path">예산관리 → 성립전예산관리 → 조회 → 신규 → 재원구분(목적사업비 등) → 예산정보 입력 → 결재요청 → 확정</div>
+        <p class="muted" style="margin-top:10px;">※ 이 경로는 교직원 참고용입니다. 실제 입력은 행정실에서 처리합니다.</p>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0;">연말에는 예외적으로 ‘간주처리’가 있을 수 있습니다</h3>
+        <p>
+          회계연도 말에 목적지정 사업비가 늦게 교부되어 학교운영위원회를 다시 열기 어려운 경우에는,
+          예산총칙에 관련 조항이 있을 때 <strong>간주처리</strong>로 진행할 수 있습니다.
+          다만 이것은 <strong>연말의 제한적 예외</strong>이므로, 일반적인 교직원 요구 단계에서는
+          <strong>성립전예산 요구 → 행정실 편성 → 차기 추경 반영</strong> 흐름으로 이해하면 충분합니다.
+        </p>
+      </div>
+    </section>
+
+    <section class="section content" id="sec-5">
+      <h2>5. 자주 틀리는 부분</h2>
+      <hr/>
+
+      <div class="grid two">
+        <div class="card">
+          <h3 style="margin-top:0;">이런 경우는 다시 확인하세요</h3>
+          <ul class="check-list">
+            <li>지원금이 내려왔지만 <b>용도 지정 문구가 없다</b>.</li>
+            <li>필요예산 일부만 왔는데 <b>전액 받은 것처럼</b> 요구하려 한다.</li>
+            <li>집행 시기가 충분한데도 <b>무조건 성립전예산</b>으로 처리하려 한다.</li>
+            <li>학부모 부담 경비인데 <b>학교운영위원회 사전 심의 여부</b>가 불분명하다.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-top:0;">작성할 때 바로 잡아야 하는 것</h3>
+          <ul class="check-list">
+            <li>“운영비” 같은 포괄 표현 대신 <b>실제 집행 항목</b>으로 쓴다.</li>
+            <li><b>단가×물량×횟수</b>가 빠진 총액 기재는 피한다.</li>
+            <li>세출은 <b>원가통계비목</b>을 나누어 적는다.</li>
+            <li>최종 합계가 <b>세입 = 세출</b>인지 확인한다.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0;">교직원용 제출 체크리스트</h3>
+        <ul class="check-list">
+          <li>교부 공문 또는 사업 안내 공문 확인</li>
+          <li>세부사업·세부항목 명칭 정리</li>
+          <li>산출내역 / 산출식 / 요구금액 작성</li>
+          <li>필요 시 행정실과 원가통계비목 사전 협의</li>
+          <li>예시 서식과 같은 구조로 세입·세출 요구서 제출</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section dl-section" id="sec-files">
+      <h2 style="margin:0;">첨부/서식</h2>
+      <p class="muted dl-desc">·실제 사이트 적용 시 파일명을 정리해서 같은 폴더에 두거나, 학교 서버 경로에 맞게 href만 바꾸면 됩니다.</p>
+      <hr/>
+
+      <div class="grid three">
+        <div class="card">
+          <div><b>성립전예산 요구서 예시 (테니스부)</b></div>
+          <hr/>
+          <div class="row gap">
+            <a class="btn pastel-green" href="./2026_성립전예산_요구서_예시.xlsx" download>다운로드</a>
+            <a class="btn ghost" href="./2026_성립전예산_요구서_예시.xlsx" target="_blank" rel="noopener">파일 열기</a>
+          </div>
+          <div class="btn-desc">·세입 1장, 세출 1장으로 된 실제 작성 예시</div>
+        </div>
+
+        <div class="card">
+          <div><b>2026 학교회계 예산편성 기본지침</b></div>
+          <hr/>
+          <div class="row gap">
+            <a class="btn" href="./2026_학교회계_예산편성기본지침.pdf" download>다운로드</a>
+            <a class="btn ghost" href="./2026_학교회계_예산편성기본지침.pdf" target="_blank" rel="noopener">뷰어 열기</a>
+          </div>
+          <div class="btn-desc">·성립전예산 요건, 산출기초 작성 원칙 확인용</div>
+        </div>
+
+        <div class="card">
+          <div><b>2026 학교행정 업무편람</b></div>
+          <hr/>
+          <div class="row gap">
+            <a class="btn" href="./2026_학교행정_업무편람.pdf" download>다운로드</a>
+            <a class="btn ghost" href="./2026_학교행정_업무편람.pdf" target="_blank" rel="noopener">뷰어 열기</a>
+          </div>
+          <div class="btn-desc">·행정실 K-에듀파인 처리 경로 참고용</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/footer.js"></script>
+  <script src="/static/global-loader.js?v=1"></script>
+</body>
+</html>
