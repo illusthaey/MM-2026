@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="robots" content="noindex" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>가족수당 지급 안내</title>
+
+  <link rel="icon" href="/static/favicon.ico" />
+  <link rel="stylesheet" href="/static/style.css" />
+
+  <style>
+    .content a {
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .family-hero-grid,
+    .proc-grid,
+    .check-grid,
+    .link-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .family-hero-grid {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      margin-top: 12px;
+    }
+
+    .proc-grid {
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+
+    .check-grid {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .link-grid {
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    .mini-card {
+      border: 1px solid #e5e5e5;
+      border-radius: 14px;
+      padding: 14px 16px;
+      background: #fff;
+    }
+
+    .mini-card .kpi-label {
+      margin: 0 0 6px;
+      color: #666;
+      font-size: 0.95rem;
+    }
+
+    .mini-card .kpi-value {
+      margin: 0;
+      color: #111;
+      font-size: 1.3rem;
+      font-weight: 800;
+      line-height: 1.3;
+    }
+
+    .callout-box {
+      border-left: 6px solid #111;
+      background: #f9fafb;
+    }
+
+    .callout-box.good {
+      border-left-color: #15803d;
+      background: #f0fdf4;
+    }
+
+    .callout-box.warn {
+      border-left-color: #ea580c;
+      background: #fff7ed;
+    }
+
+    .callout-box.danger {
+      border-left-color: #dc2626;
+      background: #fef2f2;
+    }
+
+    .point-list {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .point-list li {
+      margin: 6px 0;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 4px 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 999px;
+      background: #fff;
+      color: #111;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .proc-step {
+      position: relative;
+      padding-top: 52px;
+      min-height: 176px;
+    }
+
+    .proc-num {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      border: 1px solid #111;
+      background: #111;
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    .family-table th {
+      white-space: nowrap;
+    }
+
+    .family-table tbody td:first-child,
+    .family-table tbody td:last-child {
+      text-align: left;
+    }
+
+    .family-table tbody td:first-child {
+      font-weight: 700;
+    }
+
+    .section .table-wrap table {
+      min-width: 680px;
+    }
+
+    .card p:last-child,
+    .mini-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .btn-block {
+      display: block;
+      width: 100%;
+      text-align: left;
+    }
+
+    .link-grid .card {
+      margin: 0;
+    }
+
+    @media (max-width: 640px) {
+      .section .table-wrap table {
+        min-width: 760px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문 바로가기</a>
+
+  <main id="main" class="container">
+    <h1>가족수당 지급 안내</h1>
+    <p class="muted">
+      ·적용 범위: 공무원·지방공무원 및 학교 현장 실무 참고용(교육공무직 포함)<br />
+      ·반영 기준: 2025 자녀 가산 인상 반영 / 강원 학교 행정 실무 흐름 참고<br />
+      ·최종 업데이트: 2026.03.07
+    </p>
+
+    <hr />
+
+    <section class="section">
+      <h2>요약</h2>
+      <hr />
+
+      <div class="card callout-box">
+        <ul class="point-list">
+          <li><b>기본 요건</b>: 주민등록표상 같은 세대 + 실제 생계를 같이하는 부양가족이어야 합니다.</li>
+          <li><b>별거 예외</b>: 취학, 요양, 주거, 근무 형편에 따른 별거는 예외 인정이 가능합니다.</li>
+          <li><b>지급 한도</b>: 배우자를 포함한 부양가족은 4명 이내가 원칙이지만, <b>자녀는 4명을 초과해도 모두 지급</b>합니다.</li>
+          <li><b>중복 제한</b>: 부부가 모두 공무원이거나, 배우자가 국고·지방비 보조기관에서 가족수당을 받는 경우 <b>한 명에게만</b> 지급합니다.</li>
+        </ul>
+      </div>
+
+      <div class="family-hero-grid">
+        <div class="mini-card">
+          <p class="kpi-label">배우자</p>
+          <p class="kpi-value">40,000원</p>
+        </div>
+        <div class="mini-card">
+          <p class="kpi-label">첫째 자녀</p>
+          <p class="kpi-value">50,000원</p>
+        </div>
+        <div class="mini-card">
+          <p class="kpi-label">둘째 자녀</p>
+          <p class="kpi-value">80,000원</p>
+        </div>
+        <div class="mini-card">
+          <p class="kpi-label">셋째 이후 자녀</p>
+          <p class="kpi-value">120,000원</p>
+        </div>
+        <div class="mini-card">
+          <p class="kpi-label">기타 부양가족</p>
+          <p class="kpi-value">20,000원</p>
+        </div>
+      </div>
+
+      <div class="tag-row">
+        <span class="tag">부양가족신고서 제출</span>
+        <span class="tag">최대 3년 소급</span>
+        <span class="tag">부부 중 1명만 지급</span>
+        <span class="tag">허위수령 환수·지급정지</span>
+      </div>
+    </section>
+
+    <nav class="quick-nav section" aria-label="빠른 이동">
+      <h2 style="margin-top: 0;">빠른 이동</h2>
+      <hr />
+      <div class="chip-row">
+        <a class="chip" href="#sec-1">1. 지급 대상</a>
+        <a class="chip" href="#sec-2">2. 지급액</a>
+        <a class="chip" href="#sec-3">3. 지급 개시·소멸</a>
+        <a class="chip" href="#sec-4">4. 신청·등록 절차</a>
+        <a class="chip" href="#sec-5">5. 중복 지급 확인</a>
+        <a class="chip" href="#sec-6">6. 환수·유의사항</a>
+        <a class="chip" href="#sec-7">7. 자주 묻는 사례</a>
+        <a class="chip" href="#sec-links">관련 링크</a>
+      </div>
+    </nav>
+
+    <section class="section content" id="sec-1">
+      <h2>1. 지급 대상 및 기본 요건</h2>
+      <p class="muted">·핵심 판단 기준: 세대요건 + 생계요건 + 관계요건</p>
+      <hr />
+
+      <div class="card">
+        <h3 style="margin-top: 0;">기본 판단 원칙</h3>
+        <ul class="point-list">
+          <li><b>세대 요건</b>: 부양의무를 가진 직원과 <b>주민등록표상 같은 세대</b>여야 합니다.</li>
+          <li><b>생계 요건</b>: 해당 직원의 주소 또는 거소에서 <b>실제로 생계를 같이</b>해야 합니다.</li>
+          <li><b>예외 인정</b>: 취학, 요양, 주거 또는 근무 형편으로 별거하는 경우에도 일정 범위 내에서 인정될 수 있습니다.</li>
+          <li><b>장애가 있는 사람</b>: 연령 제한을 받지 않으므로 장애인 등록증, 장애진단서 등 입증자료를 함께 확인합니다.</li>
+        </ul>
+      </div>
+
+      <div class="table-wrap">
+        <table class="sheetlike simple-table family-table">
+          <thead>
+            <tr>
+              <th>구분</th>
+              <th>인정 범위</th>
+              <th>기준 / 비고</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>배우자</td>
+              <td>법률상 배우자</td>
+              <td>사실혼은 제외 처리하는 방식으로 운영</td>
+            </tr>
+            <tr>
+              <td>직계존속</td>
+              <td>본인 및 배우자의 부모, 조부모 등</td>
+              <td>남 60세 / 여 55세 이상, 장애는 연령 제한 예외</td>
+            </tr>
+            <tr>
+              <td>직계비속</td>
+              <td>자녀, 손자녀, 입양자녀 포함</td>
+              <td>만 19세 미만, 장애는 연령 제한 예외</td>
+            </tr>
+            <tr>
+              <td>형제자매</td>
+              <td>장애가 있는 형제자매 등</td>
+              <td>부모 사망·장애 등의 경우 미성년 형제자매 포함 가능</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="note">※ 별거 예외는 자동 인정이 아니라, 관계 증빙과 별거 사유를 같이 확인하는 쪽이 안전합니다.</p>
+      </div>
+
+      <details class="shot-details" open>
+        <summary class="shot-summary">실무 체크 포인트</summary>
+        <div style="margin-top: 10px;">
+          <ul class="point-list">
+            <li>주민등록상 같은 세대라고 해도 실제 생계가 완전히 분리되어 있으면 지급 대상에서 제외될 수 있습니다.</li>
+            <li>배우자·자녀의 별거는 비교적 판단이 명확하지만, 직계존속은 <b>배우자와 주소·생계를 같이 하는지</b>를 함께 확인하는 것이 좋습니다.</li>
+            <li>교육공무직은 소속 교육청의 최신 처우개선 계획·업무편람·단체협약 반영 여부를 마지막으로 한 번 더 확인해야 합니다.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <section class="section content" id="sec-2">
+      <h2>2. 부양가족 범위 및 지급액</h2>
+      <p class="muted">·실무 페이지는 2025 자녀 인상 반영 기준으로 작성</p>
+      <hr />
+
+      <div class="table-wrap">
+        <table class="sheetlike simple-table family-table">
+          <thead>
+            <tr>
+              <th>구분</th>
+              <th>월 지급액</th>
+              <th>비고</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>배우자</td>
+              <td>40,000원</td>
+              <td>법률상 배우자 기준</td>
+            </tr>
+            <tr>
+              <td>첫째 자녀</td>
+              <td>50,000원</td>
+              <td>2025 개정 반영 기준</td>
+            </tr>
+            <tr>
+              <td>둘째 자녀</td>
+              <td>80,000원</td>
+              <td>2025 개정 반영 기준</td>
+            </tr>
+            <tr>
+              <td>셋째 이후 자녀</td>
+              <td>120,000원</td>
+              <td>만 19세 미만, 장애는 연령 제한 없음</td>
+            </tr>
+            <tr>
+              <td>기타 부양가족</td>
+              <td>20,000원</td>
+              <td>직계존속, 형제자매 등 요건 충족 시</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="note">※ 배우자를 포함한 부양가족은 4명 이내가 원칙이나, 자녀는 4명을 초과하더라도 지급합니다.</p>
+      </div>
+
+      <div class="card callout-box good">
+        <h3 style="margin-top: 0;">실무 포인트</h3>
+        <ul class="point-list">
+          <li><b>셋째 이후 자녀 판단</b>은 현재 지급 중인 자녀 수가 아니라, 가족관계상 출생 순서를 기준으로 보는 방식이 안전합니다.</li>
+          <li>첫째·둘째 자녀가 이미 19세가 되었거나 사망했더라도, 가족관계상 셋째 이후 자녀이면 해당 단가를 적용하는 구조로 정리하면 실무상 오류가 줄어듭니다.</li>
+          <li>교육공무직은 지역별·기관별 최신 처우개선 계획에서 자녀 단가가 별도로 반영되었는지 함께 점검하세요.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section content" id="sec-3">
+      <h2>3. 지급 개시, 소멸, 계산 원칙</h2>
+      <hr />
+
+      <div class="grid three">
+        <div class="card">
+          <h3 style="margin-top: 0;">지급 개시</h3>
+          <p>출생, 혼인, 신규채용, 전입 등 <b>지급 사유가 발생한 날이 속하는 달부터</b> 지급합니다.</p>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-top: 0;">지급 소멸</h3>
+          <p>사망, 이혼, 퇴직, 연령 초과 등 <b>지급 사유가 소멸한 날이 속하는 달까지</b> 지급합니다.</p>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-top: 0;">계산 방법</h3>
+          <p>부양가족 변동만 있는 경우는 월액 전액, 신규임용·퇴직·휴직·복직 등 <b>인사상 신분 변동은 발령일 기준 일할 계산</b>으로 정리합니다.</p>
+        </div>
+      </div>
+
+      <details class="shot-details" open>
+        <summary class="shot-summary">자주 틀리는 계산 예시</summary>
+        <div style="margin-top: 10px;">
+          <ul class="point-list">
+            <li><b>3월 15일 자녀 출생</b> → 3월분부터 지급</li>
+            <li><b>8월 10일 이혼</b> → 8월분까지 지급</li>
+            <li><b>9월 1일 신규임용</b> → 9월 급여 반영, 급여 체계상 신분 변동 부분은 일할 계산 확인</li>
+            <li><b>신고가 늦어진 경우</b> → 발생월로 소급 가능하되, 실무상 최대 3년 범위에서 정리</li>
+          </ul>
+        </div>
+      </details>
+
+      <div class="card callout-box warn">
+        <h3 style="margin-top: 0;">교육공무직 계산 시 주의</h3>
+        <p>교육공무직은 직종, 방학 중 근무 여부, 보수지급기관에 따라 월할·일할 처리 방식이 달라질 수 있습니다. 가족수당 자체는 전액지급 항목으로 다루는 예시가 있으므로, 급여 시스템 반영 전에 직종별 보수 기준을 다시 확인하세요.</p>
+      </div>
+    </section>
+
+    <section class="section content" id="sec-4">
+      <h2>4. 신청 서류 및 업무 처리 절차</h2>
+      <hr />
+
+      <div class="table-wrap">
+        <table class="sheetlike simple-table family-table">
+          <thead>
+            <tr>
+              <th>구분</th>
+              <th>확인 / 제출 내용</th>
+              <th>비고</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>필수 서류</td>
+              <td>부양가족신고서</td>
+              <td>변동이 생기면 변동사항만 다시 신고</td>
+            </tr>
+            <tr>
+              <td>기본 증빙</td>
+              <td>주민등록등본</td>
+              <td>세대요건 확인용</td>
+            </tr>
+            <tr>
+              <td>추가 증빙</td>
+              <td>가족관계증명서, 혼인관계증명서 등</td>
+              <td>등본만으로 관계 확인이 어려운 경우</td>
+            </tr>
+            <tr>
+              <td>장애 증빙</td>
+              <td>장애인 등록증, 장애진단서 등</td>
+              <td>연령 예외 판단 시 필수</td>
+            </tr>
+            <tr>
+              <td>부부 공무원</td>
+              <td>상대방 동의서</td>
+              <td>특정 양식 없음</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="proc-grid" style="margin-top: 12px;">
+        <div class="card proc-step">
+          <span class="proc-num">1</span>
+          <h3 style="margin-top: 0;">본인 신고</h3>
+          <p>수당을 받으려는 직원이 <b>직접 부양가족신고서</b>를 제출합니다.</p>
+        </div>
+
+        <div class="card proc-step">
+          <span class="proc-num">2</span>
+          <h3 style="margin-top: 0;">서류 검토</h3>
+          <p>등본, 가족관계증명서, 장애 증빙, 배우자 직장 정보 등을 확인합니다.</p>
+        </div>
+
+        <div class="card proc-step">
+          <span class="proc-num">3</span>
+          <h3 style="margin-top: 0;">시스템 등록</h3>
+          <p>K-에듀파인(나이스) 또는 급여 시스템에 가족사항을 등록하고, 중복 여부를 점검합니다.</p>
+        </div>
+
+        <div class="card proc-step">
+          <span class="proc-num">4</span>
+          <h3 style="margin-top: 0;">지급 반영</h3>
+          <p>귀속 월과 소급 여부를 반영하여 급여 생성 전에 승인·확정합니다.</p>
+        </div>
+      </div>
+
+      <div class="card callout-box">
+        <h3 style="margin-top: 0;">등록 시 바로 확인할 항목</h3>
+        <ul class="point-list">
+          <li>배우자 직업란 및 특기사항란 기재 여부</li>
+          <li>부양가족 수, 자녀 출생 순서, 장애 여부 입력 누락 여부</li>
+          <li>과거 미지급분 소급 대상 여부</li>
+          <li>부부 공무원 또는 공공기관·사립학교 근무 배우자 여부</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section content" id="sec-5">
+      <h2>5. 배우자 중복 수령 여부 확인 방법</h2>
+      <hr />
+
+      <div class="check-grid">
+        <div class="card">
+          <h3 style="margin-top: 0;">① 신고서 자진기재 확인</h3>
+          <p>배우자가 공무원 또는 인건비 보조기관 재직자인 경우, 신고서 <b>직업란과 특기사항란</b>에 기관명·수령 여부를 적게 합니다.</p>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-top: 0;">② 행정정보 공동이용</h3>
+          <p>배우자 직장 정보가 불명확하면 행정정보 공동이용 또는 주민등록 관련 정보 확인으로 재검증합니다.</p>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-top: 0;">③ 내부 시스템 조회</h3>
+          <p>급여 담당자는 나이스·급여 시스템의 중복지급 확인 메뉴 또는 내부 검증 기능을 활용해 선행 확인합니다.</p>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-top: 0;">④ 기관 간 문서 통보</h3>
+          <p>부부 공무원 간 수령자를 변경할 때는 <b>변경 다음 달부터</b> 새 지급자를 반영하고, 상대 기관에 문서로 통보합니다.</p>
+        </div>
+      </div>
+
+      <div class="card callout-box warn">
+        <h3 style="margin-top: 0;">부부 공무원 처리 원칙</h3>
+        <ul class="point-list">
+          <li>부부 공무원은 당사자 합의로 수령자를 정하고, 신청 시 상대방 동의서를 첨부합니다.</li>
+          <li>배우자가 공무원은 아니지만, 국고 또는 지방비에서 인건비가 보조되는 기관에서 가족수당을 받고 있다면 공무원 쪽은 지급 대상이 아닙니다.</li>
+          <li>수령 대상자를 부↔처로 바꾸는 경우, 새 지급자는 신청한 달의 <b>다음 달부터</b> 적용하고 종전 지급 기관은 지급을 정지합니다.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section content" id="sec-6">
+      <h2>6. 주요 금지사항 및 사후 조치</h2>
+      <hr />
+
+      <div class="table-wrap">
+        <table class="sheetlike simple-table family-table">
+          <thead>
+            <tr>
+              <th>상황</th>
+              <th>조치</th>
+              <th>실무상 유의</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>허위신고·중복수령</td>
+              <td>전액 환수(변상), 최대 1년 지급정지</td>
+              <td>반기 점검, 시스템 중복조회, 배우자 재직기관 확인 필수</td>
+            </tr>
+            <tr>
+              <td>과다지급</td>
+              <td>즉시 정산 및 환수</td>
+              <td>변동사항 미신고 여부 함께 확인</td>
+            </tr>
+            <tr>
+              <td>미신고로 인한 미지급</td>
+              <td>최대 3년 소급 지급 검토</td>
+              <td>발생월, 신고일, 소멸시효를 같이 확인</td>
+            </tr>
+            <tr>
+              <td>부양가족 변동 미반영</td>
+              <td>다음 급여 전 수정</td>
+              <td>출생, 사망, 이혼, 자녀 연령 초과를 정기 점검</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card callout-box danger">
+        <h3 style="margin-top: 0;">관리자 체크리스트</h3>
+        <ul class="point-list">
+          <li>신규 신고 접수 시 배우자 직업란·특기사항란 누락 여부 확인</li>
+          <li>월 급여 마감 전 중복지급 확인 메뉴 또는 수기대조 실행</li>
+          <li>반기별 자체 점검으로 부당수령 사례 재점검</li>
+          <li>환수 발생 시 환수액, 환수기간, 지급정지 여부를 문서로 남겨 재발 방지</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section content" id="sec-7">
+      <h2>7. 자주 묻는 사례</h2>
+      <hr />
+
+      <details class="shot-details" open>
+        <summary class="shot-summary">Q1. 배우자와 자녀가 주소지가 다르면 무조건 제외되나요?</summary>
+        <div style="margin-top: 10px;">
+          <p>아닙니다. 취학, 요양, 주거, 근무 형편으로 인한 별거는 예외 인정이 가능합니다. 다만, 단순한 주소 분리만으로는 부족하므로 실제 사유와 관계를 입증할 자료를 함께 확인하는 것이 안전합니다.</p>
+        </div>
+      </details>
+
+      <details class="shot-details">
+        <summary class="shot-summary">Q2. 첫째·둘째가 이미 성년이 되었는데 셋째는 얼마를 지급하나요?</summary>
+        <div style="margin-top: 10px;">
+          <p>가족관계상 셋째 이후 자녀라면 120,000원 기준으로 정리하는 실무가 안전합니다. 현재 지급 중인 자녀 수가 아니라 <b>가족관계상 출생 순서</b>를 먼저 확인하세요.</p>
+        </div>
+      </details>
+
+      <details class="shot-details">
+        <summary class="shot-summary">Q3. 혼인이나 출생 사실을 늦게 신고하면 못 받나요?</summary>
+        <div style="margin-top: 10px;">
+          <p>아닙니다. 지급사유가 발생한 달까지 소급 반영을 검토할 수 있고, 실무상 신고일 기준 최대 3년까지 소급 지급 정리를 합니다. 다만, 발생일·신고일·증빙 서류가 모두 맞아야 합니다.</p>
+        </div>
+      </details>
+
+      <details class="shot-details">
+        <summary class="shot-summary">Q4. 부부 공무원인데 이번 달부터 수령자를 바꾸고 싶습니다.</summary>
+        <div style="margin-top: 10px;">
+          <p>가능합니다. 새로 지급받을 사람의 기관에서 신청서를 접수하고, 일반적으로 <b>신청한 달의 다음 달부터</b> 적용합니다. 상대 기관에는 문서로 통보하고, 종전 지급자는 같은 시점부터 지급을 정지합니다.</p>
+        </div>
+      </details>
+
+      <details class="shot-details">
+        <summary class="shot-summary">Q5. 교육공무직도 이 페이지와 완전히 같은 기준으로 보면 되나요?</summary>
+        <div style="margin-top: 10px;">
+          <p>대부분의 실무 포인트는 동일하게 쓸 수 있지만, 보수체계와 지급 항목은 소속 교육청의 최신 처우개선 계획이나 교육공무직 업무편람이 우선일 수 있습니다. 특히 자녀 단가, 방학 중 근무, 일할 처리 방식은 마지막으로 한 번 더 확인하세요.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="section" id="sec-links">
+      <h2>관련 링크</h2>
+      <p class="muted">·바깥 링크는 새 창으로 열립니다.</p>
+      <hr />
+
+      <div class="link-grid">
+        <div class="card">
+          <div><b>지방공무원 수당 등에 관한 규정</b></div>
+          <hr />
+          <a class="btn pastel-blue btn-block" href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=282477" target="_blank" rel="noopener">바로가기</a>
+          <div class="btn-desc">·지방공무원 가족수당 최신 금액과 지급 요건 확인</div>
+        </div>
+
+        <div class="card">
+          <div><b>공무원수당 등에 관한 규정</b></div>
+          <hr />
+          <a class="btn pastel-green btn-block" href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=282475" target="_blank" rel="noopener">바로가기</a>
+          <div class="btn-desc">·국가공무원 가족수당, 부양가족신고서 제출, 허위수령 제재 확인</div>
+        </div>
+
+        <div class="card">
+          <div><b>인사혁신처 보수체계 안내</b></div>
+          <hr />
+          <a class="btn pastel-yellow btn-block" href="https://www.mpm.go.kr/mpm/info/resultPay/bizPay01/" target="_blank" rel="noopener">바로가기</a>
+          <div class="btn-desc">·현재 공개 중인 공무원 가족수당 금액 요약 확인</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>페이지 사용 안내</h2>
+      <hr />
+      <div class="card callout-box warn">
+        <ul class="point-list">
+          <li>이 페이지는 <b>학교 실무자가 빠르게 판단할 수 있도록 정리한 안내용 상세페이지</b>입니다.</li>
+          <li>최종 지급 결정은 <b>최신 법령, 소속 기관 지침, 교육공무직 처우개선 계획</b>을 기준으로 하세요.</li>
+          <li>업무편람, 급여 시스템, 배우자 재직기관 확인 결과가 서로 다를 때는 <b>최신 법령 → 소속기관 지침 → 시스템 반영값</b> 순으로 다시 검토하는 것이 안전합니다.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/footer.js"></script>
+  <script src="/static/global-loader.js?v=1"></script>
+</body>
+</html>
