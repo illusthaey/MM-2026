@@ -315,11 +315,11 @@
           <div style="margin-top:10px;">
             <div class="callout danger">
               A. 초과근무 구간의 출·퇴근 지문이 모두 있어야 실제 근무한 것으로 증빙 가능합니다.
-            </div>
             <ul style="margin:0; padding-left:18px;">
               <li>조기출근 후 바로 이어서 8:40부터 정규근무를 계속한 경우라도, 초과근무 종료 지문을 찍어주셔야 합니다.</li>
               <li>16:40에 정규근무 종료 후 초과근무를 이어서 한 경우라도, 초과근무 시작 지문을 찍어주셔야 합니다.</li>
             </ul>
+            </div>
           </div>
         </details>
 
@@ -328,10 +328,10 @@
           <div style="margin-top:10px;">
             <div class="callout info">
               A. 교외 근무는 초과근무 확인 수기대장에 기재합니다. 출장 복무와는 별도로 초과근무에 대한 학교장 결재(명령)이 있어야 확인 수기대장에 기재할 수 있습니다. 
-            </div>
             <ul style="margin:0; padding-left:18px;">
               <li>예시: 현장체험학습, 대회·행사 인솔, 외부 교육/연수 등으로 학교 밖에서 초과근무가 발생하면 확인수기대장에 기재합니다.</li>
             </ul>
+            </div>
           </div>
         </details>
 
@@ -449,10 +449,10 @@
         ];
 
         if (place === "inside") {
-          required.push({ key: "fingerIn", title:"(교내) 초과근무 출근 지문" });
-          required.push({ key: "fingerOut", title:"(교내) 초과근무 퇴근 지문" });
+          required.push({ key: "fingerIn", title:"초과근무 출근 지문" });
+          required.push({ key: "fingerOut", title:"초과근무 퇴근 지문" });
         } else {
-          required.push({ key: "manualLog", title:"(교외) 확인 수기대장 기재(서명)" });
+          required.push({ key: "manualLog", title:"확인 수기대장 서명" });
         }
 
         const missing = [];
@@ -475,14 +475,14 @@
         if (okAll) {
           box.classList.remove("bad");
           box.classList.add("ok");
-          titleEl.textContent = "현재 체크 기준으로는 ‘인정 가능성 높음’";
-          descEl.textContent = "사전 결재와 증빙(근무지별)이 충족되었습니다. (최종 판단은 행정실/시스템 기록 기준)";
+          titleEl.textContent = "문제 없을 듯";
+          descEl.textContent = "복무 사전 결재와 근무지에 따른 증빙 조건을 충족하셨습니다.";
           missingWrap.style.display = "none";
         } else {
           box.classList.remove("ok");
           box.classList.add("bad");
-          titleEl.textContent = "현재 체크 기준으로는 ‘미인정 가능성’이 있습니다";
-          descEl.textContent = "아래 누락 항목이 있으면 실제 근무 여부와 무관하게 증빙 불충분으로 미인정 될 수 있습니다.";
+          titleEl.textContent = "수당 지급 근거 부족";
+          descEl.textContent = "아래 누락 항목이 있으면 실제 근무 여부와 무관하게 근무 확인 증빙 불충분으로 미지급 가능성 있음";
           missingWrap.style.display = "block";
           missingList.innerHTML = missing.map(x => `<li>${escapeHtml(x)}</li>`).join("");
         }
