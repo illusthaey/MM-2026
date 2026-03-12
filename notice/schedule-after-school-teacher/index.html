@@ -1,1 +1,646 @@
-html
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>외부강사 계약서 작성 일정 안내</title>
+  <meta name="color-scheme" content="light only" />
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f5f7fb;
+      --paper: #ffffff;
+      --line: #e5e7eb;
+      --ink: #111827;
+      --sub: #4b5563;
+      --soft: #f9fafb;
+      --blue: #2563eb;
+      --blue-soft: #eff6ff;
+      --green-soft: #f0fdf4;
+      --green-line: #86efac;
+      --orange-soft: #fff7ed;
+      --orange-line: #fdba74;
+      --shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #f8fbff 0%, var(--bg) 100%);
+      color: var(--ink);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans KR", "Apple SD Gothic Neo", "맑은 고딕", sans-serif;
+      line-height: 1.55;
+      word-break: keep-all;
+    }
+
+    .wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px 16px 56px;
+    }
+
+    .hero {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 28px 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 10px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--blue-soft);
+      color: var(--blue);
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.9rem, 4vw, 2.7rem);
+      line-height: 1.2;
+    }
+
+    .desc {
+      margin: 12px 0 0;
+      color: var(--sub);
+      font-size: 1rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 16px;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      background: #fff;
+      color: var(--ink);
+      font-size: 0.98rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .btn:hover { background: #f8fafc; }
+
+    .btn.primary {
+      border-color: var(--blue);
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .btn.primary:hover { filter: brightness(0.97); }
+
+    .section {
+      margin-top: 18px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .section h2 {
+      margin: 0 0 14px;
+      font-size: 1.35rem;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .summary-card {
+      padding: 18px 16px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: var(--soft);
+    }
+
+    .summary-label {
+      margin: 0;
+      font-size: 0.92rem;
+      color: var(--sub);
+    }
+
+    .summary-value {
+      margin: 6px 0 0;
+      font-size: clamp(1.55rem, 3vw, 2rem);
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .notice-box {
+      padding: 16px 18px;
+      border-radius: var(--radius);
+      border: 1px solid #bfdbfe;
+      background: #f8fbff;
+    }
+
+    .notice-box ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .notice-box li + li { margin-top: 8px; }
+
+    .schedule-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .day-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+      background: #fff;
+    }
+
+    .day-card.is-today {
+      border-color: #60a5fa;
+      box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.16);
+    }
+
+    .day-card.is-blocked {
+      background: var(--orange-soft);
+      border-color: var(--orange-line);
+    }
+
+    .day-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .day-title {
+      margin: 0;
+      font-size: 1.08rem;
+      line-height: 1.3;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--blue-soft);
+      color: var(--blue);
+      font-size: 0.84rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .badge.ok {
+      background: var(--green-soft);
+      color: #166534;
+      border: 1px solid var(--green-line);
+    }
+
+    .badge.warn {
+      background: var(--orange-soft);
+      color: #9a3412;
+      border: 1px solid var(--orange-line);
+    }
+
+    .time-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .time-item {
+      display: grid;
+      grid-template-columns: 86px 1fr;
+      gap: 10px;
+      align-items: center;
+      padding: 11px 12px;
+      border-radius: 14px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+    }
+
+    .time {
+      font-weight: 800;
+      color: var(--blue);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .name {
+      font-weight: 700;
+    }
+
+    .blocked-text {
+      margin: 0;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.75);
+      border: 1px dashed #fb923c;
+      color: #9a3412;
+      font-weight: 700;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    table {
+      width: 100%;
+      min-width: 720px;
+      border-collapse: collapse;
+      background: #fff;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      font-size: 0.98rem;
+    }
+
+    thead th {
+      background: #f8fafc;
+      font-size: 0.92rem;
+      color: var(--sub);
+      white-space: nowrap;
+    }
+
+    tbody tr:last-child td { border-bottom: 0; }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--soft);
+      font-weight: 700;
+    }
+
+    .footnote {
+      margin: 0;
+      color: var(--sub);
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 900px) {
+      .summary-grid,
+      .schedule-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero,
+      .section {
+        border-radius: 20px;
+        padding: 18px;
+      }
+
+      .summary-grid,
+      .schedule-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .time-item {
+        grid-template-columns: 74px 1fr;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .wrap {
+        max-width: none;
+        padding: 0;
+      }
+
+      .hero,
+      .section,
+      .day-card,
+      .time-item,
+      .table-wrap {
+        box-shadow: none;
+      }
+
+      .actions { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="hero">
+      <p class="eyebrow">내부 안내용</p>
+      <h1>외부강사 계약서 작성 일정 안내</h1>
+      <p class="desc" id="baseDateText"></p>
+      <div class="actions">
+        <button type="button" class="btn primary" onclick="window.print()">인쇄하기</button>
+        <a href="#dailySchedule" class="btn">일자별 일정 보기</a>
+      </div>
+    </header>
+
+    <section class="section">
+      <h2>요약</h2>
+      <div class="summary-grid" id="summaryGrid"></div>
+    </section>
+
+    <section class="section">
+      <h2>안내사항</h2>
+      <div class="notice-box">
+        <ul>
+          <li>아래 일정은 <strong>외부강사 계약서 작성</strong>을 위한 안내용 정리본입니다.</li>
+          <li><strong>2026. 3. 17.(화)</strong>은 담당자 출장 발생으로 진행이 어렵습니다.</li>
+          <li>미응답자는 별도 연락이 필요한 대상으로 표시했습니다.</li>
+          <li>최종 변경이 생기면 가장 최근 안내를 우선 적용합니다.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="dailySchedule">
+      <h2>일자별 일정</h2>
+      <div class="schedule-grid" id="scheduleGrid"></div>
+    </section>
+
+    <section class="section">
+      <h2>한눈에 보기</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>일자</th>
+              <th>시간</th>
+              <th>이름</th>
+              <th>비고</th>
+            </tr>
+          </thead>
+          <tbody id="scheduleTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>미응답자</h2>
+      <p class="footnote" id="nonResponderBase"></p>
+      <div class="chips" id="nonResponderChips"></div>
+    </section>
+  </main>
+
+  <script>
+    const pageData = {
+      title: "외부강사 계약서 작성 일정 안내",
+      baseDate: "2026. 3. 12.(목)",
+      nonResponders: ["이영아", "이종인", "천계원"],
+      days: [
+        {
+          date: "2026-03-12",
+          status: "normal",
+          items: [
+            { time: "13:30", name: "정길녀" }
+          ]
+        },
+        {
+          date: "2026-03-13",
+          status: "normal",
+          items: [
+            { time: "13:30", name: "김소연" },
+            { time: "14:00", name: "조진현" }
+          ]
+        },
+        {
+          date: "2026-03-16",
+          status: "normal",
+          items: [
+            { time: "12:50", name: "오혜진" },
+            { time: "13:30", name: "사공성대" },
+            { time: "14:00", name: "권혁선" },
+            { time: "15:30", name: "김태희" }
+          ]
+        },
+        {
+          date: "2026-03-17",
+          status: "blocked",
+          reason: "담당자 출장 발생으로 진행 불가",
+          items: []
+        },
+        {
+          date: "2026-03-18",
+          status: "normal",
+          items: [
+            { time: "14:30", name: "신선아" },
+            { time: "15:00", name: "정은수" }
+          ]
+        },
+        {
+          date: "2026-03-19",
+          status: "normal",
+          items: [
+            { time: "11:30", name: "최예원" },
+            { time: "13:30", name: "윤이슬" },
+            { time: "14:00", name: "장민주" },
+            { time: "15:00", name: "장조연" }
+          ]
+        },
+        {
+          date: "2026-03-20",
+          status: "normal",
+          items: [
+            { time: "13:30", name: "원명신" }
+          ]
+        },
+        {
+          date: "2026-03-24",
+          status: "normal",
+          items: [
+            { time: "13:30", name: "김도은" }
+          ]
+        }
+      ]
+    };
+
+    const weekdayMap = ["일", "월", "화", "수", "목", "금", "토"];
+
+    function parseLocalDate(dateString) {
+      const [year, month, day] = dateString.split("-").map(Number);
+      return new Date(year, month - 1, day);
+    }
+
+    function formatDateLabel(dateString) {
+      const date = parseLocalDate(dateString);
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+      const weekday = weekdayMap[date.getDay()];
+      return `${month}월 ${day}일 (${weekday})`;
+    }
+
+    function formatShortDate(dateString) {
+      const date = parseLocalDate(dateString);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${year}.${month}.${day}`;
+    }
+
+    function todayKey() {
+      const now = new Date();
+      const y = now.getFullYear();
+      const m = String(now.getMonth() + 1).padStart(2, "0");
+      const d = String(now.getDate()).padStart(2, "0");
+      return `${y}-${m}-${d}`;
+    }
+
+    function createSummaryCard(label, value) {
+      return `
+        <article class="summary-card">
+          <p class="summary-label">${label}</p>
+          <p class="summary-value">${value}</p>
+        </article>
+      `;
+    }
+
+    function renderSummary() {
+      const totalAppointments = pageData.days.reduce((sum, day) => sum + day.items.length, 0);
+      const activeDays = pageData.days.filter(day => day.status === "normal" && day.items.length > 0).length;
+      const blockedDays = pageData.days.filter(day => day.status === "blocked").length;
+      const summaryHTML = [
+        createSummaryCard("예약 일정", `${totalAppointments}건`),
+        createSummaryCard("운영일", `${activeDays}일`),
+        createSummaryCard("일정 불가", `${blockedDays}일`),
+        createSummaryCard("미응답", `${pageData.nonResponders.length}명`)
+      ].join("");
+
+      document.getElementById("summaryGrid").innerHTML = summaryHTML;
+    }
+
+    function renderScheduleCards() {
+      const today = todayKey();
+      const html = pageData.days.map(day => {
+        const todayClass = day.date === today ? " is-today" : "";
+
+        if (day.status === "blocked") {
+          return `
+            <article class="day-card is-blocked${todayClass}">
+              <div class="day-head">
+                <h3 class="day-title">${formatDateLabel(day.date)}</h3>
+                <span class="badge warn">진행 불가</span>
+              </div>
+              <p class="blocked-text">${day.reason}</p>
+            </article>
+          `;
+        }
+
+        const itemsHTML = day.items.map(item => `
+          <li class="time-item">
+            <span class="time">${item.time}</span>
+            <span class="name">${item.name}</span>
+          </li>
+        `).join("");
+
+        const badgeText = day.date === today ? "오늘 일정" : `${day.items.length}명 예약`;
+        const badgeClass = day.date === today ? "badge" : "badge ok";
+
+        return `
+          <article class="day-card${todayClass}">
+            <div class="day-head">
+              <h3 class="day-title">${formatDateLabel(day.date)}</h3>
+              <span class="${badgeClass}">${badgeText}</span>
+            </div>
+            <ul class="time-list">${itemsHTML}</ul>
+          </article>
+        `;
+      }).join("");
+
+      document.getElementById("scheduleGrid").innerHTML = html;
+    }
+
+    function renderTable() {
+      const rows = [];
+
+      pageData.days.forEach(day => {
+        if (day.status === "blocked") {
+          rows.push(`
+            <tr>
+              <td>${formatShortDate(day.date)}</td>
+              <td>-</td>
+              <td>-</td>
+              <td>${day.reason}</td>
+            </tr>
+          `);
+          return;
+        }
+
+        day.items.forEach((item, index) => {
+          rows.push(`
+            <tr>
+              <td>${index === 0 ? formatShortDate(day.date) : ""}</td>
+              <td>${item.time}</td>
+              <td>${item.name}</td>
+              <td></td>
+            </tr>
+          `);
+        });
+      });
+
+      document.getElementById("scheduleTableBody").innerHTML = rows.join("");
+    }
+
+    function renderNonResponders() {
+      document.getElementById("nonResponderBase").textContent = `${pageData.baseDate} 현재`;
+      document.getElementById("nonResponderChips").innerHTML = pageData.nonResponders
+        .map(name => `<span class="chip">${name}</span>`)
+        .join("");
+    }
+
+    function renderBaseText() {
+      document.getElementById("baseDateText").textContent = `아래 일정은 ${pageData.baseDate} 기준 정리본입니다.`;
+      document.title = pageData.title;
+    }
+
+    function init() {
+      renderBaseText();
+      renderSummary();
+      renderScheduleCards();
+      renderTable();
+      renderNonResponders();
+    }
+
+    init();
+  </script>
+
+<script src="/static/footer.js"></script>
+<script src="/static/global-loader.js?v=1"></script>
+</body>
+</html>
