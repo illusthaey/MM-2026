@@ -368,7 +368,7 @@
   
 <body>
   <main class="container">
-      <h1>외부강사 위수탁계약서 작성 일정 안내</h1>
+      <h1>2026학년도 외부강사 위수탁계약서 작성 일정 안내</h1>
       <p class="muted" id="baseDateText"></p>
     <hr/>
 
@@ -391,12 +391,12 @@
     </section>
 
     <section class="section" id="dailySchedule">
-      <h2>계약서 작성 일정</h2>
+      <h2>계약서 작성 일정 달력</h2>
       <div class="schedule-grid" id="scheduleGrid"></div>
     </section>
 
     <section class="section">
-      <h2>한눈에 보기</h2>
+      <h2>표로 확인하기</h2>
       <div class="table-wrap">
         <table>
           <thead>
@@ -413,7 +413,7 @@
     </section>
 
     <section class="section">
-      <h2>미응답자</h2>
+      <h2>설문조사 미응답자</h2>
       <p class="footnote" id="nonResponderBase"></p>
       <div class="chips" id="nonResponderChips"></div>
     </section>
@@ -423,7 +423,7 @@
     const pageData = {
       title: "외부강사 계약서 작성 일정 안내",
       baseDate: "2026. 3. 12.(목)",
-      nonResponders: ["이*인", "천*원"],
+      nonResponders: [],
       days: [
         {
           date: "2026-03-12",
@@ -447,6 +447,7 @@
           items: [
             { time: "12:50", name: "오*진" },
             { time: "13:30", name: "사**대" },
+            { time: "13:45", name: "천*원" },
             { time: "14:00", name: "권*선" },
             { time: "15:30", name: "김*희" }
           ]
