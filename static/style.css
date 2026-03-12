@@ -1310,3 +1310,119 @@ html[data-theme="retro"] .site-footer .btn.btn-theme.is-active{
 html[data-theme="retro"] .section{
   background: #fff;
 }
+
+
+
+/* =========================================================
+   2026.3.12 정리 — 기존 /static/style.css 톤에 맞춘 마감용 패치
+   사용 방법: 기존 style.css 맨 아래에 그대로 추가
+   목적:
+   1) footer.js가 주입하는 footer / theme-switch / quick-nav UI와 톤 통일
+   2) simple-table, tool-shot, site-footer 중복 선언으로 생기는 충돌 정리
+   3) retro/classic 전환 시 기본 배경과 섹션 톤 안정화
+   ========================================================= */
+
+html[data-theme="classic"]{
+  color-scheme: light;
+}
+
+html[data-theme="classic"] body{
+  background: #fff;
+  color: #111;
+}
+
+/* footer.js가 주입하는 footer 구조에 맞춤 */
+.site-footer{
+  margin-top: 64px;
+  padding: 24px 16px;
+  border-top: 1px solid #e5e7eb;
+  background: #fafafa;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.site-footer .shell{
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 16px;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.site-footer .footer-main{
+  word-break: keep-all;
+}
+
+/* body span/div 전역 타이포 영향이 footer·button 안까지 번지는 것 방지 */
+.site-footer,
+.site-footer *,
+.btn *,
+.chip *,
+.dash-summary *,
+.shot-summary *,
+.badge-rose *{
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* flex gap과 .btn + .btn margin이 겹쳐서 간격이 과해지는 곳 정리 */
+.theme-switch .btn + .btn,
+.home-link-wrap .btn + .btn,
+.chip-row .btn + .btn{
+  margin-left: 0;
+}
+
+/* footer.js 홈 버튼 톤을 기존 pill 버튼 계열과 맞춤 */
+.home-link-wrap .btn{
+  border-radius: 999px;
+  border-color: #d1d5db;
+  background: #f9fafb;
+}
+
+.home-link-wrap .btn:hover{
+  background: #eef2ff;
+}
+
+/* simple-table은 헤더 좌측 / 값 우측 정렬로 고정 */
+.simple-table th,
+.table-wrap .simple-table th,
+.table-wrapper .simple-table th{
+  text-align: left;
+}
+
+.simple-table td,
+.table-wrap .simple-table td,
+.table-wrapper .simple-table td{
+  text-align: right;
+  padding-right: 10px;
+}
+
+/* 실행화면 박스는 한 번만 정의되도록 마감 */
+.tool-shot{
+  margin-top: 14px;
+  padding: 0;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  background: #fafafa;
+  overflow: hidden;
+}
+
+.shot-details .tool-shot{
+  margin-top: 10px;
+  border: 0;
+  background: transparent;
+}
+
+.tool-shot img,
+.tool-thumb{
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+/* 레트로 테마에서 섹션 카드만 순백으로 유지해서 피로도 감소 */
+html[data-theme="retro"] .section{
+  background: #fff;
+}
