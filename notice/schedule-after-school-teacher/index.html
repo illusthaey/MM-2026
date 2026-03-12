@@ -423,13 +423,14 @@
     const pageData = {
       title: "외부강사 계약서 작성 일정 안내",
       baseDate: "2026. 3. 12.(목)",
-      nonResponders: ["이*아", "이*인", "천*원"],
+      nonResponders: ["이*인", "천*원"],
       days: [
         {
           date: "2026-03-12",
           status: "normal",
           items: [
             { time: "13:30", name: "정*녀" }
+            { time: "14:30", name: "이*아" }
           ]
         },
         {
@@ -461,6 +462,7 @@
           status: "normal",
           items: [
             { time: "14:30", name: "신*아" },
+            { time: "14:45", name: "이*인" },
             { time: "15:00", name: "정*수" }
           ]
         },
@@ -536,7 +538,7 @@
       const activeDays = pageData.days.filter(day => day.status === "normal" && day.items.length > 0).length;
       const blockedDays = pageData.days.filter(day => day.status === "blocked").length;
       const summaryHTML = [
-        createSummaryCard("예약 일정", `${totalAppointments}건`),
+        createSummaryCard("예정 일정", `${totalAppointments}건`),
         createSummaryCard("운영일", `${activeDays}일`),
         createSummaryCard("일정 불가", `${blockedDays}일`),
         createSummaryCard("미응답", `${pageData.nonResponders.length}명`)
@@ -569,7 +571,7 @@
           </li>
         `).join("");
 
-        const badgeText = day.date === today ? "오늘 일정" : `${day.items.length}명 예약`;
+        const badgeText = day.date === today ? "오늘 일정" : `${day.items.length}명 예정`;
         const badgeClass = day.date === today ? "badge" : "badge ok";
 
         return `
