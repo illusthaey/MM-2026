@@ -210,6 +210,10 @@ main {
 .btn.primary { background: #111; color: #fff; }
 .btn.primary:hover { background: #000; }
 
+
+.btn.black { background: #111; color: #fff; }
+.btn.black:hover { background: #000; }
+
 .btn.ghost { background: #f9fafb; border-color: #d4d4d8; }
 .btn.ghost:hover { background: #eef2ff; }
 
@@ -719,119 +723,6 @@ body h2 + hr {
   padding: 10px 12px;
 }
 
-/* =========================================================
-   버튼 색상 팔레트 (2026.2.25)
-   ========================================================= */
-
-.btn[class*="pastel-"],
-.btn.paste-pink {
-  border-color: #222;
-  color: #111;
-  transition: background-color 0.15s ease, transform 0.05s ease;
-}
-
-.btn[class*="pastel-"]:hover,
-.btn.paste-pink:hover {
-  transform: translateY(-1px);
-}
-
-.btn[class*="pastel-"]:focus-visible,
-.btn.paste-pink:focus-visible {
-  outline: 2px solid rgba(17, 17, 17, 0.35);
-  outline-offset: 2px;
-}
-
-.btn.pastel-yellow { background: #FFF4B8; }
-.btn.pastel-yellow:hover { background: #FFEFA0; }
-
-.btn.pastel-blue { background: #E6F0FF; }
-.btn.pastel-blue:hover { background: #D7E8FF; }
-
-.btn.paste-pink { background: #FFE4EF; border-color: #222; color: #111; }
-.btn.paste-pink:hover { background: #FFD4E4; }
-.btn.paste-pink:focus-visible{
-  outline: 2px solid rgba(255, 123, 176, 0.55);
-  outline-offset: 2px;
-}
-
-.btn.pastel-mint { background: #DFF7EA; }
-.btn.pastel-mint:hover { background: #CFF2E1; }
-
-.btn.pastel-green { background: #E3F6C9; }
-.btn.pastel-green:hover { background: #D4F0B4; }
-
-.btn.pastel-orange { background: #FFE8D1; }
-.btn.pastel-orange:hover { background: #FFDDBE; }
-
-.btn.pastel-red { background: #FFD7D7; }
-.btn.pastel-red:hover { background: #FFC4C4; }
-
-.btn.pastel-purple { background: #EFE2FF; }
-.btn.pastel-purple:hover { background: #E3D1FF; }
-
-.btn.pastel-grey { background: #F3F4F6; border-color: #D4D4D8; }
-.btn.pastel-grey:hover { background: #E9EAEE; }
-
-.btn.pastel-teal { background: #D9F5F3; }
-.btn.pastel-teal:hover { background: #C7F0ED; }
-
-:root{
-  /* 원본(진한 파스텔) */
-  --rose-500: #FF5D8F;
-  --coral-500:#FF6B6B;
-  --peach-500:#FF9F68;
-  --apricot-500:#FFB86B;
-  --butter-500:#FFE08A;
-  --amber-500:#FBBF24;
-  --mint-500:#2DD4BF;
-  --seafoam-500:#34D399;
-  --pistachio-500:#A7F3A0;
-  --sky-500:#38BDF8;
-  --ice-500:#60A5FA;
-  --periwinkle-500:#7C83FF;
-  --lavender-500:#A78BFA;
-  --grape-500:#C084FC;
-  --lilac-500:#E879F9;
-
-  /* 어두운 버전(텍스트용) */
-  --rose-700: #C74970;
-  --coral-700:#C25151;
-  --peach-700:#A66744;
-  --apricot-700:#996E40;
-  --butter-700:#857448;
-  --amber-700:#947115;
-  --mint-700:#1C8376;
-  --seafoam-700:#218560;
-  --pistachio-700:#577E53;
-  --sky-700:#257DA4;
-  --ice-700:#4678B6;
-  --periwinkle-700:#666BD1;
-  --lavender-700:#7D68BC;
-  --grape-700:#8E62BA;
-  --lilac-700:#A757B3;
-}
-
-/* 유틸리티 클래스(텍스트 색) */
-.text-rose { color: var(--rose-700); }
-.text-sky  { color: var(--sky-700); }
-.text-mint { color: var(--mint-700); }
-.text-grape{ color: var(--grape-700); }
-
-/* 강조는 별도로 */
-.accent { font-weight: 700; }
-
-.badge-rose{
-  background: var(--rose-500);
-  color: var(--rose-700);
-  padding: .2em .6em;
-  border-radius: 999px;
-  font-weight: 700;
-}
-
-.table-wrap .simple-table th,
-.table-wrap .simple-table td {
-  text-align: center;
-}
 
 /* ===============================
    이미지 클릭 확대/축소 (CSS-only)
@@ -1312,117 +1203,532 @@ html[data-theme="retro"] .section{
 }
 
 
-
 /* =========================================================
-   2026.3.12 정리 — 기존 /static/style.css 톤에 맞춘 마감용 패치
-   사용 방법: 기존 style.css 맨 아래에 그대로 추가
-   목적:
-   1) footer.js가 주입하는 footer / theme-switch / quick-nav UI와 톤 통일
-   2) simple-table, tool-shot, site-footer 중복 선언으로 생기는 충돌 정리
-   3) retro/classic 전환 시 기본 배경과 섹션 톤 안정화
+   ✅ retro 모드에서도 버튼 고유 색 유지 (2026.3.20)
+   - style.css 맨 아래에 추가
+   - 기존 버튼 모양(레트로 입체감)은 유지
+   - 버튼별 원래 배경색만 다시 살아나게 함
    ========================================================= */
 
-html[data-theme="classic"]{
-  color-scheme: light;
+/* 1) 버튼 색 정보를 변수로 통일 */
+.btn{
+  --btn-bg: #fff;
+  --btn-bg-hover: #f3f4f6;
+  --btn-text: #111;
+  --btn-border: #222;
 }
 
-html[data-theme="classic"] body{
-  background: #fff;
+.btn.primary{
+  --btn-bg: #111;
+  --btn-bg-hover: #000;
+  --btn-text: #fff;
+  --btn-border: #111;
+}
+
+.btn.ghost{
+  --btn-bg: #f9fafb;
+  --btn-bg-hover: #eef2ff;
+  --btn-text: #111;
+  --btn-border: #d4d4d8;
+}
+
+.btn.btn-lightgrey{
+  --btn-bg: #f3f4f6;
+  --btn-bg-hover: #e9eaee;
+  --btn-text: #111;
+  --btn-border: #d4d4d8;
+}
+
+.btn[class*="pastel-"],
+.btn.paste-pink{
+  --btn-text: #111;
+  --btn-border: #222;
+}
+
+.btn.pastel-yellow{
+  --btn-bg: #FFF4B8;
+  --btn-bg-hover: #FFEFA0;
+}
+
+.btn.pastel-blue{
+  --btn-bg: #E6F0FF;
+  --btn-bg-hover: #D7E8FF;
+}
+
+.btn.paste-pink{
+  --btn-bg: #FFE4EF;
+  --btn-bg-hover: #FFD4E4;
+}
+
+.btn.pastel-mint{
+  --btn-bg: #DFF7EA;
+  --btn-bg-hover: #CFF2E1;
+}
+
+.btn.pastel-green{
+  --btn-bg: #E3F6C9;
+  --btn-bg-hover: #D4F0B4;
+}
+
+.btn.pastel-orange{
+  --btn-bg: #FFE8D1;
+  --btn-bg-hover: #FFDDBE;
+}
+
+.btn.pastel-red{
+  --btn-bg: #FFD7D7;
+  --btn-bg-hover: #FFC4C4;
+}
+
+.btn.pastel-purple{
+  --btn-bg: #EFE2FF;
+  --btn-bg-hover: #E3D1FF;
+}
+
+.btn.pastel-grey{
+  --btn-bg: #F3F4F6;
+  --btn-bg-hover: #E9EAEE;
+  --btn-text: #111;
+  --btn-border: #D4D4D8;
+}
+
+.btn.pastel-teal{
+  --btn-bg: #D9F5F3;
+  --btn-bg-hover: #C7F0ED;
+}
+
+/* 2) retro에서는 입체감만 적용하고, 색은 각 버튼의 원래 값 유지 */
+html[data-theme="retro"] .btn{
+  background: var(--btn-bg, var(--retro-surface-2));
+  color: var(--btn-text, #111);
+  border-color: var(--btn-border, var(--retro-border));
+}
+
+html[data-theme="retro"] .btn:hover{
+  background: var(--btn-bg-hover, var(--btn-bg, var(--retro-surface-2)));
+}
+
+/* 3) footer의 테마 버튼 active는 기존 포인트 컬러 유지 */
+html[data-theme="retro"] .site-footer .btn.btn-theme.is-active{
+  background: var(--retro-accent);
   color: #111;
+  border-color: var(--retro-border);
 }
 
-/* footer.js가 주입하는 footer 구조에 맞춤 */
-.site-footer{
-  margin-top: 64px;
-  padding: 24px 16px;
-  border-top: 1px solid #e5e7eb;
-  background: #fafafa;
-  color: #6b7280;
-  font-size: 0.875rem;
+
+/* =========================================================
+   페이지 메인 래퍼 표준화 (레이아웃 전용)
+   ========================================================= */
+
+:root{
+  --page-main-pad-x: 16px;
+  --page-main-pad-top: 24px;
+  --page-main-pad-bottom: 56px;
 }
 
-.site-footer .shell{
-  max-width: 880px;
+.page-main{
+  width: 100%;
+  max-width: var(--page-main-max, 880px);
   margin: 0 auto;
-  padding: 0 16px;
-  text-align: center;
-  line-height: 1.6;
+  padding: var(--page-main-pad-top) var(--page-main-pad-x) var(--page-main-pad-bottom);
 }
 
-.site-footer .footer-main{
-  word-break: keep-all;
+.page-main--compact{ --page-main-max: 720px; }
+.page-main--slim{ --page-main-max: 860px; }
+.page-main--narrow{ --page-main-max: 880px; }
+.page-main--medium{ --page-main-max: 960px; }
+.page-main--wide{ --page-main-max: 1120px; }
+.page-main--xwide{ --page-main-max: 1280px; }
+.page-main--xxwide{ --page-main-max: 1360px; }
+.page-main--full{ --page-main-max: 1800px; }
+
+.page-toolbar,
+.action-row,
+.btnrow{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-/* body span/div 전역 타이포 영향이 footer·button 안까지 번지는 것 방지 */
-.site-footer,
-.site-footer *,
-.btn *,
-.chip *,
-.dash-summary *,
-.shot-summary *,
-.badge-rose *{
-  color: inherit;
-  font-size: inherit;
-  line-height: inherit;
+.page-toolbar.end,
+.action-row.end,
+.btnrow.end{
+  justify-content: flex-end;
 }
 
-/* flex gap과 .btn + .btn margin이 겹쳐서 간격이 과해지는 곳 정리 */
-.theme-switch .btn + .btn,
-.home-link-wrap .btn + .btn,
-.chip-row .btn + .btn{
-  margin-left: 0;
+.tablewrap{
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 12px 0;
+  padding-bottom: 6px;
 }
 
-/* footer.js 홈 버튼 톤을 기존 pill 버튼 계열과 맞춤 */
-.home-link-wrap .btn{
-  border-radius: 999px;
-  border-color: #d1d5db;
-  background: #f9fafb;
+@media (max-width: 640px){
+  .page-main{
+    padding: 20px 14px 48px;
+  }
+
+  .section{
+    padding: 16px;
+  }
+
+  .card{
+    padding: 12px 14px;
+  }
 }
 
-.home-link-wrap .btn:hover{
-  background: #eef2ff;
-}
+/* =========================================================
+   Alien side background layout (2026.3.21 fast-light)
+   - /static/alien.jpg 한 장만 cover + no-repeat
+   - 배경 노출을 더 늘리고, 스크롤 지연을 줄이도록 효과를 가볍게 정리
+   - 공통 트리거: body.alien-side-bg
+   - 공통 래퍼: .alien-page-frame
+   - 래퍼가 없는 페이지는 direct header/main/footer를 fallback 패널로 처리
+   ========================================================= */
 
-/* simple-table은 헤더 좌측 / 값 우측 정렬로 고정 */
-.simple-table th,
-.table-wrap .simple-table th,
-.table-wrapper .simple-table th{
-  text-align: left;
-}
-
-.simple-table td,
-.table-wrap .simple-table td,
-.table-wrapper .simple-table td{
-  text-align: right;
-  padding-right: 10px;
-}
-
-/* 실행화면 박스는 한 번만 정의되도록 마감 */
-.tool-shot{
-  margin-top: 14px;
+body.alien-side-bg{
+  --alien-frame-gutter: clamp(72px, 16vw, 320px);
+  --alien-frame-max: 1500px;
+  --alien-panel-bg: rgba(255, 252, 248, 0.82);
+  --alien-panel-bg-solid: rgba(255, 252, 248, 0.88);
+  --alien-line: rgba(64, 48, 35, 0.12);
+  --alien-shadow-1: rgba(43, 30, 18, 0.11);
+  --alien-shadow-2: rgba(43, 30, 18, 0.05);
+  position: relative;
+  isolation: isolate;
+  min-height: 100svh;
+  margin: 0;
   padding: 0;
-  border: 1px solid #e5e5e5;
-  border-radius: 12px;
-  background: #fafafa;
-  overflow: hidden;
+  background: #eae3db;
 }
 
-.shot-details .tool-shot{
-  margin-top: 10px;
-  border: 0;
+body.alien-side-bg::before,
+body.alien-side-bg::after{
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+body.alien-side-bg::before{
+  z-index: -2;
+  background: url("/static/alien.jpg") center center / cover no-repeat;
+  background-attachment: scroll;
+  filter: none;
+}
+
+body.alien-side-bg::after{
+  z-index: -1;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,0.02) 0%,
+      rgba(255,255,255,0.00) 16%,
+      rgba(247,243,238,0.06) 34%,
+      rgba(247,243,238,0.14) 50%,
+      rgba(247,243,238,0.06) 66%,
+      rgba(255,255,255,0.00) 84%,
+      rgba(255,255,255,0.02) 100%
+    );
+}
+
+body.alien-side-bg > .alien-page-frame,
+body.alien-side-bg > header.site-header,
+body.alien-side-bg > main,
+body.alien-side-bg > .home-link-wrap,
+body.alien-side-bg > footer.site-footer,
+body.alien-side-bg > .simple-footer{
+  width: calc(100% - var(--alien-frame-gutter));
+  max-width: var(--alien-frame-max);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body.alien-side-bg > .alien-page-frame{
+  position: relative;
+  z-index: 1;
+  margin-top: clamp(10px, 1.4vw, 18px);
+  padding: clamp(14px, 1.6vw, 22px);
+}
+
+body.alien-side-bg > .alien-page-frame,
+body.alien-side-bg > header.site-header,
+body.alien-side-bg > main,
+body.alien-side-bg > footer.site-footer,
+body.alien-side-bg > .simple-footer{
+  border: 1px solid var(--alien-line);
+  border-radius: clamp(20px, 2.2vw, 30px);
+  background: var(--alien-panel-bg);
+  box-shadow:
+    0 14px 34px var(--alien-shadow-1),
+    0 3px 10px var(--alien-shadow-2);
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+body.alien-side-bg > header.site-header,
+body.alien-side-bg > main,
+body.alien-side-bg > footer.site-footer,
+body.alien-side-bg > .simple-footer{
+  margin-top: clamp(10px, 1.4vw, 18px);
+}
+
+body.alien-side-bg > .alien-page-frame .site-header,
+body.alien-side-bg > .alien-page-frame .topnav,
+body.alien-side-bg > .alien-page-frame .site-footer,
+body.alien-side-bg > .alien-page-frame .simple-footer{
   background: transparent;
 }
 
-.tool-shot img,
-.tool-thumb{
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  height: auto;
+body.alien-side-bg > .alien-page-frame .site-header,
+body.alien-side-bg > header.site-header{
+  border-bottom-color: rgba(64, 48, 35, 0.08);
 }
 
-/* 레트로 테마에서 섹션 카드만 순백으로 유지해서 피로도 감소 */
-html[data-theme="retro"] .section{
-  background: #fff;
+body.alien-side-bg > .alien-page-frame .site-footer,
+body.alien-side-bg > footer.site-footer{
+  border-top-color: rgba(64, 48, 35, 0.08);
+}
+
+body.alien-side-bg > .alien-page-frame .site-header .shell,
+body.alien-side-bg > .alien-page-frame .topnav .shell,
+body.alien-side-bg > .alien-page-frame header .wrap,
+body.alien-side-bg > .alien-page-frame main .wrap,
+body.alien-side-bg > .alien-page-frame > .shell{
+  max-width: 100%;
+}
+
+body.alien-side-bg .section,
+body.alien-side-bg .card,
+body.alien-side-bg .tool-card,
+body.alien-side-bg .callout,
+body.alien-side-bg .shot-details,
+body.alien-side-bg .dl-shot,
+body.alien-side-bg .dropzone,
+body.alien-side-bg .result,
+body.alien-side-bg .table-scroll,
+body.alien-side-bg .file-list-wrap{
+  box-shadow: 0 6px 16px rgba(43, 30, 18, 0.05);
+}
+
+body.alien-side-bg > .home-link-wrap{
+  margin-top: 16px;
+}
+
+body.alien-side-bg > .home-link-wrap .btn,
+body.alien-side-bg > .home-link-wrap .btn-home{
+  background: rgba(255, 252, 248, 0.86);
+  border-color: rgba(64, 48, 35, 0.18);
+  box-shadow: 0 6px 16px rgba(43, 30, 18, 0.08);
+}
+
+body.alien-side-bg > footer.site-footer,
+body.alien-side-bg > .simple-footer{
+  padding: clamp(14px, 1.8vw, 22px);
+}
+
+body.alien-side-bg > footer.site-footer .shell,
+body.alien-side-bg > .simple-footer{
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+body.alien-side-bg #btnToTop,
+body.alien-side-bg #back-to-top-fab .btn,
+body.alien-side-bg .to-top{
+  box-shadow: 0 8px 18px rgba(43, 30, 18, 0.10);
+}
+
+@media (max-width: 1200px){
+  body.alien-side-bg{
+    --alien-frame-gutter: clamp(28px, 8vw, 120px);
+    --alien-panel-bg: rgba(255, 252, 248, 0.86);
+    --alien-panel-bg-solid: rgba(255, 252, 248, 0.90);
+  }
+}
+
+@media (max-width: 900px){
+  body.alien-side-bg{
+    --alien-frame-gutter: 14px;
+    --alien-panel-bg: rgba(255, 252, 248, 0.92);
+    --alien-panel-bg-solid: rgba(255, 252, 248, 0.95);
+  }
+
+  body.alien-side-bg::after{
+    background:
+      linear-gradient(180deg, rgba(248,244,239,0.08), rgba(238,232,224,0.20));
+  }
+
+  body.alien-side-bg > .alien-page-frame{
+    padding: 12px;
+  }
+
+  body.alien-side-bg > .alien-page-frame,
+  body.alien-side-bg > header.site-header,
+  body.alien-side-bg > main,
+  body.alien-side-bg > footer.site-footer,
+  body.alien-side-bg > .simple-footer{
+    border-radius: 18px;
+  }
+}
+
+@media print{
+  body.alien-side-bg::before,
+  body.alien-side-bg::after{
+    display: none !important;
+  }
+
+  body.alien-side-bg > .alien-page-frame,
+  body.alien-side-bg > header.site-header,
+  body.alien-side-bg > main,
+  body.alien-side-bg > footer.site-footer,
+  body.alien-side-bg > .simple-footer{
+    background: #fff !important;
+    box-shadow: none !important;
+    border-color: #ddd !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+
+/* =========================================================
+   제목/서브문구 정렬 공통 고정 (2026.3.22)
+   - h1은 항상 가운데 정렬
+   - <p class="sub">는 항상 왼쪽 정렬
+   - 상세 페이지 개별 inline CSS보다 우선하도록 specificity를 높임
+   ========================================================= */
+
+body h1,
+body .site-header h1,
+body .page-head h1,
+body main.overtime-app h1{
+  text-align: center !important;
+}
+
+body p.sub,
+body .site-header p.sub,
+body .page-head p.sub,
+body main.overtime-app p.sub{
+  text-align: left !important;
+}
+
+
+
+/* =========================================================
+   버튼 색상 팔레트 (2026.2.25)
+   ========================================================= */
+
+.btn[class*="pastel-"],
+.btn.pastel-pink {
+  border-color: #222;
+  color: #111;
+  transition: background-color 0.15s ease, transform 0.05s ease;
+}
+
+.btn[class*="pastel-"]:hover,
+.btn.pastel-pink:hover {
+  transform: translateY(-1px);
+}
+
+.btn[class*="pastel-"]:focus-visible,
+.btn.pastel-pink:focus-visible {
+  outline: 2px solid rgba(17, 17, 17, 0.35);
+  outline-offset: 2px;
+}
+
+.btn.pastel-yellow { background: #FFF4B8; }
+.btn.pastel-yellow:hover { background: #FFEFA0; }
+
+.btn.pastel-blue { background: #E6F0FF; }
+.btn.pastel-blue:hover { background: #D7E8FF; }
+
+.btn.paste-pink { background: #FFE4EF; border-color: #222; color: #111; }
+.btn.paste-pink:hover { background: #FFD4E4; }
+.btn.paste-pink:focus-visible{
+  outline: 2px solid rgba(255, 123, 176, 0.55);
+  outline-offset: 2px;
+}
+
+.btn.pastel-mint { background: #DFF7EA; }
+.btn.pastel-mint:hover { background: #CFF2E1; }
+
+.btn.pastel-green { background: #E3F6C9; }
+.btn.pastel-green:hover { background: #D4F0B4; }
+
+.btn.pastel-orange { background: #FFE8D1; }
+.btn.pastel-orange:hover { background: #FFDDBE; }
+
+.btn.pastel-red { background: #FFD7D7; }
+.btn.pastel-red:hover { background: #FFC4C4; }
+
+.btn.pastel-purple { background: #EFE2FF; }
+.btn.pastel-purple:hover { background: #E3D1FF; }
+
+.btn.pastel-grey { background: #F3F4F6; border-color: #D4D4D8; }
+.btn.pastel-grey:hover { background: #E9EAEE; }
+
+.btn.pastel-teal { background: #D9F5F3; }
+.btn.pastel-teal:hover { background: #C7F0ED; }
+
+:root{
+  /* 원본(진한 파스텔) */
+  --rose-500: #FF5D8F;
+  --coral-500:#FF6B6B;
+  --peach-500:#FF9F68;
+  --apricot-500:#FFB86B;
+  --butter-500:#FFE08A;
+  --amber-500:#FBBF24;
+  --mint-500:#2DD4BF;
+  --seafoam-500:#34D399;
+  --pistachio-500:#A7F3A0;
+  --sky-500:#38BDF8;
+  --ice-500:#60A5FA;
+  --periwinkle-500:#7C83FF;
+  --lavender-500:#A78BFA;
+  --grape-500:#C084FC;
+  --lilac-500:#E879F9;
+
+  /* 어두운 버전(텍스트용) */
+  --rose-700: #C74970;
+  --coral-700:#C25151;
+  --peach-700:#A66744;
+  --apricot-700:#996E40;
+  --butter-700:#857448;
+  --amber-700:#947115;
+  --mint-700:#1C8376;
+  --seafoam-700:#218560;
+  --pistachio-700:#577E53;
+  --sky-700:#257DA4;
+  --ice-700:#4678B6;
+  --periwinkle-700:#666BD1;
+  --lavender-700:#7D68BC;
+  --grape-700:#8E62BA;
+  --lilac-700:#A757B3;
+}
+
+/* 유틸리티 클래스(텍스트 색) */
+.text-rose { color: var(--rose-700); }
+.text-sky  { color: var(--sky-700); }
+.text-mint { color: var(--mint-700); }
+.text-grape{ color: var(--grape-700); }
+
+/* 강조는 별도로 */
+.accent { font-weight: 700; }
+
+.badge-rose{
+  background: var(--rose-500);
+  color: var(--rose-700);
+  padding: .2em .6em;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.table-wrap .simple-table th,
+.table-wrap .simple-table td {
+  text-align: center;
 }
