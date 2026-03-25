@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="robots" content="noindex" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>업무 뉴스레터 상세 | 늘봄지원실 업무 뉴스레터</title>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B6PE24NSKH"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B6PE24NSKH');
+</script>
+  
+  <link rel="icon" href="/static/favicon.ico" />
+  <link rel="stylesheet" href="/static/style.css" />
+  <link rel="stylesheet" href="../newsletter-renderer.css" />
+  <script src="/static/footer.js"></script>
+  <script src="/static/global-loader.js?v=1"></script>
+  <script defer src="../scripts/newsletter-common.js"></script>
+  <script defer src="../scripts/newsletter-detail.js"></script>
+</head>
+
+<body class="alien-side-bg" data-newsletter-root="/newsletter">
+  <a class="skip-link" href="#main-content">본문 바로가기</a>
+
+  <div class="alien-page-frame">
+    <header class="site-header">
+      <div class="shell">
+        <h1 id="article-title">업무 상세 안내</h1>
+        <p class="sub" id="article-subtitle">
+          실무자가 바로 이해하고 바로 제출할 수 있게 정리한 상세 안내 페이지입니다.
+        </p>
+      </div>
+    </header>
+
+    <main class="page-main page-main--narrow" id="main-content">
+      <div id="detail-loading" class="loading-box">
+        상세 데이터를 불러오는 중입니다.
+      </div>
+
+      <div id="detail-error" hidden></div>
+
+      <div id="detail-render-area" hidden>
+        <div class="page-toolbar article-header-actions">
+          <a class="btn ghost" id="btn-back-index" href="/newsletter/index.html">뉴스레터 대문으로</a>
+          <a class="btn pastel-blue" id="btn-files-shortcut" href="#sec-files">첨부파일 바로가기</a>
+        </div>
+
+        <p class="muted meta-wrap" id="article-meta"></p>
+
+        <hr />
+
+        <div class="card">
+          <h2 class="summary-card-title">핵심 요약</h2>
+          <hr />
+          <div id="summary-list"></div>
+        </div>
+
+        <nav class="section quick-nav" aria-label="페이지 목차">
+          <h2>페이지 목차</h2>
+          <hr />
+          <div class="toc">
+            <div class="chip-row" id="toc-chips"></div>
+          </div>
+        </nav>
+
+        <div id="article-sections"></div>
+
+        <section class="section" id="sec-files" hidden>
+          <h2>첨부파일</h2>
+          <p class="muted">·실제 파일 링크가 없으면 이 섹션은 자동으로 숨겨집니다.</p>
+          <hr />
+          <div id="files-body"></div>
+        </section>
+
+        <section class="section" id="sec-related" hidden>
+          <h2>관련 읽을거리</h2>
+          <hr />
+          <div id="related-body"></div>
+        </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
