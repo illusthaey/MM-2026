@@ -51,33 +51,48 @@
     const featured = articles.filter((item) => item.featured);
     const latest = getLatestArticle(manifest);
     const requiredCount = C.normalizeArray(manifest?.materials?.required).length;
+    const principleCount = C.normalizeArray(manifest?.principles?.content).length + C.normalizeArray(manifest?.principles?.design).length;
 
     const cards = [
       {
-        label: "전체 기사",
-        value: articles.length + "개",
-        meta: "등록 분야 " + categories.length + "개",
-      },
-      {
         label: "추천 읽기",
         value: featured.length + "개",
-        meta: "메인 상단에 노출되는 기사 수",
+        meta: "처음 읽기 좋은 안내를 모아두었습니다.",
+        href: "#sec-featured",
       },
       {
-        label: "최근 업데이트",
-        value: latest?.updatedAtText || "-",
-        meta: latest?.title || "등록된 기사가 없습니다.",
+        label: "분야별 뉴스레터",
+        value: categories.length + "개",
+        meta: "기초 행정부터 예산까지 분야별로 나뉩니다.",
+        href: "#sec-categories",
       },
       {
-        label: "필수 제출 자료",
+        label: "전체 기사",
+        value: articles.length + "개",
+        meta: latest?.updatedAtText ? "최근 업데이트: " + latest.updatedAtText : "최신순으로 기사를 확인합니다.",
+        href: "#sec-catalog",
+      },
+      {
+        label: "자료 제출 안내",
         value: requiredCount + "개",
-        meta: "자료 제출 안내 기준",
+        meta: "행정실에 함께 주면 좋은 기본 자료입니다.",
+        href: "#sec-materials",
+      },
+      {
+        label: "작성 원칙",
+        value: principleCount + "개",
+        meta: "실무 중심으로 쓰는 공통 기준을 정리했습니다.",
+        href: "#sec-principles",
       },
     ];
 
     target.innerHTML = "";
     cards.forEach((item) => {
-      const card = C.createEl("div", "nl-stat-card");
+      const card = document.createElement("a");
+      card.className = "nl-stat-card nl-stat-card--link nl-stat-card--section";
+      card.href = item.href;
+      card.setAttribute("aria-label", item.label + " 섹션으로 이동");
+
       card.appendChild(C.createEl("p", "nl-stat-label", item.label));
       card.appendChild(C.createEl("p", "nl-stat-value", item.value));
       card.appendChild(C.createEl("p", "nl-stat-meta", item.meta));
@@ -87,7 +102,11 @@
 
   function renderArticleCard(item, category, options = {}) {
     const root = options.root || state.root || C.getRoot();
-    const card = C.createEl("article", "nl-card");
+    const href = item.href || C.detailHref(item.slug, root);
+    const card = document.createElement("a");
+    card.className = "nl-card nl-card--link nl-card--article";
+    card.href = href;
+    card.setAttribute("aria-label", (item.title || "뉴스레터") + " 상세페이지로 이동");
 
     const head = C.createEl("div", "nl-card-head");
     const topline = C.createEl("div", "nl-card-topline");
@@ -98,11 +117,7 @@
       topline.appendChild(C.createEl("span", "nl-card-date", "최종 업데이트: " + item.updatedAtText));
     }
 
-    const title = C.createEl("h3", "nl-card-title");
-    const titleLink = C.createEl("a", "");
-    titleLink.href = item.href || C.detailHref(item.slug, root);
-    titleLink.textContent = item.title || "제목 없음";
-    title.appendChild(titleLink);
+    const title = C.createEl("h3", "nl-card-title", item.title || "제목 없음");
 
     head.appendChild(topline);
     head.appendChild(title);
@@ -121,43 +136,35 @@
     if (list.children.length) card.appendChild(list);
 
     const foot = C.createEl("div", "nl-card-foot");
-
     const metaRow = C.createEl("div", "nl-meta-row");
+
     if (category?.subtitle) {
       metaRow.appendChild(C.createEl("span", "nl-meta-chip", category.subtitle));
     }
     if (item.featured) {
       metaRow.appendChild(C.createEl("span", "nl-meta-chip", "추천 읽기"));
     }
+
     if (metaRow.children.length) {
       foot.appendChild(metaRow);
     }
-
-    const actionRow = C.createEl("div", "nl-action-row");
-    actionRow.appendChild(
-      C.createButtonLink(
-        item.primaryLabel || "상세 보기",
-        item.href || C.detailHref(item.slug, root),
-        "btn " + (item.buttonClass || category?.buttonClass || "pastel-blue")
-      )
-    );
-
-    const secondaryHref = item.secondaryHref || "#sec-materials";
-    const secondaryLabel = item.secondaryLabel || "자료 제출 방법";
-    actionRow.appendChild(C.createButtonLink(secondaryLabel, secondaryHref, "btn ghost"));
-    foot.appendChild(actionRow);
 
     card.appendChild(foot);
     return card;
   }
 
-  function renderCategoryDashboardCard(category, articles, root) {
+  function renderCategoryDashboardCard(category, articles) {
     const latestArticle = C.sortByUpdatedDesc(articles)[0] || null;
-    const card = C.createEl("article", "nl-card");
+    const card = document.createElement("button");
+    card.type = "button";
+    card.className = "nl-card nl-card--button nl-card--filter";
+    card.dataset.filterCategory = category.id || "";
+    card.dataset.scrollTarget = "sec-catalog";
+    card.setAttribute("aria-label", (category.title || "분야") + " 기사만 보기");
 
     const head = C.createEl("div", "nl-card-head");
     const topline = C.createEl("div", "nl-card-topline");
-    topline.appendChild(C.createEl("span", "badge", category.title || "분야"));
+    topline.appendChild(C.createEl("span", "badge", "분야"));
     topline.appendChild(C.createEl("span", "nl-card-date", "기사 " + articles.length + "개"));
     head.appendChild(topline);
 
@@ -174,40 +181,27 @@
     C.normalizeArray(category.summaryBullets).slice(0, 3).forEach((bullet) => {
       list.appendChild(C.createEl("li", "", "·" + bullet));
     });
-    card.appendChild(list);
+    if (list.children.length) {
+      card.appendChild(list);
+    }
 
     const foot = C.createEl("div", "nl-card-foot");
     const metaRow = C.createEl("div", "nl-meta-row");
 
-    if (category.groupDescription) {
-      metaRow.appendChild(C.createEl("span", "nl-meta-chip", category.groupDescription));
-    }
     if (latestArticle?.updatedAtText) {
       metaRow.appendChild(C.createEl("span", "nl-meta-chip", "최신 " + latestArticle.updatedAtText));
     }
-    foot.appendChild(metaRow);
-
-    const actionRow = C.createEl("div", "nl-action-row");
-
-    const filterBtn = document.createElement("button");
-    filterBtn.type = "button";
-    filterBtn.className = "btn " + (category.buttonClass || "pastel-grey") + " nl-link-btn";
-    filterBtn.textContent = category.primaryLabel || "이 분야 기사 보기";
-    filterBtn.dataset.filterCategory = category.id || "";
-    filterBtn.dataset.scrollTarget = "sec-catalog";
-    actionRow.appendChild(filterBtn);
-
-    if (latestArticle) {
-      actionRow.appendChild(
-        C.createButtonLink(
-          "최신 기사",
-          C.detailHref(latestArticle.slug, root),
-          "btn ghost"
-        )
-      );
+    if (metaRow.children.length) {
+      foot.appendChild(metaRow);
     }
 
-    foot.appendChild(actionRow);
+    foot.appendChild(
+      C.createEl(
+        "p",
+        "nl-card-hint",
+        category.groupDescription || "카드를 누르면 전체 기사 영역에서 이 분야만 모아 보여줍니다."
+      )
+    );
     card.appendChild(foot);
     return card;
   }
@@ -234,7 +228,7 @@
     });
   }
 
-  function renderCategories(manifest, root) {
+  function renderCategories(manifest) {
     const target = document.getElementById("category-list");
     if (!target) return;
 
@@ -243,7 +237,7 @@
 
     C.normalizeArray(manifest?.categories).forEach((category) => {
       const categoryArticles = articles.filter((item) => item.categoryId === category.id);
-      target.appendChild(renderCategoryDashboardCard(category, categoryArticles, root));
+      target.appendChild(renderCategoryDashboardCard(category, categoryArticles));
     });
   }
 
@@ -398,7 +392,7 @@
       renderIntro(manifest);
       renderHeroStats(manifest);
       renderFeatured(manifest, root);
-      renderCategories(manifest, root);
+      renderCategories(manifest);
       renderCatalogFilters(manifest);
       renderCatalogGrid();
       renderMaterials(manifest);
