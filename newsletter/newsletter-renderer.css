@@ -656,3 +656,123 @@ html[data-theme="retro"] .nl-filter-chip.is-active{
     white-space:normal;
   }
 }
+
+
+/* =========================================================
+   카드 전체 클릭형 메인 페이지 오버라이드 (2026.3.25)
+   ========================================================= */
+
+.nl-hero-grid{
+  display:grid;
+  gap:18px;
+  grid-template-columns:minmax(0, 1.05fr) minmax(360px, 0.95fr);
+  align-items:start;
+}
+
+.nl-stat-grid{
+  display:grid;
+  gap:12px;
+  grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.nl-stat-card,
+.nl-card{
+  position:relative;
+  overflow:hidden;
+}
+
+a.nl-stat-card--link,
+ a.nl-card--link{
+  display:flex;
+  flex-direction:column;
+  text-decoration:none;
+  color:inherit;
+}
+
+.nl-stat-card--link,
+.nl-card--link,
+.nl-card--button{
+  cursor:pointer;
+  transition:
+    transform 0.14s ease,
+    border-color 0.14s ease,
+    box-shadow 0.14s ease,
+    background-color 0.14s ease;
+}
+
+.nl-card--button{
+  appearance:none;
+  width:100%;
+  text-align:left;
+  font:inherit;
+  color:inherit;
+  background:#fff;
+}
+
+.nl-stat-card--link:hover,
+.nl-card--link:hover,
+.nl-card--button:hover{
+  transform:translateY(-2px);
+  border-color:#cbd5e1;
+  box-shadow:0 10px 22px rgba(15, 23, 42, 0.08);
+  background:#fcfcff;
+}
+
+.nl-stat-card--link:focus-visible,
+.nl-card--link:focus-visible,
+.nl-card--button:focus-visible{
+  outline:3px solid rgba(59, 130, 246, 0.25);
+  outline-offset:3px;
+}
+
+.nl-card-foot{
+  gap:8px;
+}
+
+.nl-card-hint{
+  margin:0;
+  font-size:0.92rem;
+  color:#666;
+}
+
+.nl-card--button .nl-card-hint,
+.nl-card--button .nl-card-title,
+.nl-card--button .nl-card-sub,
+.nl-card--button .nl-card-list li,
+.nl-card--button .nl-card-date,
+.nl-card--button .nl-meta-chip{
+  pointer-events:none;
+}
+
+@media (max-width: 960px){
+  .nl-hero-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+@media (max-width: 640px){
+  .nl-stat-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+html[data-theme="retro"] .nl-stat-card,
+html[data-theme="retro"] .nl-card{
+  background:var(--retro-surface);
+  border:2px solid var(--retro-border);
+  box-shadow:6px 6px 0 var(--retro-shadow);
+}
+
+html[data-theme="retro"] .nl-stat-card--link:hover,
+html[data-theme="retro"] .nl-card--link:hover,
+html[data-theme="retro"] .nl-card--button:hover{
+  background:var(--retro-surface-2);
+  box-shadow:8px 8px 0 var(--retro-shadow);
+}
+
+html[data-theme="retro"] .nl-stat-card--link:focus-visible,
+html[data-theme="retro"] .nl-card--link:focus-visible,
+html[data-theme="retro"] .nl-card--button:focus-visible{
+  outline:3px solid var(--retro-focus);
+  outline-offset:3px;
+}
