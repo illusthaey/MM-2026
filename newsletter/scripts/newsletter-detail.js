@@ -11,7 +11,7 @@
     target.innerHTML = "";
 
     const line1 = document.createElement("span");
-    line1.textContent = "·관련: " + (refs || "관련 문서 정리 예정");
+    line1.textContent = "·관련: " + (refs || "업데이트 예정");
     target.appendChild(line1);
 
     target.appendChild(document.createElement("br"));
@@ -51,7 +51,7 @@
     if (C.normalizeArray(article.relatedSlugs).length) {
       const relatedChip = C.createEl("a", "chip");
       relatedChip.href = "#sec-related";
-      relatedChip.textContent = "관련 읽을거리";
+      relatedChip.textContent = "참고 자료";
       target.appendChild(relatedChip);
     }
   }
@@ -120,10 +120,10 @@
   }
 
   function setHeader(article, root) {
-    const pageTitle = article.pageTitle || (article.title + " | 늘봄지원실 업무 뉴스레터");
+    const pageTitle = article.pageTitle || (article.title + "한 입 크기로 잘라먹기");
     document.title = pageTitle;
     C.ensureText("article-title", article.title || "상세 안내");
-    C.ensureText("article-subtitle", article.lead || "실무자가 바로 이해하고 바로 제출할 수 있게 정리한 상세 안내 페이지입니다.");
+    C.ensureText("article-subtitle", article.lead || "필요한 내용만 짧고 간단하게 정리해서 안내드립니다.");
     const backLink = document.getElementById("btn-back-index");
     if (backLink) {
       backLink.href = article.indexPath || C.indexHref(root);
@@ -148,7 +148,6 @@
 
     if (!slug) {
       showError(
-        "기사 식별자가 없습니다.",
         "detail/index.html?slug=기사슬러그 형태로 접속해 주세요. 예: detail/index.html?slug=pre-establish-budget"
       );
       return;
@@ -176,7 +175,7 @@
       console.error(error);
       showError(
         "상세 데이터를 불러오지 못했습니다.",
-        "articles/" + slug + ".json 경로와 JSON 문법을 확인해 주세요. 로컬에서는 file:// 대신 정적 서버나 실제 도메인으로 열어야 합니다."
+        "articles/" + slug + "코드 확인 요망"
       );
     }
   }
