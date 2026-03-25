@@ -55,21 +55,21 @@
 
     const cards = [
       {
-        label: "추천 읽기",
+        label: "읽을 거 추천해드릴까요?",
         value: featured.length + "개",
         meta: "처음 읽기 좋은 안내를 모아두었습니다.",
         href: "#sec-featured",
       },
       {
-        label: "분야별 뉴스레터",
+        label: "분야별로 보고 싶으신가요?",
         value: categories.length + "개",
         meta: "기초 행정부터 예산까지 분야별로 나뉩니다.",
         href: "#sec-categories",
       },
       {
-        label: "전체 기사",
+        label: "전체 목록을 보고 싶으신가요?",
         value: articles.length + "개",
-        meta: latest?.updatedAtText ? "최근 업데이트: " + latest.updatedAtText : "최신순으로 기사를 확인합니다.",
+        meta: latest?.updatedAtText ? "최근 업데이트: " + latest.updatedAtText : "최신순으로 나열합니다.",
         href: "#sec-catalog",
       },
       {
