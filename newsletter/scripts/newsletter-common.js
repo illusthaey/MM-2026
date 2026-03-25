@@ -1,543 +1,412 @@
-(function () {
-  function getRoot() {
-    const raw = document.body?.dataset?.newsletterRoot || "/newsletter";
-    return raw.endsWith("/") ? raw.slice(0, -1) : raw;
-  }
-
-  function manifestHref(root = getRoot()) {
-    return root + "/data/newsletters.json";
-  }
-
-  function articleJsonHref(slug, root = getRoot()) {
-    return root + "/data/articles/" + encodeURIComponent(slug) + ".json";
-  }
-
-  function detailHref(slug, root = getRoot()) {
-    return root + "/detail/index.html?slug=" + encodeURIComponent(slug);
-  }
-
-  function indexHref(root = getRoot()) {
-    return root + "/index.html";
-  }
-
-  async function fetchJson(url) {
-    const response = await fetch(url, {
-      method: "GET",
-      credentials: "same-origin",
-      cache: "no-store",
-    });
-
-    if (!response.ok) {
-      throw new Error(response.status + " " + response.statusText + " - " + url);
+{
+  "slug": "pre-establish-budget",
+  "title": "성립전예산 편성 요구서 작성 방법 안내",
+  "pageTitle": "성립전예산 편성 요구서 작성 방법 안내 | 늘봄지원실 업무 뉴스레터",
+  "lead": "실무자가 바로 이해하고 바로 제출할 수 있게 정리한 상세 안내 페이지입니다.",
+  "updatedAtText": "2026.03.08.(일) 오후 1:25",
+  "references": [
+    "강원특별자치도 공립학교 회계규칙",
+    "2026년도 학교회계 예산편성 기본지침",
+    "2026회계 학교행정 업무편람"
+  ],
+  "indexPath": "/newsletter/index.html",
+  "summary": [
+    {
+      "label": "언제 보나요?",
+      "text": "목적사업비, 지원금, 수익자부담경비를 추경 전에 먼저 집행해야 할 때 봅니다."
+    },
+    {
+      "label": "무엇을 먼저 확인하나요?",
+      "text": "용도가 정해져 있는지, 전액 교부되었는지, 수익자부담경비라면 사전 심의가 되었는지 먼저 봅니다."
+    },
+    {
+      "label": "무엇을 제출하나요?",
+      "text": "세입 요구서와 세출 요구서, 그리고 산출식이 보이는 근거 자료를 함께 제출합니다."
     }
-
-    return response.json();
-  }
-
-  function createEl(tag, className, text) {
-    const el = document.createElement(tag);
-    if (className) el.className = className;
-    if (text !== undefined && text !== null) {
-      el.textContent = String(text);
-    }
-    return el;
-  }
-
-  function setRichText(el, value) {
-    if (value === undefined || value === null) return;
-
-    if (typeof value === "string" || typeof value === "number") {
-      el.textContent = String(value);
-      return;
-    }
-
-    if (typeof value.html === "string") {
-      el.innerHTML = value.html;
-      return;
-    }
-
-    if (value.text !== undefined && value.text !== null) {
-      el.textContent = String(value.text);
-    }
-  }
-
-  function appendChildren(parent, children) {
-    children.filter(Boolean).forEach((child) => parent.appendChild(child));
-    return parent;
-  }
-
-  function richTextNode(tag, className, value) {
-    const el = createEl(tag, className);
-    setRichText(el, value);
-    return el;
-  }
-
-  function normalizeArray(value) {
-    return Array.isArray(value) ? value : [];
-  }
-
-  function parseSlugFromLocation() {
-    const url = new URL(window.location.href);
-    return (url.searchParams.get("slug") || document.body?.dataset?.defaultSlug || "").trim();
-  }
-
-  function sortByUpdatedDesc(items) {
-    return [...normalizeArray(items)].sort((a, b) => {
-      const aa = Date.parse(a.updatedAtIso || "") || 0;
-      const bb = Date.parse(b.updatedAtIso || "") || 0;
-      return bb - aa;
-    });
-  }
-
-  function findArticleMeta(manifest, slug) {
-    return normalizeArray(manifest?.articles).find((item) => item.slug === slug) || null;
-  }
-
-  function findCategory(manifest, categoryId) {
-    return normalizeArray(manifest?.categories).find((item) => item.id === categoryId) || null;
-  }
-
-  function renderSimpleList(items, options = {}) {
-    const listTag = options.ordered ? "ol" : "ul";
-    const list = createEl(listTag, options.className || "");
-    normalizeArray(items).forEach((item) => {
-      const li = document.createElement("li");
-      if (typeof item === "string" || typeof item === "number") {
-        li.textContent = String(item);
-      } else if (item && typeof item === "object") {
-        if (item.title && item.text) {
-          const strong = createEl("b");
-          strong.textContent = item.title;
-          li.appendChild(strong);
-          li.appendChild(document.createTextNode(" "));
-          setRichText(li.appendChild(document.createElement("span")), item.text);
-        } else if (typeof item.html === "string") {
-          li.innerHTML = item.html;
-        } else {
-          li.textContent = String(item.text || "");
+  ],
+  "sections": [
+    {
+      "id": "sec-1",
+      "title": "1. 언제 성립전예산을 요구하나요?",
+      "subtitle": "·성립전예산의 개념을 먼저 정리합니다.",
+      "blocks": [
+        {
+          "type": "paragraphs",
+          "items": [
+            "성립전예산은 추가경정예산이 아직 확정되지 않았더라도, 일정한 요건을 충족하면 먼저 편성하고 집행할 수 있도록 하는 예외 절차입니다.",
+            "보통 사업 시기는 급한데 돈의 재원과 용도가 분명한 경우에 검토합니다. 다만 먼저 편성할 수 있다는 뜻이지, 차기 추경 반영이 없어도 된다는 뜻은 아닙니다.",
+            "같은 회계연도 안에서 차기 추가경정예산에 반드시 반영해야 하므로, 요구 단계에서부터 세입과 세출 구조를 맞추는 것이 중요합니다."
+          ]
+        },
+        {
+          "type": "table",
+          "columns": [
+            "종류",
+            "성립전편성 가능 여부",
+            "설명"
+          ],
+          "rows": [
+            [
+              {
+                "text": "목적사업비, 보조금, 지원금",
+                "className": "left"
+              },
+              {
+                "text": "가능",
+                "className": "center"
+              },
+              {
+                "text": "국가·지자체 등으로부터 용도가 지정되고 소요 전액이 교부된 경우",
+                "className": "left"
+              }
+            ],
+            [
+              {
+                "text": "수익자부담경비",
+                "className": "left"
+              },
+              {
+                "text": "가능",
+                "className": "center"
+              },
+              {
+                "text": "학교운영위원회 사전 심의를 거친 학부모 부담 경비인 경우",
+                "className": "left"
+              }
+            ],
+            [
+              {
+                "text": "용도가 지정되지 않은 예산",
+                "className": "left"
+              },
+              {
+                "text": "불가",
+                "className": "center"
+              },
+              {
+                "text": "돈이 내려와도 어디에 쓰라는 목적이 분명하지 않으면 성립전예산으로 처리하기 어렵습니다.",
+                "className": "left"
+              }
+            ],
+            [
+              {
+                "text": "일부만 교부된 예산",
+                "className": "left"
+              },
+              {
+                "text": "불가",
+                "className": "center"
+              },
+              {
+                "text": "필요액 전부가 아니라 일부만 교부된 경우에는 일반 추경 절차를 먼저 검토합니다.",
+                "className": "left"
+              }
+            ]
+          ]
+        },
+        {
+          "type": "checklistCard",
+          "title": "성립전 가능한지 모를 때 먼저 보는 체크리스트",
+          "items": [
+            "이 돈은 어디에 쓰라고 정해진 돈인가?",
+            "필요한 금액이 전액 교부되었는가?",
+            "수익자부담경비라면 사전 심의가 되었는가?",
+            "사업 일정상 추경 확정까지 기다리기 어려운가?"
+          ]
         }
-      }
-      list.appendChild(li);
-    });
-    return list;
-  }
-
-  function renderSummaryList(items) {
-    const list = createEl("ul", "summary-list");
-    normalizeArray(items).forEach((item) => {
-      const li = document.createElement("li");
-      const label = createEl("b");
-      label.textContent = (item.label || "").trim();
-      li.appendChild(label);
-      li.appendChild(document.createTextNode(": "));
-      setRichText(li.appendChild(document.createElement("span")), item.text || "");
-      list.appendChild(li);
-    });
-    return list;
-  }
-
-  function renderStatusChips(items) {
-    const row = createEl("div", "chip-row");
-    normalizeArray(items).forEach((item) => {
-      const chip = createEl("span", "chip");
-      setRichText(chip, item);
-      row.appendChild(chip);
-    });
-    return row;
-  }
-
-  function createButtonLink(label, href, className, extra = {}) {
-    const a = createEl("a", className || "btn");
-    a.href = href || "#";
-    a.textContent = label || "바로가기";
-    if (extra.target) a.target = extra.target;
-    if (extra.rel) a.rel = extra.rel;
-    if (extra.download) a.setAttribute("download", extra.download === true ? "" : extra.download);
-    return a;
-  }
-
-  function renderToolCard(item, options = {}) {
-    const root = options.root || getRoot();
-    const article = createEl("article", "tool-card");
-    const head = createEl("div", "tool-head");
-    const title = createEl("p", "tool-title", item.title || "");
-    const subtitle = createEl("p", "tool-sub", item.subtitle || "");
-    head.appendChild(title);
-    head.appendChild(subtitle);
-
-    const body = createEl("div", "tool-body");
-    const list = createEl("ul", "tool-list");
-    normalizeArray(item.summaryBullets).forEach((bullet) => {
-      const li = createEl("li");
-      li.textContent = "·" + bullet;
-      list.appendChild(li);
-    });
-    body.appendChild(list);
-
-    if (item.updatedAtText) {
-      body.appendChild(createEl("p", "tool-meta", "최종 업데이트: " + item.updatedAtText));
-    }
-
-    const row = createEl("div", "row gap");
-    const primaryHref = item.href || detailHref(item.slug, root);
-    row.appendChild(
-      createButtonLink(
-        item.primaryLabel || "상세 보기",
-        primaryHref,
-        "btn " + (item.buttonClass || "pastel-blue")
-      )
-    );
-
-    if (item.secondaryHref) {
-      row.appendChild(
-        createButtonLink(
-          item.secondaryLabel || "관련 항목",
-          item.secondaryHref,
-          "btn ghost"
-        )
-      );
-    }
-
-    body.appendChild(row);
-    article.appendChild(head);
-    article.appendChild(body);
-    return article;
-  }
-
-  function renderCategoryCard(category, articleCount, latestArticle, options = {}) {
-    const root = options.root || getRoot();
-    const article = createEl("article", "tool-card");
-    const head = createEl("div", "tool-head");
-    head.appendChild(createEl("p", "tool-title", category.title || ""));
-    head.appendChild(createEl("p", "tool-sub", category.subtitle || ""));
-    article.appendChild(head);
-
-    const body = createEl("div", "tool-body");
-    const list = createEl("ul", "tool-list");
-    normalizeArray(category.summaryBullets).forEach((bullet) => {
-      const li = createEl("li");
-      li.textContent = "·" + bullet;
-      list.appendChild(li);
-    });
-    body.appendChild(list);
-
-    const metaRow = createEl("div", "inline-chip-row");
-    metaRow.appendChild(createEl("span", "inline-chip", "기사 " + articleCount + "개"));
-    if (latestArticle?.updatedAtText) {
-      metaRow.appendChild(createEl("span", "inline-chip", "최신 " + latestArticle.updatedAtText));
-    }
-    body.appendChild(metaRow);
-
-    const row = createEl("div", "row gap");
-    row.appendChild(
-      createButtonLink(
-        category.primaryLabel || "해당 분야 보기",
-        "#group-" + encodeURIComponent(category.id || ""),
-        "btn " + (category.buttonClass || "pastel-grey")
-      )
-    );
-
-    if (latestArticle) {
-      row.appendChild(
-        createButtonLink(
-          "최신 기사",
-          detailHref(latestArticle.slug, root),
-          "btn ghost"
-        )
-      );
-    }
-
-    body.appendChild(row);
-    article.appendChild(body);
-    return article;
-  }
-
-  function renderFileCards(files) {
-    const frag = document.createDocumentFragment();
-
-    normalizeArray(files).forEach((file) => {
-      const card = createEl("div", "card article-file-card");
-      card.appendChild(createEl("div", "", ""));
-      const titleWrap = card.firstElementChild;
-      const strong = createEl("b");
-      strong.textContent = file.title || "첨부파일";
-      titleWrap.appendChild(strong);
-
-      if (file.desc) {
-        card.appendChild(createEl("div", "btn-desc", "·" + file.desc));
-      }
-
-      if (file.href) {
-        const row = createEl("div", "row gap");
-        row.appendChild(
-          createButtonLink(
-            file.downloadLabel || "파일 다운로드",
-            file.href,
-            "btn",
-            { download: true }
-          )
-        );
-        row.appendChild(
-          createButtonLink(
-            file.viewLabel || "바로 보기",
-            file.viewHref || file.href,
-            "btn ghost",
-            { target: "_blank", rel: "noopener" }
-          )
-        );
-        card.appendChild(row);
-      } else {
-        card.appendChild(createEl("p", "muted", "※ 파일 링크가 아직 연결되지 않았습니다."));
-      }
-
-      frag.appendChild(card);
-    });
-
-    return frag;
-  }
-
-  function renderBlock(block) {
-    if (!block || !block.type) return null;
-
-    if (block.type === "paragraphs") {
-      const wrap = createEl("div", "section-block");
-      normalizeArray(block.items).forEach((item) => {
-        wrap.appendChild(richTextNode("p", "", item));
-      });
-      return wrap;
-    }
-
-    if (block.type === "note") {
-      const note = createEl("div", "quick-note");
-      const strong = createEl("b");
-      strong.textContent = (block.title || "실무 한 줄") + ": ";
-      note.appendChild(strong);
-      setRichText(note.appendChild(document.createElement("span")), block.text || "");
-      return note;
-    }
-
-    if (block.type === "list") {
-      const wrap = block.cardTitle ? createEl("div", "card") : createEl("div", "");
-      if (block.cardTitle) {
-        wrap.appendChild(createEl("h3", "", block.cardTitle));
-      }
-      wrap.appendChild(renderSimpleList(block.items, { className: block.className || "" , ordered: !!block.ordered }));
-      return wrap;
-    }
-
-    if (block.type === "checklistCard") {
-      const card = createEl("div", "card");
-      const title = createEl("h3");
-      title.style.marginTop = "0";
-      title.textContent = block.title || "";
-      card.appendChild(title);
-      card.appendChild(renderSimpleList(block.items, { className: "check-list" }));
-      return card;
-    }
-
-    if (block.type === "gridCards") {
-      const grid = createEl("div", "grid " + ((block.columns || 2) === 3 ? "three" : "two"));
-      normalizeArray(block.cards).forEach((cardItem) => {
-        const card = createEl("div", "card");
-        const title = createEl("h3");
-        title.style.marginTop = "0";
-        title.textContent = cardItem.title || "";
-        card.appendChild(title);
-
-        if (cardItem.subtitle) {
-          card.appendChild(createEl("p", "card-subtitle", cardItem.subtitle));
+      ]
+    },
+    {
+      "id": "sec-2",
+      "title": "2. 요구서에는 무엇을 쓰나요?",
+      "subtitle": "·행정실이 바로 입력할 수 있게 작성하는 것이 핵심입니다.",
+      "blocks": [
+        {
+          "type": "paragraphs",
+          "items": [
+            "산출 기초는 가능한 한 단가 × 물량 × 횟수 형태로 적습니다. 총액만 적으면 나중에 다시 설명해야 하는 경우가 많습니다.",
+            "운영비, 기타경비처럼 포괄적인 표현보다 실제 집행 항목을 써야 행정실이 원가통계비목을 정리하기 쉽습니다."
+          ]
+        },
+        {
+          "type": "table",
+          "columns": [
+            "항목",
+            "좋은 작성 예",
+            "피해야 할 표현"
+          ],
+          "rows": [
+            [
+              {
+                "text": "산출내역",
+                "className": "left"
+              },
+              {
+                "text": "운동부지도자 사회보험료 기관부담금",
+                "className": "left"
+              },
+              {
+                "text": "운영비",
+                "className": "left"
+              }
+            ],
+            [
+              {
+                "text": "산출식",
+                "className": "left"
+              },
+              {
+                "text": "19,000원 × 5명 × 12회",
+                "className": "left"
+              },
+              {
+                "text": "적정액 반영",
+                "className": "left"
+              }
+            ],
+            [
+              {
+                "text": "요구액",
+                "className": "left"
+              },
+              {
+                "text": "1,140,000원",
+                "className": "left"
+              },
+              {
+                "text": "약 100만원",
+                "className": "left"
+              }
+            ]
+          ],
+          "note": "예산 편성은 보통 천원 단위 정리를 전제로 하므로 제출 전에 합계와 단위를 같이 확인하는 편이 좋습니다."
         }
-
-        normalizeArray(cardItem.paragraphs).forEach((text) => {
-          card.appendChild(richTextNode("p", "", text));
-        });
-
-        if (normalizeArray(cardItem.items).length) {
-          card.appendChild(renderSimpleList(cardItem.items, { className: cardItem.listClassName || "check-list" }));
+      ]
+    },
+    {
+      "id": "sec-3",
+      "title": "3. 예시로 이해하는 성립전예산 요구",
+      "subtitle": "·세입과 세출을 어떻게 나눠 적는지 예시로 봅니다.",
+      "blocks": [
+        {
+          "type": "imageCards",
+          "columns": 2,
+          "cards": [
+            {
+              "title": "세입 요구서에 들어가야 하는 항목",
+              "paragraphs": [
+                "세부사업, 세부항목, 산출내역, 산출식, 요구액이 보이도록 정리합니다."
+              ],
+              "src": "/static/image/image-pre-establish-budget-02.jpg",
+              "alt": "성립전예산 세입 요구서 예시"
+            },
+            {
+              "title": "세출 요구서에 들어가야 하는 항목",
+              "paragraphs": [
+                "세부사업, 세부항목, 원가통계비목, 산출식, 산출금액을 분리해서 적습니다."
+              ],
+              "src": "/static/image/image-pre-establish-budget-01.jpg",
+              "alt": "성립전예산 세출 요구서 예시"
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "columns": [
+            "구분",
+            "산출식",
+            "금액",
+            "설명"
+          ],
+          "rows": [
+            [
+              {
+                "text": "세입 총액",
+                "className": "left"
+              },
+              {
+                "text": "200,000원 × 5명 × 12회",
+                "className": "left"
+              },
+              {
+                "text": "12,000,000원"
+              },
+              {
+                "text": "학부모부담후원금 총액",
+                "className": "left"
+              }
+            ],
+            [
+              {
+                "text": "세출 ① 개인부담 사회보험료",
+                "className": "left"
+              },
+              {
+                "text": "16,010원 × 5명 × 12회",
+                "className": "left"
+              },
+              {
+                "text": "961,000원"
+              },
+              {
+                "text": "예시 파일에서는 천원 단위로 정리",
+                "className": "left"
+              }
+            ],
+            [
+              {
+                "text": "세출 ② 기관부담 사회보험료",
+                "className": "left"
+              },
+              {
+                "text": "19,000원 × 5명 × 12회",
+                "className": "left"
+              },
+              {
+                "text": "1,140,000원"
+              },
+              {
+                "text": "법정부담금 항목",
+                "className": "left"
+              }
+            ],
+            [
+              {
+                "text": "세출 ③ 실수령액",
+                "className": "left"
+              },
+              {
+                "text": "164,990원 × 5명 × 12회",
+                "className": "left"
+              },
+              {
+                "text": "9,899,000원"
+              },
+              {
+                "text": "인건비 항목",
+                "className": "left"
+              }
+            ],
+            [
+              {
+                "text": "세출 합계",
+                "className": "left"
+              },
+              {
+                "text": "200,000원 × 5명 × 12회",
+                "className": "left"
+              },
+              {
+                "text": "12,000,000원"
+              },
+              {
+                "text": "세입과 세출 총액이 같아야 합니다.",
+                "className": "left"
+              }
+            ]
+          ]
+        },
+        {
+          "type": "checklistCard",
+          "title": "예시 파일에서 특히 눈여겨볼 부분",
+          "items": [
+            "세입은 무슨 돈이 들어오는지 한 줄로 분명하게 적습니다.",
+            "세출은 같은 돈을 원가통계비목별로 나눠 적습니다.",
+            "합계는 반드시 세입 = 세출이 되어야 합니다.",
+            "행정실이 바로 시스템에 입력할 수 있게 구체 명칭을 쓰는 것이 좋습니다."
+          ]
         }
-
-        if (cardItem.buttonHref) {
-          const row = createEl("div", "row gap");
-          row.appendChild(
-            createButtonLink(
-              cardItem.buttonLabel || "바로가기",
-              cardItem.buttonHref,
-              "btn " + (cardItem.buttonClass || "ghost")
-            )
-          );
-          card.appendChild(row);
+      ]
+    },
+    {
+      "id": "sec-4",
+      "title": "4. 제출 후 행정실은 어떻게 처리하나요?",
+      "subtitle": "·부서에서 어디까지 준비하면 되는지 흐름을 잡습니다.",
+      "blocks": [
+        {
+          "type": "steps",
+          "items": [
+            {
+              "title": "사업 담당자",
+              "text": "성립전예산 사용 사유와 세입·세출 요구 내용을 정리해 제출합니다."
+            },
+            {
+              "title": "행정실",
+              "text": "세입·세출 구조와 근거를 확인하고 성립전예산 편성 자료를 만듭니다."
+            },
+            {
+              "title": "학교장 결재",
+              "text": "결재가 완료되면 집행 단계로 넘어갑니다."
+            },
+            {
+              "title": "차기 추경 반영",
+              "text": "같은 회계연도 안에서 차기 추가경정예산에 반영해 사후 정리를 마칩니다."
+            }
+          ]
+        },
+        {
+          "type": "pathCard",
+          "title": "행정실 K-에듀파인 참고 경로",
+          "path": "예산관리 → 성립전예산관리 → 조회 → 신규 → 재원구분 선택 → 예산정보 입력 → 결재요청 → 확정",
+          "note": "이 경로는 교직원 참고용입니다. 실제 입력은 행정실에서 처리합니다."
         }
-
-        grid.appendChild(card);
-      });
-      return grid;
+      ]
+    },
+    {
+      "id": "sec-5",
+      "title": "5. 자주 틀리는 부분",
+      "subtitle": "·보완 요청을 줄이기 위해 마지막으로 확인합니다.",
+      "blocks": [
+        {
+          "type": "gridCards",
+          "columns": 2,
+          "cards": [
+            {
+              "title": "이런 경우는 다시 확인하세요",
+              "items": [
+                "지원금이 내려왔지만 용도 지정 문구가 없다.",
+                "필요예산 일부만 왔는데 전액 받은 것처럼 요구하려 한다.",
+                "집행 시기가 충분한데도 무조건 성립전예산으로 처리하려 한다.",
+                "수익자부담경비인데 사전 심의 여부가 불분명하다."
+              ]
+            },
+            {
+              "title": "작성할 때 바로 잡아야 하는 것",
+              "items": [
+                "운영비 같은 포괄 표현 대신 실제 집행 항목으로 쓴다.",
+                "단가 × 물량 × 횟수가 빠진 총액 기재는 피한다.",
+                "세출은 원가통계비목 구분이 보이도록 적는다.",
+                "최종 합계가 세입 = 세출인지 확인한다."
+              ]
+            }
+          ]
+        },
+        {
+          "type": "checklistCard",
+          "title": "교직원용 제출 체크리스트",
+          "items": [
+            "교부 공문 또는 사업 안내 공문 확인",
+            "세부사업·세부항목 명칭 정리",
+            "산출내역 / 산출식 / 요구금액 작성",
+            "필요 시 행정실과 원가통계비목 사전 협의",
+            "예시 서식과 같은 구조로 세입·세출 요구서 제출"
+          ]
+        }
+      ]
     }
-
-    if (block.type === "table") {
-      const wrap = createEl("div", "table-wrap");
-      const table = createEl("table", "sheetlike simple-table");
-      const thead = document.createElement("thead");
-      const headRow = document.createElement("tr");
-
-      normalizeArray(block.columns).forEach((col) => {
-        const th = document.createElement("th");
-        if (typeof col === "string") th.textContent = col;
-        else setRichText(th, col);
-        headRow.appendChild(th);
-      });
-
-      thead.appendChild(headRow);
-      table.appendChild(thead);
-
-      const tbody = document.createElement("tbody");
-      normalizeArray(block.rows).forEach((rowData) => {
-        const tr = document.createElement("tr");
-        normalizeArray(rowData).forEach((cellData) => {
-          const td = document.createElement("td");
-          if (cellData && typeof cellData === "object") {
-            if (cellData.className) td.className = cellData.className;
-            setRichText(td, cellData);
-          } else {
-            td.textContent = String(cellData ?? "");
-          }
-          tr.appendChild(td);
-        });
-        tbody.appendChild(tr);
-      });
-      table.appendChild(tbody);
-      wrap.appendChild(table);
-
-      if (block.note) {
-        wrap.appendChild(createEl("p", "note", block.note));
-      }
-
-      return wrap;
+  ],
+  "files": [
+    {
+      "title": "성립전예산 요구서 예시 자료",
+      "desc": "문서등록대장에 첨부한 예시 파일을 그대로 다시 내려받을 수 있습니다.",
+      "href": "/static/excel/excel-2026-pre-establish-budget-01.xlsx",
+      "viewHref": "/static/excel/excel-2026-pre-establish-budget-01.xlsx",
+      "downloadLabel": "엑셀 파일 다운로드",
+      "viewLabel": "뷰어로 보기"
     }
-
-    if (block.type === "steps") {
-      const list = createEl("ol", "mini-steps");
-      normalizeArray(block.items).forEach((item) => {
-        const li = document.createElement("li");
-        const strong = createEl("b");
-        strong.textContent = item.title || "";
-        li.appendChild(strong);
-        li.appendChild(document.createTextNode(" "));
-        setRichText(li.appendChild(document.createElement("span")), item.text || "");
-        list.appendChild(li);
-      });
-      return list;
-    }
-
-    if (block.type === "pathCard") {
-      const card = createEl("div", "card");
-      const title = createEl("h3");
-      title.style.marginTop = "0";
-      title.textContent = block.title || "참고 경로";
-      card.appendChild(title);
-      card.appendChild(createEl("div", "k-path", block.path || ""));
-      if (block.note) {
-        card.appendChild(createEl("p", "muted", block.note));
-      }
-      return card;
-    }
-
-    if (block.type === "imageCards") {
-      const grid = createEl("div", "grid " + ((block.columns || 2) === 3 ? "three" : "two"));
-      normalizeArray(block.cards).forEach((item) => {
-        const card = createEl("div", "card");
-        const title = createEl("h3");
-        title.style.marginTop = "0";
-        title.textContent = item.title || "";
-        card.appendChild(title);
-
-        normalizeArray(item.paragraphs).forEach((text) => {
-          card.appendChild(richTextNode("p", "", text));
-        });
-
-        const figure = createEl("figure", "tool-shot");
-        const details = createEl("details", "img-zoom");
-        const summary = document.createElement("summary");
-        const img = document.createElement("img");
-        img.src = item.src || "";
-        img.alt = item.alt || item.title || "안내 이미지";
-        img.className = "tool-thumb thumb";
-        img.loading = "lazy";
-        summary.appendChild(img);
-        details.appendChild(summary);
-        figure.appendChild(details);
-        card.appendChild(figure);
-        grid.appendChild(card);
-      });
-      return grid;
-    }
-
-    if (block.type === "files") {
-      const wrap = createEl("div", "");
-      wrap.appendChild(renderFileCards(block.items));
-      return wrap;
-    }
-
-    return null;
-  }
-
-  function renderSection(section) {
-    const sec = createEl("section", "section content");
-    sec.id = section.id || "";
-    sec.appendChild(createEl("h2", "", section.title || ""));
-    if (section.subtitle) {
-      sec.appendChild(createEl("p", "muted", section.subtitle));
-    }
-    sec.appendChild(document.createElement("hr"));
-
-    normalizeArray(section.blocks).forEach((block) => {
-      const node = renderBlock(block);
-      if (node) sec.appendChild(node);
-    });
-
-    return sec;
-  }
-
-  function renderError(container, title, message) {
-    container.innerHTML = "";
-    const box = createEl("div", "error-box");
-    box.appendChild(createEl("h3", "", title));
-    box.appendChild(createEl("p", "", message));
-    container.appendChild(box);
-  }
-
-  function ensureText(id, value) {
-    const el = document.getElementById(id);
-    if (el && value !== undefined && value !== null) {
-      el.textContent = String(value);
-    }
-  }
-
-  window.NewsletterCommon = {
-    getRoot,
-    manifestHref,
-    articleJsonHref,
-    detailHref,
-    indexHref,
-    fetchJson,
-    createEl,
-    setRichText,
-    appendChildren,
-    richTextNode,
-    normalizeArray,
-    parseSlugFromLocation,
-    sortByUpdatedDesc,
-    findArticleMeta,
-    findCategory,
-    renderSimpleList,
-    renderSummaryList,
-    renderStatusChips,
-    createButtonLink,
-    renderToolCard,
-    renderCategoryCard,
-    renderFileCards,
-    renderBlock,
-    renderSection,
-    renderError,
-    ensureText,
-  };
-})();
+  ],
+  "relatedSlugs": [
+    "supplementary-budget-december",
+    "education-expense-settlement"
+  ]
+}
