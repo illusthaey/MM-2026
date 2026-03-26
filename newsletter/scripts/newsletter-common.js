@@ -8,12 +8,8 @@
     return root + "/data/newsletters.json";
   }
 
-  function articleJsonHref(slug, root = getRoot()) {
-    return root + "/data/articles/" + encodeURIComponent(slug) + ".json";
-  }
-
   function detailHref(slug, root = getRoot()) {
-    return root + "/detail/index.html?slug=" + encodeURIComponent(slug);
+    return root + "/detail/index.html?slug=" + encodeURIComponent(slug || "");
   }
 
   function indexHref(root = getRoot()) {
@@ -34,6 +30,14 @@
     return response.json();
   }
 
+  async function fetchJsonOrNull(url) {
+    try {
+      return await fetchJson(url);
+    } catch (_) {
+      return null;
+    }
+  }
+
   function createEl(tag, className, text) {
     const el = document.createElement(tag);
     if (className) el.className = className;
@@ -51,19 +55,14 @@
       return;
     }
 
-    if (typeof value.html === "string") {
+    if (typeof value?.html === "string") {
       el.innerHTML = value.html;
       return;
     }
 
-    if (value.text !== undefined && value.text !== null) {
+    if (value?.text !== undefined && value?.text !== null) {
       el.textContent = String(value.text);
     }
-  }
-
-  function appendChildren(parent, children) {
-    children.filter(Boolean).forEach((child) => parent.appendChild(child));
-    return parent;
   }
 
   function richTextNode(tag, className, value) {
@@ -72,34 +71,64 @@
     return el;
   }
 
+  function appendChildren(parent, children) {
+    (Array.isArray(children) ? children : []).filter(Boolean).forEach((child) => {
+      parent.appendChild(child);
+    });
+    return parent;
+  }
+
   function normalizeArray(value) {
     return Array.isArray(value) ? value : [];
   }
 
   function parseSlugFromLocation() {
     const url = new URL(window.location.href);
-    return (url.searchParams.get("slug") || document.body?.dataset?.defaultSlug || "").trim();
+    return (url.searchParams.get("slug") || "").trim();
   }
 
   function sortByUpdatedDesc(items) {
     return [...normalizeArray(items)].sort((a, b) => {
-      const aa = Date.parse(a.updatedAtIso || "") || 0;
-      const bb = Date.parse(b.updatedAtIso || "") || 0;
+      const aa = Date.parse(a?.updatedAtIso || "") || 0;
+      const bb = Date.parse(b?.updatedAtIso || "") || 0;
       return bb - aa;
     });
   }
 
-  function findArticleMeta(manifest, slug) {
-    return normalizeArray(manifest?.articles).find((item) => item.slug === slug) || null;
+  function getEntries(manifest) {
+    return normalizeArray(manifest?.faqs?.length ? manifest.faqs : manifest?.articles);
   }
 
   function findCategory(manifest, categoryId) {
     return normalizeArray(manifest?.categories).find((item) => item.id === categoryId) || null;
   }
 
+  function findEntry(manifest, slug) {
+    return getEntries(manifest).find((item) => item.slug === slug) || null;
+  }
+
+  function getQuestion(item) {
+    return item?.question || item?.title || "질문 없음";
+  }
+
+  function getAnswerLines(item) {
+    const answerLines = normalizeArray(item?.answerLines);
+    if (answerLines.length) return answerLines;
+
+    const bullets = normalizeArray(item?.summaryBullets);
+    if (bullets.length) return bullets;
+
+    return item?.answer ? [item.answer] : [];
+  }
+
+  function getLatestEntry(manifest) {
+    return sortByUpdatedDesc(getEntries(manifest))[0] || null;
+  }
+
   function renderSimpleList(items, options = {}) {
     const listTag = options.ordered ? "ol" : "ul";
     const list = createEl(listTag, options.className || "");
+
     normalizeArray(items).forEach((item) => {
       const li = document.createElement("li");
       if (typeof item === "string" || typeof item === "number") {
@@ -119,6 +148,7 @@
       }
       list.appendChild(li);
     });
+
     return list;
   }
 
@@ -127,10 +157,10 @@
     normalizeArray(items).forEach((item) => {
       const li = document.createElement("li");
       const label = createEl("b");
-      label.textContent = (item.label || "").trim();
+      label.textContent = (item?.label || "").trim();
       li.appendChild(label);
       li.appendChild(document.createTextNode(": "));
-      setRichText(li.appendChild(document.createElement("span")), item.text || "");
+      setRichText(li.appendChild(document.createElement("span")), item?.text || "");
       list.appendChild(li);
     });
     return list;
@@ -156,126 +186,25 @@
     return a;
   }
 
-  function renderToolCard(item, options = {}) {
-    const root = options.root || getRoot();
-    const article = createEl("article", "tool-card");
-    const head = createEl("div", "tool-head");
-    const title = createEl("p", "tool-title", item.title || "");
-    const subtitle = createEl("p", "tool-sub", item.subtitle || "");
-    head.appendChild(title);
-    head.appendChild(subtitle);
-
-    const body = createEl("div", "tool-body");
-    const list = createEl("ul", "tool-list");
-    normalizeArray(item.summaryBullets).forEach((bullet) => {
-      const li = createEl("li");
-      li.textContent = "·" + bullet;
-      list.appendChild(li);
-    });
-    body.appendChild(list);
-
-    if (item.updatedAtText) {
-      body.appendChild(createEl("p", "tool-meta", "최종 업데이트: " + item.updatedAtText));
-    }
-
-    const row = createEl("div", "row gap");
-    const primaryHref = item.href || detailHref(item.slug, root);
-    row.appendChild(
-      createButtonLink(
-        item.primaryLabel || "상세 보기",
-        primaryHref,
-        "btn " + (item.buttonClass || "pastel-blue")
-      )
-    );
-
-    if (item.secondaryHref) {
-      row.appendChild(
-        createButtonLink(
-          item.secondaryLabel || "관련 항목",
-          item.secondaryHref,
-          "btn ghost"
-        )
-      );
-    }
-
-    body.appendChild(row);
-    article.appendChild(head);
-    article.appendChild(body);
-    return article;
-  }
-
-  function renderCategoryCard(category, articleCount, latestArticle, options = {}) {
-    const root = options.root || getRoot();
-    const article = createEl("article", "tool-card");
-    const head = createEl("div", "tool-head");
-    head.appendChild(createEl("p", "tool-title", category.title || ""));
-    head.appendChild(createEl("p", "tool-sub", category.subtitle || ""));
-    article.appendChild(head);
-
-    const body = createEl("div", "tool-body");
-    const list = createEl("ul", "tool-list");
-    normalizeArray(category.summaryBullets).forEach((bullet) => {
-      const li = createEl("li");
-      li.textContent = "·" + bullet;
-      list.appendChild(li);
-    });
-    body.appendChild(list);
-
-    const metaRow = createEl("div", "inline-chip-row");
-    metaRow.appendChild(createEl("span", "inline-chip", "기사 " + articleCount + "개"));
-    if (latestArticle?.updatedAtText) {
-      metaRow.appendChild(createEl("span", "inline-chip", "최신 " + latestArticle.updatedAtText));
-    }
-    body.appendChild(metaRow);
-
-    const row = createEl("div", "row gap");
-    row.appendChild(
-      createButtonLink(
-        category.primaryLabel || "해당 분야 보기",
-        "#group-" + encodeURIComponent(category.id || ""),
-        "btn " + (category.buttonClass || "pastel-grey")
-      )
-    );
-
-    if (latestArticle) {
-      row.appendChild(
-        createButtonLink(
-          "최신 기사",
-          detailHref(latestArticle.slug, root),
-          "btn ghost"
-        )
-      );
-    }
-
-    body.appendChild(row);
-    article.appendChild(body);
-    return article;
-  }
-
   function renderFileCards(files) {
     const frag = document.createDocumentFragment();
 
     normalizeArray(files).forEach((file) => {
       const card = createEl("div", "card article-file-card");
-      card.appendChild(createEl("div", "", ""));
-      const titleWrap = card.firstElementChild;
+      const titleWrap = createEl("div", "");
       const strong = createEl("b");
-      strong.textContent = file.title || "첨부파일";
+      strong.textContent = file?.title || "첨부파일";
       titleWrap.appendChild(strong);
+      card.appendChild(titleWrap);
 
-      if (file.desc) {
+      if (file?.desc) {
         card.appendChild(createEl("div", "btn-desc", "·" + file.desc));
       }
 
-      if (file.href) {
+      if (file?.href) {
         const row = createEl("div", "row gap");
         row.appendChild(
-          createButtonLink(
-            file.downloadLabel || "파일 다운로드",
-            file.href,
-            "btn",
-            { download: true }
-          )
+          createButtonLink(file.downloadLabel || "파일 다운로드", file.href, "btn", { download: true })
         );
         row.appendChild(
           createButtonLink(
@@ -286,8 +215,6 @@
           )
         );
         card.appendChild(row);
-      } else {
-        card.appendChild(createEl("p", "muted", "※ 파일 링크가 아직 연결되지 않았습니다."));
       }
 
       frag.appendChild(card);
@@ -319,17 +246,23 @@
     if (block.type === "list") {
       const wrap = block.cardTitle ? createEl("div", "card") : createEl("div", "");
       if (block.cardTitle) {
-        wrap.appendChild(createEl("h3", "", block.cardTitle));
+        const title = createEl("h3", "", block.cardTitle);
+        title.style.marginTop = "0";
+        wrap.appendChild(title);
       }
-      wrap.appendChild(renderSimpleList(block.items, { className: block.className || "" , ordered: !!block.ordered }));
+      wrap.appendChild(
+        renderSimpleList(block.items, {
+          className: block.className || "",
+          ordered: !!block.ordered,
+        })
+      );
       return wrap;
     }
 
     if (block.type === "checklistCard") {
       const card = createEl("div", "card");
-      const title = createEl("h3");
+      const title = createEl("h3", "", block.title || "체크리스트");
       title.style.marginTop = "0";
-      title.textContent = block.title || "";
       card.appendChild(title);
       card.appendChild(renderSimpleList(block.items, { className: "check-list" }));
       return card;
@@ -339,33 +272,20 @@
       const grid = createEl("div", "grid " + ((block.columns || 2) === 3 ? "three" : "two"));
       normalizeArray(block.cards).forEach((cardItem) => {
         const card = createEl("div", "card");
-        const title = createEl("h3");
+        const title = createEl("h3", "", cardItem?.title || "");
         title.style.marginTop = "0";
-        title.textContent = cardItem.title || "";
         card.appendChild(title);
 
-        if (cardItem.subtitle) {
+        if (cardItem?.subtitle) {
           card.appendChild(createEl("p", "card-subtitle", cardItem.subtitle));
         }
 
-        normalizeArray(cardItem.paragraphs).forEach((text) => {
+        normalizeArray(cardItem?.paragraphs).forEach((text) => {
           card.appendChild(richTextNode("p", "", text));
         });
 
-        if (normalizeArray(cardItem.items).length) {
+        if (normalizeArray(cardItem?.items).length) {
           card.appendChild(renderSimpleList(cardItem.items, { className: cardItem.listClassName || "check-list" }));
-        }
-
-        if (cardItem.buttonHref) {
-          const row = createEl("div", "row gap");
-          row.appendChild(
-            createButtonLink(
-              cardItem.buttonLabel || "바로가기",
-              cardItem.buttonHref,
-              "btn " + (cardItem.buttonClass || "ghost")
-            )
-          );
-          card.appendChild(row);
         }
 
         grid.appendChild(card);
@@ -418,11 +338,10 @@
       const list = createEl("ol", "mini-steps");
       normalizeArray(block.items).forEach((item) => {
         const li = document.createElement("li");
-        const strong = createEl("b");
-        strong.textContent = item.title || "";
+        const strong = createEl("b", "", item?.title || "");
         li.appendChild(strong);
         li.appendChild(document.createTextNode(" "));
-        setRichText(li.appendChild(document.createElement("span")), item.text || "");
+        setRichText(li.appendChild(document.createElement("span")), item?.text || "");
         list.appendChild(li);
       });
       return list;
@@ -430,45 +349,14 @@
 
     if (block.type === "pathCard") {
       const card = createEl("div", "card");
-      const title = createEl("h3");
+      const title = createEl("h3", "", block.title || "참고 경로");
       title.style.marginTop = "0";
-      title.textContent = block.title || "참고 경로";
       card.appendChild(title);
       card.appendChild(createEl("div", "k-path", block.path || ""));
       if (block.note) {
         card.appendChild(createEl("p", "muted", block.note));
       }
       return card;
-    }
-
-    if (block.type === "imageCards") {
-      const grid = createEl("div", "grid " + ((block.columns || 2) === 3 ? "three" : "two"));
-      normalizeArray(block.cards).forEach((item) => {
-        const card = createEl("div", "card");
-        const title = createEl("h3");
-        title.style.marginTop = "0";
-        title.textContent = item.title || "";
-        card.appendChild(title);
-
-        normalizeArray(item.paragraphs).forEach((text) => {
-          card.appendChild(richTextNode("p", "", text));
-        });
-
-        const figure = createEl("figure", "tool-shot");
-        const details = createEl("details", "img-zoom");
-        const summary = document.createElement("summary");
-        const img = document.createElement("img");
-        img.src = item.src || "";
-        img.alt = item.alt || item.title || "안내 이미지";
-        img.className = "tool-thumb thumb";
-        img.loading = "lazy";
-        summary.appendChild(img);
-        details.appendChild(summary);
-        figure.appendChild(details);
-        card.appendChild(figure);
-        grid.appendChild(card);
-      });
-      return grid;
     }
 
     if (block.type === "files") {
@@ -482,14 +370,14 @@
 
   function renderSection(section) {
     const sec = createEl("section", "section content");
-    sec.id = section.id || "";
-    sec.appendChild(createEl("h2", "", section.title || ""));
-    if (section.subtitle) {
+    sec.id = section?.id || "";
+    sec.appendChild(createEl("h2", "", section?.title || ""));
+    if (section?.subtitle) {
       sec.appendChild(createEl("p", "muted", section.subtitle));
     }
     sec.appendChild(document.createElement("hr"));
 
-    normalizeArray(section.blocks).forEach((block) => {
+    normalizeArray(section?.blocks).forEach((block) => {
       const node = renderBlock(block);
       if (node) sec.appendChild(node);
     });
@@ -500,8 +388,10 @@
   function renderError(container, title, message) {
     container.innerHTML = "";
     const box = createEl("div", "error-box");
-    box.appendChild(createEl("h3", "", title));
-    box.appendChild(createEl("p", "", message));
+    box.appendChild(createEl("h3", "", title || "오류"));
+    if (message) {
+      box.appendChild(createEl("p", "", message));
+    }
     container.appendChild(box);
   }
 
@@ -512,32 +402,42 @@
     }
   }
 
+  function scrollToId(id) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+
   window.NewsletterCommon = {
     getRoot,
     manifestHref,
-    articleJsonHref,
     detailHref,
     indexHref,
     fetchJson,
+    fetchJsonOrNull,
     createEl,
     setRichText,
-    appendChildren,
     richTextNode,
+    appendChildren,
     normalizeArray,
     parseSlugFromLocation,
     sortByUpdatedDesc,
-    findArticleMeta,
+    getEntries,
     findCategory,
+    findEntry,
+    getQuestion,
+    getAnswerLines,
+    getLatestEntry,
     renderSimpleList,
     renderSummaryList,
     renderStatusChips,
     createButtonLink,
-    renderToolCard,
-    renderCategoryCard,
     renderFileCards,
     renderBlock,
     renderSection,
     renderError,
     ensureText,
+    scrollToId,
   };
 })();
