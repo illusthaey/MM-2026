@@ -5,17 +5,16 @@
   <meta name="robots" content="noindex" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light" />
-  <title>행정 업무 뉴스레터</title>
+  <title>한 입 행정 FAQ</title>
 
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-B6PE24NSKH"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-B6PE24NSKH');
-</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B6PE24NSKH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B6PE24NSKH');
+  </script>
 
   <link rel="icon" href="/static/favicon.ico" />
   <link rel="stylesheet" href="/static/style.css" />
@@ -32,108 +31,56 @@
   <div class="alien-page-frame">
     <header class="site-header">
       <div class="shell page-head">
-        <h1 id="page-title">행정 업무 뉴스레터</h1>
+        <h1 id="page-title">한 입 크기로 잘라 먹는 행정 업무</h1>
         <p class="sub" id="page-subtitle">
-          기초 행정부터 복무·계약·징수·지출·예산까지, 사업 담당자가 쉽게 이해할 수 있도록 정리하는 안내 페이지입니다.
+          자주 묻는 질문만 짧게 펼쳐보는 FAQ형 안내 페이지입니다.
         </p>
       </div>
     </header>
 
     <main id="main-content" class="page-main page-main--xwide page-index">
       <div id="index-loading" class="loading-box">
-        뉴스레터 데이터를 불러오는 중입니다.
+        FAQ 데이터를 불러오는 중입니다.
       </div>
 
       <div id="index-error" hidden></div>
 
       <div id="index-render-area" hidden>
-        <section class="section" id="sec-overview">
-          <h2>한눈에 보기</h2>
-          <p class="muted local-tight">·카드를 누르면 해당 영역으로 바로 이동합니다.</p>
-          <hr />
-
-          <div class="nl-hero-grid">
-            <div class="nl-hero-copy">
-              <div id="intro-callout"></div>
-              <div class="chip-row" id="status-chips" aria-label="페이지 상태"></div>
-            </div>
-
-            <div class="nl-stat-grid" id="hero-stats" aria-label="뉴스레터 요약 카드"></div>
-          </div>
-        </section>
-
-        <section class="section" id="sec-featured">
-          <div class="row between gap">
+        <section class="section" id="sec-dashboard" aria-labelledby="dashboard-title">
+          <div class="row between gap section-heading-wrap">
             <div>
-              <h2>1. 추천 뉴스레터 읽기</h2>
-              <p class="muted local-tight">·처음 오신 분께 추천하는 발간물입니다.</p>
+              <h2 id="dashboard-title">대시보드</h2>
+              <p class="muted local-tight">·분야별 개수와 전체 흐름을 먼저 확인하는 영역입니다.</p>
             </div>
           </div>
           <hr />
-          <div id="featured-list" class="nl-news-grid"></div>
+
+          <div class="faq-dashboard-shell">
+            <div class="faq-dashboard-intro">
+              <div id="dashboard-intro"></div>
+              <div class="chip-row" id="dashboard-status" aria-label="페이지 상태"></div>
+            </div>
+
+            <div class="faq-overview-grid" id="overview-stats" aria-label="전체 현황"></div>
+            <div class="faq-category-grid" id="dashboard-category-grid" aria-label="분야별 개수"></div>
+          </div>
         </section>
 
-        <section class="section" id="sec-categories">
-          <div class="row between gap">
+        <section class="section" id="sec-all" aria-labelledby="all-title">
+          <div class="row between gap section-heading-wrap">
             <div>
-              <h2>2. 분야별 뉴스레터 목록 바로가기</h2>
-              <p class="muted local-tight">·기초 행정, 복무, 계약, 징수, 지출, 예산 등 업무 영역에 따라 분류합니다.</p>
+              <h2 id="all-title">전체 보기</h2>
+              <p class="muted local-tight">·질문 카드를 누르면 답변이 바로 열립니다.</p>
             </div>
           </div>
           <hr />
-          <div id="category-list" class="nl-category-grid"></div>
-        </section>
 
-        <section class="section" id="sec-catalog">
-          <h2>3. 전체 뉴스레터 모아보기</h2>
-          <p class="muted">·전체 뉴스레터 목록을 나열합니다.</p>
-          <hr />
-
-          <div class="nl-toolbar">
-            <div id="catalog-filters" class="nl-filter-row" aria-label="기사 분야 필터"></div>
-            <div id="catalog-count" class="nl-filter-note">전체 기사 0개</div>
+          <div class="faq-toolbar">
+            <div id="faq-filters" class="faq-filter-row" aria-label="분야 필터"></div>
+            <div id="faq-count" class="faq-filter-note" aria-live="polite">전체 FAQ 0개</div>
           </div>
 
-          <div id="catalog-grid" class="nl-news-grid"></div>
-        </section>
-
-        <section class="section" id="sec-materials">
-          <h2>검토(피드백) 요청 시 </h2>
-          <hr />
-
-          <div class="nl-news-grid nl-news-grid--two">
-            <div class="card">
-              <h3 style="margin-top: 0;">필수 자료</h3>
-              <div id="materials-required"></div>
-            </div>
-
-            <div class="card">
-              <h3 style="margin-top: 0;">있으면 더 좋은 자료</h3>
-              <div id="materials-optional"></div>
-            </div>
-          </div>
-
-          <div class="card">
-            <h3 style="margin-top: 0;">교육경비 정산 자료 제출 예시</h3>
-            <div id="materials-example"></div>
-          </div>
-        </section>
-
-        <section class="section" id="sec-principles">
-          <h2>작성 원칙</h2>
-          <hr />
-
-          <div class="nl-news-grid nl-news-grid--two">
-            <div class="card">
-              <h3 style="margin-top: 0;">콘텐츠 원칙</h3>
-              <div id="principles-content"></div>
-            </div>
-
-            <div class="card">
-              <h3 style="margin-top: 0;">디자인 원칙</h3>
-              <div id="principles-design"></div>
-            </div>
-          </div>
+          <div id="faq-list" class="faq-list" aria-label="FAQ 목록"></div>
         </section>
       </div>
     </main>
