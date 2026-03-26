@@ -3,130 +3,193 @@
 
   if (!C) return;
 
-  function renderMeta(article) {
+  function autoSummary(entry, category) {
+    const answerLines = C.getAnswerLines(entry);
+    return [
+      { label: "질문", text: C.getQuestion(entry) },
+      { label: "한 줄 정리", text: answerLines[0] || "등록된 답변이 아직 없습니다." },
+      { label: "분야", text: category?.title || "미분류" },
+    ];
+  }
+
+  function autoSections(entry) {
+    const sections = [];
+    const answerLines = C.getAnswerLines(entry);
+
+    sections.push({
+      id: "sec-answer",
+      title: "1. 짧게 보는 답변",
+      subtitle: "·대문 카드에서 펼쳐지는 답변을 한 번 더 정리합니다.",
+      blocks: [
+        {
+          type: "list",
+          cardTitle: "바로 확인할 핵심",
+          className: "faq-answer-list",
+          items: answerLines.length ? answerLines.slice(0, 10) : ["등록된 답변이 아직 없습니다."],
+        },
+      ],
+    });
+
+    if (C.normalizeArray(entry?.references).length) {
+      sections.push({
+        id: "sec-reference",
+        title: "2. 같이 보면 좋은 문서",
+        subtitle: "·업무 판단이 헷갈릴 때 먼저 펼쳐볼 문서입니다.",
+        blocks: [
+          {
+            type: "list",
+            cardTitle: "관련 문서",
+            items: entry.references,
+          },
+        ],
+      });
+    }
+
+    if (C.normalizeArray(entry?.summaryBullets).length) {
+      sections.push({
+        id: "sec-check",
+        title: "3. 같이 기억할 포인트",
+        subtitle: "·질문 주변에서 함께 보는 체크 포인트입니다.",
+        blocks: [
+          {
+            type: "checklistCard",
+            title: "체크 포인트",
+            items: entry.summaryBullets,
+          },
+        ],
+      });
+    }
+
+    return sections;
+  }
+
+  function renderMeta(entry, category) {
     const target = document.getElementById("article-meta");
     if (!target) return;
 
-    const refs = C.normalizeArray(article.references).join(", ");
     target.innerHTML = "";
 
     const line1 = document.createElement("span");
-    line1.textContent = "·관련: " + (refs || "업데이트 예정");
+    line1.textContent = "·분야: " + (category?.title || "미분류");
     target.appendChild(line1);
-
     target.appendChild(document.createElement("br"));
 
     const line2 = document.createElement("span");
-    line2.textContent = "·최종 업데이트: " + (article.updatedAtText || "업데이트 예정");
+    line2.textContent = "·최종 업데이트: " + (entry?.updatedAtText || "업데이트 예정");
     target.appendChild(line2);
+
+    if (C.normalizeArray(entry?.references).length) {
+      target.appendChild(document.createElement("br"));
+      const line3 = document.createElement("span");
+      line3.textContent = "·관련 문서: " + entry.references.join(", ");
+      target.appendChild(line3);
+    }
   }
 
-  function renderSummary(article) {
+  function renderSummary(entry, category) {
     const target = document.getElementById("summary-list");
     if (!target) return;
-
     target.innerHTML = "";
-    target.appendChild(C.renderSummaryList(article.summary || []));
+    target.appendChild(C.renderSummaryList(autoSummary(entry, category)));
   }
 
-  function renderToc(article) {
+  function renderToc(sections, hasRelated) {
+    const wrap = document.getElementById("detail-toc-wrap");
     const target = document.getElementById("toc-chips");
-    if (!target) return;
+    if (!wrap || !target) return;
 
     target.innerHTML = "";
-    C.normalizeArray(article.sections).forEach((section) => {
+
+    C.normalizeArray(sections).forEach((section) => {
       const link = C.createEl("a", "chip");
       link.href = "#" + section.id;
       link.textContent = section.title;
       target.appendChild(link);
     });
 
-    if (C.normalizeArray(article.files).length) {
-      const fileChip = C.createEl("a", "chip");
-      fileChip.href = "#sec-files";
-      fileChip.textContent = "첨부파일";
-      target.appendChild(fileChip);
+    if (hasRelated) {
+      const related = C.createEl("a", "chip");
+      related.href = "#sec-related";
+      related.textContent = "같이 보면 좋은 질문";
+      target.appendChild(related);
     }
 
-    if (C.normalizeArray(article.relatedSlugs).length) {
-      const relatedChip = C.createEl("a", "chip");
-      relatedChip.href = "#sec-related";
-      relatedChip.textContent = "참고 자료";
-      target.appendChild(relatedChip);
-    }
+    wrap.hidden = !target.children.length;
   }
 
-  function renderSections(article) {
+  function renderSections(entry) {
     const target = document.getElementById("article-sections");
-    if (!target) return;
+    if (!target) return [];
+
+    const sections = C.normalizeArray(entry?.detailSections).length
+      ? entry.detailSections
+      : autoSections(entry);
 
     target.innerHTML = "";
-    C.normalizeArray(article.sections).forEach((section) => {
+    sections.forEach((section) => {
       target.appendChild(C.renderSection(section));
     });
+    return sections;
   }
 
-  function renderFiles(article) {
-    const section = document.getElementById("sec-files");
-    const shortcut = document.getElementById("btn-files-shortcut");
-    const body = document.getElementById("files-body");
-    if (!section || !body) return;
-
-    const files = C.normalizeArray(article.files);
-    body.innerHTML = "";
-
-    if (!files.length) {
-      section.hidden = true;
-      if (shortcut) shortcut.hidden = true;
-      return;
-    }
-
-    section.hidden = false;
-    if (shortcut) shortcut.hidden = false;
-    body.appendChild(C.renderFileCards(files));
-  }
-
-  function renderRelated(article, manifest, root) {
+  function renderRelated(entry, manifest, root) {
     const section = document.getElementById("sec-related");
     const body = document.getElementById("related-body");
-    if (!section || !body) return;
+    if (!section || !body) return false;
 
-    const related = C.normalizeArray(article.relatedSlugs)
-      .map((slug) => C.findArticleMeta(manifest, slug))
+    const explicit = C.normalizeArray(entry?.relatedSlugs)
+      .map((slug) => C.findEntry(manifest, slug))
       .filter(Boolean);
+
+    const sameCategory = C.getEntries(manifest)
+      .filter((item) => item.slug !== entry.slug && item.categoryId === entry.categoryId)
+      .slice(0, 3);
+
+    const merged = [];
+    [...explicit, ...sameCategory].forEach((item) => {
+      if (!merged.find((saved) => saved.slug === item.slug)) {
+        merged.push(item);
+      }
+    });
 
     body.innerHTML = "";
 
-    if (!related.length) {
+    if (!merged.length) {
       section.hidden = true;
-      return;
+      return false;
     }
 
     section.hidden = false;
-    const grid = C.createEl("div", "tool-grid");
-    related.forEach((item) => {
-      grid.appendChild(
-        C.renderToolCard(
-          {
-            ...item,
-            secondaryHref: C.indexHref(root),
-            secondaryLabel: "대문으로",
-          },
-          { root }
-        )
-      );
+    merged.slice(0, 3).forEach((item) => {
+      const category = C.findCategory(manifest, item.categoryId);
+      const card = C.createButtonLink(C.getQuestion(item), C.detailHref(item.slug, root), "faq-related-link");
+      const wrap = C.createEl("article", "faq-related-card");
+      const top = C.createEl("div", "faq-related-card__top");
+      top.appendChild(C.createEl("span", "badge", category?.title || "FAQ"));
+      if (item?.updatedAtText) {
+        top.appendChild(C.createEl("span", "faq-card__date", item.updatedAtText));
+      }
+      wrap.appendChild(top);
+      wrap.appendChild(card);
+
+      const answerLines = C.getAnswerLines(item);
+      if (answerLines.length) {
+        wrap.appendChild(C.createEl("p", "faq-related-card__text", answerLines[0]));
+      }
+      body.appendChild(wrap);
     });
-    body.appendChild(grid);
+
+    return true;
   }
 
-  function setHeader(article, root) {
-    const pageTitle = article.pageTitle || (article.title + "한 입 크기로 잘라먹기");
-    document.title = pageTitle;
-    C.ensureText("article-title", article.title || "상세 안내");
-    C.ensureText("article-subtitle", article.lead || "필요한 내용만 짧고 간단하게 정리해서 안내드립니다.");
+  function setHeader(entry, category, root) {
+    const title = C.getQuestion(entry);
+    document.title = title + " | 한 입 행정 FAQ";
+    C.ensureText("article-title", title);
+    C.ensureText("article-subtitle", entry?.subtitle || (category?.title || "") + " FAQ 상세");
     const backLink = document.getElementById("btn-back-index");
     if (backLink) {
-      backLink.href = article.indexPath || C.indexHref(root);
+      backLink.href = C.indexHref(root);
     }
   }
 
@@ -147,25 +210,26 @@
     const slug = C.parseSlugFromLocation();
 
     if (!slug) {
-      showError(
-        "detail/index.html?slug=기사슬러그 형태로 접속해 주세요. 예: detail/index.html?slug=pre-establish-budget"
-      );
+      showError("detail/index.html?slug=질문슬러그 형태로 접속해 주세요.");
       return;
     }
 
     try {
-      const [manifest, article] = await Promise.all([
-        C.fetchJson(C.manifestHref(root)),
-        C.fetchJson(C.articleJsonHref(slug, root)),
-      ]);
+      const manifest = await C.fetchJson(C.manifestHref(root));
+      const entry = C.findEntry(manifest, slug);
 
-      setHeader(article, root);
-      renderMeta(article);
-      renderSummary(article);
-      renderToc(article);
-      renderSections(article);
-      renderFiles(article);
-      renderRelated(article, manifest, root);
+      if (!entry) {
+        showError("요청한 질문을 찾지 못했습니다.", "newsletters.json 안의 slug를 확인해 주세요.");
+        return;
+      }
+
+      const category = C.findCategory(manifest, entry.categoryId);
+      setHeader(entry, category, root);
+      renderMeta(entry, category);
+      renderSummary(entry, category);
+      const sections = renderSections(entry);
+      const hasRelated = renderRelated(entry, manifest, root);
+      renderToc(sections, hasRelated);
 
       const loading = document.getElementById("detail-loading");
       const renderArea = document.getElementById("detail-render-area");
@@ -173,10 +237,7 @@
       if (renderArea) renderArea.hidden = false;
     } catch (error) {
       console.error(error);
-      showError(
-        "상세 데이터를 불러오지 못했습니다.",
-        "articles/" + slug + "코드 확인 요망"
-      );
+      showError("상세 데이터를 불러오지 못했습니다.", "newsletters.json 경로와 JSON 문법을 확인해 주세요.");
     }
   }
 
