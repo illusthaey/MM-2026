@@ -1,10 +1,24 @@
-/* 뉴스레터 JSON 렌더러 전용 최소 보강 */
+/* FAQ형 대문/상세 전용 보강 CSS */
+
+.page-main{
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+.page-main--xwide{
+  max-width: 1120px;
+}
+
+.page-main--narrow{
+  max-width: 920px;
+}
 
 .loading-box,
 .error-box,
 .empty-box{
   border: 1px solid #e5e7eb;
-  border-radius: 12px;
+  border-radius: 14px;
   background: #fff;
   padding: 16px;
 }
@@ -14,41 +28,20 @@
   border-color: #fed7aa;
 }
 
-.article-meta{
-  margin: 10px 0 0;
-  font-size: 0.95rem;
-  color: #666;
+.section-heading-wrap h2{
+  margin-bottom: 6px;
 }
 
-.catalog-group{
-  margin-top: 18px;
+.meta-wrap{
+  margin: 12px 0 18px;
 }
 
-.catalog-group:first-child{
-  margin-top: 0;
-}
-
-.catalog-group-head{
+.article-header-actions{
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
+  align-items: center;
   gap: 10px;
   flex-wrap: wrap;
-  margin-bottom: 10px;
-}
-
-.catalog-group-head h3{
-  margin: 0;
-}
-
-.catalog-count{
-  font-size: 0.95rem;
-  color: #666;
-}
-
-.catalog-grid{
-  display: grid;
-  gap: 14px;
+  margin-bottom: 12px;
 }
 
 .summary-list{
@@ -60,27 +53,16 @@
   margin: 8px 0;
 }
 
-.inline-chip-row{
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 10px;
-}
-
-.inline-chip{
+.badge{
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 10px;
-  border: 1px solid #d1d5db;
+  padding: 4px 10px;
   border-radius: 999px;
+  border: 1px solid #d1d5db;
   background: #f9fafb;
   font-size: 0.92rem;
-  color: #444;
-}
-
-.meta-wrap{
-  margin-top: 12px;
+  font-weight: 700;
+  color: #111;
 }
 
 .quick-note{
@@ -89,6 +71,54 @@
   background: #fafafa;
   border-radius: 8px;
   margin: 12px 0 0;
+}
+
+.check-list,
+.faq-answer-list{
+  margin: 0;
+  padding-left: 18px;
+}
+
+.check-list li,
+.faq-answer-list li{
+  margin: 6px 0;
+}
+
+.card-subtitle{
+  margin: 0 0 8px;
+  color: #555;
+}
+
+.table-wrap{
+  width: 100%;
+  overflow-x: auto;
+}
+
+.sheetlike{
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.sheetlike th,
+.sheetlike td{
+  border: 1px solid #e5e7eb;
+  padding: 8px 10px;
+}
+
+.sheetlike th{
+  background: #f9fafb;
+  text-align: left;
+}
+
+.simple-table td.left{ text-align: left !important; }
+.simple-table td.center{ text-align: center !important; }
+
+.note{
+  margin-top: 8px;
+  font-size: 0.95rem;
+  color: #666;
 }
 
 .mini-steps{
@@ -127,15 +157,6 @@
   color: #111;
 }
 
-.check-list{
-  margin: 0;
-  padding-left: 18px;
-}
-
-.check-list li{
-  margin: 6px 0;
-}
-
 .k-path{
   margin-top: 8px;
   padding: 10px 12px;
@@ -146,633 +167,344 @@
   font-size: 0.98rem;
 }
 
-.badge{
-  display: inline-block;
-  padding: 3px 10px;
-  border-radius: 999px;
-  border: 1px solid #d1d5db;
-  background: #f9fafb;
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #111;
-}
-
-.tool-card .tool-meta{
-  margin: 8px 0 0;
-  font-size: 0.92rem;
-  color: #666;
-}
-
-.section-intro-note{
-  margin-top: 10px;
+.detail-summary-card{
+  margin-bottom: 18px;
 }
 
 .summary-card-title{
   margin-top: 0;
 }
 
-.simple-table td.left{
-  text-align: left !important;
+/* 대시보드 */
+.faq-dashboard-shell{
+  display: grid;
+  gap: 18px;
 }
 
-.simple-table td.center{
-  text-align: center !important;
+.faq-dashboard-intro{
+  display: grid;
+  gap: 12px;
 }
 
-.section-placeholder[hidden],
-.hidden{
-  display: none !important;
+.faq-overview-grid{
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 
-.card-subtitle{
-  margin: 0 0 8px;
+.faq-overview-card{
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  background: #fff;
+  padding: 16px;
+}
+
+.faq-overview-card__label{
+  margin: 0;
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.faq-overview-card__value{
+  margin: 8px 0 0;
+  font-size: 1.36rem;
+  line-height: 1.3;
+  font-weight: 800;
+  color: #111;
+}
+
+.faq-overview-card__meta{
+  margin: 8px 0 0;
+  font-size: 0.95rem;
   color: #555;
 }
 
-.article-header-actions{
+.faq-category-grid{
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.faq-category-card{
+  appearance: none;
+  width: 100%;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  background: #fff;
+  padding: 18px;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.faq-category-card:hover,
+.faq-category-card:focus-visible{
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(17, 17, 17, 0.08);
+  border-color: #111;
+  outline: none;
+}
+
+.faq-category-card__top{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.faq-category-card__label{
+  font-size: 0.92rem;
+  color: #666;
+  font-weight: 700;
+}
+
+.faq-category-card__count{
+  font-size: 1.34rem;
+  font-weight: 800;
+  color: #111;
+}
+
+.faq-category-card__title{
+  margin: 0;
+  font-size: 1.18rem;
+  line-height: 1.35;
+  color: #111;
+}
+
+.faq-category-card__subtitle{
+  margin: 6px 0 0;
+  font-size: 0.96rem;
+  color: #555;
+}
+
+.faq-category-card__desc{
+  margin: 10px 0 0;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.faq-category-card.pastel-purple{ background: #f7f1ff; }
+.faq-category-card.pastel-orange{ background: #fff4ea; }
+.faq-category-card.pastel-green{ background: #f1fae7; }
+.faq-category-card.pastel-red{ background: #fff0f0; }
+.faq-category-card.pastel-teal{ background: #effcf9; }
+.faq-category-card.pastel-yellow{ background: #fff9dd; }
+
+/* 전체 보기 */
+.faq-toolbar{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.faq-filter-row{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+button.chip.faq-filter-chip{
+  font: inherit;
+  cursor: pointer;
+}
+
+.faq-filter-chip.is-active{
+  border-color: #111;
+  background: #eef2ff;
+}
+
+.faq-filter-note{
+  font-size: 0.95rem;
+  color: #666;
+  white-space: nowrap;
+}
+
+.faq-list{
+  display: grid;
+  gap: 14px;
+}
+
+.faq-card{
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.faq-card[open]{
+  border-color: #111;
+  box-shadow: 0 12px 28px rgba(17, 17, 17, 0.08);
+}
+
+.faq-card__summary{
+  list-style: none;
+  padding: 18px 20px;
+  cursor: pointer;
+  display: grid;
+  gap: 10px;
+  position: relative;
+}
+
+.faq-card__summary::-webkit-details-marker{
+  display: none;
+}
+
+.faq-card__summary::after{
+  content: "▾";
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  color: #666;
+  font-size: 1rem;
+  transition: transform 0.15s ease;
+}
+
+.faq-card:not([open]) .faq-card__summary::after{
+  transform: rotate(-90deg);
+}
+
+.faq-card__summary:focus-visible{
+  outline: 2px solid rgba(17, 17, 17, 0.25);
+  outline-offset: -2px;
+}
+
+.faq-card__topline{
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 10px;
   flex-wrap: wrap;
-  margin-bottom: 12px;
+  padding-right: 28px;
 }
 
-.article-file-card + .article-file-card{
-  margin-top: 14px;
+.faq-card__date{
+  font-size: 0.92rem;
+  color: #666;
 }
 
-@media (max-width: 640px){
-  .catalog-group-head{
-    align-items: flex-start;
+.faq-card__question{
+  margin: 0;
+  font-size: 1.2rem;
+  line-height: 1.42;
+  color: #111;
+  padding-right: 28px;
+}
+
+.faq-card__subtitle{
+  margin: 0;
+  font-size: 0.97rem;
+  color: #555;
+}
+
+.faq-card__preview-chips,
+.faq-card__meta-row{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.faq-preview-chip,
+.faq-meta-chip,
+.faq-ref-chip{
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
+  font-size: 0.92rem;
+  color: #444;
+}
+
+.faq-card__hint{
+  margin: 0;
+  font-size: 0.92rem;
+  color: #666;
+}
+
+.faq-card__body{
+  padding: 0 20px 18px;
+  background: #fcfcfc;
+  border-top: 1px solid #e5e7eb;
+}
+
+.faq-card__body-title{
+  margin: 14px 0 10px;
+  font-weight: 800;
+  color: #111;
+}
+
+/* 상세 페이지 */
+.faq-related-grid{
+  display: grid;
+  gap: 14px;
+}
+
+.faq-related-card{
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 16px;
+  background: #fff;
+}
+
+.faq-related-card__top{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.faq-related-link{
+  display: block;
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: #111;
+}
+
+.faq-related-link:hover{
+  text-decoration: underline;
+}
+
+.faq-related-card__text{
+  margin: 8px 0 0;
+  color: #555;
+}
+
+@media (max-width: 768px){
+  .faq-card__summary,
+  .faq-card__body,
+  .faq-category-card{
+    padding-left: 16px;
+    padding-right: 16px;
   }
-}
 
-/* =========================================================
-   뉴스레터 메인 페이지 카드형 대시보드 보강
-   ========================================================= */
-
-.nl-hero-grid{
-  display:grid;
-  gap:18px;
-  grid-template-columns:minmax(0, 1.15fr) minmax(320px, 0.85fr);
-  align-items:start;
-}
-
-.nl-hero-copy{
-  display:grid;
-  gap:12px;
-}
-
-.nl-stat-grid{
-  display:grid;
-  gap:12px;
-  grid-template-columns:repeat(2, minmax(0, 1fr));
-}
-
-.nl-stat-card,
-.nl-card{
-  border:1px solid #e5e7eb;
-  border-radius:14px;
-  background:#fff;
-}
-
-.nl-stat-card{
-  padding:16px;
-}
-
-.nl-stat-label{
-  margin:0;
-  font-size:0.95rem;
-  color:#666;
-}
-
-.nl-stat-value{
-  margin:6px 0 0;
-  font-size:1.45rem;
-  font-weight:700;
-  line-height:1.2;
-  color:#111;
-}
-
-.nl-stat-meta{
-  margin:8px 0 0;
-  font-size:0.94rem;
-  color:#555;
-}
-
-.nl-news-grid,
-.nl-category-grid{
-  display:grid;
-  gap:16px;
-  grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
-}
-
-.nl-news-grid--two{
-  grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
-}
-
-.nl-card{
-  padding:18px 20px;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  min-width:0;
-}
-
-.nl-card-head{
-  display:grid;
-  gap:8px;
-}
-
-.nl-card-topline{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:8px;
-  flex-wrap:wrap;
-}
-
-.nl-card-date{
-  font-size:0.92rem;
-  color:#666;
-}
-
-.nl-card-title{
-  margin:0;
-  font-size:1.22rem;
-  line-height:1.35;
-  font-weight:700;
-  color:#111;
-}
-
-.nl-card-title a{
-  color:inherit;
-}
-
-.nl-card-sub{
-  margin:0;
-  font-size:0.98rem;
-  line-height:1.55;
-  color:#555;
-}
-
-.nl-card-list{
-  margin:0;
-  padding-left:0;
-  list-style:none;
-  display:grid;
-  gap:6px;
-}
-
-.nl-card-list li{
-  margin:0;
-  font-size:0.98rem;
-  color:#333;
-}
-
-.nl-card-foot{
-  margin-top:auto;
-  display:grid;
-  gap:12px;
-}
-
-.nl-meta-row{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-}
-
-.nl-meta-chip{
-  display:inline-flex;
-  align-items:center;
-  padding:6px 10px;
-  border:1px solid #d1d5db;
-  border-radius:999px;
-  background:#f9fafb;
-  font-size:0.92rem;
-  color:#444;
-}
-
-.nl-action-row{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-}
-
-.nl-toolbar{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:14px;
-  flex-wrap:wrap;
-  margin-bottom:14px;
-}
-
-.nl-filter-row{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-}
-
-button.chip.nl-filter-chip{
-  font:inherit;
-  cursor:pointer;
-}
-
-.nl-filter-chip.is-active{
-  border-color:#111;
-  background:#eef2ff;
-}
-
-.nl-filter-note{
-  font-size:0.95rem;
-  color:#666;
-  white-space:nowrap;
-}
-
-.nl-link-btn{
-  appearance:none;
-}
-
-.loading-box,
-.error-box,
-.empty-box{
-  border:1px solid #e5e7eb;
-  border-radius:12px;
-  background:#fff;
-  padding:16px;
-}
-
-.error-box{
-  background:#fff7ed;
-  border-color:#fed7aa;
-}
-
-.article-meta{
-  margin:10px 0 0;
-  font-size:0.95rem;
-  color:#666;
-}
-
-.catalog-group{
-  margin-top:18px;
-}
-
-.catalog-group:first-child{
-  margin-top:0;
-}
-
-.catalog-group-head{
-  display:flex;
-  align-items:baseline;
-  justify-content:space-between;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-bottom:10px;
-}
-
-.catalog-group-head h3{
-  margin:0;
-}
-
-.catalog-count{
-  font-size:0.95rem;
-  color:#666;
-}
-
-.catalog-grid{
-  display:grid;
-  gap:14px;
-}
-
-.summary-list{
-  margin:0;
-  padding-left:18px;
-}
-
-.summary-list li{
-  margin:8px 0;
-}
-
-.inline-chip-row{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:10px;
-}
-
-.inline-chip{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  padding:6px 10px;
-  border:1px solid #d1d5db;
-  border-radius:999px;
-  background:#f9fafb;
-  font-size:0.92rem;
-  color:#444;
-}
-
-.meta-wrap{
-  margin-top:12px;
-}
-
-.quick-note{
-  border-left:4px solid #111;
-  padding:10px 12px;
-  background:#fafafa;
-  border-radius:8px;
-  margin:12px 0 0;
-}
-
-.mini-steps{
-  counter-reset:step;
-  list-style:none;
-  padding-left:0;
-  margin:12px 0 0;
-  display:grid;
-  gap:10px;
-}
-
-.mini-steps li{
-  position:relative;
-  padding:12px 14px 12px 50px;
-  border:1px solid #e5e7eb;
-  border-radius:12px;
-  background:#fff;
-  margin:0;
-}
-
-.mini-steps li::before{
-  counter-increment:step;
-  content:counter(step);
-  position:absolute;
-  left:14px;
-  top:12px;
-  width:24px;
-  height:24px;
-  border-radius:999px;
-  border:1px solid #111;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:700;
-  background:#fff;
-  color:#111;
-}
-
-.check-list{
-  margin:0;
-  padding-left:18px;
-}
-
-.check-list li{
-  margin:6px 0;
-}
-
-.k-path{
-  margin-top:8px;
-  padding:10px 12px;
-  background:#fff7ed;
-  border:1px solid #fed7aa;
-  border-radius:10px;
-  font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size:0.98rem;
-}
-
-.badge{
-  display:inline-block;
-  padding:3px 10px;
-  border-radius:999px;
-  border:1px solid #d1d5db;
-  background:#f9fafb;
-  font-size:0.95rem;
-  font-weight:700;
-  color:#111;
-}
-
-.tool-card .tool-meta{
-  margin:8px 0 0;
-  font-size:0.92rem;
-  color:#666;
-}
-
-.section-intro-note{
-  margin-top:10px;
-}
-
-.summary-card-title{
-  margin-top:0;
-}
-
-.simple-table td.left{
-  text-align:left !important;
-}
-
-.simple-table td.center{
-  text-align:center !important;
-}
-
-.section-placeholder[hidden],
-.hidden{
-  display:none !important;
-}
-
-.card-subtitle{
-  margin:0 0 8px;
-  color:#555;
-}
-
-.article-header-actions{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-bottom:12px;
-}
-
-.article-file-card + .article-file-card{
-  margin-top:14px;
-}
-
-body.alien-side-bg .nl-stat-card,
-body.alien-side-bg .nl-card,
-body.alien-side-bg .loading-box,
-body.alien-side-bg .error-box,
-body.alien-side-bg .empty-box{
-  box-shadow:0 6px 16px rgba(43, 30, 18, 0.05);
-}
-
-html[data-theme="retro"] .nl-stat-card,
-html[data-theme="retro"] .nl-card,
-html[data-theme="retro"] .loading-box,
-html[data-theme="retro"] .empty-box,
-html[data-theme="retro"] .error-box{
-  background:var(--retro-surface);
-  border:2px solid var(--retro-border);
-  box-shadow:6px 6px 0 var(--retro-shadow);
-}
-
-html[data-theme="retro"] .nl-meta-chip,
-html[data-theme="retro"] .badge,
-html[data-theme="retro"] .nl-filter-chip{
-  border:2px solid var(--retro-border);
-  background:rgba(255,255,255,0.85);
-  box-shadow:3px 3px 0 var(--retro-shadow);
-}
-
-html[data-theme="retro"] .nl-filter-chip.is-active{
-  background:rgba(56,189,248,0.18);
-}
-
-@media (max-width: 920px){
-  .nl-hero-grid{
-    grid-template-columns:1fr;
+  .faq-card__summary::after{
+    right: 16px;
   }
 }
 
 @media (max-width: 640px){
-  .nl-stat-grid{
-    grid-template-columns:1fr;
+  .page-main{
+    padding-left: 12px;
+    padding-right: 12px;
   }
 
-  .nl-card,
-  .nl-stat-card{
-    padding:16px;
+  .faq-toolbar{
+    align-items: stretch;
   }
 
-  .nl-action-row .btn,
-  .nl-action-row button.btn{
-    width:100%;
-    text-align:center;
+  .faq-filter-note{
+    white-space: normal;
   }
 
-  .catalog-group-head,
-  .nl-toolbar{
-    align-items:flex-start;
+  .faq-category-grid,
+  .faq-overview-grid{
+    grid-template-columns: 1fr;
   }
-
-  .nl-filter-note{
-    white-space:normal;
-  }
-}
-
-
-/* =========================================================
-   카드 전체 클릭형 메인 페이지 오버라이드 (2026.3.25)
-   ========================================================= */
-
-.nl-hero-grid{
-  display:grid;
-  gap:18px;
-  grid-template-columns:minmax(0, 1.05fr) minmax(360px, 0.95fr);
-  align-items:start;
-}
-
-.nl-stat-grid{
-  display:grid;
-  gap:12px;
-  grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
-}
-
-.nl-stat-card,
-.nl-card{
-  position:relative;
-  overflow:hidden;
-}
-
-a.nl-stat-card--link,
- a.nl-card--link{
-  display:flex;
-  flex-direction:column;
-  text-decoration:none;
-  color:inherit;
-}
-
-.nl-stat-card--link,
-.nl-card--link,
-.nl-card--button{
-  cursor:pointer;
-  transition:
-    transform 0.14s ease,
-    border-color 0.14s ease,
-    box-shadow 0.14s ease,
-    background-color 0.14s ease;
-}
-
-.nl-card--button{
-  appearance:none;
-  width:100%;
-  text-align:left;
-  font:inherit;
-  color:inherit;
-  background:#fff;
-}
-
-.nl-stat-card--link:hover,
-.nl-card--link:hover,
-.nl-card--button:hover{
-  transform:translateY(-2px);
-  border-color:#cbd5e1;
-  box-shadow:0 10px 22px rgba(15, 23, 42, 0.08);
-  background:#fcfcff;
-}
-
-.nl-stat-card--link:focus-visible,
-.nl-card--link:focus-visible,
-.nl-card--button:focus-visible{
-  outline:3px solid rgba(59, 130, 246, 0.25);
-  outline-offset:3px;
-}
-
-.nl-card-foot{
-  gap:8px;
-}
-
-.nl-card-hint{
-  margin:0;
-  font-size:0.92rem;
-  color:#666;
-}
-
-.nl-card--button .nl-card-hint,
-.nl-card--button .nl-card-title,
-.nl-card--button .nl-card-sub,
-.nl-card--button .nl-card-list li,
-.nl-card--button .nl-card-date,
-.nl-card--button .nl-meta-chip{
-  pointer-events:none;
-}
-
-@media (max-width: 960px){
-  .nl-hero-grid{
-    grid-template-columns:1fr;
-  }
-}
-
-@media (max-width: 640px){
-  .nl-stat-grid{
-    grid-template-columns:1fr;
-  }
-}
-
-html[data-theme="retro"] .nl-stat-card,
-html[data-theme="retro"] .nl-card{
-  background:var(--retro-surface);
-  border:2px solid var(--retro-border);
-  box-shadow:6px 6px 0 var(--retro-shadow);
-}
-
-html[data-theme="retro"] .nl-stat-card--link:hover,
-html[data-theme="retro"] .nl-card--link:hover,
-html[data-theme="retro"] .nl-card--button:hover{
-  background:var(--retro-surface-2);
-  box-shadow:8px 8px 0 var(--retro-shadow);
-}
-
-html[data-theme="retro"] .nl-stat-card--link:focus-visible,
-html[data-theme="retro"] .nl-card--link:focus-visible,
-html[data-theme="retro"] .nl-card--button:focus-visible{
-  outline:3px solid var(--retro-focus);
-  outline-offset:3px;
 }
