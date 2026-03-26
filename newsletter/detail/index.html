@@ -5,18 +5,17 @@
   <meta name="robots" content="noindex" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light" />
-  <title>한 입 크기로 잘라 먹는 행정 업무</title>
+  <title>한 입 행정 FAQ 상세</title>
 
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-B6PE24NSKH"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B6PE24NSKH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B6PE24NSKH');
+  </script>
 
-  gtag('config', 'G-B6PE24NSKH');
-</script>
-  
   <link rel="icon" href="/static/favicon.ico" />
   <link rel="stylesheet" href="/static/style.css" />
   <link rel="stylesheet" href="../newsletter-renderer.css" />
@@ -32,37 +31,32 @@
   <div class="alien-page-frame">
     <header class="site-header">
       <div class="shell">
-        <h1 id="article-title">업무 상세 안내</h1>
-        <p class="sub" id="article-subtitle">
-          필요한 내용만 짧고 간단하게 정리해서 안내드립니다.
-        </p>
+        <h1 id="article-title">FAQ 상세</h1>
+        <p class="sub" id="article-subtitle">짧은 답변과 관련 문서만 먼저 확인하는 상세 화면입니다.</p>
       </div>
     </header>
 
     <main class="page-main page-main--narrow" id="main-content">
       <div id="detail-loading" class="loading-box">
-        상세 데이터를 불러오는 중입니다.
+        FAQ 데이터를 불러오는 중입니다.
       </div>
 
       <div id="detail-error" hidden></div>
 
       <div id="detail-render-area" hidden>
         <div class="page-toolbar article-header-actions">
-          <a class="btn ghost" id="btn-back-index" href="/newsletter/index.html">뉴스레터 대문으로</a>
-          <a class="btn pastel-blue" id="btn-files-shortcut" href="#sec-files">첨부파일 바로가기</a>
+          <a class="btn ghost" id="btn-back-index" href="/newsletter/index.html">FAQ 대문으로</a>
         </div>
 
         <p class="muted meta-wrap" id="article-meta"></p>
 
-        <hr />
-
-        <div class="card">
-          <h2 class="summary-card-title">핵심 요약</h2>
+        <div class="card detail-summary-card">
+          <h2 class="summary-card-title">짧게 보는 답변</h2>
           <hr />
           <div id="summary-list"></div>
         </div>
 
-        <nav class="section quick-nav" aria-label="페이지 목차">
+        <nav class="section quick-nav" id="detail-toc-wrap" aria-label="페이지 목차" hidden>
           <h2>페이지 목차</h2>
           <hr />
           <div class="toc">
@@ -72,17 +66,10 @@
 
         <div id="article-sections"></div>
 
-        <section class="section" id="sec-files" hidden>
-          <h2>첨부파일</h2>
-          <p class="muted">·실제 파일 링크가 없으면 숨겨짐</p>
-          <hr />
-          <div id="files-body"></div>
-        </section>
-
         <section class="section" id="sec-related" hidden>
-          <h2>관련 읽을거리</h2>
+          <h2>같이 보면 좋은 질문</h2>
           <hr />
-          <div id="related-body"></div>
+          <div id="related-body" class="faq-related-grid"></div>
         </section>
       </div>
     </main>
