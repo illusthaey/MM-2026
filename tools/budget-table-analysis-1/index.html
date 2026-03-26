@@ -1,1 +1,2148 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>사업관리카드(담당) 마이너스 예산잔액 분석기</title>
+  <link rel="icon" href="/static/favicon.ico" />
+  <link rel="stylesheet" href="/static/style.css" />
+  <script src="/static/footer.js"></script>
+  <script src="/static/global-loader.js?v=1"></script>
+  <style>
+:root{
+  --bg: #f4f7fb;
+  --panel: #ffffff;
+  --panel-2: #f8fafc;
+  --text: #111827;
+  --muted: #6b7280;
+  --line: #d7dde8;
+  --line-strong: #b8c3d6;
+  --accent: #1d4ed8;
+  --accent-soft: #dbeafe;
+  --danger: #b91c1c;
+  --danger-soft: #fee2e2;
+  --success-soft: #ecfdf5;
+  --success-line: #a7f3d0;
+  --drop-bg: #eff6ff;
+  --shadow: 0 14px 32px rgba(15, 23, 42, 0.06);
+}
+
+*{ box-sizing: border-box; }
+html{ font-size: 16px; }
+
+body{
+  margin: 0;
+  background: linear-gradient(180deg, #f8fbff 0%, var(--bg) 100%);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", Arial, sans-serif;
+  line-height: 1.5;
+}
+
+a{ color: inherit; }
+
+.viewer-app{
+  width: min(1540px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 24px 0 36px;
+}
+
+.section{
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 22px;
+}
+
+.section + .section{ margin-top: 16px; }
+
+.hero-top{
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+h1{
+  margin: 0 0 10px;
+  font-size: 2rem;
+  line-height: 1.2;
+}
+
+.sub{
+  margin: 0;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.hero-pills{
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pill{
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #334155;
+  white-space: nowrap;
+}
+
+.dropzone{
+  margin-top: 18px;
+  border: 2px dashed #93c5fd;
+  background: var(--drop-bg);
+  border-radius: 18px;
+  min-height: 156px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 18px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+  outline: none;
+}
+
+.dropzone:hover,
+.dropzone:focus-visible{
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(29, 78, 216, 0.12);
+}
+
+.dropzone.is-dragover{
+  background: #dbeafe;
+  border-color: #2563eb;
+  transform: translateY(-1px);
+}
+
+.dropzone-inner{
+  display: grid;
+  gap: 8px;
+}
+
+.dropzone-inner strong{ font-size: 1.15rem; }
+.dropzone-inner span{ color: #334155; }
+.dropzone-inner .muted{
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.controls-grid{
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  align-items: end;
+}
+
+.field{
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.field label,
+.check-field > span{
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #334155;
+}
+
+input, select, button{
+  font: inherit;
+}
+
+input[type="text"],
+input[type="search"],
+input[type="number"],
+select{
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--line-strong);
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px 12px;
+  color: var(--text);
+  outline: none;
+}
+
+input[type="text"]:focus,
+input[type="search"]:focus,
+input[type="number"]:focus,
+select:focus{
+  border-color: #93c5fd;
+  box-shadow: 0 0 0 4px rgba(29, 78, 216, 0.12);
+}
+
+input:disabled,
+select:disabled,
+button:disabled{
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.check-field{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--panel-2);
+}
+
+.check-field input{
+  margin: 0;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+}
+
+.basis-box{
+  margin-top: 12px;
+  border: 1px solid var(--success-line);
+  background: var(--success-soft);
+  color: #065f46;
+  padding: 12px 14px;
+  border-radius: 14px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.basis-box strong{
+  color: #065f46;
+}
+
+.basis-help{
+  color: #047857;
+  font-size: 0.92rem;
+}
+
+.meta-row{
+  margin-top: 12px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.meta-info{
+  color: #334155;
+  font-size: 0.95rem;
+}
+
+.action-buttons{
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid #1f2937;
+  background: #111827;
+  color: #fff;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn:hover:not(:disabled){ filter: brightness(0.98); }
+.btn.ghost{
+  background: #fff;
+  color: #111827;
+  border-color: var(--line-strong);
+}
+.btn.danger-ghost{
+  background: #fff5f5;
+  color: #991b1b;
+  border-color: #fca5a5;
+}
+.btn.success-ghost{
+  background: #f0fdf4;
+  color: #166534;
+  border-color: #86efac;
+}
+
+.alert{
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+}
+
+.alert[data-type="error"]{
+  background: var(--danger-soft);
+  border-color: #fecaca;
+  color: var(--danger);
+}
+
+.alert[data-type="info"]{
+  background: var(--accent-soft);
+  border-color: #bfdbfe;
+  color: #1e3a8a;
+}
+
+.preface-list{
+  display: grid;
+  gap: 10px;
+}
+
+.preface-item{
+  display: grid;
+  grid-template-columns: 82px 1fr;
+  gap: 10px;
+  align-items: start;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+}
+
+.preface-row{
+  font-weight: 700;
+  color: #334155;
+}
+
+.preface-text{
+  color: var(--text);
+  word-break: break-word;
+}
+
+.table-card{
+  padding: 0;
+  overflow: hidden;
+}
+
+.table-card-header{
+  padding: 18px 22px 8px;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.table-card-header h2{
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.table-legend{
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.table-shell{
+  border-top: 1px solid var(--line);
+  width: 100%;
+  max-width: 100%;
+  max-height: 72vh;
+  overflow: auto;
+  background: #fff;
+}
+
+.grid-table{
+  width: max-content;
+  min-width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.95rem;
+}
+
+.grid-table thead th,
+.grid-table tbody td{
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+  background: #fff;
+  white-space: nowrap;
+  position: relative;
+}
+
+.grid-table thead th{
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: #eff6ff;
+  color: #1f2937;
+  font-weight: 800;
+  box-shadow: inset 0 -1px 0 #cbd5e1;
+}
+
+.grid-table thead th:first-child,
+.grid-table tbody td:first-child{
+  border-left: 1px solid var(--line);
+}
+
+.grid-table tbody tr:nth-child(even) td{
+  background: #fbfdff;
+}
+
+.grid-table td.is-numeric,
+.grid-table th.is-numeric{
+  text-align: right;
+}
+
+.grid-table .is-frozen{
+  position: sticky;
+  z-index: 22;
+  background: inherit;
+}
+
+.grid-table tbody tr:nth-child(odd) td.is-frozen{ background: #fff; }
+.grid-table tbody tr:nth-child(even) td.is-frozen{ background: #fbfdff; }
+
+.grid-table thead th.is-frozen{
+  z-index: 55;
+  background: #dbeafe;
+}
+
+.grid-table .freeze-boundary::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -1px;
+  width: 12px;
+  height: 100%;
+  pointer-events: none;
+  box-shadow: inset -10px 0 10px -10px rgba(15, 23, 42, 0.28);
+}
+
+.grid-table tbody tr.is-subtotal td{
+  background: #4b5563;
+  color: #ffffff;
+  font-weight: 700;
+  border-color: #374151;
+}
+
+.grid-table tbody tr.is-subtotal:nth-child(even) td,
+.grid-table tbody tr.is-subtotal:nth-child(odd) td{
+  background: #4b5563;
+}
+
+.grid-table tbody tr.is-subtotal td.is-frozen{
+  background: #4b5563;
+}
+
+.grid-table tbody tr.is-subtotal td.is-empty{
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.grid-table tbody tr.is-subtotal td.freeze-boundary::after{
+  box-shadow: inset -10px 0 10px -10px rgba(0, 0, 0, 0.38);
+}
+
+.grid-table td.is-negative-balance{
+  background: #fee2e2;
+  color: #b91c1c;
+  font-weight: 800;
+  border-color: #fecaca;
+}
+
+.grid-table tbody tr:nth-child(even) td.is-negative-balance,
+.grid-table tbody tr:nth-child(odd) td.is-negative-balance,
+.grid-table td.is-negative-balance.is-frozen{
+  background: #fee2e2;
+}
+
+.grid-table tbody tr.is-subtotal td.is-negative-balance{
+  background: #b91c1c;
+  color: #ffffff;
+  border-color: #991b1b;
+}
+
+.grid-table tbody tr.is-subtotal td.is-negative-balance.is-frozen{
+  background: #b91c1c;
+}
+
+.grid-table tbody tr.is-row-hoverable td{
+  transition: background-color 0.14s ease, box-shadow 0.14s ease, color 0.14s ease;
+}
+
+.grid-table tbody tr.is-row-hoverable:hover td{
+  background: #eff6ff;
+  box-shadow: inset 0 1px 0 #bfdbfe, inset 0 -1px 0 #bfdbfe;
+}
+
+.grid-table tbody tr.is-row-hoverable:hover td.is-frozen{
+  background: #eff6ff;
+}
+
+.grid-table tbody tr.is-row-hoverable:hover td.is-negative-balance,
+.grid-table tbody tr.is-row-hoverable:hover td.is-negative-balance.is-frozen{
+  background: #fecaca;
+  box-shadow: inset 0 1px 0 #fca5a5, inset 0 -1px 0 #fca5a5;
+}
+
+.grid-table tbody tr.is-subtotal.is-row-hoverable:hover td,
+.grid-table tbody tr.is-subtotal.is-row-hoverable:hover td.is-frozen{
+  background: #374151;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), inset 0 -1px 0 rgba(255, 255, 255, 0.16);
+}
+
+.grid-table tbody tr.is-subtotal.is-row-hoverable:hover td.is-negative-balance,
+.grid-table tbody tr.is-subtotal.is-row-hoverable:hover td.is-negative-balance.is-frozen{
+  background: #991b1b;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), inset 0 -1px 0 rgba(255, 255, 255, 0.16);
+}
+
+.grid-table tbody tr.is-row-focused td{
+  background: #dbeafe;
+  box-shadow: inset 0 0 0 1px #60a5fa;
+}
+
+.grid-table tbody tr.is-row-focused td.is-frozen{
+  background: #dbeafe;
+}
+
+.grid-table tbody tr.is-row-focused td.is-negative-balance,
+.grid-table tbody tr.is-row-focused td.is-negative-balance.is-frozen{
+  background: #fecaca;
+  box-shadow: inset 0 0 0 1px #ef4444;
+}
+
+.grid-table tbody tr.is-subtotal.is-row-focused td,
+.grid-table tbody tr.is-subtotal.is-row-focused td.is-frozen{
+  background: #1f2937;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.24);
+}
+
+.grid-table tbody tr.is-subtotal.is-row-focused td.is-negative-balance,
+.grid-table tbody tr.is-subtotal.is-row-focused td.is-negative-balance.is-frozen{
+  background: #7f1d1d;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.24);
+}
+
+.grid-table td.is-empty{ color: #cbd5e1; }
+
+.no-data{
+  padding: 18px 22px 22px;
+  color: var(--muted);
+  font-size: 0.98rem;
+}
+
+.note-list{
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+}
+
+.note-list li + li{
+  margin-top: 6px;
+}
+
+.footer-note{
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.picker-stack{
+  margin-top: 14px;
+  display: grid;
+  gap: 12px;
+}
+
+.picker-card{
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--panel-2);
+  padding: 14px;
+}
+
+.picker-top{
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.picker-card h3{
+  margin: 0;
+  font-size: 1rem;
+}
+
+.picker-help{
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.picker-toolbar{
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.picker-toolbar .btn{
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+
+.picker-summary{
+  color: #334155;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.checkbox-grid{
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 8px;
+}
+
+.column-check{
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  background: #fff;
+  border-radius: 12px;
+  min-height: 52px;
+}
+
+.column-check input{
+  margin: 2px 0 0;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+  flex: 0 0 auto;
+}
+
+.column-letter{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--accent-soft);
+  color: #1e3a8a;
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1;
+  flex: 0 0 auto;
+}
+
+.column-check-text{
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.column-check-title{
+  color: #0f172a;
+  font-weight: 700;
+  word-break: break-word;
+}
+
+.column-check-sub{
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.section-title{
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.report-header{
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.report-meta{
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.negative-report-list{
+  margin-top: 14px;
+  display: grid;
+  gap: 10px;
+}
+
+.negative-report-item{
+  display: block;
+  width: 100%;
+  border: 1px solid #fecaca;
+  background: #fff7f7;
+  border-radius: 14px;
+  padding: 12px 14px;
+  text-align: left;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: background-color 0.14s ease, border-color 0.14s ease, box-shadow 0.14s ease, transform 0.14s ease;
+}
+
+.negative-report-item:hover,
+.negative-report-item:focus-visible{
+  background: #fff1f2;
+  border-color: #f87171;
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.12);
+  transform: translateY(-1px);
+}
+
+.negative-report-item:focus-visible{ outline: none; }
+
+.negative-report-item.is-active{
+  background: #fee2e2;
+  border-color: #ef4444;
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.16);
+}
+
+.negative-report-line{
+  color: #991b1b;
+  font-weight: 800;
+  word-break: break-word;
+}
+
+.negative-report-sub{
+  margin-top: 4px;
+  color: #7f1d1d;
+  font-size: 0.88rem;
+}
+
+@media (max-width: 1280px){
+  .controls-grid{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px){
+  .viewer-app{
+    width: min(100%, calc(100% - 16px));
+    padding-top: 16px;
+  }
+
+  .section{
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  .controls-grid{
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .table-card-header{
+    padding: 16px 18px 8px;
+  }
+
+  .table-shell{
+    max-height: 68vh;
+  }
+}
+
+@media (max-width: 640px){
+  h1{ font-size: 1.62rem; }
+  .controls-grid{ grid-template-columns: 1fr; }
+  .preface-item{
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  .table-shell{ max-height: 64vh; }
+  .grid-table thead th,
+  .grid-table tbody td{
+    padding: 9px 10px;
+    font-size: 0.92rem;
+  }
+}
+
+@media print{
+  body{ background: #fff; }
+  .viewer-app{ width: 100%; padding: 0; }
+  .section{ box-shadow: none; border-radius: 0; }
+  .dropzone, .controls-section{ display: none !important; }
+  .table-shell{ max-height: none; overflow: visible; }
+  .grid-table thead th{ position: static; }
+  .grid-table .is-frozen{ position: static; }
+}
+  </style>
+</head>
+<body class="alien-side-bg">
+<div class="alien-page-frame">
+  <main class="viewer-app">
+    <section class="section">
+      <div class="hero-top">
+        <div>
+          <h1>사업관리카드(담당) 마이너스 예산잔액 분석기</h1>
+          <p class="sub">사업관리카드(담당) 형식의 엑셀을 브라우저에서 바로 분석합니다. 표시할 열과 틀고정 열을 선택할 수 있고, 음수 검출 기준은 F열(원인행위 후 예산 잔액)입니다.</p>
+        </div>
+        <div class="hero-pills" aria-hidden="true">
+          <span class="pill">단일 HTML</span>
+          <span class="pill">F열 음수 검출</span>
+          <span class="pill">표시 열 선택</span>
+          <span class="pill">틀고정 선택</span>
+        </div>
+      </div>
+
+      <div id="dropzone" class="dropzone" role="button" tabindex="0" aria-label="엑셀 파일 업로드">
+        <input type="file" id="fileInput" accept=".xls,.xlsx,.xlsm,.xltx,.xltm" hidden>
+        <div class="dropzone-inner">
+          <strong>엑셀 파일을 여기로 드래그하거나 클릭해서 선택</strong>
+          <span>.xls / .xlsx / .xlsm 형식 지원</span>
+          <span class="muted">파일은 현재 브라우저 안에서만 읽고, 서버로 업로드하지 않습니다.</span>
+        </div>
+      </div>
+
+      <div class="footer-note">
+        <ul class="note-list">
+          <li>사업관리카드(담당)처럼 제목 행이 위에 있고 헤더가 1줄인 표를 기준으로 동작합니다. 헤더 행은 자동 감지되며 필요하면 직접 바꿀 수 있습니다.</li>
+          <li>병합 셀이 있으면 기본으로 값을 펼쳐서 보여주고, 필요하면 해제해서 원본처럼 볼 수 있습니다.</li>
+          <li>음수 검출 기준은 항상 F열입니다. 표에서 F열을 숨겨도 검출 목록과 행 이동은 유지됩니다.</li>
+          <li>결과 다운로드는 현재 화면 기준 음수 항목 목록을 별도 엑셀 파일로 저장합니다.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section controls-section">
+      <div class="controls-grid">
+        <div class="field">
+          <label for="sheetSelect">시트</label>
+          <select id="sheetSelect" disabled></select>
+        </div>
+
+        <div class="field">
+          <label for="headerRowInput">헤더 행</label>
+          <input type="number" id="headerRowInput" min="1" step="1" value="1" disabled>
+        </div>
+
+        <div class="field">
+          <label for="freezeSelect">틀고정 열</label>
+          <select id="freezeSelect" disabled></select>
+        </div>
+
+        <div class="field">
+          <label for="filterInput">검색</label>
+          <input type="search" id="filterInput" placeholder="세부사업, 산출내역 등 검색" disabled>
+        </div>
+
+        <div class="field">
+          <span>병합 셀 처리</span>
+          <label class="check-field" for="expandMerged">
+            <input type="checkbox" id="expandMerged" checked disabled>
+            <span>값 펼쳐서 보기</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="basis-box" id="basisBox">
+        <div>
+          <strong>음수 검출 기준</strong>
+          <div id="negativeBasisText" class="basis-help">F열 기준</div>
+        </div>
+        <div class="basis-help">기준 열은 고정이며, 음수 검출 목록과 표 강조가 모두 F열을 기준으로 동작합니다.</div>
+      </div>
+
+      <div class="picker-stack">
+        <div class="picker-card">
+          <div class="picker-top">
+            <div>
+              <h3>보기 컬럼 선택</h3>
+              <div class="picker-help">체크한 컬럼만 표에 표시합니다.</div>
+            </div>
+            <div class="picker-toolbar">
+              <button type="button" class="btn ghost" id="visibleColsAllBtn" disabled>전체 표시</button>
+              <button type="button" class="btn ghost" id="visibleColsCoreBtn" disabled>앞 4개만</button>
+              <span class="picker-summary" id="visibleColsSummary">아직 불러온 파일이 없습니다.</span>
+            </div>
+          </div>
+          <div id="visibleColsList" class="checkbox-grid" aria-live="polite"></div>
+        </div>
+      </div>
+
+      <div class="meta-row">
+        <div id="metaInfo" class="meta-info">아직 불러온 파일이 없습니다.</div>
+        <div class="action-buttons">
+          <button type="button" class="btn success-ghost" id="downloadReportBtn" disabled>검출목록 다운로드</button>
+          <button type="button" class="btn ghost" id="clearSearchBtn" disabled>검색 지우기</button>
+          <button type="button" class="btn ghost danger-ghost" id="removeFileBtn" disabled>업로드 파일 삭제</button>
+        </div>
+      </div>
+
+      <div id="alertBox" class="alert" hidden></div>
+    </section>
+
+    <section class="section" id="prefaceCard" hidden>
+      <h2 style="margin-top:0; font-size:1.15rem;">헤더 위쪽 정보</h2>
+      <div id="prefaceList" class="preface-list"></div>
+    </section>
+
+    <section class="section" id="negativeReportCard" hidden>
+      <div class="report-header">
+        <h2 class="section-title">F열 음수 항목 검출 내역</h2>
+        <div id="negativeReportMeta" class="report-meta"></div>
+      </div>
+      <div id="negativeReportList" class="negative-report-list"></div>
+    </section>
+
+    <section class="section table-card" id="tableCard" hidden>
+      <div class="table-card-header">
+        <h2>표 미리보기</h2>
+        <div id="tableLegend" class="table-legend"></div>
+      </div>
+      <div id="tableShell" class="table-shell">
+        <table id="gridTable" class="grid-table" aria-live="polite"></table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+(() => {
+  const EMPTY_CELL = Object.freeze({ text: "", raw: "", numeric: false });
+  const NEGATIVE_COL_INDEX = 5; // F열
+  const CORE_VISIBLE_COUNT = 4;
+
+  const state = {
+    workbook: null,
+    currentSheetName: "",
+    sheetSettings: {},
+    filterText: "",
+    stickyRaf: 0,
+    rowFocusTimer: 0,
+    reportFocusTimer: 0,
+    xlsxReady: false
+  };
+
+  const els = {
+    dropzone: document.getElementById("dropzone"),
+    fileInput: document.getElementById("fileInput"),
+    sheetSelect: document.getElementById("sheetSelect"),
+    headerRowInput: document.getElementById("headerRowInput"),
+    freezeSelect: document.getElementById("freezeSelect"),
+    expandMerged: document.getElementById("expandMerged"),
+    filterInput: document.getElementById("filterInput"),
+    clearSearchBtn: document.getElementById("clearSearchBtn"),
+    removeFileBtn: document.getElementById("removeFileBtn"),
+    downloadReportBtn: document.getElementById("downloadReportBtn"),
+    visibleColsAllBtn: document.getElementById("visibleColsAllBtn"),
+    visibleColsCoreBtn: document.getElementById("visibleColsCoreBtn"),
+    visibleColsList: document.getElementById("visibleColsList"),
+    visibleColsSummary: document.getElementById("visibleColsSummary"),
+    metaInfo: document.getElementById("metaInfo"),
+    alertBox: document.getElementById("alertBox"),
+    negativeBasisText: document.getElementById("negativeBasisText"),
+    prefaceCard: document.getElementById("prefaceCard"),
+    prefaceList: document.getElementById("prefaceList"),
+    negativeReportCard: document.getElementById("negativeReportCard"),
+    negativeReportMeta: document.getElementById("negativeReportMeta"),
+    negativeReportList: document.getElementById("negativeReportList"),
+    tableCard: document.getElementById("tableCard"),
+    tableShell: document.getElementById("tableShell"),
+    gridTable: document.getElementById("gridTable"),
+    tableLegend: document.getElementById("tableLegend")
+  };
+
+  function setAlert(message, type = "info") {
+    if (!message) {
+      els.alertBox.hidden = true;
+      els.alertBox.textContent = "";
+      els.alertBox.removeAttribute("data-type");
+      return;
+    }
+    els.alertBox.hidden = false;
+    els.alertBox.dataset.type = type;
+    els.alertBox.textContent = message;
+  }
+
+  function setMeta(text) {
+    els.metaInfo.textContent = text;
+  }
+
+  function formatFileSize(bytes) {
+    if (!Number.isFinite(bytes)) return "";
+    if (bytes < 1024) return `${bytes} B`;
+    const units = ["KB", "MB", "GB"];
+    let size = bytes / 1024;
+    let unitIndex = 0;
+    while (size >= 1024 && unitIndex < units.length - 1) {
+      size /= 1024;
+      unitIndex += 1;
+    }
+    return `${size.toFixed(size >= 100 ? 0 : size >= 10 ? 1 : 2)} ${units[unitIndex]}`;
+  }
+
+  function clamp(value, min, max) {
+    return Math.min(Math.max(value, min), max);
+  }
+
+  function normalizeText(value) {
+    return value == null ? "" : String(value);
+  }
+
+  function normalizeCompareText(value) {
+    return normalizeText(value)
+      .toLowerCase()
+      .replace(/[\s\[\]\(\){}<>【】「」『』\/\\|,:;'"`~!@#$%^&*_+=?-]/g, "");
+  }
+
+  function makeCell(text, raw = "", numeric = false) {
+    const normalized = normalizeText(text);
+    if (!normalized && !raw && !numeric) return EMPTY_CELL;
+    return { text: normalized, raw, numeric };
+  }
+
+  function indexToColumnLetters(index) {
+    let n = index;
+    let result = "";
+    while (n > 0) {
+      const rem = (n - 1) % 26;
+      result = String.fromCharCode(65 + rem) + result;
+      n = Math.floor((n - 1) / 26);
+    }
+    return result || "A";
+  }
+
+  function splitCellRef(ref) {
+    const match = /^([A-Z]+)(\d+)$/i.exec(normalizeText(ref).trim());
+    if (!match) return null;
+    return {
+      col: columnLettersToIndex(match[1]),
+      row: Number(match[2])
+    };
+  }
+
+  function columnLettersToIndex(letters) {
+    let index = 0;
+    for (const ch of letters.toUpperCase()) {
+      index = index * 26 + (ch.charCodeAt(0) - 64);
+    }
+    return index;
+  }
+
+  function getRawNumericValue(cell) {
+    if (!cell) return null;
+    const value = typeof cell.raw === "number" ? cell.raw : Number(cell.raw);
+    return Number.isFinite(value) ? value : null;
+  }
+
+  function getDefaultVisibleColumns(sheet) {
+    return Array.from({ length: sheet.maxCol }, (_, idx) => idx);
+  }
+
+  function sanitizeColumnSelection(selection, maxCol, { allowEmpty = true, fallback = [] } = {}) {
+    let values = Array.isArray(selection) ? selection.slice() : [];
+    values = values
+      .map((value) => Number(value))
+      .filter((value) => Number.isInteger(value) && value >= 0 && value < maxCol)
+      .filter((value, index, arr) => arr.indexOf(value) === index)
+      .sort((a, b) => a - b);
+
+    if (!values.length && fallback.length) {
+      values = sanitizeColumnSelection(fallback, maxCol, { allowEmpty: true, fallback: [] });
+    }
+    if (!allowEmpty && !values.length && maxCol > 0) {
+      values = [0];
+    }
+    return values;
+  }
+
+  function isSubtotalRow(cells) {
+    const normalized = cells.map((cell) => normalizeCompareText(cell?.text)).join("");
+    return normalized.includes("합계") || normalized.includes("소계");
+  }
+
+  function serializeCellText(cell, headerText = "") {
+    const header = normalizeText(headerText);
+    let text = normalizeText(cell?.text).trim();
+
+    if (!text) {
+      const raw = cell?.raw;
+      text = raw == null ? "" : String(raw);
+    }
+    if (!text) return "";
+
+    if (cell?.numeric && !/%/.test(text) && !/원$/.test(text) && !/률/.test(header)) {
+      const raw = getRawNumericValue(cell);
+      if (raw !== null) {
+        const base = new Intl.NumberFormat("ko-KR").format(Math.abs(raw));
+        return `${raw < 0 ? "-" : ""}${base}원`;
+      }
+      return `${text}원`;
+    }
+    return text;
+  }
+
+  function deriveReportFileName(fileName) {
+    const dotIndex = fileName.lastIndexOf(".");
+    const base = dotIndex > 0 ? fileName.slice(0, dotIndex) : fileName;
+    return `${base}_음수검출목록.xlsx`;
+  }
+
+  function loadScript(src) {
+    return new Promise((resolve, reject) => {
+      const existing = document.querySelector(`script[data-dynamic-src="${src}"]`);
+      if (existing) {
+        if (existing.dataset.loaded === "1" && window.XLSX) {
+          resolve();
+          return;
+        }
+        existing.addEventListener("load", () => resolve(), { once: true });
+        existing.addEventListener("error", () => reject(new Error(`스크립트를 불러오지 못했습니다: ${src}`)), { once: true });
+        return;
+      }
+
+      const script = document.createElement("script");
+      script.src = src;
+      script.defer = true;
+      script.dataset.dynamicSrc = src;
+      script.onload = () => {
+        script.dataset.loaded = "1";
+        resolve();
+      };
+      script.onerror = () => reject(new Error(`스크립트를 불러오지 못했습니다: ${src}`));
+      document.head.appendChild(script);
+    });
+  }
+
+  async function ensureXLSX() {
+    if (window.XLSX) {
+      state.xlsxReady = true;
+      return;
+    }
+    const candidates = [
+      "/static/xlsx.full.min.js",
+      "https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"
+    ];
+
+    let lastError = null;
+    for (const src of candidates) {
+      try {
+        await loadScript(src);
+        if (window.XLSX) {
+          state.xlsxReady = true;
+          return;
+        }
+      } catch (error) {
+        lastError = error;
+      }
+    }
+    throw lastError || new Error("엑셀 분석 스크립트를 불러오지 못했습니다.");
+  }
+
+  function normalizeSheetCell(cell) {
+    if (!cell || cell.t === "z") return EMPTY_CELL;
+
+    const raw = cell.v;
+    let text = "";
+
+    if (cell.w != null && cell.w !== "") {
+      text = String(cell.w);
+    } else if (window.XLSX && XLSX.utils && typeof XLSX.utils.format_cell === "function") {
+      try {
+        text = String(XLSX.utils.format_cell(cell));
+      } catch (_) {
+        text = raw == null ? "" : String(raw);
+      }
+    } else {
+      text = raw == null ? "" : String(raw);
+    }
+
+    const isDateLike =
+      cell.t === "d" ||
+      !!(cell.z && window.XLSX && XLSX.SSF && typeof XLSX.SSF.is_date === "function" && XLSX.SSF.is_date(cell.z));
+
+    const numeric = cell.t === "n" && !isDateLike && typeof raw === "number" && Number.isFinite(raw);
+    return makeCell(text, raw, numeric);
+  }
+
+  function detectHeaderRow(matrix) {
+    if (!matrix.length) return 1;
+
+    const lookAhead = Math.min(matrix.length, 30);
+    let bestRow = 1;
+    let bestScore = -Infinity;
+
+    for (let rowIndex = 0; rowIndex < lookAhead; rowIndex += 1) {
+      const row = matrix[rowIndex] || [];
+      const cells = row.filter((cell) => cell && normalizeText(cell.text).trim() !== "");
+      const nonEmpty = cells.length;
+      if (nonEmpty < 2) continue;
+
+      const unique = new Set(cells.map((cell) => normalizeText(cell.text).trim())).size;
+      const numericCount = cells.filter((cell) => cell.numeric).length;
+      const textCount = nonEmpty - numericCount;
+      const avgLength = cells.reduce((sum, cell) => sum + normalizeText(cell.text).length, 0) / Math.max(nonEmpty, 1);
+
+      const score =
+        nonEmpty * 12 +
+        unique * 3 +
+        textCount * 4 -
+        numericCount * 3 +
+        Math.min(avgLength, 20) * 0.2 -
+        rowIndex * 0.25;
+
+      if (score > bestScore) {
+        bestScore = score;
+        bestRow = rowIndex + 1;
+      }
+    }
+
+    return bestRow;
+  }
+
+  function parseWorksheet(sheetName) {
+    if (!state.workbook) throw new Error("워크북이 없습니다.");
+    if (state.workbook.parsedSheets[sheetName]) return state.workbook.parsedSheets[sheetName];
+
+    const ws = state.workbook.wb.Sheets[sheetName];
+    const ref = ws && ws["!ref"] ? ws["!ref"] : "A1:A1";
+    const range = XLSX.utils.decode_range(ref);
+
+    const maxRow = Math.max(range.e.r + 1, 1);
+    const maxCol = Math.max(range.e.c + 1, 1);
+
+    const rawMatrix = Array.from({ length: maxRow }, () => Array.from({ length: maxCol }, () => EMPTY_CELL));
+
+    for (let r = range.s.r; r <= range.e.r; r += 1) {
+      for (let c = range.s.c; c <= range.e.c; c += 1) {
+        const address = XLSX.utils.encode_cell({ r, c });
+        const cell = ws[address];
+        if (!cell) continue;
+        rawMatrix[r][c] = normalizeSheetCell(cell);
+      }
+    }
+
+    const expandedMatrix = rawMatrix.map((row) => row.slice());
+    const merges = Array.isArray(ws["!merges"]) ? ws["!merges"] : [];
+    merges.forEach((merge) => {
+      const source = rawMatrix[merge.s.r]?.[merge.s.c] || EMPTY_CELL;
+      for (let r = merge.s.r; r <= merge.e.r; r += 1) {
+        for (let c = merge.s.c; c <= merge.e.c; c += 1) {
+          if (r === merge.s.r && c === merge.s.c) continue;
+          if (expandedMatrix[r]) {
+            expandedMatrix[r][c] = source;
+          }
+        }
+      }
+    });
+
+    const parsed = {
+      name: sheetName,
+      ws,
+      rawMatrix,
+      expandedMatrix,
+      maxRow,
+      maxCol,
+      detectedHeaderRow: detectHeaderRow(rawMatrix)
+    };
+
+    state.workbook.parsedSheets[sheetName] = parsed;
+    return parsed;
+  }
+
+  function getCurrentSettings(sheet) {
+    if (!state.sheetSettings[sheet.name]) {
+      state.sheetSettings[sheet.name] = {
+        headerRow: sheet.detectedHeaderRow || 1,
+        freezeCount: Math.min(1, Math.max(sheet.maxCol, 0)),
+        expandMerged: true,
+        visibleColumns: getDefaultVisibleColumns(sheet)
+      };
+    }
+
+    const settings = state.sheetSettings[sheet.name];
+    settings.headerRow = clamp(Number(settings.headerRow) || 1, 1, Math.max(sheet.maxRow, 1));
+    settings.freezeCount = clamp(Number(settings.freezeCount) || 0, 0, Math.max(sheet.maxCol, 0));
+    settings.expandMerged = !!settings.expandMerged;
+    settings.visibleColumns = sanitizeColumnSelection(settings.visibleColumns, sheet.maxCol, {
+      allowEmpty: false,
+      fallback: getDefaultVisibleColumns(sheet)
+    });
+    settings.freezeCount = clamp(settings.freezeCount, 0, settings.visibleColumns.length);
+    return settings;
+  }
+
+  function getAllHeaders(sheet, settings) {
+    const matrix = settings.expandMerged ? sheet.expandedMatrix : sheet.rawMatrix;
+    const rowIndex = clamp((Number(settings.headerRow) || 1) - 1, 0, Math.max(matrix.length - 1, 0));
+    const headerRow = matrix[rowIndex] || [];
+    return Array.from({ length: sheet.maxCol }, (_, idx) => {
+      const text = normalizeText(headerRow[idx]?.text).trim();
+      return text || `열 ${idx + 1}`;
+    });
+  }
+
+  function extractPrefaceRows(sheet, headerRow) {
+    const items = [];
+    for (let rowIndex = 0; rowIndex < headerRow - 1; rowIndex += 1) {
+      const texts = (sheet.rawMatrix[rowIndex] || [])
+        .map((cell) => normalizeText(cell.text).trim())
+        .filter(Boolean);
+      if (!texts.length) continue;
+      items.push({
+        row: rowIndex + 1,
+        text: texts.join(" | ")
+      });
+    }
+    return items;
+  }
+
+  function buildViewModel(sheet, settings) {
+    const matrix = settings.expandMerged ? sheet.expandedMatrix : sheet.rawMatrix;
+    const headerRow = clamp(Number(settings.headerRow) || 1, 1, Math.max(sheet.maxRow, 1));
+    const allHeaders = getAllHeaders(sheet, settings);
+    const visibleColumns = sanitizeColumnSelection(settings.visibleColumns, sheet.maxCol, {
+      allowEmpty: false,
+      fallback: getDefaultVisibleColumns(sheet)
+    });
+    const visibleHeaders = visibleColumns.map((originalIndex) => ({
+      originalIndex,
+      label: allHeaders[originalIndex] || `열 ${originalIndex + 1}`,
+      letter: indexToColumnLetters(originalIndex + 1)
+    }));
+
+    const filterText = normalizeText(state.filterText).trim().toLowerCase();
+    const rows = [];
+    let totalDataRows = 0;
+
+    for (let rowIndex = headerRow; rowIndex < matrix.length; rowIndex += 1) {
+      const row = matrix[rowIndex] || [];
+      const allCells = Array.from({ length: sheet.maxCol }, (_, idx) => row[idx] || EMPTY_CELL);
+      const hasContent = allCells.some((cell) => normalizeText(cell?.text).trim() !== "");
+      if (!hasContent) continue;
+
+      totalDataRows += 1;
+
+      if (filterText) {
+        const matches = allCells.some((cell) => normalizeText(cell?.text).toLowerCase().includes(filterText));
+        if (!matches) continue;
+      }
+
+      rows.push({
+        excelRow: rowIndex + 1,
+        allCells,
+        visibleCells: visibleColumns.map((colIndex) => allCells[colIndex] || EMPTY_CELL),
+        isSubtotal: isSubtotalRow(allCells)
+      });
+    }
+
+    return {
+      allHeaders,
+      visibleHeaders,
+      visibleColumns,
+      rows,
+      prefaceRows: extractPrefaceRows(sheet, headerRow),
+      headerRow,
+      colCount: sheet.maxCol,
+      visibleColCount: visibleColumns.length,
+      totalDataRows
+    };
+  }
+
+  function getNegativeHeaderLabel(viewModel) {
+    if (NEGATIVE_COL_INDEX >= viewModel.colCount) return "F열";
+    return `${indexToColumnLetters(NEGATIVE_COL_INDEX + 1)}열 (${viewModel.allHeaders[NEGATIVE_COL_INDEX] || "음수 기준 컬럼"})`;
+  }
+
+  function isNegativeBudgetCell(cell, originalColIndex) {
+    if (originalColIndex !== NEGATIVE_COL_INDEX) return false;
+    const value = getRawNumericValue(cell);
+    return value !== null && value < 0;
+  }
+
+  function getRowPathText(row) {
+    const a = normalizeText(row.allCells[0]?.text).trim();
+    const b = normalizeText(row.allCells[1]?.text).trim();
+    const parts = [a, b].filter(Boolean);
+    if (parts.length) return parts.join("/");
+    return row.allCells
+      .map((cell) => normalizeText(cell?.text).trim())
+      .filter(Boolean)
+      .slice(0, 2)
+      .join("/");
+  }
+
+  function collectNegativeHits(viewModel) {
+    if (NEGATIVE_COL_INDEX >= viewModel.colCount) return [];
+    const hits = [];
+
+    viewModel.rows.forEach((row) => {
+      const cell = row.allCells[NEGATIVE_COL_INDEX] || EMPTY_CELL;
+      if (!isNegativeBudgetCell(cell, NEGATIVE_COL_INDEX)) return;
+
+      const pathText = getRowPathText(row);
+      const headerText = viewModel.allHeaders[NEGATIVE_COL_INDEX] || "F열";
+      const valueText = serializeCellText(cell, headerText);
+      const summaryText = `${pathText || `${row.excelRow}행`} ${headerText} ${valueText}`.trim();
+
+      hits.push({
+        excelRow: row.excelRow,
+        columnLetter: indexToColumnLetters(NEGATIVE_COL_INDEX + 1),
+        colIndex: NEGATIVE_COL_INDEX,
+        headerText,
+        valueText,
+        summaryText,
+        row
+      });
+    });
+
+    return hits;
+  }
+
+  function formatColumnSummary(headers, selectedIndices) {
+    if (!selectedIndices.length) return "선택 없음";
+    const labels = selectedIndices.map((index) => `${indexToColumnLetters(index + 1)} ${headers[index]}`);
+    if (labels.length <= 3) return labels.join(", ");
+    return `${labels.slice(0, 3).join(", ")} 외 ${labels.length - 3}개`;
+  }
+
+  function renderColumnCheckboxes(container, headers, selectedIndices) {
+    container.innerHTML = "";
+    const selectedSet = new Set(selectedIndices);
+
+    headers.forEach((headerText, index) => {
+      const label = document.createElement("label");
+      label.className = "column-check";
+
+      const input = document.createElement("input");
+      input.type = "checkbox";
+      input.dataset.colIndex = String(index);
+      input.checked = selectedSet.has(index);
+
+      const badge = document.createElement("span");
+      badge.className = "column-letter";
+      badge.textContent = indexToColumnLetters(index + 1);
+
+      const textWrap = document.createElement("span");
+      textWrap.className = "column-check-text";
+
+      const title = document.createElement("span");
+      title.className = "column-check-title";
+      title.textContent = headerText || `열 ${index + 1}`;
+
+      const sub = document.createElement("span");
+      sub.className = "column-check-sub";
+      sub.textContent = `${index + 1}번째 컬럼`;
+
+      textWrap.appendChild(title);
+      textWrap.appendChild(sub);
+
+      label.appendChild(input);
+      label.appendChild(badge);
+      label.appendChild(textWrap);
+      container.appendChild(label);
+    });
+  }
+
+  function updateFreezeOptions(visibleHeaders, currentValue) {
+    const existing = Number(currentValue);
+    els.freezeSelect.innerHTML = "";
+    const maxColumns = visibleHeaders.length;
+    for (let count = 0; count <= maxColumns; count += 1) {
+      const option = document.createElement("option");
+      option.value = String(count);
+      if (count === 0) {
+        option.textContent = "고정 안 함";
+      } else {
+        const lastHeader = visibleHeaders[count - 1];
+        const suffix = lastHeader ? ` (${lastHeader.letter} ${lastHeader.label})` : "";
+        option.textContent = `${count}열까지 고정${suffix}`;
+      }
+      if (count === existing) option.selected = true;
+      els.freezeSelect.appendChild(option);
+    }
+  }
+
+  function renderPreface(prefaceRows) {
+    if (!prefaceRows.length) {
+      els.prefaceCard.hidden = true;
+      els.prefaceList.innerHTML = "";
+      return;
+    }
+
+    els.prefaceCard.hidden = false;
+    els.prefaceList.innerHTML = "";
+    prefaceRows.forEach((item) => {
+      const wrapper = document.createElement("div");
+      wrapper.className = "preface-item";
+
+      const rowLabel = document.createElement("div");
+      rowLabel.className = "preface-row";
+      rowLabel.textContent = `${item.row}행`;
+
+      const text = document.createElement("div");
+      text.className = "preface-text";
+      text.textContent = item.text;
+
+      wrapper.appendChild(rowLabel);
+      wrapper.appendChild(text);
+      els.prefaceList.appendChild(wrapper);
+    });
+  }
+
+  function clearFocusedTableRow() {
+    clearTimeout(state.rowFocusTimer);
+    clearTimeout(state.reportFocusTimer);
+    state.rowFocusTimer = 0;
+    state.reportFocusTimer = 0;
+
+    els.gridTable.querySelectorAll("tbody tr.is-row-focused").forEach((row) => {
+      row.classList.remove("is-row-focused");
+    });
+
+    els.negativeReportList.querySelectorAll(".negative-report-item.is-active").forEach((item) => {
+      item.classList.remove("is-active");
+    });
+  }
+
+  function focusTableRow(excelRow, colIndex = -1, reportItem = null) {
+    const row = els.gridTable.querySelector(`tbody tr[data-excel-row="${Number(excelRow)}"]`);
+    if (!row) {
+      setAlert("현재 표에서 해당 행을 찾지 못했습니다. 검색이나 시트 설정을 확인해 주세요.", "error");
+      return;
+    }
+
+    const targetCell = Number.isInteger(Number(colIndex))
+      ? row.querySelector(`td[data-original-col-index="${Number(colIndex)}"]`)
+      : null;
+    const targetNode = targetCell || row;
+    const shell = els.tableShell;
+    const shellRect = shell.getBoundingClientRect();
+    const targetRect = targetNode.getBoundingClientRect();
+
+    const nextTop = Math.max(
+      0,
+      shell.scrollTop + (targetRect.top - shellRect.top) - (shell.clientHeight / 2) + (targetRect.height / 2)
+    );
+
+    let nextLeft = shell.scrollLeft;
+    if (targetCell) {
+      const cellRect = targetCell.getBoundingClientRect();
+      const sidePadding = 24;
+      if (cellRect.left < shellRect.left + sidePadding) {
+        nextLeft += cellRect.left - shellRect.left - sidePadding;
+      } else if (cellRect.right > shellRect.right - sidePadding) {
+        nextLeft += cellRect.right - shellRect.right + sidePadding;
+      }
+      nextLeft = Math.max(0, nextLeft);
+    }
+
+    clearFocusedTableRow();
+    row.classList.add("is-row-focused");
+    if (reportItem) {
+      reportItem.classList.add("is-active");
+    }
+
+    els.tableCard.scrollIntoView({ behavior: "smooth", block: "start" });
+    shell.scrollTo({ top: nextTop, left: nextLeft, behavior: "smooth" });
+
+    state.rowFocusTimer = window.setTimeout(() => {
+      row.classList.remove("is-row-focused");
+    }, 2200);
+
+    if (reportItem) {
+      state.reportFocusTimer = window.setTimeout(() => {
+        reportItem.classList.remove("is-active");
+      }, 2200);
+    }
+  }
+
+  function renderNegativeReport(viewModel) {
+    if (!state.workbook) {
+      els.negativeReportCard.hidden = true;
+      els.negativeReportList.innerHTML = "";
+      els.negativeReportMeta.textContent = "";
+      return;
+    }
+
+    const hits = collectNegativeHits(viewModel);
+    els.negativeReportCard.hidden = false;
+    els.negativeReportList.innerHTML = "";
+
+    const basisText = getNegativeHeaderLabel(viewModel);
+    const filterSuffix = state.filterText ? " · 검색 적용" : "";
+
+    if (NEGATIVE_COL_INDEX >= viewModel.colCount) {
+      const empty = document.createElement("div");
+      empty.className = "alert";
+      empty.dataset.type = "error";
+      empty.textContent = "현재 시트에 F열이 없어 음수 검출을 할 수 없습니다.";
+      els.negativeReportList.appendChild(empty);
+      els.negativeReportMeta.textContent = `검출 불가 · 기준 ${basisText}`;
+      return;
+    }
+
+    if (!hits.length) {
+      const empty = document.createElement("div");
+      empty.className = "alert";
+      empty.dataset.type = "info";
+      empty.textContent = "현재 화면 기준으로 F열 음수 항목이 없습니다.";
+      els.negativeReportList.appendChild(empty);
+      els.negativeReportMeta.textContent = `0건 · 기준 ${basisText}${filterSuffix}`;
+      return;
+    }
+
+    hits.forEach((hit) => {
+      const item = document.createElement("button");
+      item.type = "button";
+      item.className = "negative-report-item";
+      item.dataset.excelRow = String(hit.excelRow);
+      item.dataset.colIndex = String(hit.colIndex);
+      item.title = "클릭하면 아래 표의 해당 행으로 이동합니다.";
+      item.setAttribute("aria-label", `${hit.summaryText} / 클릭하면 아래 표의 ${hit.excelRow}행으로 이동`);
+      item.addEventListener("click", () => {
+        focusTableRow(hit.excelRow, hit.colIndex, item);
+      });
+
+      const line = document.createElement("div");
+      line.className = "negative-report-line";
+      line.textContent = hit.summaryText;
+
+      const sub = document.createElement("div");
+      sub.className = "negative-report-sub";
+      sub.textContent = `${hit.excelRow}행 · ${hit.columnLetter}열 · ${hit.headerText} · 클릭하면 아래 표로 이동`;
+
+      item.appendChild(line);
+      item.appendChild(sub);
+      els.negativeReportList.appendChild(item);
+    });
+
+    els.negativeReportMeta.textContent = `${hits.length}건 · 기준 ${basisText}${filterSuffix}`;
+  }
+
+  function queueStickyUpdate() {
+    cancelAnimationFrame(state.stickyRaf);
+    state.stickyRaf = requestAnimationFrame(() => {
+      requestAnimationFrame(applyStickyColumns);
+    });
+  }
+
+  function applyStickyColumns() {
+    const table = els.gridTable;
+    if (!table.tHead || !table.tHead.rows.length) return;
+
+    const headerCells = Array.from(table.tHead.rows[0].cells);
+    const freezeCount = clamp(Number(els.freezeSelect.value || "0"), 0, headerCells.length);
+
+    table.querySelectorAll(".is-frozen, .freeze-boundary").forEach((cell) => {
+      cell.classList.remove("is-frozen", "freeze-boundary");
+      cell.style.left = "";
+    });
+
+    if (!freezeCount) return;
+
+    const leftOffsets = [];
+    let currentLeft = 0;
+    for (let idx = 0; idx < freezeCount; idx += 1) {
+      const width = headerCells[idx]?.getBoundingClientRect().width || 0;
+      leftOffsets[idx] = currentLeft;
+      currentLeft += width;
+    }
+
+    table.querySelectorAll("[data-visible-col-index]").forEach((cell) => {
+      const visibleColIndex = Number(cell.getAttribute("data-visible-col-index"));
+      if (visibleColIndex >= freezeCount) return;
+      cell.classList.add("is-frozen");
+      cell.style.left = `${leftOffsets[visibleColIndex] || 0}px`;
+      if (visibleColIndex === freezeCount - 1) {
+        cell.classList.add("freeze-boundary");
+      }
+    });
+  }
+
+  function renderNoData(text, viewModel, sheet) {
+    clearFocusedTableRow();
+    els.tableCard.hidden = false;
+    els.tableShell.querySelectorAll(".no-data").forEach((node) => node.remove());
+
+    const noData = document.createElement("div");
+    noData.className = "no-data";
+    noData.textContent = text;
+    els.tableShell.appendChild(noData);
+
+    const totalRows = viewModel.totalDataRows;
+    const filePart = `${state.workbook.fileName} (${formatFileSize(state.workbook.fileSize)})`;
+    const sheetPart = `시트: ${sheet.name}`;
+    const headerPart = `헤더: ${viewModel.headerRow}행`;
+    const rowPart = state.filterText ? `행: 0 / ${totalRows}` : "행: 0";
+    const colPart = `열: ${viewModel.visibleColCount} / ${viewModel.colCount}`;
+    setMeta([filePart, sheetPart, headerPart, rowPart, colPart].join(" · "));
+    els.tableLegend.textContent = state.filterText
+      ? `검색 결과 0행 / 전체 ${totalRows}행 · ${viewModel.visibleColCount}/${viewModel.colCount}열`
+      : `0행 · ${viewModel.visibleColCount}/${viewModel.colCount}열`;
+
+    queueStickyUpdate();
+  }
+
+  function renderTable(sheet, viewModel) {
+    clearFocusedTableRow();
+    const table = els.gridTable;
+    table.innerHTML = "";
+
+    if (!viewModel.visibleHeaders.length) {
+      renderNoData("표에 표시할 컬럼을 1개 이상 선택해 주세요.", viewModel, sheet);
+      return;
+    }
+
+    if (!viewModel.rows.length) {
+      renderNoData(state.filterText ? "검색 조건에 맞는 행이 없습니다." : "표시할 데이터 행이 없습니다.", viewModel, sheet);
+      return;
+    }
+
+    els.tableShell.querySelectorAll(".no-data").forEach((node) => node.remove());
+
+    const thead = document.createElement("thead");
+    const headRow = document.createElement("tr");
+    viewModel.visibleHeaders.forEach((header, visibleIndex) => {
+      const th = document.createElement("th");
+      th.scope = "col";
+      th.dataset.visibleColIndex = String(visibleIndex);
+      th.dataset.originalColIndex = String(header.originalIndex);
+      th.textContent = header.label;
+      th.title = `${header.letter}열 · ${header.label}`;
+      if ((header.originalIndex === 2) || (header.originalIndex === 3) || (header.originalIndex === 5) || (header.originalIndex === 6)) {
+        th.classList.add("is-numeric");
+      }
+      headRow.appendChild(th);
+    });
+    thead.appendChild(headRow);
+
+    const tbody = document.createElement("tbody");
+    viewModel.rows.forEach((row) => {
+      const tr = document.createElement("tr");
+      tr.classList.add("is-row-hoverable");
+      tr.dataset.excelRow = String(row.excelRow);
+      if (row.isSubtotal) {
+        tr.classList.add("is-subtotal");
+      }
+
+      row.visibleCells.forEach((cell, visibleIndex) => {
+        const header = viewModel.visibleHeaders[visibleIndex];
+        const td = document.createElement("td");
+        td.dataset.visibleColIndex = String(visibleIndex);
+        td.dataset.originalColIndex = String(header.originalIndex);
+        td.textContent = normalizeText(cell.text);
+        td.title = normalizeText(cell.text);
+        if (!cell.text) td.classList.add("is-empty");
+        if (cell.numeric) td.classList.add("is-numeric");
+        if (isNegativeBudgetCell(cell, header.originalIndex)) {
+          td.classList.add("is-negative-balance");
+        }
+        tr.appendChild(td);
+      });
+
+      tbody.appendChild(tr);
+    });
+
+    table.appendChild(thead);
+    table.appendChild(tbody);
+
+    const shownRows = viewModel.rows.length;
+    const totalRows = viewModel.totalDataRows;
+    const filePart = `${state.workbook.fileName} (${formatFileSize(state.workbook.fileSize)})`;
+    const sheetPart = `시트: ${sheet.name}`;
+    const headerPart = `헤더: ${viewModel.headerRow}행`;
+    const rowPart = state.filterText ? `행: ${shownRows} / ${totalRows}` : `행: ${shownRows}`;
+    const colPart = `열: ${viewModel.visibleColCount} / ${viewModel.colCount}`;
+    setMeta([filePart, sheetPart, headerPart, rowPart, colPart].join(" · "));
+
+    els.tableLegend.textContent = state.filterText
+      ? `검색 결과 ${shownRows}행 / 전체 ${totalRows}행 · ${viewModel.visibleColCount}/${viewModel.colCount}열`
+      : `${shownRows}행 · ${viewModel.visibleColCount}/${viewModel.colCount}열`;
+
+    els.tableCard.hidden = false;
+    queueStickyUpdate();
+  }
+
+  function syncControls(sheet, settings, viewModel) {
+    const hasWorkbook = !!state.workbook;
+
+    els.sheetSelect.disabled = !hasWorkbook;
+    els.headerRowInput.disabled = !hasWorkbook;
+    els.freezeSelect.disabled = !hasWorkbook;
+    els.expandMerged.disabled = !hasWorkbook;
+    els.filterInput.disabled = !hasWorkbook;
+    els.clearSearchBtn.disabled = !hasWorkbook || !state.filterText;
+    els.removeFileBtn.disabled = !hasWorkbook;
+    els.downloadReportBtn.disabled = !hasWorkbook;
+    els.visibleColsAllBtn.disabled = !hasWorkbook;
+    els.visibleColsCoreBtn.disabled = !hasWorkbook;
+
+    if (!hasWorkbook || !sheet || !viewModel) {
+      els.sheetSelect.innerHTML = "";
+      els.freezeSelect.innerHTML = "";
+      els.headerRowInput.min = "1";
+      els.headerRowInput.max = "1";
+      els.headerRowInput.value = "1";
+      els.expandMerged.checked = true;
+      els.filterInput.value = "";
+      els.visibleColsList.innerHTML = "";
+      els.visibleColsSummary.textContent = "아직 불러온 파일이 없습니다.";
+      els.negativeBasisText.textContent = "F열 기준";
+      return;
+    }
+
+    els.sheetSelect.innerHTML = "";
+    state.workbook.wb.SheetNames.forEach((name) => {
+      const option = document.createElement("option");
+      option.value = name;
+      option.textContent = name;
+      els.sheetSelect.appendChild(option);
+    });
+
+    els.sheetSelect.value = sheet.name;
+    els.headerRowInput.min = "1";
+    els.headerRowInput.max = String(Math.max(sheet.maxRow, 1));
+    els.headerRowInput.value = String(settings.headerRow);
+    els.expandMerged.checked = !!settings.expandMerged;
+    els.filterInput.value = state.filterText;
+
+    settings.freezeCount = clamp(Number(settings.freezeCount) || 0, 0, viewModel.visibleHeaders.length);
+    updateFreezeOptions(viewModel.visibleHeaders, settings.freezeCount);
+    els.freezeSelect.value = String(settings.freezeCount);
+
+    renderColumnCheckboxes(els.visibleColsList, viewModel.allHeaders, settings.visibleColumns);
+    els.visibleColsSummary.textContent = `${settings.visibleColumns.length}/${viewModel.allHeaders.length}개 선택 · ${formatColumnSummary(viewModel.allHeaders, settings.visibleColumns)}`;
+
+    const negativeHeader = NEGATIVE_COL_INDEX < viewModel.colCount
+      ? viewModel.allHeaders[NEGATIVE_COL_INDEX]
+      : "현재 시트에 F열 없음";
+    els.negativeBasisText.textContent = NEGATIVE_COL_INDEX < viewModel.colCount
+      ? `F열 · ${negativeHeader}`
+      : "현재 시트에 F열이 없어 검출할 수 없습니다.";
+  }
+
+  async function renderCurrentSheet() {
+    if (!state.workbook || !state.currentSheetName) return;
+
+    const sheet = parseWorksheet(state.currentSheetName);
+    const settings = getCurrentSettings(sheet);
+    const viewModel = buildViewModel(sheet, settings);
+
+    syncControls(sheet, settings, viewModel);
+    renderPreface(viewModel.prefaceRows);
+    renderNegativeReport(viewModel);
+    renderTable(sheet, viewModel);
+  }
+
+  function clearLoadedWorkbook(message = "", type = "info") {
+    state.workbook = null;
+    state.currentSheetName = "";
+    state.sheetSettings = {};
+    state.filterText = "";
+    cancelAnimationFrame(state.stickyRaf);
+    clearTimeout(state.rowFocusTimer);
+    clearTimeout(state.reportFocusTimer);
+
+    els.fileInput.value = "";
+    els.filterInput.value = "";
+    els.dropzone.classList.remove("is-dragover");
+    els.sheetSelect.innerHTML = "";
+    els.freezeSelect.innerHTML = "";
+    els.visibleColsList.innerHTML = "";
+    els.gridTable.innerHTML = "";
+    els.prefaceList.innerHTML = "";
+    els.negativeReportList.innerHTML = "";
+    els.tableLegend.textContent = "";
+    els.negativeReportMeta.textContent = "";
+    els.tableShell.querySelectorAll(".no-data").forEach((node) => node.remove());
+    els.tableShell.scrollTop = 0;
+    els.tableShell.scrollLeft = 0;
+    els.tableCard.hidden = true;
+    els.prefaceCard.hidden = true;
+    els.negativeReportCard.hidden = true;
+
+    syncControls(null, null, null);
+    setMeta("아직 불러온 파일이 없습니다.");
+    if (message) {
+      setAlert(message, type);
+    } else {
+      setAlert("");
+    }
+  }
+
+  async function loadWorkbookFromFile(file) {
+    if (!file) return;
+    await ensureXLSX();
+
+    setAlert("");
+    setMeta("파일을 읽는 중입니다...");
+    els.tableCard.hidden = true;
+    els.prefaceCard.hidden = true;
+    els.negativeReportCard.hidden = true;
+
+    const data = await file.arrayBuffer();
+    const wb = XLSX.read(data, {
+      type: "array",
+      cellNF: true,
+      cellStyles: true,
+      cellText: true,
+      dense: false
+    });
+
+    if (!wb || !Array.isArray(wb.SheetNames) || !wb.SheetNames.length) {
+      throw new Error("표시할 시트를 찾지 못했습니다.");
+    }
+
+    state.workbook = {
+      fileName: file.name,
+      fileSize: file.size,
+      wb,
+      parsedSheets: {}
+    };
+    state.currentSheetName = wb.SheetNames[0];
+    state.sheetSettings = {};
+    state.filterText = "";
+
+    const firstSheet = parseWorksheet(state.currentSheetName);
+    const settings = getCurrentSettings(firstSheet);
+    settings.headerRow = firstSheet.detectedHeaderRow || 1;
+    settings.freezeCount = Math.min(1, Math.max(firstSheet.maxCol, 0));
+    settings.expandMerged = true;
+    settings.visibleColumns = getDefaultVisibleColumns(firstSheet);
+
+    await renderCurrentSheet();
+    setAlert("파일을 불러왔습니다. 사업관리카드(담당) 기준으로 F열 음수 항목을 바로 검출합니다.", "info");
+  }
+
+  function handleFile(file) {
+    loadWorkbookFromFile(file).catch((error) => {
+      console.error(error);
+      clearLoadedWorkbook();
+      setMeta("파일을 불러오지 못했습니다.");
+      setAlert(error.message || "파일을 읽는 중 문제가 발생했습니다.", "error");
+    });
+  }
+
+  function bindDropzone() {
+    const openPicker = () => els.fileInput.click();
+
+    els.dropzone.addEventListener("click", openPicker);
+    els.dropzone.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openPicker();
+      }
+    });
+
+    ["dragenter", "dragover"].forEach((eventName) => {
+      els.dropzone.addEventListener(eventName, (event) => {
+        event.preventDefault();
+        els.dropzone.classList.add("is-dragover");
+      });
+    });
+
+    ["dragleave", "dragend", "drop"].forEach((eventName) => {
+      els.dropzone.addEventListener(eventName, (event) => {
+        event.preventDefault();
+        if (eventName !== "drop") {
+          els.dropzone.classList.remove("is-dragover");
+        }
+      });
+    });
+
+    els.dropzone.addEventListener("drop", (event) => {
+      els.dropzone.classList.remove("is-dragover");
+      const file = event.dataTransfer?.files?.[0];
+      if (file) handleFile(file);
+    });
+
+    els.fileInput.addEventListener("change", (event) => {
+      const file = event.target.files?.[0];
+      if (file) handleFile(file);
+      event.target.value = "";
+    });
+  }
+
+  function bindControls() {
+    els.sheetSelect.addEventListener("change", async () => {
+      if (!state.workbook) return;
+      state.currentSheetName = els.sheetSelect.value;
+      const sheet = parseWorksheet(state.currentSheetName);
+      getCurrentSettings(sheet);
+      await renderCurrentSheet();
+    });
+
+    els.headerRowInput.addEventListener("change", async () => {
+      if (!state.workbook) return;
+      const sheet = parseWorksheet(state.currentSheetName);
+      const settings = getCurrentSettings(sheet);
+      settings.headerRow = clamp(Number(els.headerRowInput.value) || 1, 1, Math.max(sheet.maxRow, 1));
+      await renderCurrentSheet();
+    });
+
+    els.freezeSelect.addEventListener("change", async () => {
+      if (!state.workbook) return;
+      const sheet = parseWorksheet(state.currentSheetName);
+      const settings = getCurrentSettings(sheet);
+      settings.freezeCount = clamp(Number(els.freezeSelect.value) || 0, 0, settings.visibleColumns.length);
+      await renderCurrentSheet();
+    });
+
+    els.expandMerged.addEventListener("change", async () => {
+      if (!state.workbook) return;
+      const sheet = parseWorksheet(state.currentSheetName);
+      const settings = getCurrentSettings(sheet);
+      settings.expandMerged = els.expandMerged.checked;
+      await renderCurrentSheet();
+    });
+
+    let searchTimer = 0;
+    els.filterInput.addEventListener("input", () => {
+      clearTimeout(searchTimer);
+      searchTimer = window.setTimeout(async () => {
+        state.filterText = els.filterInput.value.trim();
+        els.clearSearchBtn.disabled = !state.filterText;
+        await renderCurrentSheet();
+      }, 120);
+    });
+
+    els.clearSearchBtn.addEventListener("click", async () => {
+      state.filterText = "";
+      els.filterInput.value = "";
+      els.clearSearchBtn.disabled = true;
+      await renderCurrentSheet();
+    });
+
+    els.removeFileBtn.addEventListener("click", () => {
+      if (!state.workbook) return;
+      clearLoadedWorkbook("불러온 파일을 화면에서 삭제했습니다. 다른 파일을 다시 올릴 수 있습니다.", "info");
+    });
+
+    els.visibleColsAllBtn.addEventListener("click", async () => {
+      if (!state.workbook) return;
+      const sheet = parseWorksheet(state.currentSheetName);
+      const settings = getCurrentSettings(sheet);
+      settings.visibleColumns = getDefaultVisibleColumns(sheet);
+      settings.freezeCount = clamp(settings.freezeCount, 0, settings.visibleColumns.length);
+      await renderCurrentSheet();
+    });
+
+    els.visibleColsCoreBtn.addEventListener("click", async () => {
+      if (!state.workbook) return;
+      const sheet = parseWorksheet(state.currentSheetName);
+      const settings = getCurrentSettings(sheet);
+      settings.visibleColumns = Array.from({ length: Math.min(CORE_VISIBLE_COUNT, sheet.maxCol) }, (_, idx) => idx);
+      settings.freezeCount = clamp(settings.freezeCount, 0, settings.visibleColumns.length);
+      await renderCurrentSheet();
+    });
+
+    els.visibleColsList.addEventListener("change", async (event) => {
+      const input = event.target;
+      if (!(input instanceof HTMLInputElement) || input.type !== "checkbox") return;
+      if (!state.workbook) return;
+
+      const sheet = parseWorksheet(state.currentSheetName);
+      const settings = getCurrentSettings(sheet);
+      const colIndex = Number(input.dataset.colIndex);
+      const next = new Set(settings.visibleColumns);
+
+      if (input.checked) {
+        next.add(colIndex);
+      } else {
+        next.delete(colIndex);
+      }
+
+      if (!next.size) {
+        input.checked = true;
+        setAlert("표에 표시할 컬럼은 1개 이상 선택해야 합니다.", "error");
+        return;
+      }
+
+      settings.visibleColumns = Array.from(next).sort((a, b) => a - b);
+      settings.freezeCount = clamp(settings.freezeCount, 0, settings.visibleColumns.length);
+      await renderCurrentSheet();
+    });
+
+    els.downloadReportBtn.addEventListener("click", downloadNegativeReport);
+
+    window.addEventListener("resize", queueStickyUpdate);
+    if ("ResizeObserver" in window) {
+      const resizeObserver = new ResizeObserver(() => queueStickyUpdate());
+      resizeObserver.observe(els.tableShell);
+    }
+  }
+
+  async function downloadNegativeReport() {
+    if (!state.workbook) return;
+    try {
+      await ensureXLSX();
+      const sheet = parseWorksheet(state.currentSheetName);
+      const settings = getCurrentSettings(sheet);
+      const viewModel = buildViewModel(sheet, settings);
+      const hits = collectNegativeHits(viewModel);
+
+      if (!hits.length) {
+        setAlert("현재 화면 기준으로 다운로드할 음수 항목이 없습니다.", "info");
+        return;
+      }
+
+      const aoa = [
+        ["원본시트", "원본행", ...viewModel.allHeaders]
+      ];
+
+      hits.forEach((hit) => {
+        aoa.push([
+          sheet.name,
+          hit.excelRow,
+          ...hit.row.allCells.map((cell, index) => serializeCellText(cell, viewModel.allHeaders[index] || ""))
+        ]);
+      });
+
+      const reportWs = XLSX.utils.aoa_to_sheet(aoa);
+      reportWs["!cols"] = aoa[0].map((_, index) => ({
+        wch: index < 2 ? 12 : Math.min(32, Math.max(12, ...aoa.slice(0, 50).map((row) => normalizeText(row[index]).length + 2)))
+      }));
+
+      const reportWb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(reportWb, reportWs, "음수검출");
+      XLSX.writeFile(reportWb, deriveReportFileName(state.workbook.fileName));
+
+      setAlert(`음수 검출 목록 ${hits.length}건을 엑셀 파일로 다운로드했습니다.`, "info");
+    } catch (error) {
+      console.error(error);
+      setAlert(error.message || "검출 목록 파일을 만드는 중 문제가 발생했습니다.", "error");
+    }
+  }
+
+  async function init() {
+    syncControls(null, null, null);
+    bindDropzone();
+    bindControls();
+    setAlert("엑셀 엔진을 준비하는 중입니다...", "info");
+    try {
+      await ensureXLSX();
+      setAlert("엑셀 엔진 준비가 끝났습니다. .xls / .xlsx / .xlsm 파일을 바로 올릴 수 있습니다.", "info");
+    } catch (error) {
+      console.error(error);
+      setAlert(error.message || "엑셀 엔진을 준비하지 못했습니다.", "error");
+    }
+  }
+
+  init();
+})();
+</script>
+</body>
+</html>
 
