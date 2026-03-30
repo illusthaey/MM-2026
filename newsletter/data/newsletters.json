@@ -46,7 +46,7 @@
     {
       "id": "expenditure",
       "title": "세출",
-      "subtitle": "지출결의·증빙서류 등",
+      "subtitle": "지출결의·강사료 증빙서류·과목경정 등",
       "dashboardDescription": "교직원 급여, 강사료, 자원봉사료 등 인건비성 지출 위주로 다룹니다. ",
       "buttonClass": "pastel-teal"
     },
