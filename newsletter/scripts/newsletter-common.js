@@ -8,6 +8,10 @@
     return root + "/data/newsletters.json";
   }
 
+  function articleDataHref(slug, root = getRoot()) {
+    return root + "/data/articles/" + encodeURIComponent(slug || "") + ".json";
+  }
+
   function detailHref(slug, root = getRoot()) {
     return root + "/detail/index.html?slug=" + encodeURIComponent(slug || "");
   }
@@ -88,7 +92,12 @@
   }
 
   function sortByUpdatedDesc(items) {
-    return [...normalizeArray(items)].sort((a, b) => {
+    const list = [...normalizeArray(items)];
+    const hasDatedEntry = list.some((item) => !!(Date.parse(item?.updatedAtIso || "") || 0));
+
+    if (!hasDatedEntry) return list;
+
+    return list.sort((a, b) => {
       const aa = Date.parse(a?.updatedAtIso || "") || 0;
       const bb = Date.parse(b?.updatedAtIso || "") || 0;
       return bb - aa;
@@ -334,6 +343,37 @@
       return wrap;
     }
 
+    if (block.type === "imageCards") {
+      const grid = createEl("div", "grid " + ((block.columns || 2) === 3 ? "three" : "two"));
+      normalizeArray(block.cards).forEach((cardItem) => {
+        const card = createEl("div", "card article-image-card");
+        const title = createEl("h3", "", cardItem?.title || "");
+        title.style.marginTop = "0";
+        card.appendChild(title);
+
+        normalizeArray(cardItem?.paragraphs).forEach((text) => {
+          card.appendChild(richTextNode("p", "", text));
+        });
+
+        if (cardItem?.src) {
+          const figure = createEl("figure", "article-image-figure");
+          const img = document.createElement("img");
+          img.className = "article-image";
+          img.src = cardItem.src;
+          img.alt = cardItem.alt || cardItem.title || "안내 이미지";
+          img.loading = "lazy";
+          figure.appendChild(img);
+          if (cardItem?.alt || cardItem?.caption) {
+            figure.appendChild(createEl("figcaption", "article-image-caption", cardItem.caption || cardItem.alt));
+          }
+          card.appendChild(figure);
+        }
+
+        grid.appendChild(card);
+      });
+      return grid;
+    }
+
     if (block.type === "steps") {
       const list = createEl("ol", "mini-steps");
       normalizeArray(block.items).forEach((item) => {
@@ -409,9 +449,90 @@
     }
   }
 
+  function stripHtmlTags(value) {
+    return String(value || "").replace(/<[^>]*>/g, " ");
+  }
+
+  function flattenSearchText(value) {
+    if (value === undefined || value === null) return "";
+
+    if (
+      typeof value === "string" ||
+      typeof value === "number" ||
+      typeof value === "boolean"
+    ) {
+      return String(value);
+    }
+
+    if (Array.isArray(value)) {
+      return value.map((item) => flattenSearchText(item)).filter(Boolean).join(" ");
+    }
+
+    if (typeof value === "object") {
+      if (typeof value.html === "string") {
+        return stripHtmlTags(value.html);
+      }
+
+      return Object.values(value)
+        .map((item) => flattenSearchText(item))
+        .filter(Boolean)
+        .join(" ");
+    }
+
+    return "";
+  }
+
+  function normalizeSearchText(value) {
+    return flattenSearchText(value)
+      .toLowerCase()
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function tokenizeSearchQuery(query) {
+    const normalized = normalizeSearchText(query);
+    return normalized ? normalized.split(" ").filter(Boolean) : [];
+  }
+
+  function matchesSearchQuery(target, queryOrTokens) {
+    const tokens = Array.isArray(queryOrTokens) ? queryOrTokens : tokenizeSearchQuery(queryOrTokens);
+    if (!tokens.length) return true;
+
+    const haystack = normalizeSearchText(target);
+    const condensed = haystack.replace(/\s+/g, "");
+
+    return tokens.every((token) => {
+      const normalizedToken = normalizeSearchText(token);
+      const condensedToken = normalizedToken.replace(/\s+/g, "");
+      return haystack.includes(normalizedToken) || (!!condensedToken && condensed.includes(condensedToken));
+    });
+  }
+
+  function getFaqSearchText(item, category) {
+    return [
+      getQuestion(item),
+      item?.title,
+      item?.subtitle,
+      normalizeArray(item?.summaryBullets),
+      getAnswerLines(item),
+      normalizeArray(item?.keywords),
+      normalizeArray(item?.references),
+      category?.title,
+      category?.subtitle,
+      category?.dashboardDescription,
+    ].map((part) => flattenSearchText(part)).join(" ");
+  }
+
+  function getSectionSearchText(section) {
+    return [section?.title, section?.subtitle, flattenSearchText(section?.blocks)]
+      .map((part) => flattenSearchText(part))
+      .join(" ");
+  }
+
   window.NewsletterCommon = {
     getRoot,
     manifestHref,
+    articleDataHref,
     detailHref,
     indexHref,
     fetchJson,
@@ -439,5 +560,12 @@
     renderError,
     ensureText,
     scrollToId,
+    stripHtmlTags,
+    flattenSearchText,
+    normalizeSearchText,
+    tokenizeSearchQuery,
+    matchesSearchQuery,
+    getFaqSearchText,
+    getSectionSearchText,
   };
 })();

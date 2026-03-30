@@ -4,21 +4,27 @@
   if (!C) return;
 
   const state = {
-    manifest: null,
     root: "",
+    manifest: null,
     activeCategory: "all",
+    searchQuery: "",
   };
 
   function renderHeader(manifest) {
-    C.ensureText("page-title", manifest?.site?.heading || "한 입 크기로 잘라 먹는 행정 업무");
-    C.ensureText("page-subtitle", manifest?.site?.subtitle || "");
-    document.title = manifest?.site?.pageTitle || "한 입 행정 FAQ";
+    C.ensureText("page-title", manifest?.site?.heading || manifest?.site?.pageTitle || "한 입 행정 FAQ");
+    C.ensureText(
+      "page-subtitle",
+      manifest?.site?.subtitle || "자주 묻는 질문만 짧게 펼쳐보는 FAQ형 안내 페이지입니다."
+    );
+
+    if (manifest?.site?.pageTitle) {
+      document.title = manifest.site.pageTitle;
+    }
   }
 
   function renderDashboardIntro(manifest) {
     const introTarget = document.getElementById("dashboard-intro");
     const statusTarget = document.getElementById("dashboard-status");
-    const latest = C.getLatestEntry(manifest);
 
     if (introTarget) {
       introTarget.innerHTML = "";
@@ -37,10 +43,7 @@
         C.setRichText(span, chip);
         statusTarget.appendChild(span);
       });
-
-      if (latest?.updatedAtText) {
-        statusTarget.appendChild(C.createEl("span", "chip", "최근 수정 기준: " + latest.updatedAtText));
-      }
+      statusTarget.hidden = !statusTarget.children.length;
     }
   }
 
@@ -50,7 +53,6 @@
 
     const entries = C.getEntries(manifest);
     const categories = C.normalizeArray(manifest?.categories);
-    const latest = C.getLatestEntry(manifest);
 
     const cards = [
       {
@@ -64,9 +66,9 @@
         meta: "기초 행정부터 예산까지 분야별로 나누었습니다.",
       },
       {
-        label: "최근 수정",
-        value: latest?.updatedAtText || "-",
-        meta: "가장 최근에 손본 질문 기준입니다.",
+        label: "검색",
+        value: "질문·답변·키워드",
+        meta: "전체 보기에서 원하는 표현을 바로 찾을 수 있습니다.",
       },
     ];
 
@@ -150,19 +152,15 @@
     });
   }
 
-  function createFaqCard(entry, category) {
+  function createFaqCard(entry, category, options = {}) {
     const details = document.createElement("details");
     details.className = "faq-card";
     details.id = "faq-" + encodeURIComponent(entry.slug || "item");
+    details.open = !!options.forceOpen;
 
     const summary = C.createEl("summary", "faq-card__summary");
     const top = C.createEl("div", "faq-card__topline");
     top.appendChild(C.createEl("span", "badge", category?.title || "FAQ"));
-
-    if (entry?.updatedAtText) {
-      top.appendChild(C.createEl("span", "faq-card__date", entry.updatedAtText));
-    }
-
     summary.appendChild(top);
     summary.appendChild(C.createEl("h3", "faq-card__question", C.getQuestion(entry)));
 
@@ -207,29 +205,58 @@
     return details;
   }
 
+  function getFilteredEntries() {
+    if (!state.manifest) return [];
+
+    const tokens = C.tokenizeSearchQuery(state.searchQuery);
+    const entries = C.sortByUpdatedDesc(C.getEntries(state.manifest));
+    const categoryFiltered = state.activeCategory === "all"
+      ? entries
+      : entries.filter((item) => item.categoryId === state.activeCategory);
+
+    return categoryFiltered.filter((entry) => {
+      const category = C.findCategory(state.manifest, entry.categoryId);
+      return C.matchesSearchQuery(C.getFaqSearchText(entry, category), tokens);
+    });
+  }
+
+  function renderSearchStatus(resultCount, activeCategory) {
+    const note = document.getElementById("faq-search-note");
+    if (!note) return;
+
+    if (!state.searchQuery.trim()) {
+      note.textContent = "질문·답변·키워드·관련 문서까지 함께 찾습니다.";
+      return;
+    }
+
+    note.textContent = "\"" + state.searchQuery.trim() + "\" 검색 결과: " + (activeCategory?.title || "전체") + " " + resultCount + "개";
+  }
+
   function renderFaqList() {
     const target = document.getElementById("faq-list");
     const countTarget = document.getElementById("faq-count");
     if (!target || !state.manifest) return;
 
-    const entries = C.sortByUpdatedDesc(C.getEntries(state.manifest));
-    const filtered = state.activeCategory === "all"
-      ? entries
-      : entries.filter((item) => item.categoryId === state.activeCategory);
-
+    const filtered = getFilteredEntries();
     const activeCategory = state.activeCategory === "all"
       ? null
       : C.findCategory(state.manifest, state.activeCategory);
+    const hasSearch = !!state.searchQuery.trim();
 
     target.innerHTML = "";
 
     if (countTarget) {
-      countTarget.textContent = (activeCategory?.title || "전체") + " FAQ " + filtered.length + "개";
+      countTarget.textContent = (activeCategory?.title || "전체") + (hasSearch ? " 검색 결과 " : " FAQ ") + filtered.length + "개";
     }
+
+    renderSearchStatus(filtered.length, activeCategory);
 
     if (!filtered.length) {
       const box = C.createEl("div", "empty-box");
-      box.appendChild(C.createEl("p", "", "선택한 분야에 등록된 질문이 없습니다."));
+      const message = hasSearch
+        ? "현재 검색어에 맞는 질문이 없습니다. 다른 표현이나 띄어쓰기를 바꿔 다시 찾아보세요."
+        : "선택한 분야에 등록된 질문이 없습니다.";
+      box.appendChild(C.createEl("p", "", message));
       target.appendChild(box);
       updateFilterButtons();
       return;
@@ -237,15 +264,28 @@
 
     filtered.forEach((entry) => {
       const category = C.findCategory(state.manifest, entry.categoryId);
-      target.appendChild(createFaqCard(entry, category));
+      target.appendChild(createFaqCard(entry, category, { forceOpen: hasSearch }));
     });
 
     updateFilterButtons();
   }
 
+  function syncSearchControls() {
+    const input = document.getElementById("faq-search-input");
+    const clearButton = document.getElementById("faq-search-clear");
+    if (input && input.value !== state.searchQuery) {
+      input.value = state.searchQuery;
+    }
+    if (clearButton) {
+      clearButton.hidden = !state.searchQuery.trim();
+    }
+  }
+
   function bindActions() {
     const filterWrap = document.getElementById("faq-filters");
     const dashboardWrap = document.getElementById("dashboard-category-grid");
+    const searchInput = document.getElementById("faq-search-input");
+    const searchClear = document.getElementById("faq-search-clear");
 
     if (filterWrap && !filterWrap.dataset.bound) {
       filterWrap.dataset.bound = "1";
@@ -254,6 +294,7 @@
         if (!button) return;
         state.activeCategory = button.dataset.categoryId || "all";
         renderFaqList();
+        syncSearchControls();
       });
     }
 
@@ -264,7 +305,28 @@
         if (!button) return;
         state.activeCategory = button.dataset.filterCategory || "all";
         renderFaqList();
+        syncSearchControls();
         C.scrollToId("sec-all");
+      });
+    }
+
+    if (searchInput && !searchInput.dataset.bound) {
+      searchInput.dataset.bound = "1";
+      searchInput.addEventListener("input", () => {
+        state.searchQuery = searchInput.value || "";
+        renderFaqList();
+        syncSearchControls();
+      });
+    }
+
+    if (searchClear && !searchClear.dataset.bound) {
+      searchClear.dataset.bound = "1";
+      searchClear.addEventListener("click", () => {
+        state.searchQuery = "";
+        if (searchInput) searchInput.value = "";
+        renderFaqList();
+        syncSearchControls();
+        if (searchInput) searchInput.focus();
       });
     }
   }
@@ -287,6 +349,7 @@
       renderFilterButtons(manifest);
       renderFaqList();
       bindActions();
+      syncSearchControls();
 
       if (loading) loading.hidden = true;
       if (renderArea) renderArea.hidden = false;

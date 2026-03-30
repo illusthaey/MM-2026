@@ -6,14 +6,8 @@
     "introPoints": [
       "질문 카드를 누르시면 답변이 열립니다."
     ],
-    "statusChips": [
-      "마지막 수정일자: 2026.3.31.(화) 오전 6:49"
-    ]
+    "statusChips": []
   },
-
-
-
-  
   "categories": [
     {
       "id": "basic-admin",
@@ -58,14 +52,7 @@
       "buttonClass": "pastel-yellow"
     }
   ],
-
-
-
-
-  
   "faqs": [
-
-    
     {
       "slug": "pre-establish-budget",
       "categoryId": "budget",
@@ -93,16 +80,10 @@
         "추경",
         "요구서"
       ],
-      "updatedAtText": "2026.03.08.(일) 오후 1:25",
-      "updatedAtIso": "2026-03-08T13:25:00+09:00",
       "relatedSlugs": [
         "supplementary-budget-december"
       ]
     },
-
-
-
-    
     {
       "slug": "supplementary-budget-december",
       "categoryId": "budget",
@@ -129,16 +110,10 @@
         "반환금",
         "이월"
       ],
-      "updatedAtText": "2026.03.10.(화) 오전 10:40",
-      "updatedAtIso": "2026-03-10T10:40:00+09:00",
       "relatedSlugs": [
         "pre-establish-budget"
       ]
     },
-
-
-
-    
     {
       "slug": "neulbom-substitute-contract",
       "categoryId": "contract",
@@ -165,17 +140,10 @@
         "대체인력",
         "계약안"
       ],
-      "updatedAtText": "2026.03.12.(목) 오전 9:20",
-      "updatedAtIso": "2026-03-12T09:20:00+09:00",
       "relatedSlugs": [
         "leave-and-duty-checklist"
       ]
     },
-
-
-
-
-    
     {
       "slug": "official-document-writing-points",
       "categoryId": "basic-admin",
@@ -201,16 +169,8 @@
         "붙임",
         "시행문"
       ],
-      "updatedAtText": "2026.03.07.(토) 오후 4:00",
-      "updatedAtIso": "2026-03-07T16:00:00+09:00",
       "relatedSlugs": []
     },
-
-
-
-
-
-    
     {
       "slug": "leave-and-duty-checklist",
       "categoryId": "duty",
@@ -236,18 +196,10 @@
         "출장",
         "복무"
       ],
-      "updatedAtText": "2026.03.09.(월) 오후 2:30",
-      "updatedAtIso": "2026-03-09T14:30:00+09:00",
       "relatedSlugs": [
         "neulbom-substitute-contract"
       ]
     },
-
-
-
-
-
-    
     {
       "slug": "revenue-collection-closeout",
       "categoryId": "collection",
@@ -274,15 +226,8 @@
         "과오납",
         "징수"
       ],
-      "updatedAtText": "2026.03.06.(금) 오전 11:15",
-      "updatedAtIso": "2026-03-06T11:15:00+09:00",
       "relatedSlugs": []
     },
-
-
-
-
-    
     {
       "slug": "education-expense-settlement",
       "categoryId": "expenditure",
@@ -310,16 +255,9 @@
         "정산",
         "증빙"
       ],
-      "updatedAtText": "2026.03.11.(수) 오후 3:05",
-      "updatedAtIso": "2026-03-11T15:05:00+09:00",
       "relatedSlugs": [
         "pre-establish-budget"
       ]
     }
-
-
-
-    
   ]
-  
 }

@@ -74,9 +74,27 @@
           </div>
           <hr />
 
-          <div class="faq-toolbar">
-            <div id="faq-filters" class="faq-filter-row" aria-label="분야 필터"></div>
-            <div id="faq-count" class="faq-filter-note" aria-live="polite">전체 FAQ 0개</div>
+          <div class="faq-toolbar faq-toolbar--stack">
+            <div class="faq-search-box" aria-label="FAQ 키워드 검색">
+              <label class="faq-search-label" for="faq-search-input">키워드 검색</label>
+              <div class="faq-search-input-row">
+                <input
+                  id="faq-search-input"
+                  class="faq-search-input"
+                  type="search"
+                  inputmode="search"
+                  autocomplete="off"
+                  placeholder="예: 성립전예산, 출장, 대체인력"
+                />
+                <button type="button" class="btn ghost" id="faq-search-clear" hidden>지우기</button>
+              </div>
+              <p id="faq-search-note" class="faq-filter-note">질문·답변·키워드·관련 문서까지 함께 찾습니다.</p>
+            </div>
+
+            <div class="faq-toolbar__bottom">
+              <div id="faq-filters" class="faq-filter-row" aria-label="분야 필터"></div>
+              <div id="faq-count" class="faq-filter-note" aria-live="polite">전체 FAQ 0개</div>
+            </div>
           </div>
 
           <div id="faq-list" class="faq-list" aria-label="FAQ 목록"></div>

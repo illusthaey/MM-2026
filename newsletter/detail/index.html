@@ -50,7 +50,30 @@
 
         <p class="muted meta-wrap" id="article-meta"></p>
 
-        <div class="card detail-summary-card">
+        <div class="card detail-search-card">
+          <h2 class="summary-card-title">페이지 안 검색</h2>
+          <hr />
+          <div class="faq-search-box" aria-label="상세 페이지 키워드 검색">
+            <label class="faq-search-label" for="detail-search-input">키워드 검색</label>
+            <div class="faq-search-input-row">
+              <input
+                id="detail-search-input"
+                class="faq-search-input"
+                type="search"
+                inputmode="search"
+                autocomplete="off"
+                placeholder="예: 전액 교부, 추경, 사회보험료"
+              />
+              <button type="button" class="btn ghost" id="detail-search-clear" hidden>지우기</button>
+            </div>
+            <p id="detail-search-status" class="faq-filter-note">제목·요약·본문·관련 질문까지 한 번에 찾습니다.</p>
+          </div>
+          <div id="detail-search-empty" class="empty-box detail-search-empty" hidden>
+            현재 키워드와 맞는 내용이 없습니다. 다른 표현이나 띄어쓰기를 바꿔 다시 찾아보세요.
+          </div>
+        </div>
+
+        <div class="card detail-summary-card" id="detail-summary-card">
           <h2 class="summary-card-title">짧게 보는 답변</h2>
           <hr />
           <div id="summary-list"></div>

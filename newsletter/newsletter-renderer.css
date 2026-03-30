@@ -508,3 +508,91 @@ button.chip.faq-filter-chip{
     grid-template-columns: 1fr;
   }
 }
+
+/* 검색 UI */
+.faq-toolbar--stack{
+  display: grid;
+  gap: 14px;
+}
+
+.faq-toolbar__bottom{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.faq-search-box{
+  display: grid;
+  gap: 8px;
+  width: min(100%, 520px);
+}
+
+.faq-search-label{
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #111;
+}
+
+.faq-search-input-row{
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.faq-search-input{
+  flex: 1 1 280px;
+  width: 100%;
+  background: #fff;
+}
+
+.detail-search-card{
+  margin-bottom: 18px;
+}
+
+.detail-search-empty{
+  margin-top: 12px;
+}
+
+.article-image-card{
+  overflow: hidden;
+}
+
+.article-image-figure{
+  margin: 12px 0 0;
+}
+
+.article-image{
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+}
+
+.article-image-caption{
+  margin-top: 8px;
+  font-size: 0.92rem;
+  color: #666;
+}
+
+@media (max-width: 640px){
+  .faq-toolbar__bottom{
+    align-items: stretch;
+  }
+
+  .faq-search-box{
+    width: 100%;
+  }
+
+  .faq-search-input-row{
+    flex-direction: column;
+  }
+
+  .faq-search-input-row .btn{
+    width: 100%;
+  }
+}
