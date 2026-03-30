@@ -2,43 +2,198 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8" />
-  <meta name="robots" content="noindex">
+  <meta name="robots" content="noindex" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light" />
-  <title>단발성 외부강사 방문·강사료 집행 안내
+  <title>강사료 지급 안내 (늘봄강사 제외)</title>
 
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-B6PE24NSKH"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-B6PE24NSKH');
-</script>
-
-</title>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B6PE24NSKH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B6PE24NSKH');
+  </script>
 
   <link rel="icon" href="/static/favicon.ico" />
   <link rel="stylesheet" href="/static/style.css" />
 
   <style>
-    .toast {
-      position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%);
-      padding: 10px 12px; border: 1px solid #e5e5e5; border-radius: 12px;
-      background: rgba(255,255,255,0.95); box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-      font-size: 0.95rem; color:#111; z-index: 9999;
-      display:none;
+    .content a {
+      text-decoration: underline;
+      text-underline-offset: 2px;
     }
-    .content a { text-decoration: underline; text-underline-offset: 2px; }
 
-    /* 페이지 전용: 빠른이동/체크리스트 가독성만 살짝 */
-    .toc-wrap .btn { margin: 0 8px 8px 0; }
-    .checklist label { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; }
-    .checklist input { transform: translateY(2px); }
-    .chip {
-      display:inline-block; padding: 2px 8px; border:1px solid #e5e5e5; border-radius:999px;
-      font-size: 0.85rem; color:#444; background:#fafafa;
+    .content strong {
+      color: #111;
+    }
+
+    .quick-note {
+      border-left: 4px solid #111;
+      padding: 10px 12px;
+      background: #fafafa;
+      border-radius: 8px;
+      margin: 12px 0 0;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+    }
+
+    .rate-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+    }
+
+    .rate-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      background: #fff;
+      padding: 16px 18px;
+    }
+
+    .rate-card h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+
+    .rate-price {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid #d1d5db;
+      background: #f9fafb;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 8px;
+    }
+
+    .rule-box {
+      border: 1px solid #fed7aa;
+      background: #fff7ed;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-top: 12px;
+    }
+
+    .warn-box {
+      border: 1px solid #fecaca;
+      background: #fef2f2;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-top: 12px;
+    }
+
+    .ok-box {
+      border: 1px solid #bbf7d0;
+      background: #f0fdf4;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-top: 12px;
+    }
+
+    .step-list {
+      counter-reset: step;
+      list-style: none;
+      padding-left: 0;
+      margin: 12px 0 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .step-list li {
+      position: relative;
+      padding: 12px 14px 12px 50px;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      background: #fff;
+      margin: 0;
+    }
+
+    .step-list li::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 14px;
+      top: 12px;
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      border: 1px solid #111;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      background: #fff;
+      color: #111;
+    }
+
+    .simple-table td.left { text-align: left !important; }
+    .simple-table td.center { text-align: center !important; }
+
+    .copy-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      background: #fff;
+      padding: 14px 16px;
+    }
+
+    .copy-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .copy-block {
+      white-space: pre-wrap;
+      word-break: keep-all;
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      border-radius: 12px;
+      padding: 14px 16px;
+      line-height: 1.75;
+      font-size: 0.98rem;
+      overflow-x: auto;
+    }
+
+    .mini-list {
+      margin: 0;
+      padding-left: 18px;
+      line-height: 1.75;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      padding: 10px 12px;
+      border: 1px solid #e5e5e5;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.97);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      font-size: 0.95rem;
+      color: #111;
+      z-index: 9999;
+      display: none;
+    }
+
+    .k-path {
+      margin-top: 8px;
+      padding: 10px 12px;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      border-radius: 10px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.98rem;
     }
   </style>
 </head>
@@ -46,622 +201,296 @@
 <body class="alien-side-bg">
 <div class="alien-page-frame">
 
-  <main class="container">
+  <main class="container" id="main-content">
+    <h1>강사료 지급 안내 <span class="accent text-sky">(늘봄강사 제외)</span></h1>
 
-    <h1>단발성 외부강사 방문·강사료 집행 안내</h1>
     <p class="muted">
-      ·관련: 2026회계 학교행정 업무편람(세무관리/증빙서류 정리/용역계약/결격사유조회 등), 학교회계 예산편성기본지침(증빙서류/편철)<br/>
-      ·최종 업데이트: 2026.03.01
+      ·대상: 일반 강사료 지급, 원고료 지급, 지급 증빙 정리 안내<br />
+      ·최종 업데이트: 2026.03.30.(월)
     </p>
 
-    <hr/>
+    <hr />
 
-    <!-- ========================= 상단 요약 ========================= -->
-    <section class="section" id="sec-top">
+    <div class="card">
       <h2>핵심 요약</h2>
-      <hr/>
+      <hr />
+      <ul style="margin: 0; padding-left: 18px;">
+        <li><b>이 페이지는 늘봄강사 안내가 아닙니다.</b> 단발성·일반 강사료 지급 안내용입니다.</li>
+        <li><b>강사료 단가</b>는 강사 구분에 따라 <b>기본 1시간</b> + <b>추가 시간당</b> 구조로 봅니다.</li>
+        <li><b>원고료</b>는 A4 원고와 PPT 슬라이드 중 <b>중복 지급이 불가</b>합니다.</li>
+        <li><b>업체 계좌로 지급</b>하는 경우에는 강사 개인지급이 아니라 <b>용역 계약</b>으로 전환해서 처리합니다.</li>
+      </ul>
+    </div>
 
-      <div class="card">
-        <ul style="margin: 0; padding-left: 18px;">
-          <li><b>대상</b>: 1회성 특강·진로체험·행사 등으로 <b>개인 외부강사</b>를 초빙하는 경우(학교가 강사 개인에게 직접 지급)</li>
-          <li><b>기간</b>: 1회 방문(단기) / 강의 종료 후 14일 이내 지급 권장(학교 여건·계약 내용에 따라 운영)</li>
-          <li><b>해야 할 일</b>:
-            <span class="chip">지급 전 서류</span> →
-            <span class="chip">성범죄·아동학대 조회</span> →
-            <span class="chip">강의 확인</span> →
-            <span class="chip">원천징수</span> →
-            <span class="chip">K-에듀파인 지출</span> →
-            <span class="chip">증빙 편철</span>
-          </li>
-        </ul>
+    <section class="section quick-nav">
+      <h2>페이지 목차</h2>
+      <hr />
+      <div class="chip-row">
+        <a class="chip" href="#sec-1">1. 적용 범위</a>
+        <a class="chip" href="#sec-2">2. 강사료 단가</a>
+        <a class="chip" href="#sec-3">3. 원고료 단가</a>
+        <a class="chip" href="#sec-4">4. 증빙서류</a>
+        <a class="chip" href="#sec-5">5. 지급 흐름</a>
+        <a class="chip" href="#sec-6">6. 자주 헷갈리는 부분</a>
+        <a class="chip" href="#sec-7">7. 안내문구 복사</a>
       </div>
-
-      <div class="card toc-wrap" style="margin-top: 12px;">
-        <div><b>빠른 이동</b></div>
-        <hr/>
-        <div class="row gap" style="flex-wrap: wrap;">
-          <a class="btn ghost" href="#sec-judge">0. 개인/업체 구분</a>
-          <a class="btn ghost" href="#sec-before">1. 지급 전 서류</a>
-          <a class="btn ghost" href="#sec-check">2. 범죄경력 조회</a>
-          <a class="btn ghost" href="#sec-proof">3. 강의 확인서</a>
-          <a class="btn ghost" href="#sec-tax">4. 원천징수</a>
-          <a class="btn ghost" href="#sec-pay">5. 지출·편철</a>
-          <a class="btn ghost" href="#sec-outsourcing">6. 업체 위탁(용역)</a>
-          <a class="btn ghost" href="#sec-checklist">체크리스트</a>
-          <a class="btn ghost" href="#sec-faq">FAQ</a>
-          <a class="btn ghost" href="#sec-files">첨부/서식</a>
-        </div>
-      </div>
-
-      <div class="row gap" style="margin-top: 12px; flex-wrap: wrap;">
-        <a class="btn primary" href="https://next.share.go.kr" target="_blank" rel="noopener">행정정보공동이용</a>
-        <a class="btn" href="https://www.hometax.go.kr" target="_blank" rel="noopener">홈택스(원천세)</a>
-        <a class="btn" href="https://www.wetax.go.kr" target="_blank" rel="noopener">위택스(지방소득세)</a>
-        <button class="btn ghost btnCopy" type="button" data-url="/guides/external-lecturer-oneoff.html">
-          이 페이지 링크 복사
-        </button>
-      </div>
-
-      <p class="note">(※ 외부 사이트는 기관/브라우저 보안 정책에 따라 접근이 제한될 수 있습니다.)</p>
     </section>
 
-    <!-- ========================= 0. 구분 ========================= -->
-    <section class="section content" id="sec-judge">
-      <h2>0. 먼저 구분하세요: 개인 초빙 vs 업체 위탁</h2>
-      <hr/>
+    <section class="section content" id="sec-1">
+      <h2>1. 적용 범위</h2>
+      <p class="muted">·이 페이지에서 다루는 강사료 범위를 먼저 정리합니다.</p>
+      <hr />
 
-      <div class="grid two">
+      <div class="info-grid">
         <div class="card">
-          <h3 style="margin-top:0;">A) 개인 외부강사(학교 → 강사 개인에게 직접 지급)</h3>
-          <ul style="margin: 0; padding-left: 18px;">
-            <li><b>회계 성격</b>: 강사 개인에게 대가 지급(인적용역 성격)</li>
-            <li><b>핵심 포인트</b>: <b>원천징수</b> + <b>성범죄·아동학대 조회</b> + <b>강의 확인</b></li>
-            <li><b>증빙 핵심</b>: 신분증/통장 사본, 각종 동의서, 조회 결과(회보서), 강의 확인서, 지출결의서, 이체결과</li>
+          <h3>이 페이지에 포함되는 경우</h3>
+          <ul class="mini-list">
+            <li>단회 특강, 행사성 강의, 일반 외부강사 지급</li>
+            <li>늘봄강사가 아닌 일반 강사료 지급</li>
+            <li>강사 개인에게 직접 강사료를 지급하는 경우</li>
           </ul>
         </div>
 
         <div class="card">
-          <h3 style="margin-top:0;">B) 업체 위탁(학교 → 업체에 지급) <span class="chip">용역계약</span></h3>
-          <ul style="margin: 0; padding-left: 18px;">
-            <li><b>회계 성격</b>: 업체로부터 <b>교육 서비스(용역)</b>를 구매</li>
-            <li><b>예시</b>: 민간참여 컴퓨터교육, 방과후업체 위탁 프로그램(위탁영어 등)처럼 “교육 관련 용역”으로 분류되는 사례가 있음</li>
-            <li><b>핵심 포인트</b>: 계약·검수·대가지급(세금계산서/계산서 등) 중심 + 강사 대면 안전절차는 업체/학교 기준으로 <b>확인</b></li>
+          <h3>이 페이지에 포함되지 않는 경우</h3>
+          <ul class="mini-list">
+            <li>늘봄강사 지급</li>
+            <li>업체에 지급하는 위탁·용역 형태</li>
+            <li>장기 반복 운영에서 별도 기준이 적용되는 경우</li>
           </ul>
         </div>
       </div>
 
-      <div class="table-wrap" style="margin-top: 12px;">
+      <div class="quick-note">
+        담당자가 먼저 확인할 것은 <b>개인 지급인지, 업체 지급인지</b>입니다.<br />
+        <b>본인 명의 계좌</b>가 아니고 <b>업체 계좌</b>로 지급하려는 순간부터는 일반 강사료 지급이 아니라 <b>용역 계약 검토</b>로 넘어가야 합니다.
+      </div>
+    </section>
+
+    <section class="section content" id="sec-2">
+      <h2>2. 강사료 단가</h2>
+      <p class="muted">·일반 강사 기준 단가를 한눈에 보기 쉽게 정리합니다.</p>
+      <hr />
+
+      <div class="rate-grid">
+        <div class="rate-card">
+          <h3>가. 24호봉 이상 공무원, 자격증 소지 전문강사 등</h3>
+          <div class="rate-price">기본 1시간 200,000원</div>
+          <ul class="mini-list">
+            <li>1시간까지는 <b>기본료 200,000원</b></li>
+            <li>1시간 초과분은 <b>시간당 100,000원</b></li>
+          </ul>
+          <div class="k-path">예시) 2시간 강의 = 300,000원 / 3시간 강의 = 400,000원</div>
+        </div>
+
+        <div class="rate-card">
+          <h3>나. 23호봉 이하 공무원 등</h3>
+          <div class="rate-price">기본 1시간 100,000원</div>
+          <ul class="mini-list">
+            <li>1시간까지는 <b>기본료 100,000원</b></li>
+            <li>1시간 초과분은 <b>시간당 50,000원</b></li>
+          </ul>
+          <div class="k-path">예시) 2시간 강의 = 150,000원 / 3시간 강의 = 200,000원</div>
+        </div>
+      </div>
+
+      <div class="rule-box">
+        <b>실무 팁</b><br />
+        품의할 때는 강사 구분을 먼저 적고, 그 다음에 <b>기본 1시간 + 추가 시간</b> 구조로 세부 산정내역을 붙이면 확인이 가장 빠릅니다.
+      </div>
+    </section>
+
+    <section class="section content" id="sec-3">
+      <h2>3. 원고료 단가</h2>
+      <p class="muted">·원고료는 A4 원고와 PPT 슬라이드 기준을 분리해서 보시면 됩니다.</p>
+      <hr />
+
+      <div class="table-wrap">
         <table class="sheetlike simple-table">
           <thead>
             <tr>
               <th>구분</th>
-              <th>개인 외부강사(직접 지급)</th>
-              <th>업체 위탁(용역계약)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>계약 상대</td>
-              <td>강사 개인</td>
-              <td>용역업체(프로그램 운영 업체)</td>
-            </tr>
-            <tr>
-              <td>세무 처리</td>
-              <td>학교가 원천징수(기타소득/사업소득 구분)</td>
-              <td>대금은 업체에 지급(세금계산서/계산서 등) + 업체 내부 인력비 처리는 업체 책임</td>
-            </tr>
-            <tr>
-              <td>대표 증빙</td>
-              <td>동의서·사본·조회회보·강의확인·지출결의·이체결과</td>
-              <td>계약서·견적서·청구서(세금계산서 등)·검수/완료 자료·지출결의·이체결과</td>
-            </tr>
-            <tr>
-              <td>주의</td>
-              <td>“일시 강연비/강사비”는 기타소득 판단 가능, 반복/계속이면 사업소득 가능</td>
-              <td>“교육 관련 용역”에 해당하면 용역계약 절차로 처리</td>
-            </tr>
-          </tbody>
-        </table>
-        <p class="note">(※ 용역은 “재물 형태가 아닌 서비스 제공”으로 정의되며, 교육 관련 용역 예시가 업무편람에 제시되어 있습니다.)</p>
-      </div>
-
-      <details class="shot-details">
-        <summary class="shot-summary">판단 팁 (접기·펼치기)</summary>
-        <div style="margin-top:10px;">
-          <ul style="margin: 0; padding-left: 18px;">
-            <li><b>1회성 특강</b>처럼 “일시적인 강연 후 지급”은 기타소득으로 보는 흐름이 있습니다.</li>
-            <li><b>계속적·반복적</b>으로 독립된 자격으로 강의하는 형태면 사업소득 가능성이 커집니다.</li>
-            <li>업체와 계약하고 강사가 파견되는 구조라면, 회계·계약 측면은 “용역계약”으로 정리하는 게 깔끔합니다.</li>
-          </ul>
-        </div>
-      </details>
-    </section>
-
-    <!-- ========================= 1. 지급 전 서류 ========================= -->
-    <section class="section content" id="sec-before">
-      <h2>1. 지급 전(필수): 강사에게 받는 서류</h2>
-      <hr/>
-
-      <div class="card">
-        <p style="margin:0;">
-          아래 서류는 <b>지급 전에</b> 확보하는 게 안전합니다. (나중에 “주민번호/계좌번호/동의서” 빠지면 회계·세무가 한 번에 멈춥니다.)
-        </p>
-      </div>
-
-      <div class="table-wrap" style="margin-top: 12px;">
-        <table class="sheetlike simple-table">
-          <thead>
-            <tr>
-              <th>서류</th>
-              <th>누가 작성/서명</th>
-              <th>목적</th>
-              <th>체크</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><b>신분증 사본</b></td>
-              <td>강사</td>
-              <td>원천징수/지급명세서 등 인적사항 확인</td>
-              <td>□</td>
-            </tr>
-            <tr>
-              <td><b>통장 사본</b></td>
-              <td>강사</td>
-              <td>계좌이체(본인 명의 계좌 원칙)</td>
-              <td>□</td>
-            </tr>
-            <tr>
-              <td><b>성범죄 경력 및 아동학대 관련 범죄전력 조회 동의서</b></td>
-              <td>강사</td>
-              <td>학교 교육활동 참여 외부인력 조회 절차</td>
-              <td>□</td>
-            </tr>
-            <tr>
-              <td><b>행정정보 공동이용 사전 동의서</b></td>
-              <td>강사</td>
-              <td>행정정보공동이용 시스템을 통한 조회에 필요한 동의</td>
-              <td>□</td>
-            </tr>
-            <tr>
-              <td><b>개인정보 수집·이용 및 제공 동의서</b></td>
-              <td>강사</td>
-              <td>강사료 지급/조회 업무를 위한 개인정보 처리 동의</td>
-              <td>□</td>
-            </tr>
-          </tbody>
-        </table>
-        <p class="note">(※ “원본주의”가 원칙이므로, 가능한 한 원본 서명본을 확보하고 사본 제출이 불가피한 경우는 “원본 확인” 등 내부 절차를 갖추세요.)</p>
-      </div>
-
-      <details class="shot-details">
-        <summary class="shot-summary">보관 팁 (접기·펼치기)</summary>
-        <div style="margin-top:10px;">
-          <ul style="margin: 0; padding-left: 18px;">
-            <li>동의서는 <b>서명/날인</b>, <b>작성일</b>, <b>조회 목적</b>이 빠지지 않게 확인</li>
-            <li>통장 사본은 <b>예금주명</b>이 신분증과 일치하는지 확인</li>
-            <li>신분증 사본은 민감정보이므로 <b>접근 권한/보관 장소</b>를 최소화</li>
-          </ul>
-        </div>
-      </details>
-    </section>
-
-    <!-- ========================= 2. 범죄경력/아동학대 조회 ========================= -->
-    <section class="section content" id="sec-check">
-      <h2>2. 조회(필수): 성범죄·아동학대 관련 범죄전력 조회</h2>
-      <hr/>
-
-      <div class="card">
-        <h3 style="margin-top:0;">처리 흐름(권장)</h3>
-        <ol style="margin: 0; padding-left: 18px;">
-          <li><b>동의서 징구</b> (성범죄·아동학대 조회 동의서 + 행정정보 공동이용 사전 동의서 + 개인정보 제공 동의서)</li>
-          <li><b>행정정보공동이용시스템</b> 등을 통해 조회</li>
-          <li><b>조회 회보서(결과)</b> 수령 → 결과 검토</li>
-          <li>이상 없으면 <b>위촉/강의 진행</b> 및 강사료 집행 절차 진행</li>
-        </ol>
-        <p class="note" style="margin-top:10px;">
-          (※ 업무편람에는 조회방법으로 행정정보공동이용시스템 활용 및 필요한 동의서 종류가 정리되어 있습니다.)
-        </p>
-      </div>
-
-      <div class="table-wrap" style="margin-top: 12px;">
-        <table class="sheetlike simple-table">
-          <thead>
-            <tr>
-              <th>단계</th>
-              <th>담당(예시)</th>
-              <th>산출물(증빙)</th>
-              <th>자주 터지는 실수</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>동의서 확보</td>
-              <td>업무담당/행정실</td>
-              <td>서명된 동의서 3종</td>
-              <td>서명/작성일 누락, 주민등록번호 오기재</td>
-            </tr>
-            <tr>
-              <td>조회 실행</td>
-              <td>행정실</td>
-              <td>조회내역(시스템 기록)</td>
-              <td>조회 사유/근거 누락</td>
-            </tr>
-            <tr>
-              <td>회보서 확인</td>
-              <td>행정실</td>
-              <td>회보서(결과)</td>
-              <td>결과 확인만 하고 보관 누락</td>
-            </tr>
-            <tr>
-              <td>강의 진행</td>
-              <td>업무담당</td>
-              <td>강의 확인서/일지</td>
-              <td>강사 서명 누락, 시간/장소 불명확</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- ========================= 3. 강의 확인 ========================= -->
-    <section class="section content" id="sec-proof">
-      <h2>3. 강의 종료 후(필수): 강의 확인서(또는 강의일지)</h2>
-      <hr/>
-
-      <div class="card">
-        <p style="margin:0;">
-          “진짜 강의가 진행됐는가?”를 가장 깔끔하게 증명하는 건 <b>강사 서명</b>이 들어간 확인서입니다.
-          (사진은 보조증빙, 서명은 메인증빙)
-        </p>
-        <hr/>
-        <ul style="margin: 0; padding-left: 18px;">
-          <li><b>필수 기재</b>: 일시(시간 포함), 장소, 대상(학년/인원), 강의 주제, 강사 성명, 서명/날인</li>
-          <li><b>선택 기재</b>: 강의자료 제출 여부, 만족도 조사 여부, 특이사항</li>
-          <li><b>보관</b>: 지출증빙 묶음 안에 “청구서류” 역할로 함께 편철</li>
-        </ul>
-      </div>
-
-      <details class="shot-details">
-        <summary class="shot-summary">현장 팁 (접기·펼치기)</summary>
-        <div style="margin-top:10px;">
-          <ul style="margin: 0; padding-left: 18px;">
-            <li>강의가 끝나고 강사가 바로 떠나면 서명 받기 어려움 → <b>강의 시작 전</b> 양식 미리 전달</li>
-            <li>외부강사가 여러 명이면 “강사별 확인서” 또는 “명단 + 일괄 서명” 방식 중 하나로 통일</li>
-          </ul>
-        </div>
-      </details>
-    </section>
-
-    <!-- ========================= 4. 원천징수 ========================= -->
-    <section class="section content" id="sec-tax">
-      <h2>4. 원천징수/세무 처리</h2>
-      <hr/>
-
-      <div class="card">
-        <h3 style="margin-top:0;">4-1) 기타소득(일시적 강연·특강 등)로 보는 경우</h3>
-        <p class="muted" style="margin: 6px 0 0;">
-          ·업무편람에서는 “일시적인 강연 후 지급받는 강연비 또는 강사비”를 예로 들고, 기타소득은 <b>필요경비 60%</b> 공제 후 남은 금액의 20%를 적용(지방소득세는 소득세의 10%)하는 방식이 정리돼 있습니다.
-        </p>
-        <hr/>
-        <ul style="margin: 0; padding-left: 18px;">
-          <li><b>개념</b>: 소득금액 = 총지급액 × 40%(= 필요경비 60% 공제)</li>
-          <li><b>소득세</b>: 소득금액 × 20% (= 총지급액 × 8%)</li>
-          <li><b>지방소득세</b>: 소득세 × 10% (= 총지급액 × 0.8%)</li>
-          <li><b>합계 원천징수</b>: 총지급액 × 8.8% (실무상 대표값)</li>
-        </ul>
-
-        <div class="table-wrap" style="margin-top: 12px;">
-          <table class="sheetlike simple-table">
-            <thead>
-              <tr>
-                <th>총지급액</th>
-                <th>필요경비(60%)</th>
-                <th>소득금액(40%)</th>
-                <th>소득세(20%)</th>
-                <th>지방소득세(10%)</th>
-                <th>실지급액(예시)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>200,000</td>
-                <td>120,000</td>
-                <td>80,000</td>
-                <td>16,000</td>
-                <td>1,600</td>
-                <td>182,400</td>
-              </tr>
-              <tr>
-                <td>300,000</td>
-                <td>180,000</td>
-                <td>120,000</td>
-                <td>24,000</td>
-                <td>2,400</td>
-                <td>273,600</td>
-              </tr>
-            </tbody>
-          </table>
-          <p class="note">(※ 숫자는 이해를 돕기 위한 예시입니다. 실제 적용은 학교(교육청) 세무 처리 기준을 따르세요.)</p>
-        </div>
-      </div>
-
-      <div class="card" style="margin-top: 12px;">
-        <h3 style="margin-top:0;">4-2) 사업소득(계속적·반복적 강의 등)로 보는 경우</h3>
-        <p class="muted" style="margin: 6px 0 0;">
-          ·업무편람(방과후 등 강사비 집행 안내)에는 “독립된 자격으로 계속적·반복적으로 강의하는 것은 사업소득”으로 보고,
-          소득세 3% + 지방소득세(소득세의 10%)를 안내하고 있습니다.
-        </p>
-        <hr/>
-        <ul style="margin: 0; padding-left: 18px;">
-          <li><b>원천징수</b>: 일반적으로 총지급액의 3% + 지방소득세 0.3% = <b>3.3%</b> (대표값)</li>
-          <li><b>주의</b>: 반복성/계속성 판단은 케이스가 갈립니다. “단발성 특강”과 “정기 강좌”는 취급이 달라질 수 있어요.</li>
-        </ul>
-      </div>
-
-      <details class="shot-details">
-        <summary class="shot-summary">지급명세서/신고 메모 (접기·펼치기)</summary>
-        <div style="margin-top:10px;">
-          <ul style="margin: 0; padding-left: 18px;">
-            <li>기타소득/사업소득 등은 지급명세서/간이지급명세서 제출 기한이 다릅니다. 학교 내부 세무 담당 흐름(홈택스/위택스)을 따르세요.</li>
-            <li>원천징수 유형(기타/사업)을 잘못 잡으면 수정신고가 귀찮아집니다. 처음에 구분이 반입니다.</li>
-          </ul>
-        </div>
-      </details>
-    </section>
-
-    <!-- ========================= 5. 지출 + 편철 ========================= -->
-    <section class="section content" id="sec-pay">
-      <h2>5. K-에듀파인 지출 + 증빙 편철(보관)</h2>
-      <hr/>
-
-      <div class="card">
-        <h3 style="margin-top:0;">5-1) 지출 처리(개요)</h3>
-        <ul style="margin: 0; padding-left: 18px;">
-          <li><b>지출결의서</b> 생성(시스템)</li>
-          <li><b>원천징수</b> 반영(공제 후 실지급액 이체)</li>
-          <li><b>이체 처리</b> 후 <b>이체결과(무통장입금표/이체처리결과서)</b> 확보</li>
-          <li><b>증빙서류</b>를 월별/분기별로 편철 보관</li>
-        </ul>
-      </div>
-
-      <div class="table-wrap" style="margin-top: 12px;">
-        <table class="sheetlike simple-table">
-          <thead>
-            <tr>
-              <th>권장 편철 순서(상단 → 하단)</th>
-              <th>외부강사(직접지급) 적용 예</th>
+              <th>단가</th>
+              <th>시간당 상한</th>
               <th>비고</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>1) 지출결의서</td>
-              <td>K-에듀파인 지출결의서 출력/결재문서</td>
-              <td>“지출”의 대표 문서</td>
+              <td class="left"><b>A4 원고</b></td>
+              <td class="center">1매당 15,000원</td>
+              <td class="center">최대 4매 (60,000원)</td>
+              <td class="left">원고 사본(출력본 또는 파일) 첨부</td>
             </tr>
             <tr>
-              <td>2) 무통장입금표(영수증)</td>
-              <td>이체처리결과서/이체확인증</td>
-              <td>실제 지급 증빙</td>
-            </tr>
-            <tr>
-              <td>3) 청구서(증빙)</td>
-              <td>강의 확인서(서명본), 필요 시 청구서</td>
-              <td>“서비스 제공” 증빙</td>
-            </tr>
-            <tr>
-              <td>4) 청구서류(첨부)</td>
-              <td>신분증·통장 사본, 동의서, 조회 회보서</td>
-              <td>개인정보 포함 → 보관 주의</td>
-            </tr>
-            <tr>
-              <td>5) (필요 시) 계약/품의</td>
-              <td>내부결재(강사 초빙 계획/방침), 위촉 관련 문서</td>
-              <td>사전 의사결정 근거</td>
+              <td class="left"><b>PPT 슬라이드</b></td>
+              <td class="center">1장당 10,000원</td>
+              <td class="center">최대 8장 (80,000원)</td>
+              <td class="left">슬라이드 파일 또는 출력본 첨부</td>
             </tr>
           </tbody>
         </table>
-        <p class="note">
-          (※ 업무편람의 “지출서류 건별 편철 순서(지출결의서→무통장입금표→청구서…)” 흐름을 외부강사 케이스에 맞춰 번역한 버전입니다.)
-        </p>
       </div>
 
-      <details class="shot-details">
-        <summary class="shot-summary">원본/사본 처리 메모 (접기·펼치기)</summary>
-        <div style="margin-top:10px;">
-          <ul style="margin: 0; padding-left: 18px;">
-            <li>회계 붙임서류는 <b>원본 첨부</b>가 원칙(불가피한 사본은 “원본 확인” 등 내부 확인 절차를 갖추는 방식으로 대응)</li>
-            <li>증빙서는 <b>월별 또는 분기별</b>로 구분 편철하고 표지에 건수/매수/금액 등을 관리하는 흐름을 권장</li>
+      <div class="warn-box">
+        <b>중요</b><br />
+        A4 원고료와 PPT 제작료는 <b>중복 지급 불가</b>입니다.
+      </div>
+
+      <div class="warn-box">
+        <b>재방문 강사 안내</b><br />
+        <b>이전 학년도에도 방문했던 강사</b>라면, <b>기존 교재를 그대로 활용하는 경우 원고료 지급 불가</b>로 안내하는 흐름이 안전합니다.
+      </div>
+    </section>
+
+    <section class="section content" id="sec-4">
+      <h2>4. 증빙서류</h2>
+      <p class="muted">·지급 전에 미리 받아 두면 반려를 줄일 수 있는 서류들입니다.</p>
+      <hr />
+
+      <div class="info-grid">
+        <div class="card">
+          <h3>기본 제출 서류</h3>
+          <ul class="mini-list">
+            <li><b>강사 카드</b> 및 <b>신분증 사본</b></li>
+            <li><b>본인 명의 통장 사본</b></li>
+            <li><b>강사활동 확인서</b><br />사업 담당자 및 교감선생님 서명·날인</li>
           </ul>
         </div>
-      </details>
+
+        <div class="card">
+          <h3>해당 시 추가 서류</h3>
+          <ul class="mini-list">
+            <li><b>원고 활용 시 원고 사본</b><br />출력본 또는 파일</li>
+            <li><b>범죄경력조회 안내 필요</b><br />학교에서 출력·안내</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="rule-box">
+        <b>포인트</b><br />
+        품의 서류에는 <b>강사료 산정내역</b>이 반드시 따라가야 합니다. 단순히 “강사료 지급”만 적지 말고,
+        <b>강사 구분 / 강의시간 / 단가 / 원고료 여부</b>가 바로 보이도록 적어 두는 편이 좋습니다.
+      </div>
     </section>
 
-    <!-- ========================= 6. 업체 위탁(용역계약) ========================= -->
-    <section class="section content" id="sec-outsourcing">
-      <h2>6. 업체 위탁 외부강사인 경우(용역계약) 포인트</h2>
-      <hr/>
+    <section class="section content" id="sec-5">
+      <h2>5. 지급 흐름</h2>
+      <p class="muted">·담당자가 실무에서 따라가기 쉬운 순서로 정리했습니다.</p>
+      <hr />
+
+      <ol class="step-list">
+        <li><b>강사 구분 확인</b><br />24호봉 이상인지, 23호봉 이하인지 먼저 정합니다.</li>
+        <li><b>강사료 산정</b><br />기본 1시간 + 초과 시간당 금액 구조로 계산합니다.</li>
+        <li><b>원고료 여부 확인</b><br />A4 또는 PPT 중 한 종류만 적용하고, 재방문 강사의 기존 교재 재사용 여부를 확인합니다.</li>
+        <li><b>증빙서류 수합</b><br />강사 카드, 신분증 사본, 통장 사본, 강사활동 확인서, 원고 사본(해당 시)을 받습니다.</li>
+        <li><b>계좌 명의 확인</b><br />강사 본인 계좌인지 확인합니다. 업체 계좌면 일반 강사료 지급이 아니라 용역 계약 검토로 전환합니다.</li>
+        <li><b>지출 품의 및 지급</b><br />세부 산정내역까지 붙여서 품의하고 지급합니다.</li>
+      </ol>
+    </section>
+
+    <section class="section content" id="sec-6">
+      <h2>6. 자주 헷갈리는 부분</h2>
+      <p class="muted">·문의가 자주 나오는 포인트만 짧게 정리했습니다.</p>
+      <hr />
 
       <div class="card">
-        <p style="margin:0;">
-          업체를 통해 프로그램을 운영하고 강사가 파견되는 구조라면, 회계·계약 관점에서 <b>용역계약</b>으로 정리하는 게 자연스럽습니다.
-          용역은 “서비스 제공(재물 형태 아님)”으로 정의되며, 교육 관련 용역 예시(민간참여 컴퓨터교육, 방과후업체 위탁 프로그램 등)가 제시돼 있습니다.
-        </p>
+        <h3>Q1. A4 원고와 PPT를 같이 만들었으면 둘 다 지급 가능한가요?</h3>
+        <p style="margin-bottom: 0;">아니요. <b>A4와 PPT 제작료는 중복 지급 불가</b>입니다. 한 가지 기준으로만 잡아 주세요.</p>
       </div>
 
-      <div class="table-wrap" style="margin-top: 12px;">
-        <table class="sheetlike simple-table">
-          <thead>
-            <tr>
-              <th>항목</th>
-              <th>학교가 챙길 것(예시)</th>
-              <th>비고</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>계약/대금</td>
-              <td>계약서(또는 계약 성립 증빙), 견적서, 청구서/세금계산서(또는 계산서), 이체결과</td>
-              <td>대상은 “업체”</td>
-            </tr>
-            <tr>
-              <td>검수/완료</td>
-              <td>수업 운영 결과(출석/운영일지/결과보고 등) 자료 확보</td>
-              <td>학교 내부 기준으로 “완료 확인” 남기기</td>
-            </tr>
-            <tr>
-              <td>대면 안전 절차</td>
-              <td>강사 대면 인력의 성범죄·아동학대 조회가 필요한지 <b>업체 제출 자료로 확인</b> 또는 학교 절차로 확인</td>
-              <td>학교/교육청 내부 기준 우선</td>
-            </tr>
-          </tbody>
-        </table>
-        <p class="note">(※ 업체 위탁은 “강사 개인 사본/원천징수”가 아니라 “업체 계약 증빙”이 중심이 됩니다.)</p>
+      <div class="card">
+        <h3>Q2. 작년에도 왔던 강사인데 자료를 조금만 손봤다고 하면 원고료를 줘도 되나요?</h3>
+        <p style="margin-bottom: 0;">기본적으로는 <b>기존 교재 활용 시 원고료 지급 불가</b>로 안내하는 쪽이 안전합니다. 신규 제작인지가 명확할 때만 판단하세요.</p>
+      </div>
+
+      <div class="card">
+        <h3>Q3. 강사 본인 계좌가 아니라 기관·업체 계좌로 보내 달라고 하면요?</h3>
+        <p style="margin-bottom: 0;">그 경우에는 일반 강사료 지급이 아니라 <b>용역 계약</b> 검토가 필요합니다. <b>사전에 견적서</b>를 받고 행정실과 먼저 협의하는 흐름으로 바꾸세요.</p>
+      </div>
+
+      <div class="warn-box">
+        <b>업체 지급 시 주의</b><br />
+        본인 명의 계좌가 아니라 업체 계좌로 강사료를 지급하는 경우에는 <b>반드시 사전에 견적서를 전달</b>받고,
+        <b>관련 문의 후 용역 계약 여부를 검토</b>해야 합니다.
       </div>
     </section>
 
-    <!-- ========================= 체크리스트 ========================= -->
-    <section class="section content" id="sec-checklist">
-      <h2>현장용 체크리스트(클릭 가능)</h2>
-      <hr/>
+    <section class="section content" id="sec-7">
+      <h2>7. 안내문구 복사</h2>
+      <p class="muted">·메신저 쪽지로 바로 보내기 쉽게 정리한 문구입니다.</p>
+      <hr />
 
-      <div class="card checklist">
-        <h3 style="margin-top:0;">A. 개인 외부강사(직접 지급)</h3>
-        <div style="display:grid; gap:10px;">
-          <label><input type="checkbox"> (지급 전) 신분증 사본 확보</label>
-          <label><input type="checkbox"> (지급 전) 통장 사본 확보</label>
-          <label><input type="checkbox"> (지급 전) 성범죄·아동학대 조회 동의서 확보</label>
-          <label><input type="checkbox"> (지급 전) 행정정보 공동이용 사전 동의서 확보</label>
-          <label><input type="checkbox"> (지급 전) 개인정보 수집·이용·제공 동의서 확보</label>
-          <label><input type="checkbox"> (지급 전) 조회 실행 및 회보서 보관</label>
-          <label><input type="checkbox"> (강의 후) 강의 확인서(서명) 수령</label>
-          <label><input type="checkbox"> (지출) 원천징수 반영 후 이체</label>
-          <label><input type="checkbox"> (보관) 지출결의서/이체결과/청구서류/첨부서류 편철</label>
-        </div>
-      </div>
-
-      <div class="card checklist" style="margin-top: 12px;">
-        <h3 style="margin-top:0;">B. 업체 위탁(용역계약)</h3>
-        <div style="display:grid; gap:10px;">
-          <label><input type="checkbox"> 계약 방식(용역) 및 계약상대(업체) 확정</label>
-          <label><input type="checkbox"> 견적/계약서(또는 계약 성립 증빙) 확보</label>
-          <label><input type="checkbox"> 운영 완료 확인 자료(결과보고/일지 등) 확보</label>
-          <label><input type="checkbox"> 청구서류(세금계산서/계산서 등) 확보</label>
-          <label><input type="checkbox"> 대금 이체 및 이체결과 확보</label>
-          <label><input type="checkbox"> (필요 시) 대면 강사 안전 관련 확인자료 확보</label>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========================= FAQ ========================= -->
-    <section class="section content" id="sec-faq">
-      <h2>FAQ</h2>
-      <hr/>
-
-      <details class="shot-details">
-        <summary class="shot-summary">Q1. “단발성 특강”인데 사업소득/기타소득이 헷갈립니다.</summary>
-        <div style="margin-top:10px;">
-          <p class="muted" style="margin:0;">
-            업무편람에는 “일시적 강연비/강사비” 예시는 기타소득, “계속적·반복적 강의”는 사업소득 가능 포인트가 정리돼 있습니다.
-            학교(교육청) 내부 세무 처리 기준과 실제 운영 형태(반복성/계속성)를 함께 보고 결정하는 게 안전합니다.
-          </p>
-        </div>
-      </details>
-
-      <details class="shot-details">
-        <summary class="shot-summary">Q2. 강의 확인서는 꼭 받아야 하나요?</summary>
-        <div style="margin-top:10px;">
-          <p class="muted" style="margin:0;">
-            회계에서 중요한 건 “대가를 지급할 만큼의 서비스가 제공되었는지” 입증입니다. 강사 서명이 들어간 확인서는 그 입증을 제일 단단하게 만들어 줍니다.
-          </p>
-        </div>
-      </details>
-
-      <details class="shot-details">
-        <summary class="shot-summary">Q3. 업체 위탁이면 강사 신분증/통장 사본도 받아야 하나요?</summary>
-        <div style="margin-top:10px;">
-          <p class="muted" style="margin:0;">
-            계약 상대가 “업체”라면 회계 증빙의 중심은 업체의 계약/청구/검수 자료입니다. 강사 개인 사본은 “직접 지급” 케이스에서 핵심입니다.
-            다만, 학생 대면 안전절차(조회 등)는 학교 내부 기준에 따라 업체 자료로 확인이 필요할 수 있습니다.
-          </p>
-        </div>
-      </details>
-    </section>
-
-    <!-- ========================= 첨부/서식 다운로드 ========================= -->
-    <section class="section dl-section" id="sec-files">
-      <div class="row between">
-        <h2 style="margin:0;">첨부/서식</h2>
-        <button class="btn ghost btnCopy" type="button" data-url="/guides/external-lecturer-oneoff.html">
-          이 페이지 링크 복사
-        </button>
-      </div>
-      <p class="muted dl-desc">·아래 파일 경로는 예시입니다. 학교/기관 서식 경로에 맞게 수정하세요.</p>
-      <hr/>
-
-      <div class="grid three">
-        <div class="card">
-          <div><b>성범죄·아동학대 범죄전력 조회 동의서(서식)</b></div>
-          <hr/>
-          <div class="row gap">
-            <a class="btn" href="/files/forms/consent_crime_check.hwp" download>다운로드</a>
-            <a class="btn ghost" href="/files/forms/consent_crime_check.hwp" target="_blank" rel="noopener">뷰어 열기</a>
-            <button class="btn ghost btnCopy" type="button" data-url="/files/forms/consent_crime_check.hwp">링크 복사</button>
+      <div class="copy-card">
+        <div class="copy-head">
+          <div>
+            <h3 style="margin: 0 0 6px;">기본 안내문구</h3>
+            <p class="muted" style="margin: 0;">교직원 안내용 기본 문구</p>
           </div>
+          <button class="btn ghost copy-btn" type="button" data-copy-target="copyBasic">문구 복사</button>
         </div>
+        <div class="copy-block" id="copyBasic">Q2. 강사료 지급 관련해서 알고 싶어요 (늘봄강사 X)
 
-        <div class="card">
-          <div><b>개인정보 수집·이용·제공 동의서 + 행정정보 공동이용 사전 동의서</b></div>
-          <hr/>
-          <div class="row gap">
-            <a class="btn" href="/files/forms/consent_privacy_share.hwp" download>다운로드</a>
-            <button class="btn ghost btnCopy" type="button" data-url="/files/forms/consent_privacy_share.hwp">링크 복사</button>
-          </div>
-        </div>
+1. 강사료 단가 (일반강사)
+가. 24호봉 이상 공무원, 자격증 소지 전문강사 등
+- 1시간까지는 기본료 200,000원
+- 이후 시간당 100,000원
 
-        <div class="card">
-          <div><b>외부강사 강의 확인서(서식)</b></div>
-          <hr/>
-          <div class="row gap">
-            <a class="btn" href="/files/forms/lecture_confirmation.hwp" download>다운로드</a>
-            <button class="btn ghost btnCopy" type="button" data-url="/files/forms/lecture_confirmation.hwp">링크 복사</button>
-          </div>
-        </div>
+나. 23호봉 이하 공무원 등
+- 1시간까지는 기본료 100,000원
+- 이후 시간당 50,000원
+
+2. 원고료 단가
+가. A4 원고
+- 1매당 15,000원
+- 시간당 최대 4매까지 지급 (=60,000원까지)
+
+나. PPT 슬라이드
+- 1장당 10,000원
+- 시간당 최대 8장까지 지급 (=80,000원까지)
+
+※ A4와 PPT 제작료 중복 지급 불가
+※ 이전 학년도에도 방문했던 강사일 경우, 기존 교재 활용 시 원고료 지급 불가하다고 안내 부탁드립니다.
+
+3. 증빙서류
+- 강사 카드 및 신분증 사본
+- 본인 명의의 통장 사본
+- 강사활동 확인서 (사업 담당자 및 교감선생님 서명 날인)
+- 원고 활용시 원고 사본 (출력본 또는 파일)
+- 범죄경력조회 안내 필요 (학교에서 출력)</div>
       </div>
+
     </section>
 
   </main>
 
-  <!-- 토스트 (링크 복사 알림) -->
   <div class="toast" id="toast"></div>
 
-  <!-- 링크 복사 스크립트 (기존 페이지 패턴 기반) -->
+  <script defer src="/static/global-loader.js"></script>
+  <script defer src="/static/disable-copy.js"></script>
+  <script defer src="/static/footer.js"></script>
+
   <script>
-    (function () {
-      const $ = (sel, el=document) => el.querySelector(sel);
-      const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
+    (function(){
+      const $ = (selector, scope = document) => scope.querySelector(selector);
+      const $$ = (selector, scope = document) => Array.from(scope.querySelectorAll(selector));
 
-      function toast(msg) {
-        const t = $("#toast");
-        if (!t) return;
-        t.textContent = msg;
-        t.style.display = "block";
+      function toast(message){
+        const el = $("#toast");
+        if (!el) return;
+        el.textContent = message;
+        el.style.display = "block";
         clearTimeout(toast._timer);
-        toast._timer = setTimeout(() => (t.style.display = "none"), 1400);
+        toast._timer = setTimeout(() => {
+          el.style.display = "none";
+        }, 1400);
       }
 
-      function absUrl(path) {
-        try { return new URL(path, location.origin).toString(); }
-        catch { return path; }
-      }
-
-      async function copyText(text) {
+      async function copyText(text){
         try {
           await navigator.clipboard.writeText(text);
           return true;
-        } catch (e) {
-          // fallback(환경에 따라 copy 이벤트 차단 시 실패할 수 있음)
+        } catch (error) {
           const ta = document.createElement("textarea");
           ta.value = text;
           ta.style.position = "fixed";
@@ -670,26 +499,32 @@
           ta.focus();
           ta.select();
           let ok = false;
-          try { ok = document.execCommand("copy"); } catch {}
+          try {
+            ok = document.execCommand("copy");
+          } catch (_) {}
           ta.remove();
           return ok;
         }
       }
 
-      $$(".btnCopy").forEach(btn => {
-        btn.addEventListener("click", async () => {
-          const url = btn.dataset.url ? absUrl(btn.dataset.url) : location.href;
-          const ok = await copyText(url);
-          toast(ok ? "링크 복사 완료" : "복사 실패");
+      $$(".copy-btn").forEach((button) => {
+        button.addEventListener("click", async () => {
+          const id = button.dataset.copyTarget;
+          const source = document.getElementById(id);
+          const text = source ? source.textContent.trim() : "";
+          const ok = await copyText(text);
+          toast(ok ? "문구 복사 완료" : "복사 실패");
         });
       });
+
+      const linkButton = $("#btnCopyLink");
+      if (linkButton) {
+        linkButton.addEventListener("click", async () => {
+          const ok = await copyText(location.href);
+          toast(ok ? "링크 복사 완료" : "복사 실패");
+        });
+      }
     })();
   </script>
-
-  <!-- 공통 스크립트 -->
-  <script src="/static/disable-copy.js"></script>
-  <script src="/static/footer.js"></script>
-  <script src="/static/global-loader.js?v=1"></script>
-
 </body>
 </html>
