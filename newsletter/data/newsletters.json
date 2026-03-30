@@ -7,50 +7,50 @@
       "질문 카드를 누르시면 답변이 열립니다."
     ],
     "statusChips": [
-      "최종 수정: 2026.3.31.(화) 오전 6:49"
+      "마지막 수정일자: 2026.3.31.(화) 오전 6:49"
     ]
   },
   "categories": [
     {
       "id": "basic-admin",
-      "title": "기초 행정",
-      "subtitle": "문서·기록·시행",
-      "dashboardDescription": "공문서, 문서번호, 기록물, 시행처럼 기본 업무를 묻는 질문을 모았습니다.",
+      "title": "일반 행정",
+      "subtitle": "공문서·기록물·기타 서무 등",
+      "dashboardDescription": "공문서, 문서번호, 기록물 등 포괄적인 일반 행정 업무를 다룹니다.",
       "buttonClass": "pastel-purple"
     },
     {
       "id": "duty",
       "title": "복무",
-      "subtitle": "휴가·출장·초과근무",
-      "dashboardDescription": "연가, 출장, 초과근무처럼 신청 전에 자주 막히는 질문을 모았습니다.",
+      "subtitle": "휴가·출장·초과근무 등",
+      "dashboardDescription": "연차, 출장, 초과근무 등 복무 관련 내용을 다룹니다.",
       "buttonClass": "pastel-orange"
     },
     {
       "id": "contract",
       "title": "계약",
-      "subtitle": "계약제교원·대체인력",
-      "dashboardDescription": "대체인력과 계약제교원 계약안에서 많이 묻는 질문을 모았습니다.",
+      "subtitle": "근로계약 체결 등",
+      "dashboardDescription": "계약제교원 및 (교육공무직) 대체인력 근로계약 체결 등을 다룹니다.",
       "buttonClass": "pastel-green"
     },
     {
       "id": "collection",
-      "title": "징수",
-      "subtitle": "징수·수납·과오납",
-      "dashboardDescription": "수익자부담경비, 징수결정, 과오납 정리에서 자주 묻는 질문을 모았습니다.",
+      "title": "세입",
+      "subtitle": "징수·수납·반환 등",
+      "dashboardDescription": "수익자부담경비, 징수, 반환 등 세입 업무 관련 내용을 다룹니.",
       "buttonClass": "pastel-red"
     },
     {
       "id": "expenditure",
-      "title": "지출",
-      "subtitle": "지출결의·증빙·정산",
-      "dashboardDescription": "지출 전 확인할 것과 정산 자료를 어떻게 묶는지에 대한 질문을 모았습니다.",
+      "title": "세출",
+      "subtitle": "지출결의·증빙서류 등",
+      "dashboardDescription": "교직원 급여, 강사료, 자원봉사료 등 인건비성 지출 위주로 다룹니다. ",
       "buttonClass": "pastel-teal"
     },
     {
       "id": "budget",
       "title": "예산",
-      "subtitle": "성립전예산·추경·이월",
-      "dashboardDescription": "성립전예산, 연말 추경, 반납·이월처럼 예산에서 많이 묻는 질문을 모았습니다.",
+      "subtitle": "성립전예산·추경자료·정산자료 등",
+      "dashboardDescription": "인건비성 지출과 관련된 예산 위주로 다룹니다.",
       "buttonClass": "pastel-yellow"
     }
   ],
