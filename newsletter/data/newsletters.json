@@ -8,6 +8,9 @@
     ],
     "statusChips": []
   },
+
+
+  
   "categories": [
     {
       "id": "basic-admin",
@@ -16,6 +19,9 @@
       "dashboardDescription": "공문서, 문서번호, 기록물 등 포괄적인 일반 행정 업무를 다룹니다.",
       "buttonClass": "pastel-purple"
     },
+
+    
+    
     {
       "id": "duty",
       "title": "복무",
@@ -23,6 +29,9 @@
       "dashboardDescription": "연차, 출장, 초과근무 등 복무 관련 내용을 다룹니다.",
       "buttonClass": "pastel-orange"
     },
+
+
+    
     {
       "id": "contract",
       "title": "계약",
@@ -37,6 +46,9 @@
       "dashboardDescription": "수익자부담경비, 징수, 반환 등 세입 업무 관련 내용을 다룹니.",
       "buttonClass": "pastel-red"
     },
+
+
+    
     {
       "id": "expenditure",
       "title": "세출",
@@ -52,6 +64,10 @@
       "buttonClass": "pastel-yellow"
     }
   ],
+
+
+
+  
   "faqs": [
     {
       "slug": "pre-establish-budget",
@@ -84,6 +100,10 @@
         "supplementary-budget-december"
       ]
     },
+
+
+
+    
     {
       "slug": "supplementary-budget-december",
       "categoryId": "budget",
@@ -114,6 +134,11 @@
         "pre-establish-budget"
       ]
     },
+
+
+
+
+    
     {
       "slug": "neulbom-substitute-contract",
       "categoryId": "contract",
@@ -144,6 +169,11 @@
         "leave-and-duty-checklist"
       ]
     },
+
+
+
+
+    
     {
       "slug": "official-document-writing-points",
       "categoryId": "basic-admin",
@@ -171,6 +201,12 @@
       ],
       "relatedSlugs": []
     },
+
+
+
+
+
+    
     {
       "slug": "leave-and-duty-checklist",
       "categoryId": "duty",
@@ -200,6 +236,12 @@
         "neulbom-substitute-contract"
       ]
     },
+
+
+
+
+
+    
     {
       "slug": "revenue-collection-closeout",
       "categoryId": "collection",
@@ -228,6 +270,12 @@
       ],
       "relatedSlugs": []
     },
+
+
+
+
+
+    
     {
       "slug": "education-expense-settlement",
       "categoryId": "expenditure",
@@ -255,9 +303,10 @@
         "정산",
         "증빙"
       ],
-      "relatedSlugs": [
-        "pre-establish-budget"
-      ]
+
+
+
+      
     }
   ]
 }
