@@ -10,6 +10,10 @@
       "마지막 수정일자: 2026.3.31.(화) 오전 6:49"
     ]
   },
+
+
+
+  
   "categories": [
     {
       "id": "basic-admin",
@@ -54,7 +58,14 @@
       "buttonClass": "pastel-yellow"
     }
   ],
+
+
+
+
+  
   "faqs": [
+
+    
     {
       "slug": "pre-establish-budget",
       "categoryId": "budget",
@@ -88,6 +99,10 @@
         "supplementary-budget-december"
       ]
     },
+
+
+
+    
     {
       "slug": "supplementary-budget-december",
       "categoryId": "budget",
@@ -120,6 +135,10 @@
         "pre-establish-budget"
       ]
     },
+
+
+
+    
     {
       "slug": "neulbom-substitute-contract",
       "categoryId": "contract",
@@ -152,6 +171,11 @@
         "leave-and-duty-checklist"
       ]
     },
+
+
+
+
+    
     {
       "slug": "official-document-writing-points",
       "categoryId": "basic-admin",
@@ -181,6 +205,12 @@
       "updatedAtIso": "2026-03-07T16:00:00+09:00",
       "relatedSlugs": []
     },
+
+
+
+
+
+    
     {
       "slug": "leave-and-duty-checklist",
       "categoryId": "duty",
@@ -212,6 +242,12 @@
         "neulbom-substitute-contract"
       ]
     },
+
+
+
+
+
+    
     {
       "slug": "revenue-collection-closeout",
       "categoryId": "collection",
@@ -242,6 +278,11 @@
       "updatedAtIso": "2026-03-06T11:15:00+09:00",
       "relatedSlugs": []
     },
+
+
+
+
+    
     {
       "slug": "education-expense-settlement",
       "categoryId": "expenditure",
@@ -275,5 +316,10 @@
         "pre-establish-budget"
       ]
     }
+
+
+
+    
   ]
+  
 }
