@@ -1732,3 +1732,88 @@ body main.overtime-app p.sub{
 .table-wrap .simple-table td {
   text-align: center;
 }
+
+
+/* =========================================================
+   메뉴형 페이지 버튼 통일 (eduwork → edusprout 스타일 정렬)
+   - 기본 메뉴 버튼은 검정색
+   - 버튼 너비는 컨테이너 전체에 맞춤
+   - 설명 문구 간격을 일정하게 유지
+   ========================================================= */
+.page-menu .menu-list{
+  display: grid;
+  gap: 14px;
+}
+
+.page-menu .menu-item{
+  display: grid;
+  gap: 6px;
+}
+
+.page-menu .btn-menu{
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+  margin-left: 0 !important;
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+
+.page-menu .btn-menu:hover{
+  background: #000;
+}
+
+.page-menu .btn-menu:focus-visible{
+  outline: 2px solid rgba(17, 17, 17, 0.35);
+  outline-offset: 2px;
+}
+
+.page-menu .btn-desc{
+  margin: 0;
+  font-size: 0.98rem;
+  color: #4b5563;
+}
+
+.page-menu .btn-stack{
+  display: grid;
+  gap: 14px;
+}
+
+.page-menu .btn-stack > *{
+  display: grid;
+  gap: 6px;
+}
+
+.page-menu .tool-card .row.between{
+  display: block;
+}
+
+.page-menu .tool-card .row.between > .btn{
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+  margin-left: 0 !important;
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+
+.page-menu .tool-card .row.between > .btn:hover{
+  background: #000;
+}
+
+@media (max-width: 640px){
+  .page-menu .search-row{
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .page-menu .search-row .btn{
+    width: 100%;
+  }
+}
