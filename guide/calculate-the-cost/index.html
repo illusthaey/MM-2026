@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="robots" content="noindex" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>산출내역 기재 안내</title>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B6PE24NSKH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B6PE24NSKH');
+  </script>
+
+  <link rel="icon" href="/static/favicon.ico" />
+  <link rel="stylesheet" href="/static/style.css" />
+
+  <style>
+    .content a {
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .content strong {
+      color: #111;
+    }
+
+    .quick-note {
+      border-left: 4px solid #111;
+      padding: 10px 12px;
+      background: #fafafa;
+      border-radius: 8px;
+      margin: 12px 0 0;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+    }
+
+    .rate-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+    }
+
+    .rate-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      background: #fff;
+      padding: 16px 18px;
+    }
+
+    .rate-card h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+
+    .rate-price {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid #d1d5db;
+      background: #f9fafb;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 8px;
+    }
+
+    .rule-box {
+      border: 1px solid #fed7aa;
+      background: #fff7ed;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-top: 12px;
+    }
+
+    .warn-box {
+      border: 1px solid #fecaca;
+      background: #fef2f2;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-top: 12px;
+    }
+
+    .ok-box {
+      border: 1px solid #bbf7d0;
+      background: #f0fdf4;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-top: 12px;
+    }
+
+    .step-list {
+      counter-reset: step;
+      list-style: none;
+      padding-left: 0;
+      margin: 12px 0 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .step-list li {
+      position: relative;
+      padding: 12px 14px 12px 50px;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      background: #fff;
+      margin: 0;
+    }
+
+    .step-list li::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 14px;
+      top: 12px;
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      border: 1px solid #111;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      background: #fff;
+      color: #111;
+    }
+
+    .simple-table td.left { text-align: left !important; }
+    .simple-table td.center { text-align: center !important; }
+
+    .copy-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      background: #fff;
+      padding: 14px 16px;
+    }
+
+    .copy-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .copy-block {
+      white-space: pre-wrap;
+      word-break: keep-all;
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      border-radius: 12px;
+      padding: 14px 16px;
+      line-height: 1.75;
+      font-size: 0.98rem;
+      overflow-x: auto;
+    }
+
+    .mini-list {
+      margin: 0;
+      padding-left: 18px;
+      line-height: 1.75;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      padding: 10px 12px;
+      border: 1px solid #e5e5e5;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.97);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      font-size: 0.95rem;
+      color: #111;
+      z-index: 9999;
+      display: none;
+    }
+
+    .k-path {
+      margin-top: 8px;
+      padding: 10px 12px;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      border-radius: 10px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.98rem;
+    }
+  </style>
+</head>
+
+<body class="alien-side-bg">
+<div class="alien-page-frame">
+
+  <main class="container" id="main-content">
+    <h1>산출내역 기재 방법 안내</h1>
+
+    <p class="muted">
+      ·관련: 공립학교 회계규칙<br />
+      ·최종 업데이트: 2026.4.7.(화)
+    </p>
+
+    
+    <section class="section">
+      <h2>품의 시 준수 부탁드립니다.</h2>
+      <p class="muted">·복사해서 붙여넣기라도 부탁드려요 ^ ^~</p>
+      <hr />
+
+      <div class="copy-card">
+        <div class="copy-head">
+          <button class="btn ghost copy-btn" type="button" data-copy-target="copyBasic">문구 복사하기</button>
+        </div>
+        <div class="copy-block" id="copyBasic">산출내역 기재 방법
+
+산출내역은 "단가*수량*횟수 =총 금액"으로 기재합니다. 
+단위로는 원*명*회 순서입니다. 
+
+아래는 지출결의 시 제가 작성한 개요입니다. 예시로 참고 부탁드립니다. 
+
+======
+[예시 1] 별도의 산출내역 붙임파일 미첨부시 개요에 산출내역 기재
+
+2026회계 3월 특수교육대상학생 자원봉사자 활동비 지급
+
+1. 관련: 교육과-10771(2026.3.8.)
+건명: 2026회계 3월 특수교육대상학생 자원봉사자 활동비 지급
+2. 금액: 금630,000원(금육십삼만원)
+3. 일시: 2026.3.3.(화)~2026.3.31.(화)
+4. 대상: 
+5. 산출내역: 30,000원*1명*21일=630,000원
+6. 행정사항: 2025회계 시간당 단가 11,000원에서 2026회계 1일 실비 30,000원 지급으로 변경되었음. 
+
+붙임  2026.3월 특수교육대상학생 자원봉사자 활동 일지 1부.  끝.
+
+======
+[예시 2] 별도의 산출내역 붙임파일 첨부 시에는 개요에 총액만 기재 가능
+
+2026년 3월 출입문개폐전담원 급여 지급
+
+1. 건명: 2026년 3월 출입문개폐전담원 인건비 지급
+2. 지급대상: 출입문개폐전담원 김*호
+3. 금액: 금674,170원
+4. 지급내역: 상세내역 붙임파일 참조
+5. 행정사항: 총무과-4101(2026.2.27.) 2026년 출입문개폐전담원 운영 계획 알림에 의거 시급 단가 12,380원으로 상승하였음.
+
+붙임  2026.3월 출입문개폐전담원 인건비 지급 내역(임금명세서 및 출근내역) 1부.  끝.
+
+======
+
+
+</div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script defer src="/static/global-loader.js"></script>
+  <script defer src="/static/disable-copy.js"></script>
+  <script defer src="/static/footer.js"></script>
+
+  <script>
+    (function(){
+      const $ = (selector, scope = document) => scope.querySelector(selector);
+      const $$ = (selector, scope = document) => Array.from(scope.querySelectorAll(selector));
+
+      function toast(message){
+        const el = $("#toast");
+        if (!el) return;
+        el.textContent = message;
+        el.style.display = "block";
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(() => {
+          el.style.display = "none";
+        }, 1400);
+      }
+
+      async function copyText(text){
+        try {
+          await navigator.clipboard.writeText(text);
+          return true;
+        } catch (error) {
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          ta.style.position = "fixed";
+          ta.style.left = "-9999px";
+          document.body.appendChild(ta);
+          ta.focus();
+          ta.select();
+          let ok = false;
+          try {
+            ok = document.execCommand("copy");
+          } catch (_) {}
+          ta.remove();
+          return ok;
+        }
+      }
+
+      $$(".copy-btn").forEach((button) => {
+        button.addEventListener("click", async () => {
+          const id = button.dataset.copyTarget;
+          const source = document.getElementById(id);
+          const text = source ? source.textContent.trim() : "";
+          const ok = await copyText(text);
+          toast(ok ? "문구 복사 완료" : "복사 실패");
+        });
+      });
+
+      const linkButton = $("#btnCopyLink");
+      if (linkButton) {
+        linkButton.addEventListener("click", async () => {
+          const ok = await copyText(location.href);
+          toast(ok ? "링크 복사 완료" : "복사 실패");
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
