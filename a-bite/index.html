@@ -495,19 +495,11 @@
     }
   </style>
 </head>
-
-
-  
 <body class="alien-side-bg">
-<div class="alien-page-frame">
+  <div class="alien-page-frame">
 
-  <main class="container">
-    
-  <div class="page-wrap">
-    <header class="hero">
       <h1>한 입 크기로 잘라먹는 행정 업무 모음집</h1>
-      <p class="sub">카드형 템플릿으로 빠르게 찾고, 클릭해서 전체화면으로 넓게 보는 단일 HTML 구조입니다.</p>
-    </header>
+
 
     <section class="panel" aria-labelledby="tocTitle">
       <h2 id="tocTitle">빠른 이동 목차</h2>
@@ -548,6 +540,8 @@
       <div id="searchResultsGrid" class="card-grid"></div>
       <div id="searchEmptyBox" class="empty-box" hidden>검색 결과가 없습니다. 아래 전체 카드에서 다시 확인하거나 다른 키워드로 검색해 주세요.</div>
     </section>
+
+    <main id="sectionsContainer" aria-label="업무 분야 카드 목록"></main>
   </div>
 
   <div id="cardOverlay" class="card-overlay" hidden aria-hidden="true">
@@ -567,10 +561,9 @@
 
       <a id="overlayDetailLink" class="detail-link" href="#" target="_blank" rel="noreferrer noopener" hidden>상세 가이드로 이동</a>
       <div id="overlayHiddenTags" class="sr-only"></div>
+      <p class="overlay-guide">확대된 카드를 다시 클릭하거나 바깥 영역을 누르면 원래대로 닫힙니다. ESC 키와 우측 상단 닫기 버튼도 사용할 수 있습니다.</p>
     </div>
   </div>
-    </main>
-
 
   <script>
     (function () {
