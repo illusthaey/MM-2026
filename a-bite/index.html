@@ -1,852 +1,939 @@
 <!doctype html>
-<html lang="ko" data-theme="classic">
+<html lang="ko">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>한 입 크기로 잘라먹는 행정 업무 모음집</title>
+  <meta name="description" content="학교 행정업무를 카드형 템플릿으로 빠르게 탐색하는 단일 HTML 페이지">
 
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-B6PE24NSKH"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B6PE24NSKH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B6PE24NSKH');
+  </script>
 
-  gtag('config', 'G-B6PE24NSKH');
-</script>
-
-
-  <link rel="icon" href="/static/favicon.ico" />
-  <link rel="stylesheet" href="/static/style.css" />
-<script src="/static/footer.js"></script>
-<script src="/static/global-loader.js?v=1"></script>
-
-
-
-
-
-  <meta name="description" content="바쁘다 바빠, 짧게 설명해주세요">
+  <link rel="icon" href="/static/favicon.ico">
   <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/footer.js"></script>
+  <script src="/static/global-loader.js?v=1"></script>
+
   <style>
-    html { scroll-behavior: smooth; }
-    body { background: #fff; }
-    .hero-kpis{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
-      gap:12px;
-      margin-top:14px;
+    :root{
+      --bg:#f5f7fb;
+      --panel:#ffffff;
+      --line:#e5e7eb;
+      --line-strong:#cbd5e1;
+      --text:#111827;
+      --muted:#6b7280;
+      --primary:#2563eb;
+      --primary-soft:#eff6ff;
+      --hover-shadow:0 18px 42px rgba(15,23,42,.12);
+      --panel-shadow:0 10px 30px rgba(15,23,42,.08);
+      --radius-xl:28px;
+      --radius-lg:20px;
+      --radius-md:16px;
+      --radius-sm:12px;
+      --container:1200px;
     }
-    .hero-kpis .card{ margin:0; }
-    .kpi-label{
-      margin:0 0 6px;
-      font-size:0.95rem;
-      color:#6b7280;
-    }
-    .kpi-value{
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
       margin:0;
-      font-size:1.5rem;
+      background:var(--bg);
+      color:var(--text);
+      font-family: Pretendard, "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      line-height:1.6;
+    }
+    body.modal-open{ overflow:hidden; }
+
+    a{ color:var(--primary); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+
+    .page-wrap{
+      width:min(calc(100% - 32px), var(--container));
+      margin:32px auto 56px;
+    }
+
+    .hero{
+      background:linear-gradient(180deg, #ffffff 0%, #f9fbff 100%);
+      border:1px solid var(--line);
+      border-radius:var(--radius-xl);
+      padding:32px;
+      box-shadow:var(--panel-shadow);
+      margin-bottom:20px;
+    }
+    .hero h1{
+      margin:0 0 8px;
+      font-size:clamp(2rem, 4vw, 3rem);
+      line-height:1.2;
+      letter-spacing:-0.02em;
+    }
+    .hero .sub{
+      margin:0;
+      color:var(--muted);
+      font-size:1.02rem;
+    }
+
+    .panel{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:var(--radius-lg);
+      padding:24px;
+      box-shadow:var(--panel-shadow);
+      margin-bottom:20px;
+    }
+
+    .panel h2{
+      margin:0 0 10px;
+      font-size:1.35rem;
+      line-height:1.3;
+      letter-spacing:-0.01em;
+    }
+
+    .panel .lead{
+      margin:0 0 16px;
+      color:var(--muted);
+    }
+
+    .toc-grid{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:10px;
+    }
+
+    .toc-link{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:46px;
+      padding:10px 14px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:#fff;
+      color:#1f2937;
       font-weight:700;
-      color:#111;
+      text-align:center;
+      transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease, background .18s ease;
     }
-    .kpi-desc{
-      margin:6px 0 0;
-      font-size:0.95rem;
-      color:#4b5563;
+    .toc-link:hover{
+      transform:translateY(-2px);
+      border-color:#bfdbfe;
+      background:var(--primary-soft);
+      box-shadow:0 10px 24px rgba(37,99,235,.08);
+      text-decoration:none;
     }
-    .section-lead{
-      margin:0 0 12px;
-      color:#4b5563;
-    }
+
     .search-row{
       display:grid;
       grid-template-columns:minmax(0,1fr) auto auto;
       gap:10px;
       align-items:center;
-      margin-top:10px;
+      margin-bottom:14px;
     }
-    .search-row .btn{
-      margin-left:0 !important;
-      white-space:nowrap;
+
+    .search-input{
+      width:100%;
+      height:50px;
+      padding:0 16px;
+      border:1px solid var(--line-strong);
+      border-radius:14px;
+      font-size:1rem;
+      color:var(--text);
+      background:#fff;
+      outline:none;
+      transition:border-color .18s ease, box-shadow .18s ease;
     }
-    .section-badge{
+    .search-input:focus{
+      border-color:#93c5fd;
+      box-shadow:0 0 0 4px rgba(37,99,235,.12);
+    }
+
+    .btn{
       display:inline-flex;
       align-items:center;
-      gap:6px;
-      padding:6px 10px;
-      border:1px solid #d1d5db;
-      border-radius:999px;
-      background:#f9fafb;
-      font-size:0.92rem;
-      font-weight:700;
+      justify-content:center;
+      gap:8px;
+      height:50px;
+      padding:0 18px;
+      border-radius:14px;
+      border:1px solid transparent;
+      font-weight:800;
+      font-size:.98rem;
+      cursor:pointer;
+      transition:transform .16s ease, box-shadow .16s ease, background .16s ease, border-color .16s ease;
+      white-space:nowrap;
+    }
+    .btn:hover{ transform:translateY(-1px); }
+    .btn:active{ transform:translateY(0); }
+    .btn-primary{
+      background:var(--primary);
+      color:#fff;
+      box-shadow:0 12px 24px rgba(37,99,235,.18);
+    }
+    .btn-secondary{
+      background:#fff;
       color:#374151;
-      margin-bottom:10px;
+      border-color:var(--line-strong);
     }
-    .section-meta{
-      margin:0 0 12px;
-      font-size:0.98rem;
-      color:#4b5563;
-    }
-    .tool-list{
+
+    .search-hint{
       margin:0;
-      padding-left:18px;
-      list-style:disc;
+      color:var(--muted);
+      font-size:.96rem;
     }
-    .tool-list li{
-      margin:6px 0;
-      font-size:0.98rem;
+
+    .result-panel{
+      display:none;
     }
-    .tag-row{
+    .result-panel.is-active{
+      display:block;
+    }
+
+    .result-top{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px 12px;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:14px;
+    }
+
+    .result-meta{
       display:flex;
       flex-wrap:wrap;
       gap:8px;
-      margin-top:12px;
+      align-items:center;
     }
-    .tag{
+
+    .badge{
       display:inline-flex;
       align-items:center;
-      padding:5px 9px;
-      border:1px solid #d1d5db;
+      justify-content:center;
+      padding:6px 12px;
       border-radius:999px;
-      background:#f9fafb;
-      font-size:0.86rem;
-      color:#4b5563;
-      white-space:nowrap;
+      border:1px solid #dbeafe;
+      background:#f8fbff;
+      color:#1d4ed8;
+      font-weight:800;
+      font-size:.92rem;
     }
-    .quick-tip{
-      margin-top:12px;
-      padding:12px 14px;
-      border:1px dashed #d1d5db;
-      border-radius:12px;
-      background:#fff;
-    }
-    .quick-tip p{
+
+    .result-text{
       margin:0;
-      font-size:0.98rem;
-      color:#374151;
+      color:var(--muted);
+      font-size:.98rem;
     }
-    .content-section{
-      margin-top:12px;
+
+    .work-section{
+      scroll-margin-top:20px;
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:var(--radius-lg);
+      padding:24px;
+      box-shadow:var(--panel-shadow);
+      margin-bottom:20px;
     }
-    .is-hidden{
-      display:none !important;
-    }
-    .empty-state{
+
+    .work-section.is-hidden-section{
       display:none;
     }
-    .empty-state.show{
-      display:block;
+
+    .section-head{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:10px 14px;
+      margin-bottom:18px;
     }
-    .refs-list{
+
+    .section-head h2{
+      margin:0;
+      font-size:1.45rem;
+      line-height:1.25;
+      letter-spacing:-0.01em;
+    }
+
+    .section-head p{
+      margin:0;
+      color:var(--muted);
+    }
+
+    .card-grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:16px;
+    }
+
+    .work-card{
+      position:relative;
+      min-height:220px;
+      padding:20px 18px 18px;
+      border-radius:20px;
+      border:1px solid var(--line);
+      background:#fff;
+      cursor:pointer;
+      box-shadow:0 10px 24px rgba(15,23,42,.04);
+      overflow:hidden;
+      transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+      outline:none;
+    }
+    .work-card:hover,
+    .work-card:focus-visible{
+      transform:translateY(-6px) scale(1.01);
+      border-color:#bfdbfe;
+      box-shadow:var(--hover-shadow);
+    }
+
+    .work-card.is-hidden-by-search{
+      display:none;
+    }
+
+    .work-card.is-search-clone{
+      border-color:#bfdbfe;
+      background:#fbfdff;
+    }
+
+    .card-number{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:52px;
+      height:32px;
+      padding:0 10px;
+      border-radius:999px;
+      background:var(--primary-soft);
+      color:var(--primary);
+      font-weight:800;
+      font-size:.9rem;
+      margin-bottom:14px;
+    }
+
+    .card-title{
+      margin:0 0 10px;
+      font-size:1.15rem;
+      line-height:1.4;
+      letter-spacing:-0.01em;
+      color:#111827;
+      word-break:keep-all;
+    }
+
+    .card-desc{
+      margin:0;
+      color:#4b5563;
+      font-size:.98rem;
+      word-break:keep-all;
+    }
+
+    .empty-box{
+      padding:20px;
+      border:1px dashed var(--line-strong);
+      border-radius:16px;
+      background:#fcfcfd;
+      color:#4b5563;
+    }
+
+    .footer-note{
+      margin-top:8px;
+      font-size:.94rem;
+      color:var(--muted);
+      text-align:center;
+    }
+
+    .sr-only{
+      position:absolute !important;
+      width:1px !important;
+      height:1px !important;
+      padding:0 !important;
+      margin:-1px !important;
+      overflow:hidden !important;
+      clip:rect(0, 0, 0, 0) !important;
+      white-space:nowrap !important;
+      border:0 !important;
+    }
+
+    .card-overlay{
+      position:fixed;
+      inset:0;
+      z-index:3000;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      background:rgba(15,23,42,.62);
+      backdrop-filter:blur(4px);
+    }
+    .card-overlay[hidden]{
+      display:none;
+    }
+
+    .overlay-card{
+      position:relative;
+      width:min(920px, 100%);
+      max-height:min(88vh, 920px);
+      overflow:auto;
+      padding:32px 28px 28px;
+      border-radius:30px;
+      border:1px solid rgba(255,255,255,.7);
+      background:#fff;
+      box-shadow:0 28px 70px rgba(15,23,42,.28);
+      cursor:zoom-out;
+      animation:zoomIn .18s ease;
+    }
+
+    @keyframes zoomIn{
+      from{ opacity:0; transform:translateY(10px) scale(.98); }
+      to{ opacity:1; transform:translateY(0) scale(1); }
+    }
+
+    .overlay-close{
+      position:absolute;
+      top:18px;
+      right:18px;
+      width:42px;
+      height:42px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:#fff;
+      color:#111827;
+      cursor:pointer;
+      font-size:1.2rem;
+      font-weight:900;
+      line-height:1;
+    }
+
+    .overlay-head{
+      padding-right:48px;
+      margin-bottom:20px;
+    }
+
+    .overlay-badges{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:12px;
+    }
+
+    .overlay-title{
+      margin:0 0 10px;
+      font-size:clamp(1.7rem, 3vw, 2.3rem);
+      line-height:1.25;
+      letter-spacing:-0.02em;
+    }
+
+    .overlay-summary{
+      margin:0;
+      color:#4b5563;
+      font-size:1.02rem;
+    }
+
+    .overlay-lines{
       display:grid;
       gap:12px;
+      margin-bottom:22px;
     }
-    .refs-list .card{
+
+    .overlay-line{
       margin:0;
+      padding:14px 16px;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:#fbfcfe;
+      color:#1f2937;
     }
-    .refs-list h3{
-      margin:0 0 6px;
+
+    .detail-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:48px;
+      padding:0 18px;
+      border-radius:14px;
+      background:var(--primary);
+      color:#fff;
+      font-weight:800;
+      text-decoration:none;
+      box-shadow:0 12px 24px rgba(37,99,235,.18);
     }
-    .refs-list p{
-      margin:0;
+    .detail-link:hover{
+      text-decoration:none;
+      filter:brightness(.98);
     }
-    .footer-note{
-      margin-top:12px;
-      color:#6b7280;
-      font-size:0.95rem;
+    .detail-link[hidden]{
+      display:none;
     }
-    .mono{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+    .overlay-guide{
+      margin:16px 0 0;
+      color:var(--muted);
+      font-size:.95rem;
     }
-    mark{
-      background:#fff4b8;
-      color:inherit;
-      padding:0 .2em;
-      border-radius:4px;
+
+    @media (max-width: 1080px){
+      .toc-grid{ grid-template-columns:repeat(3, minmax(0, 1fr)); }
     }
-    @media (max-width: 640px){
-      .search-row{
-        grid-template-columns:1fr;
-      }
-      .search-row .btn{
-        width:100%;
-      }
+
+    @media (max-width: 840px){
+      .card-grid{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
+      .toc-grid{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
+      .search-row{ grid-template-columns:1fr; }
+      .btn{ width:100%; }
+      .page-wrap{ width:min(calc(100% - 20px), var(--container)); margin:20px auto 40px; }
+      .hero, .panel, .work-section{ padding:20px; }
+      .overlay-card{ padding:24px 20px 20px; }
+    }
+
+    @media (max-width: 560px){
+      .card-grid{ grid-template-columns:1fr; }
+      .toc-grid{ grid-template-columns:1fr; }
+      .hero h1{ font-size:1.9rem; }
+      .work-card{ min-height:180px; }
     }
   </style>
 </head>
-
-
-
-<body class="alien-side-bg">
-<div class="alien-page-frame">
-
-  <main class="container">
-
-
+<body>
+  <div class="page-wrap">
+    <header class="hero">
       <h1>한 입 크기로 잘라먹는 행정 업무 모음집</h1>
+      <p class="sub">카드형 템플릿으로 빠르게 찾고, 클릭해서 전체화면으로 넓게 보는 단일 HTML 구조입니다.</p>
+    </header>
 
-<p class="sub">간단하게 설명 가능한 한 입 가이드</p>
-
-
-    <section class="section quick-nav">
-      <h2 class="local-h2">빠른 이동</h2>
-      <div class="chip-row">
-        <a class="chip" href="#menu">한입 메뉴</a>
-        <a class="chip" href="#docs">문서·기록물</a>
-        <a class="chip" href="#attendance">복무</a>
-        <a class="chip" href="#teachers">계약제교원</a>
-        <a class="chip" href="#budget">학교회계</a>
-        <a class="chip" href="#spend">지출·계약</a>
-        <a class="chip" href="#assets">물품·시설</a>
-        <a class="chip" href="#refs">기준 문서</a>
-      </div>
+    <section class="panel" aria-labelledby="tocTitle">
+      <h2 id="tocTitle">빠른 이동 목차</h2>
+      <p class="lead">원하는 업무 분야로 바로 이동할 수 있도록 8개 섹션 앵커를 배치했습니다.</p>
+      <nav class="toc-grid" id="quickNav"></nav>
     </section>
 
-    <section id="menu" class="section page-menu">
-      <h2>한입 메뉴</h2>
-      <p class="section-lead">아래 버튼은 “입구”, 아래 상세 섹션은 “한입 요약”입니다. 검색은 입구와 상세카드를 함께 필터링합니다.</p>
+    <section class="panel" aria-labelledby="searchTitle">
+      <h2 id="searchTitle">검색</h2>
+      <p class="lead">검색어를 입력하고 <strong>검색하기</strong>를 누르면 일치하는 카드만 상단 검색 결과 영역으로 모이고, 나머지 카드는 아래 섹션에 그대로 남습니다.</p>
 
       <div class="search-row">
         <input
-          id="menuSearch"
-          type="text"
+          id="cardSearchInput"
+          class="search-input"
+          type="search"
           inputmode="search"
           autocomplete="off"
-          placeholder="예: 공문, 육아휴직, 성립전예산, 수의계약, 물품"
-          aria-label="행정업무 검색"
+          placeholder="예: 기안, 병가, 추경, 수의계약, 물품, 학교운영위원회"
+          aria-label="카드 검색어 입력"
         >
-        <button id="clearSearch" class="btn ghost" type="button">지우기</button>
-</div>
-    </section>
-
-    <details class="dash-details" open data-filter-group>
-      <summary class="dash-summary">
-        <span class="dash-title">문서·기록물</span>
-        <span class="muted">공문서, 접수, 기록물, 인계인수</span>
-      </summary>
-      <section id="docs" class="section content-section">
-        <p class="section-meta">“문서가 맞게 만들어졌는지 → 접수·등록됐는지 → 끝나고 보존까지 됐는지”를 빠르게 점검하는 영역입니다.</p>
-
-        <div class="tool-grid">
-          <article class="tool-card" data-search-item data-search="공문서 생산 기안 검토 협조 결재 등록 시행 제목 문서">
-            <div class="tool-head">
-              <h3 class="tool-title">공문서 생산</h3>
-              <p class="tool-sub">기안 → 검토·협조 → 결재 → 등록 → 시행 순서로 보면 됩니다.</p>
-            </div>
-            <div class="tool-body">
-              <ul class="tool-list">
-                <li>제목은 짧고 명확하게 쓰고, 본문은 필요한 항목만 남겨 길이를 줄입니다.</li>
-                <li>내부결재 문서는 발신명의를 쓰지 않고, 대외문서는 결재 후 시행까지 이어집니다.</li>
-                <li>수정이 생기면 원칙적으로 다시 결재를 받아 최종본 기준으로 시행합니다.</li>
-              </ul>
-              <div class="tag-row">
-                <span class="tag">기안</span>
-                <span class="tag">검토·협조</span>
-                <span class="tag">결재</span>
-                <span class="tag">시행</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="tool-card" data-search-item data-search="공문서 접수 배부 반송 이송 공람 접수등록번호">
-            <div class="tool-head">
-              <h3 class="tool-title">공문서 접수</h3>
-              <p class="tool-sub">접수번호를 먼저 찍고, 내 업무가 아니면 반송·이송 판단을 바로 합니다.</p>
-            </div>
-            <div class="tool-body">
-              <ul class="tool-list">
-                <li>접수 즉시 등록하고 담당자에게 배부합니다.</li>
-                <li>소관이 아니면 발신기관으로 반송하거나 소관기관으로 이송합니다.</li>
-                <li>민원·협조·검토가 필요한 문서는 공람 순서를 정해 놓으면 실수가 줄어듭니다.</li>
-              </ul>
-              <div class="tag-row">
-                <span class="tag">접수</span>
-                <span class="tag">배부</span>
-                <span class="tag">반송·이송</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="tool-card" data-search-item data-search="기록물 등록 편철 이관 생산현황 보존 평가 폐기">
-            <div class="tool-head">
-              <h3 class="tool-title">기록물 관리</h3>
-              <p class="tool-sub">등록 → 편철 → 이관 → 생산현황 통보 → 보존 → 평가·폐기 흐름으로 관리합니다.</p>
-            </div>
-            <div class="tool-body">
-              <ul class="tool-list">
-                <li>전자문서는 시스템에서 자동 등록되고, 비전자문서는 별도 등록이 필요합니다.</li>
-                <li>업무가 끝나면 표지·색인목록을 붙여 편철하고 보존상자에 정리합니다.</li>
-                <li>학교에서 임의 폐기하지 말고, 평가·폐기 절차는 기록관리 체계에 맞춰 처리합니다.</li>
-              </ul>
-              <div class="tag-row">
-                <span class="tag">등록</span>
-                <span class="tag">편철</span>
-                <span class="tag">이관</span>
-                <span class="tag">폐기 금지</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="tool-card" data-search-item data-search="사무인계 인수 직무대리 출납원 학교장 교육행정실장 발령">
-            <div class="tool-head">
-              <h3 class="tool-title">사무인계·직무대리</h3>
-              <p class="tool-sub">발령 직후에는 장부 마감, 현황 정리, 인계서 작성, 직무대리 설정을 먼저 챙깁니다.</p>
-            </div>
-            <div class="tool-body">
-              <ul class="tool-list">
-                <li>학교장·행정실장·출납원 변경 시 장부와 현황표를 같이 넘겨야 빠지는 일이 없습니다.</li>
-                <li>직무대리는 법정대리와 지정대리로 나뉘므로, 공문 명의와 결재 표시를 구분합니다.</li>
-                <li>회계관계공무원 직무대리는 시스템 권한 변경까지 같이 처리해야 실제 업무가 굴러갑니다.</li>
-              </ul>
-              <div class="tag-row">
-                <span class="tag">인계서</span>
-                <span class="tag">장부 마감</span>
-                <span class="tag">직무대리</span>
-              </div>
-            </div>
-          </article>
-        </div>
-
-        <div class="quick-tip">
-          <p><strong>한입 메모:</strong> 문서는 “만드는 것”보다 “등록·보존까지 닫는 것”이 실무입니다. 접수번호, 생산등록번호, 편철 상태를 마지막에 한 번 더 확인하면 사고가 크게 줄어듭니다.</p>
-        </div>
-      </section>
-    </details>
-
-    <details class="dash-details" open data-filter-group>
-      <summary class="dash-summary">
-        <span class="dash-title">복무</span>
-        <span class="muted">휴가, 출장, 초과근무, 당직</span>
-      </summary>
-      <section id="attendance" class="section content-section">
-        <p class="section-meta">복무는 “사유가 맞는 휴가 선택 → 사전 신청 → 실제 근무상황 반영”의 정확성이 핵심입니다.</p>
-
-        <div class="tool-grid">
-          <article class="tool-card" data-search-item data-search="휴가 연가 병가 공가 특별휴가 모성보호 육아시간 가족돌봄">
-            <div class="tool-head">
-              <h3 class="tool-title">휴가 구분</h3>
-              <p class="tool-sub">연가·병가·공가·특별휴가를 먼저 정확히 구분해야 결근 처리나 연가 공제를 막을 수 있습니다.</p>
-            </div>
-            <div class="tool-body">
-              <ul class="tool-list">
-                <li>병가는 진단서 제출 기준과 연가 전환 기준을 같이 봐야 합니다.</li>
-                <li>특별휴가는 경조사, 출산, 유산·사산, 난임치료, 육아시간, 가족돌봄 등으로 나뉩니다.</li>
-                <li>연가일수는 재직기간, 사실상 직무 미종사 기간, 전년도 가산여부까지 같이 계산합니다.</li>
-              </ul>
-              <div class="tag-row">
-                <span class="tag">연가</span>
-                <span class="tag">병가</span>
-                <span class="tag">공가</span>
-                <span class="tag">특별휴가</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="tool-card" data-search-item data-search="출장 국내출장 공무국외출장 여비 결과보고">
-            <div class="tool-head">
-              <h3 class="tool-title">출장</h3>
-              <p class="tool-sub">출장은 공무 목적, 장소, 시간, 결과보고가 남아야 여비와 복무가 같이 정리됩니다.</p>
-            </div>
-            <div class="tool-body">
-              <ul class="tool-list">
-                <li>근무지내·근무지외를 구분하고, 출장 용무는 최대한 구체적으로 적습니다.</li>
-                <li>출장이 끝나면 결과보고 또는 필요한 후속조치를 바로 남겨야 합니다.</li>
-                <li>국외출장은 심사, 허가, 귀국 후 보고서 공개까지 별도 흐름으로 봐야 합니다.</li>
-              </ul>
-              <div class="tag-row">
-                <span class="tag">국내출장</span>
-                <span class="tag">공무국외출장</span>
-                <span class="tag">결과보고</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="tool-card" data-search-item data-search="초과근무 시간외근무 당직 비상근무 대체휴무">
-            <div class="tool-head">
-              <h3 class="tool-title">초과근무·당직</h3>
-              <p class="tool-sub">사전 신청·승인, 실제 확인, 월 집계, 수당 반영까지 닫아야 합니다.</p>
-            </div>
-            <div class="tool-body">
-              <ul class="tool-list">
-                <li>초과근무는 개인별 구체 업무가 적힌 명령이 있어야 하고, 사후결재는 예외적으로만 처리합니다.</li>
-                <li>연속 8시간 이상 근무 등은 대체휴무 검토 대상이 될 수 있습니다.</li>
-                <li>당직은 보안점검, 긴급연락, 비상소집체계 확인이 핵심이고, 재택당직 여부는 학교 운영계획에 따릅니다.</li>
-              </ul>
-              <div class="tag-row">
-                <span class="tag">시간외근무</span>
-                <span class="tag">대체휴무</span>
-                <span class="tag">당직</span>
-                <span class="tag">비상근무</span>
-              </div>
-            </div>
-          </article>
-        </div>
-
-        <div class="quick-tip">
-          <p><strong>한입 메모:</strong> 복무는 “사유가 맞는지”보다 “증빙과 시스템 반영이 같이 됐는지”에서 사고가 많이 납니다. 특히 병가, 출장, 초과근무는 사후 입력 누락을 제일 먼저 점검하세요.</p>
-        </div>
-      </section>
-    </details>
-
-    <details class="dash-details" open data-filter-group>
-      <summary class="dash-summary">
-        <span class="dash-title">계약제교원</span>
-        <span class="muted">채용, 구비서류, 조회, 보고</span>
-      </summary>
-      <section id="teachers" class="section content-section">
-        <p class="section-meta">계약제교원은 “채용 방식 → 서류 → 조회 → 계약 → 보고 → 인사기록” 순서가 틀어지지 않게 보는 것이 핵심입니다.</p>
-
-        <div class="tool-grid">
-          <article class="tool-card" data-search-item data-search="계약제교원 기간제교원 강사 채용 인력풀 공개채용 임용심사위원회">
-            <div class="tool-head">
-              <h3 class="tool-title">채용 흐름</h3>
-              <p class="tool-sub">결원 발생 → 임용계획 수립 → 인력풀 우선 → 필요 시 공고 → 심사 → 계약·임용으로 보면 됩니다.</p>
-            </div>
-            <div class="tool-body">
-              <ul class="tool-list">
-                <li>기간제교원은 인력풀을 우선 활용하고, 없으면 공개채용으로 넘어갑니다.</li>
-                <li>심사위원회 구성, 면접·수업실연 기준, 명예퇴직자 후순위 여부를 채용 전에 정리해 둡니다.</li>
-                <li>계약은 표준계약서를 기본으로 하고, 구두 약속이 남지 않게 문서로 닫습니다.</li>
-              </ul>
-              <div class="tag-row">
-                <span class="tag">인력풀</span>
-                <span class="tag">공개채용</span>
-                <span class="tag">표준계약서</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="tool-card" data-search-item data-search="계약제교원 서류 결격조회 성범죄 아동학대 장애인학대 마약류 가족채용제한">
-            <div class="tool-head">
-              <h3 class="tool-title">구비서류·조회</h3>
-              <p class="tool-sub">서류는 최소한으로 받고, 필수 조회는 빠짐없이 남겨야 합니다.</p>
-            </div>
-            <div class="tool-body">
-              <ul class="tool-list">
-                <li>자격증, 학력, 경력, 행정정보 공동이용 동의, 개인정보 제공 동의 등 기본 서류를 확인합니다.</li>
-                <li>결격사유, 성범죄·아동학대, 장애인학대(해당 시), 마약류 검사, 가족 채용 제한 여부를 같이 점검합니다.</li>
-                <li>특수학교·특수학급·특수교육지원센터는 장애인학대 관련 조회를 따로 챙깁니다.</li>
-              </ul>
-              <div class="tag-row">
-                <span class="tag">결격조회</span>
-                <span class="tag">범죄경력조회</span>
-                <span class="tag">마약류 검사</span>
-                <span class="tag">가족 채용 제한</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="tool-card" data-search-item data-search="계약제교원 육아휴직 4대보험 임용보고 neis 평가 연수">
-            <div class="tool-head">
-              <h3 class="tool-title">복무·보험·보고</h3>
-              <p class="tool-sub">임용이 끝나면 NEIS 등록, 임용보고, 4대보험, 연수·평가 관리까지 이어집니다.</p>
-            </div>
-            <div class="tool-body">
-              <ul class="tool-list">
-                <li>기간제교원과 정규교원 대체 강사는 정해진 기한 안에 임용보고를 해야 합니다.</li>
-                <li>4대보험은 기간·근로시간 조건에 따라 달라지므로 강사의 적용기준을 별도로 확인합니다.</li>
-                <li>2개월 이상 근무평가, 6개월 이상 연수 관리, 육아휴직 허용 여부와 계약종료 시점을 같이 봅니다.</li>
-              </ul>
-              <div class="tag-row">
-                <span class="tag">임용보고</span>
-                <span class="tag">4대보험</span>
-                <span class="tag">육아휴직</span>
-                <span class="tag">평가·연수</span>
-              </div>
-            </div>
-          </article>
-        </div>
-
-        <div class="quick-tip">
-          <p><strong>한입 메모:</strong> 계약제교원 업무는 “채용”보다 “조회와 기록”에서 감사 포인트가 많이 잡힙니다. 계약서, 조회 회보, 임용보고, NEIS 입력이 한 세트로 닫혔는지 보세요.</p>
-        </div>
-      </section>
-    </details>
-
-    <details class="dash-details" open data-filter-group>
-      <summary class="dash-summary">
-        <span class="dash-title">학교회계 예산·결산</span>
-        <span class="muted">예산편성, 성립전예산, 추경, 이·전용, 결산</span>
-      </summary>
-      <section id="budget" class="section content-section">
-        <p class="section-meta">학교회계는 “편성 → 심의·확정 → 집행 → 결산 → 공개”의 리듬을 놓치지 않게 보는 것이 핵심입니다.</p>
-
-        <div class="tool-grid">
-          <article class="tool-card" data-search-item data-search="학교회계 예산편성 본예산 운영위원회 학교참여예산제 공개">
-            <div class="tool-head">
-              <h3 class="tool-title">예산편성</h3>
-              <p class="tool-sub">예산편성기본지침 확인 → 의견수렴 → 예산안 편성 → 운영위 제출 → 확정·공개 순서입니다.</p>
-            </div>
-            <div class="tool-body">
-              <ul class="tool-list">
-                <li>학생·학부모·교직원 의견수렴과 예산요구서 반영 여부를 먼저 정리합니다.</li>
-                <li>전입금 통보 이후 가용재원 범위에서 예산을 조정하고 운영위원회 심의로 갑니다.</li>
-                <li>확정된 예산은 홈페이지 등에 공개해 투명성을 확보합니다.</li>
-              </ul>
-              <div class="tag-row">
-                <span class="tag">본예산</span>
-                <span class="tag">학교참여예산</span>
-                <span class="tag">예산공개</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="tool-card" data-search-item data-search="성립전예산 추경 간주처리 목적지정 전액교부 차기추경">
-            <div class="tool-head">
-              <h3 class="tool-title">성립전예산·추경·간주처리</h3>
-              <p class="tool-sub">용도 지정과 전액 교부 여부, 운영위 심의 가능 시점, 차기 추경 계상 여부를 같이 봅니다.</p>
-            </div>
-            <div class="tool-body">
-              <ul class="tool-list">
-                <li>성립전예산은 용도가 지정되고 소요 전액이 교부된 경비 등에서만 제한적으로 사용합니다.</li>
-                <li>추경은 예산 성립 후 새 사유가 생겨 기존 예산을 바꿔야 할 때 편성합니다.</li>
-                <li>간주처리는 회계연도 말 목적지정 사업비 등 운영위 심의 시간 여유가 없을 때 제한적으로 씁니다.</li>
-              </ul>
-              <div class="tag-row">
-                <span class="tag">성립전예산</span>
-                <span class="tag">추경</span>
-                <span class="tag">간주처리</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="tool-card" data-search-item data-search="예산 이용 전용 이월 명시이월 사고이월 계속비 업무추진비">
-            <div class="tool-head">
-              <h3 class="tool-title">예산 이용·전용·이월</h3>
-              <p class="tool-sub">목적 외 사용 금지, 이용·전용 가능 범위, 이월의 종류와 제한을 같이 봐야 합니다.</p>
-            </div>
-            <div class="tool-body">
-              <ul class="tool-list">
-                <li>업무추진비 충당, 신규사업 추진, 이월예산 전용 등은 제한사항을 먼저 확인합니다.</li>
-                <li>이용은 정책사업 간, 전용은 같은 정책사업 안에서의 조정으로 구분해 봅니다.</li>
-                <li>명시이월·사고이월·계속비이월은 사유와 절차가 서로 다르므로 구분해서 처리합니다.</li>
-              </ul>
-              <div class="tag-row">
-                <span class="tag">이용</span>
-                <span class="tag">전용</span>
-                <span class="tag">명시·사고이월</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="tool-card" data-search-item data-search="결산 공개 잉여금 반환금 반납 공개 예결산">
-            <div class="tool-head">
-              <h3 class="tool-title">결산·공개·반납</h3>
-              <p class="tool-sub">결산서는 작성 시점, 첨부서류, 운영위 심의, 공개, 반납까지 한 묶음으로 봅니다.</p>
-            </div>
-            <div class="tool-body">
-              <ul class="tool-list">
-                <li>예비비 사용, 이용·전용 내역, 이월경비 내역 등 첨부서류를 같이 정리합니다.</li>
-                <li>결산 심의 후에는 홈페이지 등에 공개하고, 반환금·순세계잉여금 정리도 놓치지 않습니다.</li>
-                <li>목적사업비 집행잔액과 학교운영비 반납 기준은 연말에 따로 체크리스트로 보는 것이 안전합니다.</li>
-              </ul>
-              <div class="tag-row">
-                <span class="tag">결산</span>
-                <span class="tag">반환금</span>
-                <span class="tag">예결산 공개</span>
-              </div>
-            </div>
-          </article>
-        </div>
-
-        <div class="quick-tip">
-          <p><strong>한입 메모:</strong> 학교회계는 “편성”보다 “예외 처리”에서 실수가 납니다. 성립전예산, 간주처리, 전용, 반환금은 각각 별도 체크리스트로 끊어서 보세요.</p>
-        </div>
-      </section>
-    </details>
-
-    <details class="dash-details" open data-filter-group>
-      <summary class="dash-summary">
-        <span class="dash-title">지출·계약·여비</span>
-        <span class="muted">증빙, 업무추진비, 수의계약, 여비</span>
-      </summary>
-      <section id="spend" class="section content-section">
-        <p class="section-meta">지출은 “증빙 → 예산과목 → 집행방법 → 공개”를 같은 화면에서 같이 보는 것이 안전합니다.</p>
-
-        <div class="tool-grid">
-          <article class="tool-card" data-search-item data-search="지출 증빙 결의서 계산서 계좌입금 영수증">
-            <div class="tool-head">
-              <h3 class="tool-title">지출증빙 기본</h3>
-              <p class="tool-sub">결의서, 영수증서, 계약증빙이 한 묶음으로 남아야 지출이 닫힙니다.</p>
-            </div>
-            <div class="tool-body">
-              <ul class="tool-list">
-                <li>지출원인행위와 지급청구의 정당성을 먼저 확인한 뒤 지출합니다.</li>
-                <li>계좌입금 증빙, 지출결의서, 계약 관련 증빙을 월별 또는 분기별로 편철합니다.</li>
-                <li>소액계약, 반납 처리, 세출과목 복귀 여부를 같이 보면 결산 때 편합니다.</li>
-              </ul>
-              <div class="tag-row">
-                <span class="tag">결의서</span>
-                <span class="tag">영수증</span>
-                <span class="tag">계약증빙</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="tool-card" data-search-item data-search="업무추진비 간담회 다과 경조사 특근매식비">
-            <div class="tool-head">
-              <h3 class="tool-title">업무추진비·특근매식비</h3>
-              <p class="tool-sub">허용 범위, 증빙 방식, 공개 기준을 먼저 잡고 써야 안전합니다.</p>
-            </div>
-            <div class="tool-body">
-              <ul class="tool-list">
-                <li>간담회비, 다과 구입, 경조사비는 허용 기준과 제외 대상을 명확히 봅니다.</li>
-                <li>건당 50만원 이상은 주된 대상자 소속과 성명 기재 여부를 확인합니다.</li>
-                <li>특근매식비는 시간외근무 확인과 법인카드 사용을 같이 점검합니다.</li>
-              </ul>
-              <div class="tag-row">
-                <span class="tag">업무추진비</span>
-                <span class="tag">경조사비</span>
-                <span class="tag">특근매식비</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="tool-card" data-search-item data-search="수의계약 공개 계약금액 100만원 지정정보처리장치 견적">
-            <div class="tool-head">
-              <h3 class="tool-title">수의계약·공개</h3>
-              <p class="tool-sub">수의계약은 체결뿐 아니라 공개 대상인지까지 한 번에 확인해야 합니다.</p>
-            </div>
-            <div class="tool-body">
-              <ul class="tool-list">
-                <li>계약금액과 계약 방식에 따라 공개 대상 여부를 먼저 판단합니다.</li>
-                <li>지정정보처리장치로 2명 이상 견적을 받아 체결한 경우 등 예외도 같이 봅니다.</li>
-                <li>계약서류, 업체현황, 공개 시점을 한 세트로 체크하면 누락이 줄어듭니다.</li>
-              </ul>
-              <div class="tag-row">
-                <span class="tag">수의계약</span>
-                <span class="tag">공개 여부</span>
-                <span class="tag">계약서류</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="tool-card" data-search-item data-search="여비 국내여비 출장비 이전비 교육훈련여비">
-            <div class="tool-head">
-              <h3 class="tool-title">국내여비</h3>
-              <p class="tool-sub">출장 구분, 이동 시간, 실비 상한, 증빙을 같이 봐야 합니다.</p>
-            </div>
-            <div class="tool-body">
-              <ul class="tool-list">
-                <li>근무지내·근무지외 출장에 따라 지급 구조가 달라지므로 출장 입력부터 정확해야 합니다.</li>
-                <li>운임, 일비, 숙박비, 식비의 적용 기준을 따로 보지 말고 한 번에 묶어 확인합니다.</li>
-                <li>출장 결과와 여비 정산 자료가 따로 놀지 않게 같은 건으로 관리합니다.</li>
-              </ul>
-              <div class="tag-row">
-                <span class="tag">근무지내 출장</span>
-                <span class="tag">근무지외 출장</span>
-                <span class="tag">여비 정산</span>
-              </div>
-            </div>
-          </article>
-        </div>
-
-        <div class="quick-tip">
-          <p><strong>한입 메모:</strong> 지출과 계약은 “해도 되는가”보다 “그 증빙이 남는가”가 핵심입니다. 카드 승인내역, 납품내역, 공개 여부를 같이 보세요.</p>
-        </div>
-      </section>
-    </details>
-
-    <details class="dash-details" open data-filter-group>
-      <summary class="dash-summary">
-        <span class="dash-title">물품·공유재산·시설</span>
-        <span class="muted">물품, 재산, 사용허가, 시설, 안전</span>
-      </summary>
-      <section id="assets" class="section content-section">
-        <p class="section-meta">물품·재산·시설은 “취득 → 관리 → 점검 → 보고”의 흐름으로 보면 업무가 덜 흩어집니다.</p>
-
-        <div class="tool-grid">
-          <article class="tool-card" data-search-item data-search="물품 취득 보관 운용 불용 처분 재물조사 정수">
-            <div class="tool-head">
-              <h3 class="tool-title">물품 관리</h3>
-              <p class="tool-sub">취득, 보관, 운용, 불용, 재물조사를 한 흐름으로 봅니다.</p>
-            </div>
-            <div class="tool-body">
-              <ul class="tool-list">
-                <li>비품은 취득 시점부터 대장 반영과 사용부서 관리 책임을 같이 잡습니다.</li>
-                <li>불용·처분은 단순 폐기가 아니라 근거와 절차가 남아야 합니다.</li>
-                <li>정수 책정, 수급관리계획, 재물조사는 연간 일정으로 묶어 관리하면 편합니다.</li>
-              </ul>
-              <div class="tag-row">
-                <span class="tag">비품</span>
-                <span class="tag">불용</span>
-                <span class="tag">재물조사</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="tool-card" data-search-item data-search="공유재산 사용허가 대부 관사 학교시설 대여 사용료">
-            <div class="tool-head">
-              <h3 class="tool-title">공유재산·사용허가</h3>
-              <p class="tool-sub">사용허가, 대부, 관사, 사용료 징수는 계약·회계와 같이 묶어 보는 것이 안전합니다.</p>
-            </div>
-            <div class="tool-body">
-              <ul class="tool-list">
-                <li>학교시설 대여는 허가서류, 사용료 산정, 징수·수납, 시설적립금 여부를 같이 봅니다.</li>
-                <li>공유재산의 취득·처분·사용허가는 재산대장과 회계처리가 연결돼야 합니다.</li>
-                <li>관사 관리가 있는 학교는 입·퇴거와 유지관리 기준을 별도로 관리합니다.</li>
-              </ul>
-              <div class="tag-row">
-                <span class="tag">사용허가</span>
-                <span class="tag">대부</span>
-                <span class="tag">사용료</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="tool-card" data-search-item data-search="시설 유지점검 방화 소방 놀이시설 하자보수 재난 산업안전">
-            <div class="tool-head">
-              <h3 class="tool-title">시설·안전·재난</h3>
-              <p class="tool-sub">정기점검, 위탁관리, 재난대응, 산업안전은 캘린더형으로 묶어 두는 것이 좋습니다.</p>
-            </div>
-            <div class="tool-body">
-              <ul class="tool-list">
-                <li>소방, 놀이시설, 승강기·전기 등 법정 점검성 업무는 검사주기 중심으로 관리합니다.</li>
-                <li>하자보수는 공사 이후 문서·사진·통지 기록까지 남아야 실무가 닫힙니다.</li>
-                <li>산업안전보건은 문서만이 아니라 실제 점검체계와 교육이 같이 움직여야 합니다.</li>
-              </ul>
-              <div class="tag-row">
-                <span class="tag">유지점검</span>
-                <span class="tag">소방</span>
-                <span class="tag">재난관리</span>
-                <span class="tag">산업안전</span>
-              </div>
-            </div>
-          </article>
-        </div>
-
-        <div class="quick-tip">
-          <p><strong>한입 메모:</strong> 시설·안전 업무는 “일이 생겼을 때”보다 “주기 전에 준비했는가”가 중요합니다. 검사 주기, 계약 만료일, 재물조사 시점을 한 달력에서 같이 보세요.</p>
-        </div>
-      </section>
-    </details>
-
-    <section id="refs" class="section">
-      <h2>기준 문서 메모</h2>
-      <p class="section-lead">이 페이지는 원문을 대체하지 않고, 원문으로 들어가기 위한 안내판 역할을 하도록 설계했습니다.</p>
-
-      <div class="refs-list">
-        <div class="card">
-          <h3>학교행정 업무편람</h3>
-          <p>문서, 인사, 복무, 교육공무직, 학교회계, 지출, 계약, 물품, 공유재산, 시설 등 학교 행정 전반의 큰 틀을 잡는 기준 문서.</p>
-        </div>
-        <div class="card">
-          <h3>계약제교원 운영 지침</h3>
-          <p>기간제교원·강사 채용, 구비서류, 결격사유 조회, 복무, 육아휴직, 4대보험, 임용보고 실무를 모은 문서.</p>
-        </div>
-        <div class="card">
-          <h3>학교회계 예산편성기본지침</h3>
-          <p>예산편성, 추경, 성립전예산, 간주처리, 이·전용, 이월, 결산, 공개, 반납 기준을 정리한 문서.</p>
-        </div>
-        <div class="card">
-          <h3>공립학교 회계규칙</h3>
-          <p>학교회계의 설치·운영 원칙, 예산·결산, 세입·지출, 장부, 공개, 준용 규정을 잡아 주는 규칙.</p>
-        </div>
+        <button id="searchButton" class="btn btn-primary" type="button">검색하기</button>
+        <button id="resetButton" class="btn btn-secondary" type="button">초기화</button>
       </div>
 
-      <p class="footer-note">추후 확장할 때는 각 카드 아래에 <span class="mono">상세 페이지 링크</span>만 붙이면 메뉴 허브로 계속 재사용할 수 있게 구조를 잡아 두었습니다.</p>
+      <p class="search-hint">검색은 카드 제목, 1문장 설명, 5줄 상세설명, 숨겨진 검색 태그를 함께 대상으로 합니다. 띄어쓰기로 여러 키워드를 입력하면 모두 포함하는 카드만 찾습니다.</p>
     </section>
-  </main>
 
-  <button id="btnToTop" class="btn btn-lightgrey" type="button" aria-label="맨 위로">↑ 위로</button>
+    <section id="searchResultsSection" class="panel result-panel" aria-live="polite" aria-labelledby="resultTitle">
+      <div class="result-top">
+        <div class="result-meta">
+          <h2 id="resultTitle" style="margin:0;">검색 결과</h2>
+          <span class="badge" id="resultCountBadge">0건</span>
+          <span class="badge" id="resultKeywordBadge">키워드 없음</span>
+        </div>
+        <p class="result-text" id="resultText">검색 결과 설명 영역입니다.</p>
+      </div>
+      <div id="searchResultsGrid" class="card-grid"></div>
+      <div id="searchEmptyBox" class="empty-box" hidden>검색 결과가 없습니다. 아래 전체 카드에서 다시 확인하거나 다른 키워드로 검색해 주세요.</div>
+    </section>
 
-  <footer class="site-footer">
-    <div class="shell">
-      <p>한입 크기로 잘라먹는 행정업무 모음집</p>
-      <p>단일 index.html / 기존 <span class="mono">/static/style.css</span> 활용 / 검색 · 빠른이동 · 접기/펼치기 포함</p>
-      <p>실제 집행과 결재 전에는 반드시 원문 지침과 최신 공문을 다시 확인하세요.</p>
+    <main id="sectionsContainer" aria-label="업무 분야 카드 목록"></main>
+
+    <p class="footer-note">템플릿 수정은 아래 스크립트의 <strong>TEMPLATE_DATA</strong>만 바꾸면 됩니다. 다크모드는 넣지 않았고, 카드 클릭 시 전체화면형 오버레이로 확대됩니다.</p>
+  </div>
+
+  <div id="cardOverlay" class="card-overlay" hidden aria-hidden="true">
+    <div id="overlayCard" class="overlay-card" role="dialog" aria-modal="true" aria-labelledby="overlayTitle">
+      <button id="overlayCloseButton" class="overlay-close close-overlay" type="button" aria-label="닫기">×</button>
+
+      <div class="overlay-head">
+        <div class="overlay-badges">
+          <span class="badge" id="overlaySectionBadge">업무 분야</span>
+          <span class="badge" id="overlayCardNoBadge">카드 00</span>
+        </div>
+        <h2 id="overlayTitle" class="overlay-title">카드 제목</h2>
+        <p id="overlaySummary" class="overlay-summary">카드 썸네일의 1문장 설명이 이곳에 표시됩니다.</p>
+      </div>
+
+      <div id="overlayLines" class="overlay-lines"></div>
+
+      <a id="overlayDetailLink" class="detail-link" href="#" target="_blank" rel="noreferrer noopener" hidden>상세 가이드로 이동</a>
+      <div id="overlayHiddenTags" class="sr-only"></div>
+      <p class="overlay-guide">확대된 카드를 다시 클릭하거나 바깥 영역을 누르면 원래대로 닫힙니다. ESC 키와 우측 상단 닫기 버튼도 사용할 수 있습니다.</p>
     </div>
-  </footer>
+  </div>
 
   <script>
     (function () {
-      const searchInput = document.getElementById('menuSearch');
-      const clearButton = document.getElementById('clearSearch');
-      const emptyState = document.getElementById('emptyState');
-      const searchItems = Array.from(document.querySelectorAll('[data-search-item]'));
-      const filterGroups = Array.from(document.querySelectorAll('[data-filter-group]'));
-      const chipLinks = Array.from(document.querySelectorAll('.quick-nav .chip[href^="#"]'));
-      const sectionTargets = chipLinks
-        .map((chip) => document.querySelector(chip.getAttribute('href')))
-        .filter(Boolean);
-      const btnToTop = document.getElementById('btnToTop');
+      const TEMPLATE_DATA = [
+        {
+          id: 'docs',
+          title: '문서·기록물',
+          subtitle: '기안, 접수, 시행, 편철, 이관 등 문서 흐름을 배치하는 영역입니다.',
+          topics: ['기안', '검토·협조', '결재', '접수', '시행', '편철', '이관', '보존', '사무인계'],
+          extraTags: ['공문', '문서', '기록물']
+        },
+        {
+          id: 'attendance',
+          title: '복무',
+          subtitle: '휴가, 출장, 초과근무, 당직, 비상근무 카드를 배치하는 영역입니다.',
+          topics: ['연가', '병가', '공가', '특별휴가', '출장', '초과근무', '당직', '비상근무', '복무점검'],
+          extraTags: ['복무', '휴가', '출장']
+        },
+        {
+          id: 'contractTeacher',
+          title: '계약제교원',
+          subtitle: '채용에서 계약, 조회, 보고, 평가까지 묶어서 보여주는 영역입니다.',
+          topics: ['채용계획', '공고', '서류확인', '결격조회', '계약서작성', '임용보고', '4대보험', '육아휴직', '평가관리'],
+          extraTags: ['기간제교원', '강사', '임용']
+        },
+        {
+          id: 'budget',
+          title: '학교회계 예산·결산',
+          subtitle: '예산 편성부터 성립전예산, 추경, 이월, 결산, 공개까지 정리하는 영역입니다.',
+          topics: ['본예산', '성립전예산', '추경', '간주처리', '이용', '전용', '이월', '결산', '공개'],
+          extraTags: ['예산', '결산', '학교회계']
+        },
+        {
+          id: 'spendContract',
+          title: '지출·계약',
+          subtitle: '지출 결의, 증빙, 업무추진비, 수의계약, 여비 정산 등을 다루는 영역입니다.',
+          topics: ['지출결의', '증빙서류', '업무추진비', '수의계약', '검수', '카드지출', '여비정산', '선금·개산급', '반환금'],
+          extraTags: ['지출', '계약', '여비']
+        },
+        {
+          id: 'assetsFacility',
+          title: '물품·시설',
+          subtitle: '물품 취득과 불용, 재물조사, 시설점검, 안전관리 카드를 배치하는 영역입니다.',
+          topics: ['취득', '보관', '불용', '처분', '재물조사', '정수관리', '시설점검', '하자보수', '안전관리'],
+          extraTags: ['물품', '시설', '재산']
+        },
+        {
+          id: 'schoolBoard',
+          title: '학교운영위원회',
+          subtitle: '위원 구성, 회의 운영, 안건 상정, 회의록, 공개 등을 묶는 영역입니다.',
+          topics: ['구성', '위원선출', '회의준비', '안건상정', '예결산심의', '회의록', '공개', '연수', '사후관리'],
+          extraTags: ['운영위원회', '회의', '심의']
+        },
+        {
+          id: 'complaintInfo',
+          title: '민원·정보공개',
+          subtitle: '제증명, 민원 접수, 정보공개, 개인정보, FAQ 카드를 배치하는 영역입니다.',
+          topics: ['제증명', '민원접수', '정보공개청구', '학교정보공시', '개인정보', '민원회신', '공문답변', '기록열람', 'FAQ'],
+          extraTags: ['민원', '정보공개', '개인정보']
+        }
+      ];
+
+      const quickNav = document.getElementById('quickNav');
+      const sectionsContainer = document.getElementById('sectionsContainer');
+      const searchInput = document.getElementById('cardSearchInput');
+      const searchButton = document.getElementById('searchButton');
+      const resetButton = document.getElementById('resetButton');
+      const resultSection = document.getElementById('searchResultsSection');
+      const resultGrid = document.getElementById('searchResultsGrid');
+      const resultEmptyBox = document.getElementById('searchEmptyBox');
+      const resultCountBadge = document.getElementById('resultCountBadge');
+      const resultKeywordBadge = document.getElementById('resultKeywordBadge');
+      const resultText = document.getElementById('resultText');
+
+      const overlay = document.getElementById('cardOverlay');
+      const overlayCard = document.getElementById('overlayCard');
+      const overlayCloseButton = document.getElementById('overlayCloseButton');
+      const overlaySectionBadge = document.getElementById('overlaySectionBadge');
+      const overlayCardNoBadge = document.getElementById('overlayCardNoBadge');
+      const overlayTitle = document.getElementById('overlayTitle');
+      const overlaySummary = document.getElementById('overlaySummary');
+      const overlayLines = document.getElementById('overlayLines');
+      const overlayDetailLink = document.getElementById('overlayDetailLink');
+      const overlayHiddenTags = document.getElementById('overlayHiddenTags');
+
+      let lastFocusedCard = null;
 
       function normalize(value) {
-        return (value || '').toLowerCase().replace(/\s+/g, ' ').trim();
+        return String(value || '')
+          .toLowerCase()
+          .replace(/\s+/g, ' ')
+          .trim();
+      }
+
+      function escapeHtml(value) {
+        return String(value || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function makeTemplateCards(section) {
+        return section.topics.map(function (topic, index) {
+          const cardNumber = String(index + 1).padStart(2, '0');
+
+          return {
+            id: section.id + '-' + cardNumber,
+            sectionId: section.id,
+            sectionTitle: section.title,
+            cardNumber: cardNumber,
+            title: topic + ' 템플릿',
+            thumbDescription: section.title + '에서 ' + topic + ' 핵심만 빠르게 확인하도록 만든 1문장 썸네일입니다.',
+            details: [
+              topic + ' 업무의 시작 조건과 적용 대상을 1줄로 적습니다.',
+              topic + ' 처리 순서 또는 체크리스트를 2번째 줄에 적습니다.',
+              topic + ' 자주 누락되는 서류나 시스템 입력 포인트를 3번째 줄에 적습니다.',
+              topic + ' 감사·민원에서 자주 걸리는 주의사항을 4번째 줄에 적습니다.',
+              topic + ' 상세 가이드 링크 또는 후속 업무를 5번째 줄에 적습니다.'
+            ],
+            tags: [section.title, topic, topic + ' 업무'].concat(section.extraTags || []),
+            detailUrl: '',
+            detailLabel: '상세 가이드로 이동'
+          };
+        });
+      }
+
+      const APP_DATA = TEMPLATE_DATA.map(function (section) {
+        return Object.assign({}, section, {
+          cards: makeTemplateCards(section)
+        });
+      });
+
+      const CARD_INDEX = [];
+      const CARD_MAP = new Map();
+
+      APP_DATA.forEach(function (section) {
+        section.cards.forEach(function (card) {
+          const indexedCard = Object.assign({}, card, {
+            subtitle: section.subtitle,
+            searchText: normalize(
+              [
+                card.title,
+                card.thumbDescription,
+                section.title,
+                section.subtitle
+              ]
+                .concat(card.details)
+                .concat(card.tags)
+                .join(' ')
+            )
+          });
+
+          CARD_INDEX.push(indexedCard);
+          CARD_MAP.set(indexedCard.id, indexedCard);
+        });
+      });
+
+      function renderCardMarkup(card, isSearchClone) {
+        const cloneClass = isSearchClone ? ' is-search-clone' : '';
+        return [
+          '<article class="work-card' + cloneClass + '" data-card-id="' + escapeHtml(card.id) + '" tabindex="0" role="button" aria-haspopup="dialog" aria-label="' + escapeHtml(card.title + ' 자세히 보기') + '">',
+          '  <div class="card-number">' + escapeHtml(card.cardNumber) + '</div>',
+          '  <h3 class="card-title">' + escapeHtml(card.title) + '</h3>',
+          '  <p class="card-desc">' + escapeHtml(card.thumbDescription) + '</p>',
+          '  <div class="sr-only">검색 키워드: ' + escapeHtml(card.tags.join(', ')) + '</div>',
+          '</article>'
+        ].join('');
+      }
+
+      function renderQuickNav() {
+        quickNav.innerHTML = APP_DATA.map(function (section) {
+          return '<a class="toc-link" href="#' + escapeHtml(section.id) + '">' + escapeHtml(section.title) + '</a>';
+        }).join('');
+      }
+
+      function renderSections() {
+        sectionsContainer.innerHTML = APP_DATA.map(function (section) {
+          const cardsHtml = section.cards.map(function (card) {
+            return renderCardMarkup(card, false);
+          }).join('');
+
+          return [
+            '<section id="' + escapeHtml(section.id) + '" class="work-section" data-section-id="' + escapeHtml(section.id) + '">',
+            '  <div class="section-head">',
+            '    <div>',
+            '      <h2>' + escapeHtml(section.title) + '</h2>',
+            '      <p>' + escapeHtml(section.subtitle) + '</p>',
+            '    </div>',
+            '  </div>',
+            '  <div class="card-grid">',
+            cardsHtml,
+            '  </div>',
+            '</section>'
+          ].join('');
+        }).join('');
+      }
+
+      function restoreOriginalCards() {
+        sectionsContainer.querySelectorAll('.work-card.is-hidden-by-search').forEach(function (cardEl) {
+          cardEl.classList.remove('is-hidden-by-search');
+        });
+
+        sectionsContainer.querySelectorAll('.work-section.is-hidden-section').forEach(function (sectionEl) {
+          sectionEl.classList.remove('is-hidden-section');
+        });
+      }
+
+      function clearSearchResults() {
+        resultGrid.innerHTML = '';
+        resultEmptyBox.hidden = true;
+        resultSection.classList.remove('is-active');
+        resultCountBadge.textContent = '0건';
+        resultKeywordBadge.textContent = '키워드 없음';
+        resultText.textContent = '검색 결과 설명 영역입니다.';
+        restoreOriginalCards();
+      }
+
+      function updateSectionVisibility(hasActiveSearch) {
+        APP_DATA.forEach(function (section) {
+          const sectionEl = sectionsContainer.querySelector('[data-section-id="' + section.id + '"]');
+          if (!sectionEl) return;
+
+          const visibleCards = sectionEl.querySelectorAll('.work-card:not(.is-hidden-by-search)').length;
+          sectionEl.classList.toggle('is-hidden-section', hasActiveSearch && visibleCards === 0);
+        });
       }
 
       function applySearch() {
         const query = normalize(searchInput.value);
-        let visibleCount = 0;
+        clearSearchResults();
 
-        searchItems.forEach((item) => {
-          const haystack = normalize(item.dataset.search || item.textContent);
-          const matched = !query || haystack.includes(query);
-          item.classList.toggle('is-hidden', !matched);
-          if (matched) visibleCount += 1;
-        });
-
-        filterGroups.forEach((group) => {
-          const visibleCards = group.querySelectorAll('.tool-card[data-search-item]:not(.is-hidden)').length;
-          const shouldHide = query && visibleCards === 0;
-          group.classList.toggle('is-hidden', shouldHide);
-
-          if (query && visibleCards > 0) {
-            group.open = true;
-          }
-        });
-
-        emptyState.classList.toggle('show', query !== '' && visibleCount === 0);
-      }
-
-      function setActiveChip(id) {
-        chipLinks.forEach((chip) => {
-          const isActive = chip.getAttribute('href') === `#${id}`;
-          chip.classList.toggle('is-active', isActive);
-          if (isActive) {
-            chip.setAttribute('aria-current', 'location');
-          } else {
-            chip.removeAttribute('aria-current');
-          }
-        });
-      }
-
-      const observer = new IntersectionObserver((entries) => {
-        const visibleEntries = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-        if (visibleEntries.length > 0) {
-          setActiveChip(visibleEntries[0].target.id);
+        if (!query) {
+          return;
         }
-      }, {
-        root: null,
-        threshold: [0.2, 0.5, 0.8],
-        rootMargin: '-20% 0px -55% 0px'
+
+        const tokens = query.split(' ').filter(Boolean);
+        const matchedCards = CARD_INDEX.filter(function (card) {
+          return tokens.every(function (token) {
+            return card.searchText.includes(token);
+          });
+        });
+
+        resultSection.classList.add('is-active');
+        resultCountBadge.textContent = matchedCards.length + '건';
+        resultKeywordBadge.textContent = '검색어: ' + query;
+
+        if (matchedCards.length === 0) {
+          resultEmptyBox.hidden = false;
+          resultText.textContent = '검색 결과가 없어 전체 카드 72개를 그대로 아래에 남겨둡니다.';
+          updateSectionVisibility(false);
+          resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return;
+        }
+
+        matchedCards.forEach(function (card) {
+          const originalCard = sectionsContainer.querySelector('.work-card[data-card-id="' + card.id + '"]');
+          if (originalCard) {
+            originalCard.classList.add('is-hidden-by-search');
+          }
+          resultGrid.insertAdjacentHTML('beforeend', renderCardMarkup(card, true));
+        });
+
+        const remainingCount = CARD_INDEX.length - matchedCards.length;
+        resultText.textContent = '검색된 ' + matchedCards.length + '개 카드를 상단에 모았습니다. 나머지 ' + remainingCount + '개 카드는 아래 섹션에 그대로 남겨둡니다.';
+        updateSectionVisibility(true);
+        resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      function openOverlay(cardId, triggerEl) {
+        const card = CARD_MAP.get(cardId);
+        if (!card) return;
+
+        lastFocusedCard = triggerEl || document.querySelector('.work-card[data-card-id="' + cardId + '"]');
+
+        overlaySectionBadge.textContent = card.sectionTitle;
+        overlayCardNoBadge.textContent = '카드 ' + card.cardNumber;
+        overlayTitle.textContent = card.title;
+        overlaySummary.textContent = card.thumbDescription;
+        overlayLines.innerHTML = card.details.map(function (line) {
+          return '<p class="overlay-line">' + escapeHtml(line) + '</p>';
+        }).join('');
+        overlayHiddenTags.textContent = '검색 키워드: ' + card.tags.join(', ');
+
+        if (card.detailUrl) {
+          overlayDetailLink.hidden = false;
+          overlayDetailLink.href = card.detailUrl;
+          overlayDetailLink.textContent = card.detailLabel || '상세 가이드로 이동';
+        } else {
+          overlayDetailLink.hidden = true;
+          overlayDetailLink.removeAttribute('href');
+        }
+
+        overlay.hidden = false;
+        overlay.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('modal-open');
+        overlayCloseButton.focus();
+      }
+
+      function closeOverlay() {
+        overlay.hidden = true;
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('modal-open');
+
+        if (lastFocusedCard && typeof lastFocusedCard.focus === 'function') {
+          lastFocusedCard.focus();
+        }
+      }
+
+      document.addEventListener('click', function (event) {
+        const clickedCard = event.target.closest('.work-card');
+        if (clickedCard) {
+          openOverlay(clickedCard.dataset.cardId, clickedCard);
+          return;
+        }
+
+        if (event.target.closest('.close-overlay')) {
+          closeOverlay();
+          return;
+        }
+
+        if (!overlay.hidden) {
+          const clickedDetailLink = event.target.closest('.detail-link');
+          if (clickedDetailLink) {
+            return;
+          }
+
+          const clickedOverlayCard = event.target.closest('.overlay-card');
+          if (event.target === overlay || clickedOverlayCard === overlayCard) {
+            closeOverlay();
+          }
+        }
       });
 
-      sectionTargets.forEach((section) => observer.observe(section));
+      document.addEventListener('keydown', function (event) {
+        const activeElement = document.activeElement;
 
-      searchInput.addEventListener('input', applySearch);
-      clearButton.addEventListener('click', () => {
+        if ((event.key === 'Enter' || event.key === ' ') && activeElement && activeElement.classList.contains('work-card')) {
+          event.preventDefault();
+          openOverlay(activeElement.dataset.cardId, activeElement);
+          return;
+        }
+
+        if (event.key === 'Enter' && activeElement === searchInput) {
+          applySearch();
+          return;
+        }
+
+        if (event.key === 'Escape' && !overlay.hidden) {
+          closeOverlay();
+        }
+      });
+
+      overlayDetailLink.addEventListener('click', function (event) {
+        event.stopPropagation();
+      });
+
+      searchButton.addEventListener('click', applySearch);
+      resetButton.addEventListener('click', function () {
         searchInput.value = '';
-        applySearch();
+        clearSearchResults();
         searchInput.focus();
       });
 
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 240) {
-          btnToTop.style.display = 'inline-block';
-        } else {
-          btnToTop.style.display = 'none';
-        }
-      });
-
-      btnToTop.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-
-      applySearch();
-      setActiveChip('menu');
+      renderQuickNav();
+      renderSections();
     })();
   </script>
 </body>
