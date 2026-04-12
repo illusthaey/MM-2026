@@ -1,147 +1,113 @@
 <!doctype html>
 <html lang="ko">
-<head>
-  <meta charset="utf-8" />
-  <meta name="robots" content="noindex">
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="color-scheme" content="light" />
-  <title>웹페이지 사용 안내</title>
-
-  <!-- Google tag (gtag.js) -->
+    <head>
+      <meta charset="utf-8" />
+      <meta name="robots" content="noindex" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="color-scheme" content="light" />
+      <title>처음 이용하시는 분께 | 고주무관의 쉬운 학교행정</title>
+  <meta name="x-brand-title" content="처음 이용하시는 분께 | {{masterBrand}}" />
+      <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-B6PE24NSKH"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-B6PE24NSKH');
 </script>
 
+      <link rel="icon" href="/static/favicon.ico" />
+      <link rel="stylesheet" href="/static/style.css" />
+      <script src="/static/brand-config.js"></script>
+      <script defer src="/static/brand-ui.js"></script>
 
+      <style>.callout strong{{color:#111;}}</style>
+    </head>
 
-  <link rel="icon" href="/static/favicon.ico" />
-  <link rel="stylesheet" href="/static/style.css" />
+<body class="alien-side-bg page-menu">
+  <div class="alien-page-frame">
+    <main class="container">
+      <p class="page-kicker" data-brand-key="editionTitle">문막초 교직원 안내</p>
+      <h1>처음 이용하시는 분께</h1>
+      <p class="muted section-intro">이 웹페이지가 누구를 위한 것인지, 먼저 어디를 보면 좋은지, 어디까지 참고하면 되는지부터 정리했습니다.</p>
 
-  
-  <style>
-    .jump {
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      margin: 10px 0 0;
-    }
-    .jump a{
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      font-weight: 700;
-      color: #0051a8;
-      white-space: nowrap;
-    }
-    .callout {
-      margin-top: 10px;
-      padding: 12px 14px;
-      border: 1px solid #e5e5e5;
-      border-radius: 12px;
-      background: #fff;
-    }
-    .callout strong { color:#111; }
-  </style>
-</head>
+      <nav class="chip-row page-breadcrumb" aria-label="주요 메뉴">
+        <a class="chip" data-brand-route="home" href="/">홈</a>
+        <a class="chip" data-brand-route="notice" href="/notice/">안내사항</a>
+        <a class="chip" data-brand-route="biteGuide" href="/a-bite/">한입 가이드</a>
+        <a class="chip" data-brand-route="detailedGuide" href="/guide/">상세 가이드</a>
+      </nav>
 
-<body class="alien-side-bg">
-<div class="alien-page-frame">
-
-  <main class="container">
-    <h1>웹페이지 이용 안내</h1>
-
-    <p class="muted">
-      ·웹페이지 개발 목적 및 제공 기능 등 <br/>
-    </p>
-    <hr/>
-
-    
-    <!-- ----------------------- 구분선 -------------------------- -->
-    <section class="section" id="quick" aria-labelledby="h-quick">
-
-          <h3>이 웹페이지가 하는 일</h3>
-          <hr/>
-          <ul>
-            <li><strong>2026학년도에 안내가 필요한 내용</strong> 및 <strong>지난 1년간 자주 문의하셨던 내용</strong> 등을 모아 제공합니다.</li>
-            <li>업무 중 막히는 구간을 <strong>검색</strong>하여 빠르게 해결하도록 돕습니다.</li>
-            <li>인터넷만 있으면 언제든 접속 가능하므로 <strong>담당자 부재 및 근무시간 외</strong>에도 참고할 수 있습니다.</li>
-          </ul>
-      <hr/>
-        <h3>웹페이지 활용 방법</h3>
-        <ol>
-          <li><strong>검색창</strong>에 키워드를 입력해 관련 자료가 있는지 먼저 찾아봅니다.<br/>
-          <li>자료가 있으면 <strong>처리 절차</strong>와 <strong>주의사항</strong>을 확인합니다.</li>
-          <li><strong>체크리스트</strong>가 있는 업무라면 자가진단 해보시고, 필요하신 경우 메신저로 문의 주십시오.</li>
-        </ol>
-      <hr/>
-    </section>
-
-    <section class="section">
-    
-      <h2 id="h-scope">웹페이지 지원 범위</h2>
-          <p class="muted">
-            관련 문서: “2026.1.1.자 교육행정실 업무분장”, 문막초-59(2026.1.2.)
-          </p>
-      <hr/>
-      
+      <section class="section">
+        <h2>이 페이지가 하는 일</h2>
+        <hr />
         <div class="card">
-          <h3>이 웹페이지에서 다루는 내용</h3>
-          <hr/>
-          
           <ul>
-            <li>교직원 급여·강사료·자원봉사료·초과근무수당 등 <strong>인건비성 지출</strong> 안내</li>
-            <li>대체인력 등 <strong>근로계약 체결</strong> 관련 업무 (범죄경력조회 포함)</li>
-            <li>교직원 급식비·학생 우유급식비·늘봄학교 수강료 등 <strong>수익자부담금 징수</strong> 관련</li>
-            <li>기타 고주무관 소관으로 규정된 업무 전반</li>
+            <li>학교에서 자주 묻는 행정·회계 질문을 먼저 찾기 쉽게 정리합니다.</li>
+            <li>담당자 부재나 근무시간 외에도 참고할 수 있도록 경로를 단순하게 정리합니다.</li>
+            <li data-brand-key="trustMessage">최종 기준은 공문·지침 등 공식 자료를 우선합니다.</li>
           </ul>
         </div>
+      </section>
 
+      <section class="section">
+        <h2>먼저 이것부터 보시면 됩니다</h2>
+        <hr />
         <div class="card">
-          <h3>다루지 않는 내용</h3>
-          <hr/>
-          <ul>
-            <li>학교회계 <strong>예산·결산</strong> 업무</li>
-            <li>물품/간식/교재 구매 등 <strong>인건비성 지출이 아닌 지출</strong></li>
-            <li><strong>발전기금</strong> 관련 업무</li>
-            <li><strong>시설 관리</strong> 전반</li>
-            <li><strong>학교운영위원회</strong> 업무 전반</li>
-            <li>기타 다른 담당자님 소관으로 규정된 업무 (정확한 안내가 어려울 수 있음)</li>
-          </ul>
+          <ol>
+            <li><strong>한입 가이드</strong>에서 비슷한 질문이 있는지 먼저 확인합니다.</li>
+            <li>실제 처리 순서가 필요하면 <strong>상세 가이드</strong>로 이동합니다.</li>
+            <li>서식이 필요하면 <strong>서식 다운로드</strong>, 반복 작업이면 <strong>업무 도구</strong>를 확인합니다.</li>
+          </ol>
         </div>
-    </section>
+      </section>
 
+      <section class="section">
+        <h2>지원 범위</h2>
+        <hr />
+        <div class="info-grid">
+          <article class="info-card">
+            <h3>이 웹페이지에서 다루는 내용</h3>
+            <ul class="info-list">
+              <li>교직원 급여, 강사료, 자원봉사료, 초과근무수당 등 인건비성 지출 안내</li>
+              <li>대체인력 등 근로계약 체결 관련 업무와 범죄경력조회</li>
+              <li>교직원 급식비, 우유급식비, 늘봄학교 수강료 등 수익자부담금 징수 관련 업무</li>
+              <li>기타 행정실 업무분장상 담당된 실무 안내</li>
+            </ul>
+          </article>
+          <article class="info-card">
+            <h3>여기서 다루지 않는 내용</h3>
+            <ul class="info-list">
+              <li>학교회계 예산·결산 전체 업무</li>
+              <li>물품 구매, 시설 관리, 발전기금, 학교운영위원회 전반</li>
+              <li>다른 담당자의 전담 소관 업무</li>
+            </ul>
+          </article>
+        </div>
+      </section>
 
-    <!-- 업무분장표 -->
-    <section class="section" id="tasks" aria-labelledby="h-tasks">
-      <h2 id="h-tasks">교육행정실 업무분장표 (2026.3.1.)</h2>
-      <p class="muted">이미지를 누르면 크게 볼 수 있습니다.</p>
-      <hr/>
-
-      <details class="shot-details" open>
-        <summary class="shot-summary">업무분장표 보기</summary>
-
-        <figure class="tool-shot">
-          <details class="img-zoom">
-            <summary>
-              <img
-                src="/static/image/image-task-table-260301.jpg"
-                alt="교육행정실 업무분장 (2026.1.1.기준)"
-                class="tool-thumb thumb"
-                loading="lazy"
-              />
-            </summary>
-          </details>
-        </figure>
-      </details>
-    </section>
-
-  </main>
-
-  <!-- 공통 스크립트 -->
+      <section class="section" id="tasks" aria-labelledby="h-tasks">
+        <h2 id="h-tasks">교육행정실 업무분장표 (2026.3.1.)</h2>
+        <p class="muted">이미지를 누르면 크게 볼 수 있습니다.</p>
+        <hr />
+        <details class="shot-details" open>
+          <summary class="shot-summary">업무분장표 보기</summary>
+          <figure class="tool-shot">
+            <details class="img-zoom">
+              <summary>
+                <img
+                  src="/static/image/image-task-table-260301.jpg"
+                  alt="교육행정실 업무분장표"
+                  class="tool-thumb thumb"
+                  loading="lazy"
+                />
+              </summary>
+            </details>
+          </figure>
+        </details>
+      </section>
+    </main>
+  </div>
   <script src="/static/footer.js"></script>
   <script src="/static/global-loader.js?v=1"></script>
 </body>

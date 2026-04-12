@@ -1,8 +1,12 @@
 {
   "meta": {
-    "school": "문막초등학교",
-    "updated": "2026-02-13",
-    "note": "문서번호/지침 단일 관리 파일. docref.js가 읽어 화면/복사문구를 자동 치환함."
+    "schoolName": "문막초등학교",
+    "schoolShortName": "문막초",
+    "editionTitle": "문막초 교직원 안내",
+    "operatorName": "고주무관",
+    "masterBrand": "고주무관의 쉬운 학교행정",
+    "updated": "2026-04-12",
+    "note": "문서번호/지침 단일 관리 파일. docref.js가 읽어 화면과 복사 문구를 자동 치환합니다."
   },
   "docs": {
     "leave": {
@@ -25,7 +29,6 @@
       "number": "[예: 2026-○○○○]",
       "title": "[학교회계 집행 마감 안내]"
     },
-
     "neulbom_guide_2025_gw": {
       "label": "늘봄 길라잡이",
       "number": "[예: 2025-○○○○]",

@@ -1,497 +1,278 @@
 <!doctype html>
 <html lang="ko">
-<head>
-  <meta charset="utf-8" />
-  <meta name="robots" content="noindex">
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="color-scheme" content="light" />
-  <title>문막 좋아 고주무관의 행정 업무 안내 웹페이지</title>
-
-  <!-- Google tag (gtag.js) -->
+    <head>
+      <meta charset="utf-8" />
+      <meta name="robots" content="noindex" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="color-scheme" content="light" />
+      <title>고주무관의 쉬운 학교행정 | 문막초 교직원 안내</title>
+  <meta name="x-brand-title" content="{{siteTitle}}" />
+      <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-B6PE24NSKH"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-B6PE24NSKH');
 </script>
 
-  <link rel="icon" href="/static/favicon.ico" />
-  <link rel="stylesheet" href="/static/style.css" />
+      <link rel="icon" href="/static/favicon.ico" />
+      <link rel="stylesheet" href="/static/style.css" />
+      <script src="/static/brand-config.js"></script>
+      <script defer src="/static/brand-ui.js"></script>
 
-  <style>
-    .kicker { text-align:center; margin: 10px 0 0; color:#666; font-size:0.95rem; }
-    .notice-bar { display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between; }
-    .pill { display:inline-block; padding:6px 10px; border:1px solid #e5e5e5; border-radius:999px; background:#fafafa; font-size:0.9rem; color:#444; }
-    .search-row { display:flex; gap:10px; flex-wrap:wrap; }
-    .search-row input { flex: 1 1 260px; }
-    .tool-list a { text-decoration: underline; text-underline-offset: 2px; }
-    .mini { font-size:0.9rem; color:#666; }
-    .right { display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
-    .tag { font-size:0.85rem; border:1px solid #ddd; border-radius:999px; padding:4px 8px; background:#fff; color:#444; white-space:nowrap; }
-    .hidden { display:none !important; }
-    .toast {
-      position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%);
-      padding: 10px 12px; border: 1px solid #e5e5e5; border-radius: 12px;
-      background: rgba(255,255,255,0.95); box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-      font-size: 0.95rem; color:#111; z-index: 9999;
-      display:none;
-    }
 
-    .ref-list { margin: 8px 0 0; padding-left: 0; }
-    .ref-item { margin: 8px 0; }
-    .ref-code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.95rem; }
-
-    /* div 기반 안내 UI */
-    .guide-quick { margin: 0; }
-    .guide-quick .line { margin: 6px 0; }
-    .guide-h { font-weight: 700; margin: 12px 0 6px; color:#111; }
-    .guide-p { margin: 6px 0; }
-    .guide-steps .step { margin: 6px 0; }
-    .guide-note { margin-top: 10px; padding: 10px 12px; border: 1px solid #e5e5e5; border-radius: 12px; background:#fafafa; }
-    .guide-note .t { font-weight:700; margin:0 0 6px; }
-    .guide-note .d { margin:0; color:#555; }
-
-    /* details 스타일(아코디언) */
-    .guide-details { margin-top: 12px; }
-    .guide-details summary { cursor: pointer; font-weight: 700; color:#111; }
-    .guide-details summary:hover { text-decoration: underline; }
-    .guide-details .inner { margin-top: 10px; }
-
-    .mini-details {
-      margin-top: 10px;
-      border: 1px solid #e5e5e5;
-      border-radius: 12px;
-      background: #fafafa;
-      padding: 10px 12px;
-    }
-    .mini-details summary {
-      cursor: pointer;
-      font-weight: 700;
-      color:#111;
-      list-style: none;
-    }
-    .mini-details summary::-webkit-details-marker { display:none; }
-    .mini-details summary::before { content: "▸ "; }
-    .mini-details[open] summary::before { content: "▾ "; }
-    .mini-details .inner { margin-top: 8px; }
-
-    .ref-fallback { display:none; }
-    .ref-fallback.show { display:block; }
-  </style>
-</head>
+    </head>
 
 <body class="alien-side-bg page-menu">
+  <div class="alien-page-frame">
+    <main class="container page-home">
+      <section class="hero-stack">
+        <p class="page-kicker" data-brand-key="editionTitle">문막초 교직원 안내</p>
+        <h1 data-brand-key="homeHeadline">문막초 교직원을 위한 쉬운 학교행정 안내</h1>
+        <p class="subtitle page-lead" data-brand-key="homeSubtitle">문막초가 좋은 행정실 주무관 고주무관이, 자주 묻는 행정·회계 업무를 이해하기 쉽게 정리했습니다.</p>
 
-  <main class="container">
-    <h1>문막초 교직원을 위한 <br/> 학교행정·회계업무 안내 웹페이지</h1>
-    <p class="subtitle">
-      — 제작·운영: 문막좋아 고주무관
-    </p>
-
-    <p class="muted">
-      ·문막초등학교 교직원분들을 이용 대상으로 하며, 학교 행정 및 회계 업무의 더 효율적인 처리를 목적으로 제작하였습니다. <br/>
-      ·※ 웹페이지는 업무 참고용이며, 최종 기준은 공문·지침 등 공식 자료를 우선으로 합니다. <br/>
-    </p>
-
-    <hr/>
-
-    <!-- ======================== -->
-
-    <section class="section">
-      <h2>웹페이지 이용안내</h2>
-      <hr/>
-
-      <div class="btn-stack menu-list">
-        <div class="menu-item">
-          <a class="btn btn-menu" href="/notice/how-to-use/">웹페이지 이용안내 보러가기</a>
-          <div class="btn-desc">
-            <p class="muted">·이 웹페이지를 운영하는 목적 및 활용 방법 등을 안내합니다.</p>
-          </div>
+        <div class="brand-badge-row" aria-label="브랜드 핵심">
+          <span class="brand-badge" data-brand-key="masterBrand">고주무관의 쉬운 학교행정</span>
+          <span class="brand-badge" data-brand-key="slogan">교직원이 덜 헤매도록, 행정은 더 쉽게</span>
         </div>
 
-        <div class="menu-item">
-          <a class="btn btn-menu" href="/notice/">안내사항 모음 (바로가기)</a>
-          <div class="btn-desc">
-            <p class="muted">·교직원 안내사항을 한번에 모아놓은 페이지입다. </p>
+        <div class="callout hero-card">
+          <div class="brand-summary">
+            <ul class="brand-inline-points">
+              <li data-brand-template="{schoolName} 교직원을 위한 업무 참고용 안내 페이지입니다.">문막초등학교 교직원을 위한 업무 참고용 안내 페이지입니다.</li>
+              <li>자주 묻는 행정·회계 업무를 실무에 바로 쓰기 쉽도록 정리했습니다.</li>
+              <li data-brand-key="trustMessage">최종 기준은 공문·지침 등 공식 자료를 우선합니다.</li>
+            </ul>
+            <p class="muted brand-note">운영자는 고주무관이며, 브랜드 본체는 학교가 바뀌어도 이어서 쓸 수 있도록 분리해 두었습니다.</p>
           </div>
         </div>
+      </section>
 
-                
-        <div class="menu-item">
-          <a class="btn btn-menu" href="/guide/">한입 크기로 잘라먹는 행정 업무 모음집 (업데이트 예정)</a>
-          <div class="btn-desc">
-            <p class="muted">·자주 묻는 질문 등을 10줄 이내로 간단하게 설명드립니다.</p>
-          </div>
-        </div>
-        
-        <div class="menu-item">
-          <a class="btn btn-menu" href="/guide/">업무 가이드 상세 정리 모음 (바로가기)</a>
-          <div class="btn-desc">
-            <p class="muted">·업무별 처리 요령을 한번에 모아놓은 페이지입다. 예산, 복무 등</p>
-          </div>
-        </div>
-
-        <div class="menu-item">
-          <a class="btn btn-menu" href="/tools/">기타 유용한 기능 모음</a>
-          <div class="btn-desc">
-            <p class="muted">·원본대조필 도장 일괄 날인기 등 업무 처리에 유용한 기능을 모아놓은 페이지입다. </p>
-          </div>
-        </div>
-
-        
-        <div class="menu-item">
-          <a class="btn btn-menu" href="/file-download/">각종 서식 다운로드</a>
-          <div class="btn-desc">
-            <p class="muted">·자주 쓰는 서식 다운로드 지원합니다. 스쿨뱅킹 출금동의서 서식 등 </p>
-          </div>
-        </div>
-        
-      </div>
-    </section>
-
-    <!-- ======================== -->
-
-    <!-- 대시보드 (기본: 열림) -->
-    <section class="section">
-      <details class="dash-details">
-        <summary class="dash-summary">
-          <span class="dash-title">공지사항 대시보드</span>
-          <span class="muted">— 펼치기/접기</span>
-        </summary>
-        <p class="muted">
-          ·업무 관련 교직원 안내 및 협조 사항 등을 빠르게 확인합니다. 버튼을 누르면 해당 페이지로 이동합니다.<br/>
-          ·마지막 수정: 2026.3.2.(월) 오후 6:21 <br/>
-        </p>
-
+      <section class="section" id="quick-links">
+        <h2>빠른 바로가기</h2>
+        <p class="muted section-intro">먼저 어디로 가야 할지 바로 고를 수 있게 핵심 메뉴만 다시 정리했습니다.</p>
         <hr />
-
-
-      <div class="grid two">
-        <div class="card">
-          <h3>업데이트 내역</h3>
-          <ul class="list-tight">
-            <li><b>성립전예산 요구 업무 가이드</b> 생성</li>
-            <li><b>과목경정 요구 업무 가이드</b> 생성</li>
-            <li><b>각종 서식 다운로드 페이지</b> 신설</li>
-            <li><b></b> </li>
-            <li><b></b> </li>
-          </ul>
+        <div class="btn-stack menu-list">
+          <div class="menu-item">
+            <a class="btn btn-menu" data-brand-route="howToUse" href="/notice/how-to-use/">처음 이용하시는 분께</a>
+            <p class="btn-desc">이 웹페이지를 왜 만들었는지, 어떻게 찾고 활용하면 좋은지 먼저 안내합니다.</p>
+          </div>
+          <div class="menu-item">
+            <a class="btn btn-menu" data-brand-route="notice" href="/notice/">안내사항</a>
+            <p class="btn-desc">교직원에게 전달하거나 협조가 필요한 내용을 한 번에 모아 둔 페이지입니다.</p>
+          </div>
+          <div class="menu-item">
+            <a class="btn btn-menu" data-brand-route="biteGuide" href="/a-bite/">한입 가이드</a>
+            <p class="btn-desc">자주 묻는 질문을 짧고 분명하게 정리한 FAQ형 안내입니다.</p>
+          </div>
+          <div class="menu-item">
+            <a class="btn btn-menu" data-brand-route="detailedGuide" href="/guide/">상세 가이드</a>
+            <p class="btn-desc">실제 처리 순서, 서류, 주의사항까지 자세히 정리한 실무 가이드입니다.</p>
+          </div>
+          <div class="menu-item">
+            <a class="btn btn-menu" data-brand-route="tools" href="/tools/">업무 도구</a>
+            <p class="btn-desc">원본대조필 도장, 예산 확인 등 실무에 도움이 되는 도구를 모아 둡니다.</p>
+          </div>
+          <div class="menu-item">
+            <a class="btn btn-menu" data-brand-route="downloads" href="/file-download/">서식 다운로드</a>
+            <p class="btn-desc">자주 쓰는 양식과 참고 파일을 빠르게 찾고 내려받을 수 있습니다.</p>
+          </div>
         </div>
+      </section>
 
-        <div class="card">
-          <h3>공지 및 안내</h3>
-          <ul class="list-tight">
-            <li></li>
-          </ul>
+      <section class="section" id="updates">
+        <h2>업데이트와 안내</h2>
+        <p class="muted section-intro">최근 추가한 실무 페이지와 운영 원칙을 한 곳에 모았습니다.</p>
+        <hr />
+        <div class="info-grid">
+          <article class="info-card">
+            <h3>최근 정리한 페이지</h3>
+            <ul class="info-list">
+              <li><a href="/guide/pre-establish-budget/"><strong>성립전예산 요구서 작성 가이드</strong></a></li>
+              <li><a href="/guide/revision-budget/"><strong>과목경정 요구서 작성 가이드</strong></a></li>
+              <li><a href="/notice/school-staff-meal-fee/"><strong>2026학년도 교직원 급식비 안내사항</strong></a></li>
+              <li><a href="/a-bite/"><strong>한입 가이드</strong></a>에서 자주 묻는 질문을 짧게 확인할 수 있습니다.</li>
+            </ul>
+          </article>
+          <article class="info-card">
+            <h3>운영 원칙</h3>
+            <ul class="info-list">
+              <li>브랜드는 신뢰형 안내 포털 톤으로 통일합니다.</li>
+              <li>연도형 실무 문서 제목은 그대로 유지하고, 상위 브랜드만 정리합니다.</li>
+              <li data-brand-key="trustMessage">최종 기준은 공문·지침 등 공식 자료를 우선합니다.</li>
+            </ul>
+          </article>
         </div>
-      </div>
-      </details>
-    </section>
+      </section>
 
-    <!-- ========================= 검색 ========================= -->
-
-    <section class="section">
-      <div class="notice-bar">
-        <div>
-          <h2>검색창</h2>
-
-          <p class="muted">
-            ·검색어를 쉼표(,) 또는 띄어쓰기로 여러 개 입력할 수 있습니다. <br/>
-            ·입력한 단어 중 하나라도 포함되면 검색 결과에 표시됩니다. <br/>
-          </p>
+      <section class="section" id="search">
+        <h2>통합 검색</h2>
+        <p class="muted section-intro">메뉴, 안내, 자주 찾는 실무 페이지를 함께 찾도록 묶었습니다. 띄어쓰기나 쉼표로 여러 키워드를 넣어도 됩니다.</p>
+        <hr />
+        <div class="search-panel">
+          <div class="search-row">
+            <input id="q" type="text" placeholder="예: 예산, 성립전예산, 복지, 초과근무, 급식비, 범죄경력조회" autocomplete="off" />
+            <button class="btn primary" type="button" id="btnSearch">조회하기</button>
+            <button class="btn ghost" type="button" id="btnClear">초기화</button>
+          </div>
+          <div class="search-meta">
+            <p class="muted" id="searchHelp">검색어가 비어 있으면 주요 페이지 전체를 보여 줍니다.</p>
+            <p class="muted" id="searchCount">총 0건</p>
+          </div>
+          <div id="resultsWrap" hidden aria-live="polite">
+            <div id="grid" class="tool-grid"></div>
+          </div>
         </div>
-      </div>
-
-      <div class="search-row">
-        <input id="q" type="text" placeholder="예시: 예산, 스쿨뱅킹, 맞춤형복지, 초과근무 연차, 강사료 지급, 계약 지출서류" autocomplete="off" />
-        <button class="btn primary" type="button" id="btnSearch">조회하기</button>
-        <button class="btn primary" type="button" id="btnClear">검색 결과 초기화</button>
-      </div>
-
-      <hr/>
-      
-      <div id="resultsWrap" class="hidden" aria-live="polite">
-        <h3>검색 결과</h3>
-        <hr/>
-        
-        <div class="tool-grid" id="grid">
-
-
-          
-        <article class="tool-card item" data-keywords="성립전 성립전예산 성립전요구 요구서 편성 예산편성 예산 수익자">
-          <div class="tool-head">
-            <p class="tool-title">성립전예산 요구 관련</p>
-            <p class="tool-sub">·성립전예산이란 언제 편성하는 것인지, 요구서 작성은 어떻게 하는 것인지 설명합니다.</p>
-          </div>
-          <div class="tool-body">
-            <div class="row between">
-              <a class="btn" href="/guide/pre-establish-budget/">성립전예산 요구 가이드 보러가기</a>
-            </div>
-          </div>
-        </article>
-
-
-
-          
-        <article class="tool-card item" data-keywords="공무원 맞춤형복지 교원 교사 교육공무원 복지 태아 산모 검진 건강검진 점수 문서번호 편람 규정 지침">
-          <div class="tool-head">
-            <p class="tool-title">맞춤형 복지 관련 안내</p>
-            <p class="tool-sub">·2026년 맞춤형 복지 변동사항 등</p>
-          </div>
-          <div class="tool-body">
-            <div class="row between">
-              <a class="btn" href="/notice/">상세페이지로 이동하기</a>
-            </div>
-          </div>
-        </article>
-
-
-
-          
-        <article class="tool-card item" data-keywords="공무원 맞춤형복지 교원 교사 교육공무원 복지 태아 산모 검진 건강검진 점수 문서번호 편람 규정 지침">
-          <div class="tool-head">
-            <p class="tool-title">맞춤형 복지 관련 안내</p>
-            <p class="tool-sub">·2026년 맞춤형 복지 변동사항 등</p>
-          </div>
-          <div class="tool-body">
-            <div class="row between">
-              <a class="btn" href="/notice/">상세페이지로 이동하기</a>
-            </div>
-          </div>
-        </article>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          
-
-        <article class="tool-card item" data-keywords="공무원 맞춤형복지 교원 교사 교육공무원 복지 태아 산모 검진 건강검진 점수 문서번호 편람 규정 지침">
-          <div class="tool-head">
-            <p class="tool-title">맞춤형 복지 관련 안내</p>
-            <p class="tool-sub">·2026년 맞춤형 복지 변동사항 등</p>
-          </div>
-          <div class="tool-body">
-            <div class="row between">
-              <a class="btn" href="/notice/">상세페이지로 이동하기</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="tool-card item" data-keywords="교육공무직 공무직 복무 연차 병가 조퇴 지각 외출 근태 결재 상태 완료 교장 교감 행정실장 문서번호 편람 규정 지침">
-          <div class="tool-head">
-            <p class="tool-title">복무 관련 안내 (업데이트 예정)</p>
-            <p class="tool-sub">·초과근무 증빙, 연차, 방학중 비상시근로자의 복무 처리 등</p>
-          </div>
-          <div class="tool-body">
-            <div class="row between">
-              <a class="btn" href="/">상세페이지로 이동하기</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="tool-card item" data-keywords="강사료 지급 품의 서류 증빙 증빙서류 활동일지 강사활동 통장사본 신분증 원천징수 지급명세서 문서번호 지침">
-          <div class="tool-head">
-            <p class="tool-title">강사료 지급 관련 안내 (업데이트 예정)</p>
-            <p class="tool-sub">·지출시 필요한 증빙서류 목록, 체크리스트 제공</p>
-          </div>
-          <div class="tool-body">
-            <div class="row between">
-              <a class="btn" href="/">상세페이지로 이동하기</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="tool-card item" data-keywords="늘봄학교 늘봄 강사 외부강사 방과후강사 방과후 맞춤형 선택형 위수탁 위수탁계약 계약 절차 채용 서류 범죄경력조회 범죄경력 아동학대 성범죄 문서번호 지침">
-          <div class="tool-head">
-            <p class="tool-title">계약 업무 관련 안내 (업데이트 예정)</p>
-            <p class="tool-sub">·</p>
-          </div>          
-          <div class="tool-body">
-            <div class="row between">
-              <a class="btn" href="/">상세페이지로 이동하기</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="tool-card item" data-keywords="서식 양식 파일 활동일지 정산서 산출내역 엑셀 제출 협조 행정실협조 행정실 교무실 업무범위 업무분장 책임 요청 금지 제출기한">
-          <div class="tool-head">
-            <p class="tool-title">각종 서식 파일 다운로드</p>
-            <p class="tool-sub">·범죄경력조회 동의서, 활동일지 등</p>
-          </div>
-          <div class="tool-body">
-            <div class="row between">
-              <a class="btn" href="/file-download/">파일 다운로드 하러가기</a>
-            </div>
-          </div>
-        </article>
-          
-        <article class="tool-card item" data-keywords="급식비 징수 미납 스쿨뱅킹 신용카드 교직원 교직원급식비 식품비 운영비">
-          <div class="tool-head">
-            <p class="tool-title">교직원 급식비 안내 사항</p>
-            <p class="tool-sub">·급식비 단가 및 환불 규정 등</p>
-          </div>
-          <div class="tool-body">
-            <div class="row between">
-              <a class="btn" href="/notice/school-staff-meal-fee/">교직원 급식비 상세 보기</a>
-            </div>
-          </div>
-        </article>
-
-
-          
-      </div>
-      </div>
-    </section>
-
-
-  </main>
-
-  <div class="toast" id="toast"></div>
+      </section>
+    </main>
+  </div>
 
   <script>
     (function () {
-      const $ = (sel, el=document) => el.querySelector(sel);
-      const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
+      const SEARCH_ITEMS = [
+        {
+          title: "처음 이용하시는 분께",
+          desc: "이 웹페이지의 목적과 활용 범위를 먼저 안내합니다.",
+          href: "/notice/how-to-use/",
+          keywords: "처음 이용 사용 안내 목적 활용 방법 웹페이지 범위"
+        },
+        {
+          title: "안내사항",
+          desc: "교직원에게 전달하거나 협조가 필요한 안내를 모아 둔 페이지입니다.",
+          href: "/notice/",
+          keywords: "공지 안내 협조 급식비 복지 계약 일정 정보공시"
+        },
+        {
+          title: "한입 가이드",
+          desc: "자주 묻는 학교행정 질문을 짧고 분명하게 정리한 FAQ형 안내입니다.",
+          href: "/a-bite/",
+          keywords: "FAQ 한입 가이드 자주 묻는 질문 짧은 답변"
+        },
+        {
+          title: "상세 가이드",
+          desc: "실무 처리 순서와 주의사항을 자세히 정리한 페이지입니다.",
+          href: "/guide/",
+          keywords: "상세 가이드 처리 순서 서류 주의사항"
+        },
+        {
+          title: "업무 도구",
+          desc: "반복되는 작업을 줄여 주는 현장용 도구 모음입니다.",
+          href: "/tools/",
+          keywords: "도구 유틸 원본대조필 예산 잔액 검출"
+        },
+        {
+          title: "서식 다운로드",
+          desc: "양식과 참고 파일을 검색해서 내려받을 수 있습니다.",
+          href: "/file-download/",
+          keywords: "서식 다운로드 양식 파일 참고 자료"
+        },
+        {
+          title: "성립전예산 요구서 작성 가이드",
+          desc: "성립전예산 요구서 작성 흐름과 실수하기 쉬운 지점을 정리했습니다.",
+          href: "/guide/pre-establish-budget/",
+          keywords: "성립전예산 예산 요구서 편성 수익자부담"
+        },
+        {
+          title: "과목경정 요구서 작성 가이드",
+          desc: "과목경정과 추경의 차이, 요구서 작성 방법을 안내합니다.",
+          href: "/guide/revision-budget/",
+          keywords: "과목경정 추경 예산 변경"
+        },
+        {
+          title: "교직원 초과근무 신청 및 증빙 가이드",
+          desc: "초과근무 신청과 증빙 처리에서 자주 막히는 지점을 정리했습니다.",
+          href: "/guide/overtime-work/",
+          keywords: "초과근무 증빙 복무 시간외근무"
+        },
+        {
+          title: "범죄경력조회 시스템 사용 방법 안내",
+          desc: "계약·위촉 과정에서 필요한 범죄경력조회 시스템 사용법입니다.",
+          href: "/guide/crime-background/",
+          keywords: "범죄경력조회 아동학대 성범죄 시스템 계약"
+        },
+        {
+          title: "교직원 급식비 안내사항",
+          desc: "급식 단가와 환불 기준 등 자주 확인하는 내용을 모았습니다.",
+          href: "/notice/school-staff-meal-fee/",
+          keywords: "급식비 급식 단가 환불 스쿨뱅킹"
+        },
+        {
+          title: "공무원 맞춤형 복지 안내사항",
+          desc: "맞춤형 복지 대상과 확인 포인트를 안내합니다.",
+          href: "/notice/welfare-official/",
+          keywords: "맞춤형 복지 복지 점수 공무원 교원"
+        }
+      ];
 
-      function toast(msg) {
-        const t = $("#toast");
-        if (!t) return;
-        t.textContent = msg;
-        t.style.display = "block";
-        clearTimeout(toast._timer);
-        toast._timer = setTimeout(() => (t.style.display = "none"), 1400);
-      }
-
-      // 검색 필터
-      const q = $("#q");
+      const $ = function (selector, scope) { return (scope || document).querySelector(selector); };
+      const qInput = $("#q");
       const btnSearch = $("#btnSearch");
       const btnClear = $("#btnClear");
-      const items = $$(".item");
       const resultsWrap = $("#resultsWrap");
+      const grid = $("#grid");
+      const count = $("#searchCount");
 
-      function norm(s) {
-        return (s || "").toLowerCase().replace(/\s+/g, " ").trim();
+      function normalize(value) {
+        return String(value || "").toLowerCase().replace(/\s+/g, " ").trim();
       }
 
-      // ✅ 쉼표/공백으로 여러 단어 입력 지원 (OR 검색)
-      function tokens(s) {
-        // "맞춤형복지,  연차  초과근무" -> ["맞춤형복지","연차","초과근무"]
-        return norm(s).split(/[,\s]+/).filter(Boolean);
+      function tokenize(value) {
+        return normalize(value).split(/[\s,]+/).filter(Boolean);
       }
 
-      function showResults() {
-        resultsWrap?.classList.remove("hidden");
-      }
-
-      function hideResults() {
-        resultsWrap?.classList.add("hidden");
+      function renderCard(item) {
+        return [
+          '<article class="tool-card">',
+          '  <div class="tool-head">',
+          '    <p class="tool-title">' + item.title + '</p>',
+          '    <p class="tool-sub">' + item.desc + '</p>',
+          '  </div>',
+          '  <div class="tool-body">',
+          '    <div class="row between">',
+          '      <a class="btn" href="' + item.href + '">바로가기</a>',
+          '    </div>',
+          '  </div>',
+          '</article>'
+        ].join("");
       }
 
       function applyFilter() {
-        const needles = tokens(q?.value);
-
-        if (needles.length === 0) {
-          items.forEach(it => it.classList.remove("hidden"));
-          return;
-        }
-
-        items.forEach(it => {
-          const hay = norm(it.textContent + " " + (it.dataset.keywords || ""));
-          const ok = needles.some(t => hay.includes(t)); // ✅ 하나라도 포함되면 표시
-          it.classList.toggle("hidden", !ok);
+        const tokens = tokenize(qInput.value);
+        const filtered = SEARCH_ITEMS.filter(function (item) {
+          if (!tokens.length) return true;
+          const haystack = normalize(item.title + " " + item.desc + " " + item.keywords);
+          return tokens.some(function (token) { return haystack.includes(token); });
         });
+
+        grid.innerHTML = filtered.length
+          ? filtered.map(renderCard).join("")
+          : '<div class="empty-box"><p>검색어와 맞는 페이지가 없습니다. 다른 표현으로 다시 찾아보세요.</p></div>';
+
+        count.textContent = "총 " + filtered.length + "건";
+        resultsWrap.hidden = false;
       }
 
-      // ✅ 입력 중 실시간 반영 X (조회하기/Enter로만 반영)
-      let composing = false;
+      btnSearch.addEventListener("click", applyFilter);
+      btnClear.addEventListener("click", function () {
+        qInput.value = "";
+        applyFilter();
+        qInput.focus();
+      });
 
-      if (q) {
-        // IME(한글) 조합 입력 중 Enter 오작동 방지
-        q.addEventListener("compositionstart", () => { composing = true; });
-        q.addEventListener("compositionend", () => { composing = false; });
-
-        // Enter 키로 조회하기
-        q.addEventListener("keydown", (e) => {
-          if (e.key === "Enter" && !composing && !e.isComposing) {
-            e.preventDefault();
-            showResults();
-            applyFilter();
-          }
-        });
-      }
-
-      // 조회하기 버튼 클릭
-      if (btnSearch) {
-        btnSearch.addEventListener("click", () => {
-          showResults();
+      qInput.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+          event.preventDefault();
           applyFilter();
-        });
-      }
-
-      // 초기화 버튼 (결과도 다시 숨김)
-      if (btnClear) {
-        btnClear.addEventListener("click", () => {
-          if (q) q.value = "";
-          applyFilter();     // hidden 클래스 리셋
-          hideResults();     // 결과 영역 숨김
-          q?.focus();
-        });
-      }
-
-      // 초기 상태: 결과는 숨기고, 필터는 초기화(전체 공개 상태로 유지)
-      hideResults();
-      items.forEach(it => it.classList.remove("hidden"));
-
-      // 문서번호 JSON 로딩 → 근거 규정 섹션 자동 채우기
-      async function loadDocumentNumbers() {
-        const list = $("#refList");
-        if (!list) return;
-
-        try {
-          const res = await fetch("/static/document-number.json", { cache: "no-store" });
-          if (!res.ok) throw new Error("HTTP " + res.status);
-          const data = await res.json();
-          const docs = (data && data.docs) ? data.docs : {};
-
-          $$("#refList [data-doc-id]").forEach(row => {
-            const id = row.getAttribute("data-doc-id");
-            const doc = docs[id];
-            if (!doc) return;
-
-            const numEl = row.querySelector('[data-doc-field="number"]');
-            const titleEl = row.querySelector('[data-doc-field="title"]');
-
-            if (numEl) numEl.textContent = doc.number || "-";
-            if (titleEl) titleEl.textContent = doc.title || "-";
-          });
-
-          $("#refFallback")?.classList.remove("show");
-        } catch (err) {
-          toast("문서번호 로딩 실패");
-          console.warn(err);
-          $("#refFallback")?.classList.add("show");
         }
-      }
+      });
 
-      loadDocumentNumbers();
+      applyFilter();
     })();
   </script>
 
+  <script src="/static/disable-copy.js"></script>
   <script src="/static/footer.js"></script>
   <script src="/static/global-loader.js?v=1"></script>
-
 </body>
 </html>

@@ -1,77 +1,71 @@
 <!doctype html>
 <html lang="ko">
-<head>
-  <meta charset="utf-8" />
-  <meta name="robots" content="noindex">
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="color-scheme" content="light" />
-
-  <title>유용한 기능 모음</title>
-
-  <!-- Google tag (gtag.js) -->
+    <head>
+      <meta charset="utf-8" />
+      <meta name="robots" content="noindex" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="color-scheme" content="light" />
+      <title>업무 도구 | 고주무관의 쉬운 학교행정</title>
+  <meta name="x-brand-title" content="업무 도구 | {{masterBrand}}" />
+      <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-B6PE24NSKH"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-B6PE24NSKH');
 </script>
 
-  <link rel="icon" href="/static/favicon.ico" />
-  <link rel="stylesheet" href="/static/style.css" />
-</head>
+      <link rel="icon" href="/static/favicon.ico" />
+      <link rel="stylesheet" href="/static/style.css" />
+      <script src="/static/brand-config.js"></script>
+      <script defer src="/static/brand-ui.js"></script>
+
+
+    </head>
 
 <body class="alien-side-bg page-menu">
-<div class="alien-page-frame">
+  <div class="alien-page-frame">
+    <main class="container">
+      <p class="page-kicker" data-brand-key="masterBrand">고주무관의 쉬운 학교행정</p>
+      <h1>업무 도구</h1>
+      <p class="muted section-intro">현장에서 반복되는 작업을 조금 더 빠르고 편하게 처리하기 위한 도구 모음입니다.</p>
 
-<main class="container" id="pageMain">
-  <h1>유용한 기능 모음</h1>
-  <p class="muted">
-    ·업무 처리에 도움이 되는 각종 유용한 기능을 모아두는 페이지입니다. 
-  </p>
-  <hr/>
+      <nav class="chip-row page-breadcrumb" aria-label="주요 메뉴">
+        <a class="chip" data-brand-route="home" href="/">홈</a>
+        <a class="chip" data-brand-route="notice" href="/notice/">안내사항</a>
+        <a class="chip" data-brand-route="biteGuide" href="/a-bite/">한입 가이드</a>
+        <a class="chip" data-brand-route="detailedGuide" href="/guide/">상세 가이드</a>
+        <a class="chip" data-brand-route="downloads" href="/file-download/">서식 다운로드</a>
+      </nav>
 
-  <section class="section">
-    <h2>예산 관련 기능</h2>
-    <p class="muted">
-      ·추경 등에 활용하기 좋습니다<br/>
-    </p>
-    <hr/>
-
-    <div class="menu-list">
-      <div class="menu-item">
-        <a class="btn btn-menu" href="/tools/budget-table-analysis-3/">사업관리카드(예산) 예산잔액 마이너스 검출기</a>
-        <div class="btn-desc">
-          ·에듀파인-학교회계-사업관리카드-사업관리카드(예산)에서 다운받은 엑셀 파일을 올리면 잔액이 (-)인 예산 내역을 알려줍니다. <br/>
+      <section class="section">
+        <h2>예산 확인 도구</h2>
+        <p class="muted section-intro">엑셀 기반 결과를 빠르게 점검하는 데 쓰기 좋습니다.</p>
+        <hr />
+        <div class="menu-list">
+          <div class="menu-item">
+            <a class="btn btn-menu" href="/tools/budget-table-analysis-3/">사업관리카드(예산) 예산잔액 마이너스 검출기</a>
+            <p class="btn-desc">에듀파인에서 내려받은 엑셀 파일을 넣으면 잔액이 마이너스인 예산 내역을 찾아 줍니다.</p>
+          </div>
         </div>
-      </div>
-    </div>
-  </section>
+      </section>
 
-  <section class="section">
-    <h2>서류 작성 관련 기능</h2>
-    <p class="muted">
-      ·정산 서류 제출시 등에 활용하십시오.<br/>
-    </p>
-    <hr/>
-
-    <div class="menu-list">
-      <div class="menu-item">
-        <a class="btn btn-menu" href="/tools/stamp-true-copy/">원본대조필 도장 일괄 날인기</a>
-        <div class="btn-desc">
-          ·pdf를 업로드하고 화면에서 원본대조필 도장 찍을 위치를 선택하면 pdf 전체 일괄 날인됩니다.<br/>
+      <section class="section">
+        <h2>문서 작업 도구</h2>
+        <p class="muted section-intro">정산 자료나 제출 문서를 조금 더 편하게 다루기 위한 도구입니다.</p>
+        <hr />
+        <div class="menu-list">
+          <div class="menu-item">
+            <a class="btn btn-menu" href="/tools/stamp-true-copy/">원본대조필 도장 일괄 날인기</a>
+            <p class="btn-desc">PDF 업로드와 드래그 앤 드롭을 지원하는 원본대조필 도장 처리 도구입니다.</p>
+          </div>
         </div>
-      </div>
-    </div>
-  </section>
-</main>
-
-</div>
-
-<script src="/static/disable-copy.js"></script>
-<script src="/static/footer.js"></script>
-<script src="/static/global-loader.js?v=1"></script>
-
+      </section>
+    </main>
+  </div>
+  <script src="/static/disable-copy.js"></script>
+  <script src="/static/footer.js"></script>
+  <script src="/static/global-loader.js?v=1"></script>
 </body>
 </html>
