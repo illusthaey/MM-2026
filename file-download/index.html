@@ -1,371 +1,298 @@
 <!doctype html>
 <html lang="ko">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="robots" content="noindex" />
-  <title>각종 서식 다운로드</title>
-
-
-  <!-- Google tag (gtag.js) -->
+    <head>
+      <meta charset="utf-8" />
+      <meta name="robots" content="noindex" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="color-scheme" content="light" />
+      <title>서식 다운로드 | 고주무관의 쉬운 학교행정</title>
+  <meta name="x-brand-title" content="서식 다운로드 | {{masterBrand}}" />
+      <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-B6PE24NSKH"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-B6PE24NSKH');
 </script>
-  
 
-  <link rel="icon" href="/static/favicon.ico" />
-  <link rel="stylesheet" href="/static/style.css" />/>
-  <script src="/static/footer.js"></script>
-  <script src="/static/global-loader.js?v=1"></script>
-
+      <link rel="icon" href="/static/favicon.ico" />
+      <link rel="stylesheet" href="/static/style.css" />
+      <script src="/static/brand-config.js"></script>
+      <script defer src="/static/brand-ui.js"></script>
 
 
-  
-  <style>
-    /* 페이지 전용(최소) */
-    .page-top{ margin-bottom: 14px; }
+    </head>
 
-    .page-kicker{
-      margin: 0;
-      font-size: 1rem;
-      color: #555;
-      text-align: center;
-    }
+<body class="alien-side-bg page-menu">
+  <div class="alien-page-frame">
+    <main class="container">
+      <p class="page-kicker" data-brand-key="masterBrand">고주무관의 쉬운 학교행정</p>
+      <h1>서식 다운로드</h1>
+      <p class="muted section-intro">자주 쓰는 양식과 참고 파일을 검색해서 내려받을 수 있습니다.</p>
 
-    .toolbar{
-      display: grid;
-      gap: 10px;
-      grid-template-columns: 1fr;
-      margin-top: 14px;
-    }
+      <nav class="chip-row page-breadcrumb" aria-label="주요 메뉴">
+        <a class="chip" data-brand-route="home" href="/">홈</a>
+        <a class="chip" data-brand-route="notice" href="/notice/">안내사항</a>
+        <a class="chip" data-brand-route="biteGuide" href="/a-bite/">한입 가이드</a>
+        <a class="chip" data-brand-route="detailedGuide" href="/guide/">상세 가이드</a>
+        <a class="chip" data-brand-route="tools" href="/tools/">업무 도구</a>
+      </nav>
 
-    @media (min-width: 640px){
-      .toolbar{ grid-template-columns: 1fr 220px 180px; }
-    }
-
-    .toolbar .field{ display: grid; gap: 6px; }
-    .toolbar label{ font-weight: 700; color: #111; font-size: 0.98rem; }
-
-    .pill{
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border: 1px solid #e5e7eb;
-      border-radius: 999px;
-      padding: 6px 10px;
-      background: #fff;
-      font-size: 0.95rem;
-      color: #444;
-    }
-
-    .file-meta{
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    .file-actions{
-      margin-top: 12px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .file-actions .btn{ margin-left: 0 !important; }
-
-    .empty{
-      border: 1px dashed #d4d4d8;
-      border-radius: 14px;
-      padding: 18px;
-      background: #fafafa;
-      color: #555;
-    }
-
-    .tiny{
-      font-size: 0.95rem;
-      color: #666;
-      margin: 8px 0 0;
-    }
-
-    /* 파일명(긴 경우) 줄바꿈 */
-    .tool-title{ word-break: break-word; }
-
-    /* 키보드 탐색 시 가시성 */
-    a.btn:focus-visible, button.btn:focus-visible{
-      outline: 2px solid rgba(17,17,17,0.35);
-      outline-offset: 3px;
-    }
-
-    /* 한 폴더 구성일 때 안내 배지 */
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid #e5e7eb;
-      background: #fafafa;
-      font-size: .95rem;
-      color:#444;
-    }
-  </style>
-</head>
-
-  
-<body class="alien-side-bg">
-<div class="alien-page-frame">
-
-  <main class="container">
-    
-    <h2>각종 서식 다운로드</h2>
-    <p class="dl-desc">검색창에 필요한 서식을 입력하세요.</p>
-    <hr/>
-    
-    <section class="section dl-section">
-
-      <div class="row gap" style="flex-wrap: wrap;">
-        <a class="btn" href="/" download>
-          zip파일 다운로드
-        </a>
-        <a class="btn" href="#list">개별 파일 목록으로</a>
-      </div>
-
-    <section class="section" id="list">
-      <div class="row between" style="align-items: flex-end; gap: 12px;">
-        <div>
-          <h2>검색창</h2>
-          <p class="muted">검색창에 키워드를 입력하십시오. (예시: 스쿨뱅킹 동의서, 행정정보공동이용 동의서 등)</p>
+      <section class="section dl-section">
+        <h2>빠른 내려받기</h2>
+        <p class="muted section-intro">개별 파일 목록을 보지 않아도 바로 받아 갈 수 있도록 묶음 파일을 함께 제공합니다.</p>
+        <hr />
+        <div class="row gap" style="flex-wrap:wrap;">
+          <a class="btn primary" href="/file-download/docs/school-admin-reference-pack.zip" download>참고 자료 묶음 다운로드 (ZIP)</a>
+          <a class="btn ghost" href="#list">개별 파일 목록으로</a>
         </div>
-        <div class="pill" id="countPill" aria-live="polite">총 0건</div>
-      </div>
+      </section>
 
-      <div class="toolbar" role="search">
-        <div class="field">
-          <label for="q">검색</label>
-          <input id="q" type="text" placeholder="예: 예산, 계약제교원, 회계규칙…" autocomplete="off" />
+      <section class="section" id="list">
+        <div class="row between" style="align-items:flex-end; gap:12px;">
+          <div>
+            <h2>검색창</h2>
+            <p class="muted">검색어를 입력하면 제목, 설명, 태그를 함께 검색합니다. 예: 예산, 계약제교원, 회계규칙, 동의서</p>
+          </div>
+          <div class="pill" id="countPill" aria-live="polite">총 0건</div>
         </div>
 
-  </main>
-        <div class="field">
-          <label for="fmt">파일 형식</label>
-          <select id="fmt">
-            <option value="">전체</option>
-            <option value="PDF">PDF</option>
-            <option value="HWP">HWP</option>
-            <option value="DOCX">DOCX</option>
-            <option value="XLSX">XLSX</option>
-            <option value="PPTX">PPTX</option>
-            <option value="ZIP">ZIP</option>
-          </select>
+        <div class="toolbar" role="search">
+          <div class="field">
+            <label for="q">검색</label>
+            <input id="q" type="text" placeholder="예: 예산, 계약제교원, 회계규칙, 동의서" autocomplete="off" />
+          </div>
+          <div class="field">
+            <label for="fmt">파일 형식</label>
+            <select id="fmt">
+              <option value="">전체</option>
+              <option value="PDF">PDF</option>
+              <option value="HWP">HWP</option>
+              <option value="ZIP">ZIP</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="sort">정렬</label>
+            <select id="sort">
+              <option value="new">최신순</option>
+              <option value="old">오래된순</option>
+              <option value="name">가나다순</option>
+            </select>
+          </div>
         </div>
 
-        <div class="field">
-          <label for="sort">정렬</label>
-          <select id="sort">
-            <option value="new">최신순</option>
-            <option value="old">오래된순</option>
-            <option value="name">가나다순</option>
-          </select>
-        </div>
-      </div>
-
-      <hr />
-
-      <div id="fileGrid" class="tool-grid" aria-live="polite"></div>
-
-      <div class="card" style="margin-top: 18px;">
-      </div>
-    </section>
-
+        <hr />
+        <div id="fileGrid" class="tool-grid" aria-live="polite"></div>
+      </section>
+    </main>
+  </div>
 
   <script>
     const FILES = [
-      
-      {
-        title: "행정정보공동이용 동의서",
-        format: "HWP",
-        size: "4.8MB",
-        updated: "2025-12-01",
-        path: "/file-download/docs/consent-form-crime-experience.hwp",
-        originalName: "consent-form-crime-experience.hwp",
-        desc: "범죄경력 조회시 작성하여 행정실에 제출",
-        tags: ["범죄경력", "조회", "범죄경력조회", "동의서", "행정정보공동이용", "서식"]
-      },
-      {
-        title: "2026회계 학교행정 업무편람",
-        format: "PDF",
-        size: "116KB",
-        updated: "2026-03-06",
-        path: "/file-download/docs/",
-        originalName: "",
-        desc: "2025년 12월 기준 작성. 학교 행정 전반 업무 절차/참고자료(강원교육청).",
-        tags: ["업무편람", "행정", "K-에듀파인"]
-      },
-      {
-        title: "2026년도 학교회계 예산편성 기본지침",
-        format: "PDF",
-        size: "4.0MB",
-        updated: "2026-01-01",
-        path: "./2026-school-budget-guideline.pdf",
-        originalName: "2026-school-budget-guideline.pdf",
-        desc: "2026년도 학교회계 예산편성 기본지침(예산편성 기준/유의사항).",
-        tags: ["예산", "학교회계", "지침"]
-      },
-      {
-        title: "2025 계약제교원 운영 지침 (2025.8.)",
-        format: "PDF",
-        size: "7.0MB",
-        updated: "2025-08-01",
-        path: "./2025-contract-teacher-guide-2025-08.pdf",
-        originalName: "2025-contract-teacher-guide-2025-08.pdf",
-        desc: "계약제교원 운영 관련 업무 참고용 지침(2025.8. 버전).",
-        tags: ["계약제교원", "인사", "지침"]
-      },
-      {
-        title: "[회계] 공립학교 회계규칙 (강원도)",
-        format: "PDF",
-        size: "111KB",
-        updated: "(원문 기준)",
-        path: "./gangwon-public-school-accounting-rules.pdf",
-        originalName: "gangwon-public-school-accounting-rules.pdf",
-        desc: "공립학교 회계규칙(강원도) 발췌본/자료.",
-        tags: ["회계", "규칙"]
-      },
+  {
+    "title": "2026회계 학교행정 업무편람",
+    "format": "PDF",
+    "size": "4.8MB",
+    "updated": "2026-03-06",
+    "path": "/file-download/docs/2026-school-administration-handbook.pdf",
+    "originalName": "2026-school-administration-handbook.pdf",
+    "desc": "학교 행정 전반 업무 절차와 실무 참고 기준을 정리한 편람입니다.",
+    "tags": [
+      "업무편람",
+      "행정",
+      "학교행정",
+      "K-에듀파인"
+    ]
+  },
+  {
+    "title": "2026년도 학교회계 예산편성 기본지침",
+    "format": "PDF",
+    "size": "3.9MB",
+    "updated": "2026-01-01",
+    "path": "/file-download/docs/2026-school-budget-guideline.pdf",
+    "originalName": "2026-school-budget-guideline.pdf",
+    "desc": "학교회계 예산편성 기준과 유의사항을 확인할 수 있는 기준 자료입니다.",
+    "tags": [
+      "예산",
+      "학교회계",
+      "예산편성",
+      "지침"
+    ]
+  },
+  {
+    "title": "강원특별자치도 공립학교 회계규칙",
+    "format": "PDF",
+    "size": "110.8KB",
+    "updated": "2023-06-11",
+    "path": "/file-download/docs/gangwon-public-school-accounting-rules.pdf",
+    "originalName": "gangwon-public-school-accounting-rules.pdf",
+    "desc": "학교회계 운영의 기본 원칙과 회계 절차를 확인할 때 쓰는 규칙 자료입니다.",
+    "tags": [
+      "회계규칙",
+      "회계",
+      "강원도",
+      "규칙"
+    ]
+  },
+  {
+    "title": "2025 계약제교원 운영 지침 (2025.8.)",
+    "format": "PDF",
+    "size": "6.9MB",
+    "updated": "2025-08-01",
+    "path": "/file-download/docs/2025-contract-teacher-guide-2025-08.pdf",
+    "originalName": "2025-contract-teacher-guide-2025-08.pdf",
+    "desc": "계약제교원 채용과 복무, 서류 준비 기준을 확인할 때 참고하는 지침입니다.",
+    "tags": [
+      "계약제교원",
+      "기간제",
+      "인사",
+      "지침"
+    ]
+  },
+  {
+    "title": "2025 늘봄학교 운영 길라잡이(초등학교편)",
+    "format": "PDF",
+    "size": "3.9MB",
+    "updated": "2025-01-01",
+    "path": "/file-download/docs/neulbom-guide-2025.pdf",
+    "originalName": "neulbom-guide-2025.pdf",
+    "desc": "늘봄학교 운영 절차를 참고할 수 있는 길라잡이 자료입니다.",
+    "tags": [
+      "늘봄",
+      "길라잡이",
+      "방과후",
+      "운영"
+    ]
+  },
+  {
+    "title": "행정정보공동이용 동의서",
+    "format": "HWP",
+    "size": "115.5KB",
+    "updated": "2025-12-01",
+    "path": "/file-download/docs/consent-form-crime-experience.hwp",
+    "originalName": "consent-form-crime-experience.hwp",
+    "desc": "범죄경력조회 등 계약 관련 업무에 사용하는 동의서 서식입니다.",
+    "tags": [
+      "동의서",
+      "행정정보공동이용",
+      "범죄경력조회",
+      "서식"
+    ]
+  },
+  {
+    "title": "학교행정 참고 자료 묶음",
+    "format": "ZIP",
+    "size": "15.5MB",
+    "updated": "2026-04-12",
+    "path": "/file-download/docs/school-admin-reference-pack.zip",
+    "originalName": "school-admin-reference-pack.zip",
+    "desc": "자주 쓰는 참고 지침과 서식을 한 번에 내려받는 묶음 파일입니다.",
+    "tags": [
+      "ZIP",
+      "묶음",
+      "지침",
+      "서식"
+    ]
+  }
+];
 
-      // ZIP 자체도 카드로 노출하고 싶으면 주석 해제
-      // {
-      //   title: "전체 서식 묶음(eduworkhaey-forms-pack.zip)",
-      //   format: "ZIP",
-      //   size: "(자동 계산 불가)",
-      //   updated: "2026-03-03",
-      //   path: "./eduworkhaey-forms-pack.zip",
-      //   originalName: "eduworkhaey-forms-pack.zip",
-      //   desc: "자주 쓰는 서식/지침 파일을 한 번에 받는 ZIP 묶음.",
-      //   tags: ["묶음", "ZIP"]
-      // },
-    ];
+    (function () {
+      const elGrid = document.getElementById("fileGrid");
+      const elQ = document.getElementById("q");
+      const elFmt = document.getElementById("fmt");
+      const elSort = document.getElementById("sort");
+      const elCount = document.getElementById("countPill");
 
-    // -----------------------------
-    // 렌더링
-    // -----------------------------
-    const elGrid = document.getElementById('fileGrid');
-    const elQ = document.getElementById('q');
-    const elFmt = document.getElementById('fmt');
-    const elSort = document.getElementById('sort');
-    const elCount = document.getElementById('countPill');
-
-    function safe(s){
-      return String(s ?? '')
-        .replaceAll('&', '&amp;')
-        .replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;')
-        .replaceAll('"', '&quot;')
-        .replaceAll("'", '&#39;');
-    }
-
-    function parseDate(v){
-      // YYYY-MM-DD 형태면 Date로 정렬. 그 외는 아주 과거로 취급.
-      if(typeof v !== 'string') return new Date(0);
-      if(/^\d{4}-\d{2}-\d{2}$/.test(v)) return new Date(v + 'T00:00:00');
-      if(/^\d{4}-\d{2}-\d{2} /.test(v)) return new Date(v);
-      if(/^\d{4}-\d{2}-\d{2}T/.test(v)) return new Date(v);
-      return new Date(0);
-    }
-
-    function matches(item, q){
-      if(!q) return true;
-      const hay = [item.title, item.desc, item.originalName, (item.tags||[]).join(' ')].join(' ').toLowerCase();
-      return hay.includes(q.toLowerCase());
-    }
-
-    function cardHTML(item){
-      const isPDF = (item.format || '').toUpperCase() === 'PDF';
-      const fmt = safe(item.format);
-      const title = safe(item.title);
-      const desc = safe(item.desc);
-      const size = safe(item.size);
-      const updated = safe(item.updated);
-      const originalName = safe(item.originalName);
-      const path = safe(item.path);
-
-      const tags = (item.tags || []).map(t => `<span class="pill">#${safe(t)}</span>`).join(' ');
-
-      return `
-        <div class="tool-card">
-          <div class="tool-head">
-            <p class="tool-title" style="margin:0;">${title}</p>
-            <p class="tool-sub" style="margin:6px 0 0;">${desc}</p>
-          </div>
-
-          <div class="file-meta">
-            <span class="pill"><b>${fmt}</b></span>
-            <span class="pill">용량: ${size}</span>
-            <span class="pill">업데이트: ${updated}</span>
-          </div>
-
-          <p class="tiny">파일명: <span class="muted">${originalName}</span></p>
-
-          <div class="file-actions">
-            ${isPDF ? `<a class="btn pastel-blue" href="${path}" target="_blank" rel="noopener">미리보기</a>` : ''}
-            <a class="btn pastel-mint" href="${path}" download>다운로드</a>
-          </div>
-
-          ${tags ? `<div class="file-meta" style="margin-top:12px;">${tags}</div>` : ''}
-        </div>
-      `.trim();
-    }
-
-    function render(){
-      const q = (elQ.value || '').trim();
-      const fmt = (elFmt.value || '').trim().toUpperCase();
-      const sort = (elSort.value || 'new');
-
-      let list = FILES
-        .filter(x => matches(x, q))
-        .filter(x => !fmt || String(x.format||'').toUpperCase() === fmt);
-
-      if(sort === 'name'){
-        list.sort((a,b) => String(a.title||'').localeCompare(String(b.title||''), 'ko'));
-      }else if(sort === 'old'){
-        list.sort((a,b) => parseDate(a.updated) - parseDate(b.updated));
-      }else{
-        list.sort((a,b) => parseDate(b.updated) - parseDate(a.updated));
+      function safe(value) {
+        return String(value ?? "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#39;");
       }
 
-      if(elCount) elCount.textContent = `총 ${list.length}건`;
-
-      if(list.length === 0){
-        elGrid.innerHTML = `
-          <div class="empty">
-            <b>표시할 파일이 없습니다.</b><br/>
-            검색어/필터를 바꿔보세요.
-          </div>
-        `;
-        return;
+      function parseDate(value) {
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(String(value || ""))) return new Date(0);
+        return new Date(value + "T00:00:00");
       }
 
-      elGrid.innerHTML = list.map(cardHTML).join('\n');
-    }
+      function matches(item, query) {
+        if (!query) return true;
+        const haystack = [item.title, item.desc, item.originalName, (item.tags || []).join(" ")].join(" ").toLowerCase();
+        return haystack.includes(query.toLowerCase());
+      }
 
-    // 이벤트 바인딩
-    ['input','change'].forEach(evt => {
-      elQ.addEventListener(evt, render);
-      elFmt.addEventListener(evt, render);
-      elSort.addEventListener(evt, render);
-    });
+      function renderCard(item) {
+        const isPdf = String(item.format || "").toUpperCase() === "PDF";
+        const tags = (item.tags || []).map(function (tag) {
+          return '<span class="pill">#' + safe(tag) + "</span>";
+        }).join("");
 
-    // 최초 렌더
-    render();
+        return [
+          '<article class="tool-card">',
+          '  <div class="tool-head">',
+          '    <p class="tool-title">' + safe(item.title) + '</p>',
+          '    <p class="tool-sub">' + safe(item.desc) + '</p>',
+          "  </div>",
+          '  <div class="file-meta">',
+          '    <span class="pill"><b>' + safe(item.format) + '</b></span>',
+          '    <span class="pill">용량: ' + safe(item.size) + "</span>",
+          '    <span class="pill">업데이트: ' + safe(item.updated) + "</span>",
+          "  </div>",
+          '  <p class="tiny">파일명: <span class="muted">' + safe(item.originalName) + "</span></p>",
+          '  <div class="file-actions">',
+          isPdf ? '    <a class="btn ghost" href="' + safe(item.path) + '" target="_blank" rel="noopener">미리보기</a>' : "",
+          '    <a class="btn" href="' + safe(item.path) + '" download>다운로드</a>',
+          "  </div>",
+          tags ? '  <div class="file-meta" style="margin-top:12px;">' + tags + "</div>" : "",
+          "</article>"
+        ].join("");
+      }
+
+      function render() {
+        const query = String(elQ.value || "").trim();
+        const format = String(elFmt.value || "").trim().toUpperCase();
+        const sort = String(elSort.value || "new").trim();
+
+        let list = FILES
+          .filter(function (item) { return matches(item, query); })
+          .filter(function (item) {
+            return !format || String(item.format || "").toUpperCase() === format;
+          });
+
+        if (sort === "name") {
+          list.sort(function (a, b) {
+            return String(a.title || "").localeCompare(String(b.title || ""), "ko");
+          });
+        } else if (sort === "old") {
+          list.sort(function (a, b) { return parseDate(a.updated) - parseDate(b.updated); });
+        } else {
+          list.sort(function (a, b) { return parseDate(b.updated) - parseDate(a.updated); });
+        }
+
+        elCount.textContent = "총 " + list.length + "건";
+
+        if (!list.length) {
+          elGrid.innerHTML = '<div class="empty-box"><p>표시할 파일이 없습니다. 검색어와 필터를 바꿔 보세요.</p></div>';
+          return;
+        }
+
+        elGrid.innerHTML = list.map(renderCard).join("\n");
+      }
+
+      ["input", "change"].forEach(function (eventName) {
+        elQ.addEventListener(eventName, render);
+        elFmt.addEventListener(eventName, render);
+        elSort.addEventListener(eventName, render);
+      });
+
+      render();
+    })();
   </script>
 
-
-
-    
+  <script src="/static/footer.js"></script>
+  <script src="/static/global-loader.js?v=1"></script>
 </body>
 </html>

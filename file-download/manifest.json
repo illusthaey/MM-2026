@@ -1,37 +1,114 @@
 {
   "meta": {
-    "title": "각종 편람·지침·규정·서식 자료실",
-    "updated": "2026-03-06",
-    "note": "PDF는 /giving-files/docs/ 경로에, 캡처 이미지는 /giving-files/captures/ 경로에 위치"
+    "title": "서식 다운로드 | 고주무관의 쉬운 학교행정",
+    "updated": "2026-04-12",
+    "note": "서식 다운로드 페이지와 동기화되는 파일 목록"
   },
   "items": [
     {
-      "id": "search-crime-experience",
-      "category": "서식",
+      "title": "2026회계 학교행정 업무편람",
+      "format": "PDF",
+      "size": "4.8MB",
+      "updated": "2026-03-06",
+      "path": "/file-download/docs/2026-school-administration-handbook.pdf",
+      "originalName": "2026-school-administration-handbook.pdf",
+      "desc": "학교 행정 전반 업무 절차와 실무 참고 기준을 정리한 편람입니다.",
+      "tags": [
+        "업무편람",
+        "행정",
+        "학교행정",
+        "K-에듀파인"
+      ]
+    },
+    {
+      "title": "2026년도 학교회계 예산편성 기본지침",
+      "format": "PDF",
+      "size": "3.9MB",
+      "updated": "2026-01-01",
+      "path": "/file-download/docs/2026-school-budget-guideline.pdf",
+      "originalName": "2026-school-budget-guideline.pdf",
+      "desc": "학교회계 예산편성 기준과 유의사항을 확인할 수 있는 기준 자료입니다.",
+      "tags": [
+        "예산",
+        "학교회계",
+        "예산편성",
+        "지침"
+      ]
+    },
+    {
+      "title": "강원특별자치도 공립학교 회계규칙",
+      "format": "PDF",
+      "size": "110.8KB",
+      "updated": "2023-06-11",
+      "path": "/file-download/docs/gangwon-public-school-accounting-rules.pdf",
+      "originalName": "gangwon-public-school-accounting-rules.pdf",
+      "desc": "학교회계 운영의 기본 원칙과 회계 절차를 확인할 때 쓰는 규칙 자료입니다.",
+      "tags": [
+        "회계규칙",
+        "회계",
+        "강원도",
+        "규칙"
+      ]
+    },
+    {
+      "title": "2025 계약제교원 운영 지침 (2025.8.)",
+      "format": "PDF",
+      "size": "6.9MB",
+      "updated": "2025-08-01",
+      "path": "/file-download/docs/2025-contract-teacher-guide-2025-08.pdf",
+      "originalName": "2025-contract-teacher-guide-2025-08.pdf",
+      "desc": "계약제교원 채용과 복무, 서류 준비 기준을 확인할 때 참고하는 지침입니다.",
+      "tags": [
+        "계약제교원",
+        "기간제",
+        "인사",
+        "지침"
+      ]
+    },
+    {
+      "title": "2025 늘봄학교 운영 길라잡이(초등학교편)",
+      "format": "PDF",
+      "size": "3.9MB",
+      "updated": "2025-01-01",
+      "path": "/file-download/docs/neulbom-guide-2025.pdf",
+      "originalName": "neulbom-guide-2025.pdf",
+      "desc": "늘봄학교 운영 절차를 참고할 수 있는 길라잡이 자료입니다.",
+      "tags": [
+        "늘봄",
+        "길라잡이",
+        "방과후",
+        "운영"
+      ]
+    },
+    {
       "title": "행정정보공동이용 동의서",
-      "description": "계약 및 위촉 업무에 포함",
-      "file": "/file-download/docs/consent-form-crime-experience.hwp",
-      "openPage": 1,
-      "docRefId": "consent-form-crime-experience",
-      "captures": [
-        {
-          "src": "/file-download/captures/image-consent-form-crime-experience-001.jpg",
-          "caption": "행정정보공동이용 동의서 서식"
-        },
-      ],
-      "links": [
-        {
-          "label": ".",
-          "url": "/file-download/docs/consent-form-crime-experience.hwp#page=1"
-        }
+      "format": "HWP",
+      "size": "115.5KB",
+      "updated": "2025-12-01",
+      "path": "/file-download/docs/consent-form-crime-experience.hwp",
+      "originalName": "consent-form-crime-experience.hwp",
+      "desc": "범죄경력조회 등 계약 관련 업무에 사용하는 동의서 서식입니다.",
+      "tags": [
+        "동의서",
+        "행정정보공동이용",
+        "범죄경력조회",
+        "서식"
+      ]
+    },
+    {
+      "title": "학교행정 참고 자료 묶음",
+      "format": "ZIP",
+      "size": "15.5MB",
+      "updated": "2026-04-12",
+      "path": "/file-download/docs/school-admin-reference-pack.zip",
+      "originalName": "school-admin-reference-pack.zip",
+      "desc": "자주 쓰는 참고 지침과 서식을 한 번에 내려받는 묶음 파일입니다.",
+      "tags": [
+        "ZIP",
+        "묶음",
+        "지침",
+        "서식"
       ]
     }
-  ],
-  
-  "captures": [
-  { "src": "/giving-files/captures/neulbom-p26.jpg", "caption": "운영 절차/업무 흐름도 참고" },
-  { "src": "/giving-files/captures/neulbom-p69.png", "caption": "강사 선정·계약 절차 관련" }
-]
-
-  
+  ]
 }

@@ -3,8 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>한 입 크기로 잘라먹는 행정 업무 모음집</title>
-  <meta name="description" content="바쁜 2026년을 빠르고 쉽게">
+  <title>한입 가이드 | 고주무관의 쉬운 학교행정</title>
+  <meta name="x-brand-title" content="한입 가이드 | {masterBrand}" />
+  <meta name="description" content="문막초 교직원을 위한 한입 가이드" />
+  <meta name="color-scheme" content="light" />
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-B6PE24NSKH"></script>
@@ -17,6 +19,8 @@
 
   <link rel="icon" href="/static/favicon.ico">
   <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/brand-config.js"></script>
+  <script defer src="/static/brand-ui.js"></script>
   <script src="/static/footer.js"></script>
   <script src="/static/global-loader.js?v=1"></script>
 
@@ -498,17 +502,29 @@
 <body class="alien-side-bg">
   <div class="alien-page-frame">
 
-      <h1>한 입 크기로 잘라먹는 행정 업무 모음집</h1>
+      <p class="page-kicker" data-brand-key="masterBrand">고주무관의 쉬운 학교행정</p>
+      <h1>한입 가이드</h1>
+      <p class="sub" data-brand-template="{schoolShortName} 교직원이 자주 묻는 학교행정 질문을 짧고 분명하게 정리한 카드형 안내입니다.">문막초 교직원이 자주 묻는 학교행정 질문을 짧고 분명하게 정리한 카드형 안내입니다.</p>
+      <p class="muted" data-brand-key="trustMessage">이 웹페이지는 업무 참고용이며, 최종 기준은 공문·지침 등 공식 자료를 우선합니다.</p>
+
+      <nav class="chip-row page-breadcrumb" aria-label="주요 메뉴">
+        <a class="chip" data-brand-route="home" href="/">홈</a>
+        <a class="chip" data-brand-route="howToUse" href="/notice/how-to-use/">처음 이용</a>
+        <a class="chip" data-brand-route="notice" href="/notice/">안내사항</a>
+        <a class="chip" data-brand-route="detailedGuide" href="/guide/">상세 가이드</a>
+        <a class="chip" data-brand-route="tools" href="/tools/">업무 도구</a>
+        <a class="chip" data-brand-route="downloads" href="/file-download/">서식 다운로드</a>
+      </nav>
 
 
     <section class="panel" aria-labelledby="tocTitle">
-      <h2 id="tocTitle">빠른 이동 목차</h2>
+      <h2 id="tocTitle">빠른 이동</h2>
       <p class="lead">원하는 업무 분야로 바로 이동할 수 있도록 8개 섹션 앵커를 배치했습니다.</p>
       <nav class="toc-grid" id="quickNav"></nav>
     </section>
 
     <section class="panel" aria-labelledby="searchTitle">
-      <h2 id="searchTitle">검색</h2>
+      <h2 id="searchTitle">통합 검색</h2>
       <p class="lead">검색어를 입력하고 <strong>검색하기</strong>를 누르면 일치하는 카드만 상단 검색 결과 영역으로 모이고, 나머지 카드는 아래 섹션에 그대로 남습니다.</p>
 
       <div class="search-row">
