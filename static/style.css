@@ -248,10 +248,17 @@ main {
   background: #f9fafb;
   font-size: 1rem;
   white-space: nowrap;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
 }
 
 .btn-home:hover {
   background: #eef2ff;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 18px rgba(31, 58, 95, 0.1);
 }
 
 /* =============================
@@ -1384,17 +1391,17 @@ body main.overtime-app p.sub{
   box-sizing: border-box;
   text-align: left;
   margin-left: 0 !important;
-  background: #111;
+  background: #6b7280;
   color: #fff;
-  border-color: #111;
+  border-color: #6b7280;
 }
 
 .page-menu .btn-menu:hover{
-  background: #000;
+  background: #4b5563;
 }
 
 .page-menu .btn-menu:focus-visible{
-  outline: 2px solid rgba(17, 17, 17, 0.35);
+  outline: 2px solid rgba(107, 114, 128, 0.35);
   outline-offset: 2px;
 }
 
@@ -1517,23 +1524,31 @@ body h4{
 }
 
 .page-menu .btn-menu{
-  background: var(--brand-accent);
-  border-color: var(--brand-accent);
+  background: #6b7280;
+  border-color: #6b7280;
   color: #fff;
 }
 
 .page-menu .btn-menu:hover{
-  background: #17304f;
+  background: #4b5563;
 }
 
 .btn{
   border-color: var(--brand-accent);
   color: var(--brand-accent);
   background: #fff;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
 }
 
 .btn:hover{
   background: #f3f7fb;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 18px rgba(31, 58, 95, 0.12);
 }
 
 .btn.primary,
@@ -1564,14 +1579,26 @@ body h4{
   color: var(--brand-text);
 }
 
+.btn.btn-lightgrey:hover{
+  background: #e5e7eb;
+}
+
 .chip{
   border-color: var(--brand-border);
   background: #f8fbfc;
   color: var(--brand-text);
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
 }
 
 .chip:hover{
   background: #eef4f6;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 18px rgba(31, 58, 95, 0.08);
 }
 
 .chip.is-active,
