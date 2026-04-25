@@ -21,249 +21,95 @@
 
   <!-- ✅ 공통 스타일(이미 static에 존재) -->
   <link rel="stylesheet" href="/static/style.css" />
+  <script src="/static/brand-config.js"></script>
+  <script defer src="/static/brand-ui.js"></script>
 
   <style>
-    /* =========================
-       이 페이지 전용 최소 보강
-       ========================= */
-
-    .top-actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:center;
-      margin: 10px 0 0;
-    }
-
-    .pill {
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding: 6px 12px;
-      border: 1px solid #e5e7eb;
-      border-radius: 999px;
-      background: #fafafa;
-      font-size: 0.95rem;
-      color:#444;
-    }
-
-    .callout{
-      border: 1px solid #e5e5e5;
-      border-radius: 12px;
-      padding: 14px 16px;
-      background:#fafafa;
-      margin: 10px 0;
-    }
-
-    .callout strong{ color:#111; }
-
-    .toc{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      justify-content:center;
-      margin: 12px 0 0;
-    }
-
-    .toc a{
-      display:inline-block;
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid #d4d4d8;
-      background:#fff;
-      font-size: 0.95rem;
-    }
-
-    .toc a:hover{ background:#f3f4f6; }
-
-    /* --- 표(단가/요약) --- */
-    .mini-table{
-      width:100%;
-      border-collapse: collapse;
-      background:#fff;
-      overflow:hidden;
-      border-radius: 12px;
-      border: 1px solid #e5e7eb;
-    }
-    .mini-table th, .mini-table td{
-      border-bottom: 1px solid #eef2f7;
-      padding: 10px 12px;
-      text-align:left;
-      vertical-align: top;
-      font-size: 1rem;
-    }
-    .mini-table th{
-      background:#f9fafb;
-      font-weight: 700;
-      width: 32%;
-    }
-    .mini-table tr:last-child th,
-    .mini-table tr:last-child td{ border-bottom:none; }
-
-    /* =========================
-       체크리스트(커스텀 체크박스)
-       - PDF 캡처 안정성을 위해 input은 숨기고 label에 표시
-       ========================= */
-    .check-wrap{
-      display:grid;
-      gap:12px;
-    }
-
-    .check-meta{
-      display:grid;
-      gap:12px;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    }
-
-    .field{
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-    }
-    .field label{
-      font-size: 0.95rem;
-      color:#555;
-    }
-
-    .check-group{
-      border: 1px solid #e5e5e5;
-      background:#fff;
-      border-radius: 12px;
-      padding: 14px 14px;
-    }
-
-    .check-group h3{
-      margin-top:0;
-      display:flex;
-      align-items:baseline;
-      gap:10px;
-    }
-
-    .check-list{
-      display:grid;
-      gap:10px;
-      margin-top: 10px;
-    }
-
+    /* PDF export — page-specific */
     .check-item{
       position: relative;
-      border: 1px solid #eef2f7;
-      background:#fafafa;
-      border-radius: 10px;
-      padding: 10px 12px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      border-radius: var(--r-md);
+      padding: var(--space-3) var(--space-4);
     }
-
     .check-item input[type="checkbox"]{
-      position:absolute;
-      opacity:0;
-      pointer-events:none;
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
     }
-
     .check-item label{
       position: relative;
-      display:block;
+      display: block;
       padding-left: 34px;
-      cursor:pointer;
-      color:#222;
+      cursor: pointer;
+      color: var(--text);
     }
-
     .check-item label::before{
-      content:"";
-      position:absolute;
+      content: "";
+      position: absolute;
       left: 0;
       top: 2px;
       width: 20px;
       height: 20px;
-      border: 2px solid #111;
-      border-radius: 4px;
-      background:#fff;
-      box-sizing:border-box;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--r-sm);
+      background: var(--surface);
+      box-sizing: border-box;
     }
-
     .check-item input:checked + label::after{
-      content:"✓";
-      position:absolute;
+      content: "✓";
+      position: absolute;
       left: 4px;
       top: -1px;
       font-size: 20px;
-      font-weight: 900;
-      color:#111;
+      font-weight: 700;
+      color: var(--text);
       line-height: 1;
     }
 
-    .check-title{
-      font-weight: 800;
-      color:#111;
-    }
-    .check-desc{
-      margin-top: 4px;
-      color:#444;
-      font-size: 0.98rem;
-      line-height: 1.5;
-    }
-
-    .hint{
-      font-size: 0.95rem;
-      color:#666;
-      margin-top: 6px;
-    }
-
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      padding: .2em .6em;
-      border-radius: 999px;
-      border: 1px solid #e5e7eb;
-      background:#fff;
-      font-size: 0.9rem;
-      color:#555;
-      font-weight: 700;
-    }
-
-    /* PDF 캡처 시 버튼/가이드 숨김 */
+    /* PDF capture: hide UI affordances during export */
     .is-exporting [data-export-hide="1"]{
-      display:none !important;
+      display: none !important;
     }
 
-    /* PDF 로딩 오버레이 */
+    /* PDF generation overlay */
     .pdf-busy{
       position: fixed;
       inset: 0;
       z-index: 2147483647;
-      background: rgba(0,0,0,0.45);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding: 20px;
+      background: oklch(0% 0 0 / 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-5);
     }
-    .pdf-busy[hidden]{ display:none; }
+    .pdf-busy[hidden]{ display: none; }
     .pdf-busy-card{
-      width:min(520px, 92vw);
-      border-radius: 16px;
-      background:#fff;
-      border: 1px solid #e5e7eb;
-      padding: 18px 18px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+      width: min(520px, 92vw);
+      border-radius: var(--r-lg);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: var(--space-5);
     }
     .pdf-busy-title{
-      font-size: 1.15rem;
-      font-weight: 900;
-      color:#111;
-      margin: 0 0 6px;
+      font-size: var(--fs-md);
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 var(--space-2);
     }
     .pdf-busy-desc{
-      margin:0;
-      color:#555;
-      font-size: 1rem;
+      margin: 0;
+      color: var(--text-secondary);
+      font-size: var(--fs-base);
       line-height: 1.55;
     }
 
-    /* 출력(인쇄) 대비: 혹시 인쇄로도 저장할 때 버튼 숨김 */
+    /* Print: hide export buttons + chrome */
     @media print{
-      [data-export-hide="1"]{ display:none !important; }
-      .site-header{ display:none !important; }
-      body{ background:#fff; }
+      [data-export-hide="1"]{ display: none !important; }
+      .site-header{ display: none !important; }
+      body{ background: var(--surface); }
       main.container{ padding-top: 0 !important; }
     }
   </style>

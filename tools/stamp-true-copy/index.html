@@ -29,27 +29,6 @@
 
   <style>
     /* 추가 CSS 파일은 금지이므로, 필수 UI(드롭존/오버레이)만 최소 인라인 스타일 */
-    .dropzone {
-      border: 2px dashed #d4d4d8;
-      border-radius: 14px;
-      padding: 16px;
-      background: #fafafa;
-      cursor: pointer;
-      min-height: 120px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 6px;
-    }
-    .dropzone.dragover {
-      border-color: #111;
-      background: #f3f4f6;
-    }
-    .dropzone .dz-title { font-weight: 800; color: #111; }
-    .dropzone .dz-sub { font-size: 0.95rem; color: #555; }
-    .dropzone .dz-file { font-size: 0.95rem; color: #111; }
-    .dropzone input[type="file"] { display: none; }
-
     .stage-wrap { margin-top: 14px; }
     .stage {
       position: relative;
@@ -62,21 +41,21 @@
       display: block;
       max-width: 100%;
       height: auto;
-      border: 1px solid #e5e5e5;
-      border-radius: 12px;
-      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      background: var(--surface);
     }
 
     #stampOverlay {
       position: absolute;
       box-sizing: border-box;
-      border: 2px solid rgba(17, 24, 39, 0.65);
-      border-radius: 10px;
+      border: 2px solid oklch(18% 0.012 255 / 0.65);
+      border-radius: var(--r-md);
       cursor: grab;
       touch-action: none;
       user-select: none;
       transform-origin: center center;
-      background: rgba(255,255,255,0.10);
+      background: oklch(100% 0 0 / 0.10);
       backdrop-filter: blur(0.2px);
     }
     #stampOverlay.dragging { cursor: grabbing; }
@@ -88,14 +67,14 @@
       height: 100%;
       object-fit: fill;
       pointer-events: none;
-      border-radius: 8px;
+      border-radius: var(--r-md);
     }
 
     #innerGuide {
       position: absolute;
       pointer-events: none;
-      border: 2px dashed rgba(17, 24, 39, 0.35);
-      border-radius: 8px;
+      border: 2px dashed oklch(18% 0.012 255 / 0.35);
+      border-radius: var(--r-md);
       box-sizing: border-box;
     }
 
@@ -104,12 +83,12 @@
       left: 8px;
       top: 8px;
       padding: 4px 8px;
-      border-radius: 999px;
-      font-size: 12px;
-      background: rgba(255,255,255,0.90);
-      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: var(--r-pill);
+      font-size: var(--fs-xs);
+      background: oklch(100% 0 0 / 0.90);
+      border: 1px solid var(--border);
       pointer-events: none;
-      color: #111;
+      color: var(--text);
       font-weight: 800;
       white-space: nowrap;
     }
@@ -121,9 +100,9 @@
       top: -14px;
       width: 36px;
       height: 36px;
-      border-radius: 999px;
-      border: 1px solid rgba(0,0,0,0.12);
-      background: rgba(255,255,255,0.96);
+      border-radius: var(--r-pill);
+      border: 1px solid var(--border);
+      background: var(--surface);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -132,7 +111,6 @@
       opacity: 0;
       pointer-events: none;
       user-select: none;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
     }
     #rotateHandle.dragging { cursor: grabbing; }
     #stampOverlay.rotatable:hover #rotateHandle {
@@ -140,24 +118,14 @@
       pointer-events: auto;
     }
 
-    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
-    .warn { color: #b42318; font-weight: 700; }
-    .ok { color: #166534; font-weight: 700; }
+    .warn { color: var(--danger); font-weight: 700; }
+    .ok { color: var(--success); font-weight: 700; }
 
     .chip-wrap { display:flex; flex-wrap:wrap; gap:8px; margin-top: 8px; }
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 10px;
-      border: 1px solid #d4d4d8;
-      border-radius: 999px;
-      background: #f3f4f6;
-    }
     .chip .chip-link {
       cursor: pointer;
       font-weight: 800;
-      color: #111;
+      color: var(--text);
       background: transparent;
       border: 0;
       padding: 0;
@@ -165,12 +133,12 @@
     .chip .chip-x {
       cursor: pointer;
       font-weight: 900;
-      color: #111;
+      color: var(--text);
       background: transparent;
       border: 0;
       padding: 0 2px;
       line-height: 1;
-      font-size: 16px;
+      font-size: var(--fs-base);
     }
 
     .small-input { max-width: 220px; width: 100%; }
