@@ -21,39 +21,19 @@
 
   <link rel="icon" href="/static/favicon.ico" />
   <link rel="stylesheet" href="/static/style.css" />
+  <script src="/static/brand-config.js"></script>
+  <script defer src="/static/brand-ui.js"></script>
 
   <style>
-    /* 이 페이지에서만 쓰는 소량 스타일(기존 톤/간격 유지 + 가독성 보강) */
-    .kicker { text-align:center; margin: 10px 0 0; color:#666; font-size:0.95rem; }
-    .pill { display:inline-block; padding:6px 10px; border:1px solid #e5e5e5; border-radius:999px; background:#fafafa; font-size:0.9rem; color:#444; }
-    .left { display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-start; }
-    .right { display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
-    .section-head { display:flex; align-items:flex-end; justify-content:space-between; gap:12px; flex-wrap:wrap; }
-    .section-head h2 { margin:0; }
-    .toc a { text-decoration: underline; text-underline-offset: 2px; }
-
-    .callout {
-      border: 1px solid #e5e5e5;
-      border-radius: 12px;
-      background: #fafafa;
-      padding: 12px 14px;
+    /* page-specific: section-head row that pairs h2 with pill chips */
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--space-3);
+      flex-wrap: wrap;
     }
-    .callout b { color:#111; }
-    .callout .muted { margin:6px 0 0; }
-
-    .checklist { margin: 10px 0 0; padding-left: 18px; }
-    .checklist li { margin: 6px 0; }
-
-    .steps { margin: 10px 0 0; padding-left: 18px; }
-    .steps li { margin: 6px 0; }
-
-    .toast {
-      position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%);
-      padding: 10px 12px; border: 1px solid #e5e5e5; border-radius: 12px;
-      background: rgba(255,255,255,0.95); box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-      font-size: 0.95rem; color:#111; z-index: 9999;
-      display:none;
-    }
+    .section-head h2 { margin: 0; }
   </style>
 </head>
 

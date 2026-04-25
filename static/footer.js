@@ -150,7 +150,7 @@
 
     let wrap = document.getElementById("brandBackToTop");
     if (!wrap) {
-      wrap = createNode('<div id="brandBackToTop" aria-label="페이지 상단으로 이동"><button type="button" class="btn">▲ 상단</button></div>');
+      wrap = createNode('<div id="brandBackToTop" aria-label="페이지 상단으로 이동"><button type="button" class="btn">위로</button></div>');
       document.body.appendChild(wrap);
     }
 

@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex" />
+  <meta name="color-scheme" content="light" />
   <title>한입 가이드 | 고주무관의 쉬운 학교행정</title>
   <meta name="x-brand-title" content="한입 가이드 | {masterBrand}" />
   <meta name="description" content="문막초 교직원을 위한 한입 가이드" />
-  <meta name="color-scheme" content="light" />
 
-  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-B6PE24NSKH"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -22,533 +22,308 @@
   <script src="/static/brand-config.js"></script>
   <script defer src="/static/brand-ui.js"></script>
   <script src="/static/footer.js"></script>
-  <script src="/static/global-loader.js?v=1"></script>
+  <script src="/static/global-loader.js?v=2"></script>
 
   <style>
-    :root{
-      --bg:#f5f7fb;
-      --panel:#ffffff;
-      --line:#e5e7eb;
-      --line-strong:#cbd5e1;
-      --text:#111827;
-      --muted:#6b7280;
-      --primary:#2563eb;
-      --primary-soft:#eff6ff;
-      --hover-shadow:0 18px 42px rgba(15,23,42,.12);
-      --panel-shadow:0 10px 30px rgba(15,23,42,.08);
-      --radius-xl:28px;
-      --radius-lg:20px;
-      --radius-md:16px;
-      --radius-sm:12px;
-      --container:1200px;
+    /* a-bite (FAQ) — page-specific components.
+       Uses global tokens defined in /static/style.css. */
+
+    body.modal-open { overflow: hidden; }
+
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-2);
+      margin-top: var(--space-3);
     }
 
-    *{ box-sizing:border-box; }
-    html{ scroll-behavior:smooth; }
-    body{
-      margin:0;
-      background:var(--bg);
-      color:var(--text);
-      font-family: Pretendard, "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-      line-height:1.6;
+    .toc-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 14px;
+      background: var(--surface);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--r-pill);
+      font-size: var(--fs-sm);
+      font-weight: 500;
+      text-align: center;
+      text-decoration: none;
+      transition: border-color 150ms ease, color 150ms ease, background-color 150ms ease;
     }
-    body.modal-open{ overflow:hidden; }
-
-    a{ color:var(--primary); text-decoration:none; }
-    a:hover{ text-decoration:underline; }
-
-    .page-wrap{
-      width:min(calc(100% - 32px), var(--container));
-      margin:32px auto 56px;
-    }
-
-    .hero{
-      background:linear-gradient(180deg, #ffffff 0%, #f9fbff 100%);
-      border:1px solid var(--line);
-      border-radius:var(--radius-xl);
-      padding:32px;
-      box-shadow:var(--panel-shadow);
-      margin-bottom:20px;
-    }
-    .hero h1{
-      margin:0 0 8px;
-      font-size:clamp(2rem, 4vw, 3rem);
-      line-height:1.2;
-      letter-spacing:-0.02em;
-    }
-    .hero .sub{
-      margin:0;
-      color:var(--muted);
-      font-size:1.02rem;
+    .toc-link:hover {
+      border-color: var(--border-strong);
+      color: var(--text);
+      background: var(--surface-2);
     }
 
-    .panel{
-      background:var(--panel);
-      border:1px solid var(--line);
-      border-radius:var(--radius-lg);
-      padding:24px;
-      box-shadow:var(--panel-shadow);
-      margin-bottom:20px;
+    .result-panel { display: none; }
+    .result-panel.is-active { display: block; }
+
+    .result-top {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2) var(--space-3);
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-4);
     }
 
-    .panel h2{
-      margin:0 0 10px;
-      font-size:1.35rem;
-      line-height:1.3;
-      letter-spacing:-0.01em;
+    .result-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      align-items: center;
     }
 
-    .panel .lead{
-      margin:0 0 16px;
-      color:var(--muted);
+    .result-meta h2 { margin: 0; }
+
+    .result-text {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: var(--fs-sm);
     }
 
-    .toc-grid{
-      display:grid;
-      grid-template-columns:repeat(4, minmax(0, 1fr));
-      gap:10px;
+    .work-section {
+      margin-top: var(--space-7);
+      scroll-margin-top: 24px;
+    }
+    .work-section.is-hidden-section { display: none; }
+
+    .section-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--space-2) var(--space-3);
+      margin-bottom: var(--space-4);
+    }
+    .section-head h2 { margin: 0; }
+    .section-head p {
+      margin: var(--space-1) 0 0;
+      color: var(--text-muted);
+      font-size: var(--fs-sm);
     }
 
-    .toc-link{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      min-height:46px;
-      padding:10px 14px;
-      border:1px solid var(--line);
-      border-radius:999px;
-      background:#fff;
-      color:#1f2937;
-      font-weight:700;
-      text-align:center;
-      transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease, background .18s ease;
-    }
-    .toc-link:hover{
-      transform:translateY(-2px);
-      border-color:#bfdbfe;
-      background:var(--primary-soft);
-      box-shadow:0 10px 24px rgba(37,99,235,.08);
-      text-decoration:none;
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-3);
     }
 
-    .search-row{
-      display:grid;
-      grid-template-columns:minmax(0,1fr) auto auto;
-      gap:10px;
-      align-items:center;
-      margin-bottom:14px;
-    }
-
-    .search-input{
-      width:100%;
-      height:50px;
-      padding:0 16px;
-      border:1px solid var(--line-strong);
-      border-radius:14px;
-      font-size:1rem;
-      color:var(--text);
-      background:#fff;
-      outline:none;
-      transition:border-color .18s ease, box-shadow .18s ease;
-    }
-    .search-input:focus{
-      border-color:#93c5fd;
-      box-shadow:0 0 0 4px rgba(37,99,235,.12);
-    }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      height:50px;
-      padding:0 18px;
-      border-radius:14px;
-      border:1px solid transparent;
-      font-weight:800;
-      font-size:.98rem;
-      cursor:pointer;
-      transition:transform .16s ease, box-shadow .16s ease, background .16s ease, border-color .16s ease;
-      white-space:nowrap;
-    }
-    .btn:hover{ transform:translateY(-1px); }
-    .btn:active{ transform:translateY(0); }
-    .btn-primary{
-      background:var(--primary);
-      color:#fff;
-      box-shadow:0 12px 24px rgba(37,99,235,.18);
-    }
-    .btn-secondary{
-      background:#fff;
-      color:#374151;
-      border-color:var(--line-strong);
-    }
-
-    .search-hint{
-      margin:0;
-      color:var(--muted);
-      font-size:.96rem;
-    }
-
-    .result-panel{
-      display:none;
-    }
-    .result-panel.is-active{
-      display:block;
-    }
-
-    .result-top{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px 12px;
-      align-items:center;
-      justify-content:space-between;
-      margin-bottom:14px;
-    }
-
-    .result-meta{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      align-items:center;
-    }
-
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:6px 12px;
-      border-radius:999px;
-      border:1px solid #dbeafe;
-      background:#f8fbff;
-      color:#1d4ed8;
-      font-weight:800;
-      font-size:.92rem;
-    }
-
-    .result-text{
-      margin:0;
-      color:var(--muted);
-      font-size:.98rem;
-    }
-
-    .work-section{
-      scroll-margin-top:20px;
-      background:var(--panel);
-      border:1px solid var(--line);
-      border-radius:var(--radius-lg);
-      padding:24px;
-      box-shadow:var(--panel-shadow);
-      margin-bottom:20px;
-    }
-
-    .work-section.is-hidden-section{
-      display:none;
-    }
-
-    .section-head{
-      display:flex;
-      flex-wrap:wrap;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:10px 14px;
-      margin-bottom:18px;
-    }
-
-    .section-head h2{
-      margin:0;
-      font-size:1.45rem;
-      line-height:1.25;
-      letter-spacing:-0.01em;
-    }
-
-    .section-head p{
-      margin:0;
-      color:var(--muted);
-    }
-
-    .card-grid{
-      display:grid;
-      grid-template-columns:repeat(3, minmax(0, 1fr));
-      gap:16px;
-    }
-
-    .work-card{
-      position:relative;
-      min-height:220px;
-      padding:20px 18px 18px;
-      border-radius:20px;
-      border:1px solid var(--line);
-      background:#fff;
-      cursor:pointer;
-      box-shadow:0 10px 24px rgba(15,23,42,.04);
-      overflow:hidden;
-      transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-      outline:none;
+    .work-card {
+      position: relative;
+      display: grid;
+      gap: var(--space-2);
+      padding: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      cursor: pointer;
+      text-align: left;
+      outline: none;
+      transition: border-color 150ms ease, background-color 150ms ease;
     }
     .work-card:hover,
-    .work-card:focus-visible{
-      transform:translateY(-6px) scale(1.01);
-      border-color:#bfdbfe;
-      box-shadow:var(--hover-shadow);
+    .work-card:focus-visible {
+      border-color: var(--border-strong);
+      background: var(--surface-2);
+    }
+    .work-card:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+    .work-card.is-hidden-by-search { display: none; }
+    .work-card.is-search-clone { background: var(--surface-2); }
+
+    .card-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 22px;
+      padding: 0 8px;
+      background: var(--surface-2);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--r-pill);
+      font-family: var(--font-mono);
+      font-size: var(--fs-xs);
+      font-weight: 500;
     }
 
-    .work-card.is-hidden-by-search{
-      display:none;
+    .work-card.is-search-clone .card-number {
+      background: var(--surface);
     }
 
-    .work-card.is-search-clone{
-      border-color:#bfdbfe;
-      background:#fbfdff;
+    .card-title {
+      margin: 0;
+      font-size: var(--fs-md);
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--text);
+      letter-spacing: -0.015em;
     }
 
-    .card-number{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-width:52px;
-      height:32px;
-      padding:0 10px;
-      border-radius:999px;
-      background:var(--primary-soft);
-      color:var(--primary);
-      font-weight:800;
-      font-size:.9rem;
-      margin-bottom:14px;
+    .card-desc {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: var(--fs-sm);
+      line-height: 1.55;
     }
 
-    .card-title{
-      margin:0 0 10px;
-      font-size:1.15rem;
-      line-height:1.4;
-      letter-spacing:-0.01em;
-      color:#111827;
-      word-break:keep-all;
+    @media (max-width: 980px) {
+      .toc-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      .toc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .card-grid { grid-template-columns: 1fr; }
     }
 
-    .card-desc{
-      margin:0;
-      color:#4b5563;
-      font-size:.98rem;
-      word-break:keep-all;
+    /* Modal overlay */
+    .card-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 3000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-5);
+      background: oklch(15% 0.01 255 / 0.55);
+    }
+    .card-overlay[hidden] { display: none; }
+
+    .overlay-card {
+      position: relative;
+      width: min(720px, 100%);
+      max-height: min(86vh, 880px);
+      overflow: auto;
+      padding: var(--space-6) var(--space-5) var(--space-5);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      box-shadow: 0 24px 60px oklch(15% 0.01 255 / 0.18);
+      cursor: zoom-out;
+      animation: zoomIn 150ms ease;
     }
 
-    .empty-box{
-      padding:20px;
-      border:1px dashed var(--line-strong);
-      border-radius:16px;
-      background:#fcfcfd;
-      color:#4b5563;
+    @keyframes zoomIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
-    .footer-note{
-      margin-top:8px;
-      font-size:.94rem;
-      color:var(--muted);
-      text-align:center;
+    .overlay-close {
+      position: absolute;
+      top: 14px; right: 14px;
+      width: 32px; height: 32px;
+      background: var(--surface);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--r-pill);
+      font-size: 18px; line-height: 1;
+      cursor: pointer;
+    }
+    .overlay-close:hover { color: var(--text); border-color: var(--border-strong); }
+
+    .overlay-head {
+      padding-right: var(--space-7);
+      margin-bottom: var(--space-4);
     }
 
-    .sr-only{
-      position:absolute !important;
-      width:1px !important;
-      height:1px !important;
-      padding:0 !important;
-      margin:-1px !important;
-      overflow:hidden !important;
-      clip:rect(0, 0, 0, 0) !important;
-      white-space:nowrap !important;
-      border:0 !important;
+    .overlay-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      margin-bottom: var(--space-3);
     }
 
-    .card-overlay{
-      position:fixed;
-      inset:0;
-      z-index:3000;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:24px;
-      background:rgba(15,23,42,.62);
-      backdrop-filter:blur(4px);
-    }
-    .card-overlay[hidden]{
-      display:none;
+    .overlay-title {
+      margin: 0 0 var(--space-2);
+      font-size: var(--fs-2xl);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.25;
     }
 
-    .overlay-card{
-      position:relative;
-      width:min(920px, 100%);
-      max-height:min(88vh, 920px);
-      overflow:auto;
-      padding:32px 28px 28px;
-      border-radius:30px;
-      border:1px solid rgba(255,255,255,.7);
-      background:#fff;
-      box-shadow:0 28px 70px rgba(15,23,42,.28);
-      cursor:zoom-out;
-      animation:zoomIn .18s ease;
+    .overlay-summary {
+      margin: 0;
+      color: var(--text-secondary);
+      font-size: var(--fs-md);
     }
 
-    @keyframes zoomIn{
-      from{ opacity:0; transform:translateY(10px) scale(.98); }
-      to{ opacity:1; transform:translateY(0) scale(1); }
+    .overlay-lines {
+      display: grid;
+      gap: var(--space-2);
+      margin-bottom: var(--space-5);
     }
 
-    .overlay-close{
-      position:absolute;
-      top:18px;
-      right:18px;
-      width:42px;
-      height:42px;
-      border:1px solid var(--line);
-      border-radius:999px;
-      background:#fff;
-      color:#111827;
-      cursor:pointer;
-      font-size:1.2rem;
-      font-weight:900;
-      line-height:1;
+    .overlay-line {
+      margin: 0;
+      padding: 12px 14px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      color: var(--text);
+      font-size: var(--fs-sm);
+      line-height: 1.6;
     }
 
-    .overlay-head{
-      padding-right:48px;
-      margin-bottom:20px;
-    }
+    .detail-link[hidden] { display: none; }
 
-    .overlay-badges{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      margin-bottom:12px;
-    }
-
-    .overlay-title{
-      margin:0 0 10px;
-      font-size:clamp(1.7rem, 3vw, 2.3rem);
-      line-height:1.25;
-      letter-spacing:-0.02em;
-    }
-
-    .overlay-summary{
-      margin:0;
-      color:#4b5563;
-      font-size:1.02rem;
-    }
-
-    .overlay-lines{
-      display:grid;
-      gap:12px;
-      margin-bottom:22px;
-    }
-
-    .overlay-line{
-      margin:0;
-      padding:14px 16px;
-      border:1px solid var(--line);
-      border-radius:16px;
-      background:#fbfcfe;
-      color:#1f2937;
-    }
-
-    .detail-link{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-height:48px;
-      padding:0 18px;
-      border-radius:14px;
-      background:var(--primary);
-      color:#fff;
-      font-weight:800;
-      text-decoration:none;
-      box-shadow:0 12px 24px rgba(37,99,235,.18);
-    }
-    .detail-link:hover{
-      text-decoration:none;
-      filter:brightness(.98);
-    }
-    .detail-link[hidden]{
-      display:none;
-    }
-
-    .overlay-guide{
-      margin:16px 0 0;
-      color:var(--muted);
-      font-size:.95rem;
-    }
-
-    @media (max-width: 1080px){
-      .toc-grid{ grid-template-columns:repeat(3, minmax(0, 1fr)); }
-    }
-
-    @media (max-width: 840px){
-      .card-grid{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
-      .toc-grid{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
-      .search-row{ grid-template-columns:1fr; }
-      .btn{ width:100%; }
-      .page-wrap{ width:min(calc(100% - 20px), var(--container)); margin:20px auto 40px; }
-      .hero, .panel, .work-section{ padding:20px; }
-      .overlay-card{ padding:24px 20px 20px; }
-    }
-
-    @media (max-width: 560px){
-      .card-grid{ grid-template-columns:1fr; }
-      .toc-grid{ grid-template-columns:1fr; }
-      .hero h1{ font-size:1.9rem; }
-      .work-card{ min-height:180px; }
+    .overlay-guide {
+      margin: var(--space-3) 0 0;
+      color: var(--text-muted);
+      font-size: var(--fs-sm);
     }
   </style>
 </head>
-<body class="alien-side-bg">
-  <div class="alien-page-frame">
+<body>
+  <main class="container wide">
+    <p class="page-kicker" data-brand-key="masterBrand">고주무관의 쉬운 학교행정</p>
+    <h1>한입 가이드</h1>
+    <p class="lead" data-brand-template="{schoolShortName} 교직원이 자주 묻는 학교행정 질문을 짧게 정리한 카드형 안내입니다.">문막초 교직원이 자주 묻는 학교행정 질문을 짧게 정리한 카드형 안내입니다.</p>
 
-      <p class="page-kicker" data-brand-key="masterBrand">고주무관의 쉬운 학교행정</p>
-      <h1>한입 가이드</h1>
-      <p class="sub" data-brand-template="{schoolShortName} 교직원이 자주 묻는 학교행정 질문을 짧고 분명하게 정리한 카드형 안내입니다.">문막초 교직원이 자주 묻는 학교행정 질문을 짧고 분명하게 정리한 카드형 안내입니다.</p>
-      <p class="muted" data-brand-key="trustMessage">이 웹페이지는 업무 참고용이며, 최종 기준은 공문·지침 등 공식 자료를 우선합니다.</p>
+    <nav class="chip-row page-breadcrumb" aria-label="주요 메뉴">
+      <a class="chip" data-brand-route="home" href="/">홈</a>
+      <a class="chip" data-brand-route="howToUse" href="/notice/how-to-use/">처음 이용</a>
+      <a class="chip" data-brand-route="notice" href="/notice/">안내사항</a>
+      <a class="chip" data-brand-route="detailedGuide" href="/guide/">상세 가이드</a>
+      <a class="chip" data-brand-route="tools" href="/tools/">업무 도구</a>
+      <a class="chip" data-brand-route="downloads" href="/file-download/">서식 다운로드</a>
+    </nav>
 
-      <nav class="chip-row page-breadcrumb" aria-label="주요 메뉴">
-        <a class="chip" data-brand-route="home" href="/">홈</a>
-        <a class="chip" data-brand-route="howToUse" href="/notice/how-to-use/">처음 이용</a>
-        <a class="chip" data-brand-route="notice" href="/notice/">안내사항</a>
-        <a class="chip" data-brand-route="detailedGuide" href="/guide/">상세 가이드</a>
-        <a class="chip" data-brand-route="tools" href="/tools/">업무 도구</a>
-        <a class="chip" data-brand-route="downloads" href="/file-download/">서식 다운로드</a>
-      </nav>
-
-
-    <section class="panel" aria-labelledby="tocTitle">
+    <section class="section" aria-labelledby="tocTitle">
       <h2 id="tocTitle">빠른 이동</h2>
-      <p class="lead">원하는 업무 분야로 바로 이동할 수 있도록 8개 섹션 앵커를 배치했습니다.</p>
+      <p class="muted section-intro">8개 업무 분야로 바로 이동합니다.</p>
       <nav class="toc-grid" id="quickNav"></nav>
     </section>
 
-    <section class="panel" aria-labelledby="searchTitle">
+    <section class="section" aria-labelledby="searchTitle">
       <h2 id="searchTitle">통합 검색</h2>
-      <p class="lead">검색어를 입력하고 <strong>검색하기</strong>를 누르면 일치하는 카드만 상단 검색 결과 영역으로 모이고, 나머지 카드는 아래 섹션에 그대로 남습니다.</p>
+      <p class="muted section-intro">카드 제목, 1문장 설명, 5줄 상세설명, 검색 태그를 함께 검색합니다. 띄어쓰기로 여러 키워드를 입력하면 모두 포함하는 카드만 찾습니다.</p>
 
       <div class="search-row">
         <input
           id="cardSearchInput"
-          class="search-input"
           type="search"
           inputmode="search"
           autocomplete="off"
           placeholder="예: 기안, 병가, 추경, 수의계약, 물품, 학교운영위원회"
           aria-label="카드 검색어 입력"
         >
-        <button id="searchButton" class="btn btn-primary" type="button">검색하기</button>
-        <button id="resetButton" class="btn btn-secondary" type="button">초기화</button>
+        <button id="searchButton" class="btn primary" type="button">검색</button>
+        <button id="resetButton" class="btn ghost" type="button">초기화</button>
       </div>
-
-      <p class="search-hint">검색은 카드 제목, 1문장 설명, 5줄 상세설명, 숨겨진 검색 태그를 함께 대상으로 합니다. 띄어쓰기로 여러 키워드를 입력하면 모두 포함하는 카드만 찾습니다.</p>
     </section>
 
-    <section id="searchResultsSection" class="panel result-panel" aria-live="polite" aria-labelledby="resultTitle">
+    <section id="searchResultsSection" class="section result-panel" aria-live="polite" aria-labelledby="resultTitle">
       <div class="result-top">
         <div class="result-meta">
-          <h2 id="resultTitle" style="margin:0;">검색 결과</h2>
-          <span class="badge" id="resultCountBadge">0건</span>
+          <h2 id="resultTitle">검색 결과</h2>
+          <span class="badge nums" id="resultCountBadge">0건</span>
           <span class="badge" id="resultKeywordBadge">키워드 없음</span>
         </div>
         <p class="result-text" id="resultText">검색 결과 설명 영역입니다.</p>
@@ -557,8 +332,8 @@
       <div id="searchEmptyBox" class="empty-box" hidden>검색 결과가 없습니다. 아래 전체 카드에서 다시 확인하거나 다른 키워드로 검색해 주세요.</div>
     </section>
 
-    <main id="sectionsContainer" aria-label="업무 분야 카드 목록"></main>
-  </div>
+    <div id="sectionsContainer" aria-label="업무 분야 카드 목록"></div>
+  </main>
 
   <div id="cardOverlay" class="card-overlay" hidden aria-hidden="true">
     <div id="overlayCard" class="overlay-card" role="dialog" aria-modal="true" aria-labelledby="overlayTitle">
@@ -567,7 +342,7 @@
       <div class="overlay-head">
         <div class="overlay-badges">
           <span class="badge" id="overlaySectionBadge">업무 분야</span>
-          <span class="badge" id="overlayCardNoBadge">카드 00</span>
+          <span class="badge nums" id="overlayCardNoBadge">카드 00</span>
         </div>
         <h2 id="overlayTitle" class="overlay-title">카드 제목</h2>
         <p id="overlaySummary" class="overlay-summary">카드 썸네일의 1문장 설명이 이곳에 표시됩니다.</p>
@@ -575,7 +350,7 @@
 
       <div id="overlayLines" class="overlay-lines"></div>
 
-      <a id="overlayDetailLink" class="detail-link" href="#" target="_blank" rel="noreferrer noopener" hidden>상세 가이드로 이동</a>
+      <a id="overlayDetailLink" class="btn primary" href="#" target="_blank" rel="noreferrer noopener" hidden>상세 가이드로 이동</a>
       <div id="overlayHiddenTags" class="sr-only"></div>
     </div>
   </div>
@@ -583,62 +358,14 @@
   <script>
     (function () {
       const TEMPLATE_DATA = [
-        {
-          id: 'docs',
-          title: '문서·기록물',
-          subtitle: '기안, 접수, 시행, 편철, 이관 등 문서 흐름을 배치하는 영역입니다.',
-          topics: ['기안', '검토·협조', '결재', '접수', '시행', '편철', '이관', '보존', '사무인계'],
-          extraTags: ['공문', '문서', '기록물']
-        },
-        {
-          id: 'attendance',
-          title: '복무',
-          subtitle: '휴가, 출장, 초과근무, 당직, 비상근무 카드를 배치하는 영역입니다.',
-          topics: ['연가', '병가', '공가', '특별휴가', '출장', '초과근무', '당직', '비상근무', '복무점검'],
-          extraTags: ['복무', '휴가', '출장']
-        },
-        {
-          id: 'contractTeacher',
-          title: '계약제교원',
-          subtitle: '채용에서 계약, 조회, 보고, 평가까지 묶어서 보여주는 영역입니다.',
-          topics: ['채용계획', '공고', '서류확인', '결격조회', '계약서작성', '임용보고', '4대보험', '육아휴직', '평가관리'],
-          extraTags: ['기간제교원', '강사', '임용']
-        },
-        {
-          id: 'budget',
-          title: '학교회계 예산·결산',
-          subtitle: '예산 편성부터 성립전예산, 추경, 이월, 결산, 공개까지 정리하는 영역입니다.',
-          topics: ['본예산', '성립전예산', '추경', '간주처리', '이용', '전용', '이월', '결산', '공개'],
-          extraTags: ['예산', '결산', '학교회계']
-        },
-        {
-          id: 'spendContract',
-          title: '지출·계약',
-          subtitle: '지출 결의, 증빙, 업무추진비, 수의계약, 여비 정산 등을 다루는 영역입니다.',
-          topics: ['지출결의', '증빙서류', '업무추진비', '수의계약', '검수', '카드지출', '여비정산', '선금·개산급', '반환금'],
-          extraTags: ['지출', '계약', '여비']
-        },
-        {
-          id: 'assetsFacility',
-          title: '물품·시설',
-          subtitle: '물품 취득과 불용, 재물조사, 시설점검, 안전관리 카드를 배치하는 영역입니다.',
-          topics: ['취득', '보관', '불용', '처분', '재물조사', '정수관리', '시설점검', '하자보수', '안전관리'],
-          extraTags: ['물품', '시설', '재산']
-        },
-        {
-          id: 'schoolBoard',
-          title: '학교운영위원회',
-          subtitle: '위원 구성, 회의 운영, 안건 상정, 회의록, 공개 등을 묶는 영역입니다.',
-          topics: ['구성', '위원선출', '회의준비', '안건상정', '예결산심의', '회의록', '공개', '연수', '사후관리'],
-          extraTags: ['운영위원회', '회의', '심의']
-        },
-        {
-          id: 'complaintInfo',
-          title: '민원·정보공개',
-          subtitle: '제증명, 민원 접수, 정보공개, 개인정보, FAQ 카드를 배치하는 영역입니다.',
-          topics: ['제증명', '민원접수', '정보공개청구', '학교정보공시', '개인정보', '민원회신', '공문답변', '기록열람', 'FAQ'],
-          extraTags: ['민원', '정보공개', '개인정보']
-        }
+        { id: 'docs',            title: '문서·기록물',         subtitle: '기안, 접수, 시행, 편철, 이관 등 문서 흐름을 다룹니다.',                  topics: ['기안','검토·협조','결재','접수','시행','편철','이관','보존','사무인계'], extraTags: ['공문','문서','기록물'] },
+        { id: 'attendance',      title: '복무',                  subtitle: '휴가, 출장, 초과근무, 당직, 비상근무를 다룹니다.',                       topics: ['연가','병가','공가','특별휴가','출장','초과근무','당직','비상근무','복무점검'], extraTags: ['복무','휴가','출장'] },
+        { id: 'contractTeacher', title: '계약제교원',           subtitle: '채용에서 계약, 조회, 보고, 평가까지 묶어서 다룹니다.',                  topics: ['채용계획','공고','서류확인','결격조회','계약서작성','임용보고','4대보험','육아휴직','평가관리'], extraTags: ['기간제교원','강사','임용'] },
+        { id: 'budget',          title: '학교회계 예산·결산',  subtitle: '예산 편성부터 성립전예산, 추경, 이월, 결산, 공개까지 다룹니다.',          topics: ['본예산','성립전예산','추경','간주처리','이용','전용','이월','결산','공개'], extraTags: ['예산','결산','학교회계'] },
+        { id: 'spendContract',   title: '지출·계약',            subtitle: '지출 결의, 증빙, 업무추진비, 수의계약, 여비 정산을 다룹니다.',           topics: ['지출결의','증빙서류','업무추진비','수의계약','검수','카드지출','여비정산','선금·개산급','반환금'], extraTags: ['지출','계약','여비'] },
+        { id: 'assetsFacility',  title: '물품·시설',            subtitle: '물품 취득과 불용, 재물조사, 시설점검, 안전관리를 다룹니다.',             topics: ['취득','보관','불용','처분','재물조사','정수관리','시설점검','하자보수','안전관리'], extraTags: ['물품','시설','재산'] },
+        { id: 'schoolBoard',     title: '학교운영위원회',       subtitle: '위원 구성, 회의 운영, 안건 상정, 회의록, 공개를 다룹니다.',                 topics: ['구성','위원선출','회의준비','안건상정','예결산심의','회의록','공개','연수','사후관리'], extraTags: ['운영위원회','회의','심의'] },
+        { id: 'complaintInfo',   title: '민원·정보공개',        subtitle: '제증명, 민원 접수, 정보공개, 개인정보, FAQ를 다룹니다.',                  topics: ['제증명','민원접수','정보공개청구','학교정보공시','개인정보','민원회신','공문답변','기록열람','FAQ'], extraTags: ['민원','정보공개','개인정보'] }
       ];
 
       const quickNav = document.getElementById('quickNav');
@@ -666,33 +393,21 @@
 
       let lastFocusedCard = null;
 
-      function normalize(value) {
-        return String(value || '')
-          .toLowerCase()
-          .replace(/\s+/g, ' ')
-          .trim();
-      }
-
-      function escapeHtml(value) {
-        return String(value || '')
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
-          .replace(/"/g, '&quot;')
-          .replace(/'/g, '&#39;');
-      }
+      const normalize = (value) => String(value || '').toLowerCase().replace(/\s+/g, ' ').trim();
+      const escapeHtml = (value) => String(value || '')
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
       function makeTemplateCards(section) {
-        return section.topics.map(function (topic, index) {
+        return section.topics.map((topic, index) => {
           const cardNumber = String(index + 1).padStart(2, '0');
-
           return {
             id: section.id + '-' + cardNumber,
             sectionId: section.id,
             sectionTitle: section.title,
             cardNumber: cardNumber,
             title: topic + ' 템플릿',
-            thumbDescription: section.title + '에서 ' + topic + ' 핵심만 빠르게 확인하도록 만든 1문장 썸네일입니다.',
+            thumbDescription: section.title + '에서 ' + topic + ' 핵심을 짧게 확인합니다.',
             details: [
               topic + ' 업무의 시작 조건과 적용 대상을 1줄로 적습니다.',
               topic + ' 처리 순서 또는 체크리스트를 2번째 줄에 적습니다.',
@@ -707,32 +422,16 @@
         });
       }
 
-      const APP_DATA = TEMPLATE_DATA.map(function (section) {
-        return Object.assign({}, section, {
-          cards: makeTemplateCards(section)
-        });
-      });
-
+      const APP_DATA = TEMPLATE_DATA.map(section => Object.assign({}, section, { cards: makeTemplateCards(section) }));
       const CARD_INDEX = [];
       const CARD_MAP = new Map();
 
-      APP_DATA.forEach(function (section) {
-        section.cards.forEach(function (card) {
+      APP_DATA.forEach(section => {
+        section.cards.forEach(card => {
           const indexedCard = Object.assign({}, card, {
             subtitle: section.subtitle,
-            searchText: normalize(
-              [
-                card.title,
-                card.thumbDescription,
-                section.title,
-                section.subtitle
-              ]
-                .concat(card.details)
-                .concat(card.tags)
-                .join(' ')
-            )
+            searchText: normalize([card.title, card.thumbDescription, section.title, section.subtitle].concat(card.details).concat(card.tags).join(' '))
           });
-
           CARD_INDEX.push(indexedCard);
           CARD_MAP.set(indexedCard.id, indexedCard);
         });
@@ -742,28 +441,25 @@
         const cloneClass = isSearchClone ? ' is-search-clone' : '';
         return [
           '<article class="work-card' + cloneClass + '" data-card-id="' + escapeHtml(card.id) + '" tabindex="0" role="button" aria-haspopup="dialog" aria-label="' + escapeHtml(card.title + ' 자세히 보기') + '">',
-          '  <div class="card-number">' + escapeHtml(card.cardNumber) + '</div>',
+          '  <span class="card-number">' + escapeHtml(card.cardNumber) + '</span>',
           '  <h3 class="card-title">' + escapeHtml(card.title) + '</h3>',
           '  <p class="card-desc">' + escapeHtml(card.thumbDescription) + '</p>',
-          '  <div class="sr-only">검색 키워드: ' + escapeHtml(card.tags.join(', ')) + '</div>',
+          '  <span class="sr-only">검색 키워드: ' + escapeHtml(card.tags.join(', ')) + '</span>',
           '</article>'
         ].join('');
       }
 
       function renderQuickNav() {
-        quickNav.innerHTML = APP_DATA.map(function (section) {
-          return '<a class="toc-link" href="#' + escapeHtml(section.id) + '">' + escapeHtml(section.title) + '</a>';
-        }).join('');
+        quickNav.innerHTML = APP_DATA.map(section =>
+          '<a class="toc-link" href="#' + escapeHtml(section.id) + '">' + escapeHtml(section.title) + '</a>'
+        ).join('');
       }
 
       function renderSections() {
-        sectionsContainer.innerHTML = APP_DATA.map(function (section) {
-          const cardsHtml = section.cards.map(function (card) {
-            return renderCardMarkup(card, false);
-          }).join('');
-
+        sectionsContainer.innerHTML = APP_DATA.map(section => {
+          const cardsHtml = section.cards.map(card => renderCardMarkup(card, false)).join('');
           return [
-            '<section id="' + escapeHtml(section.id) + '" class="work-section" data-section-id="' + escapeHtml(section.id) + '">',
+            '<section id="' + escapeHtml(section.id) + '" class="section work-section" data-section-id="' + escapeHtml(section.id) + '">',
             '  <div class="section-head">',
             '    <div>',
             '      <h2>' + escapeHtml(section.title) + '</h2>',
@@ -779,13 +475,8 @@
       }
 
       function restoreOriginalCards() {
-        sectionsContainer.querySelectorAll('.work-card.is-hidden-by-search').forEach(function (cardEl) {
-          cardEl.classList.remove('is-hidden-by-search');
-        });
-
-        sectionsContainer.querySelectorAll('.work-section.is-hidden-section').forEach(function (sectionEl) {
-          sectionEl.classList.remove('is-hidden-section');
-        });
+        sectionsContainer.querySelectorAll('.work-card.is-hidden-by-search').forEach(el => el.classList.remove('is-hidden-by-search'));
+        sectionsContainer.querySelectorAll('.work-section.is-hidden-section').forEach(el => el.classList.remove('is-hidden-section'));
       }
 
       function clearSearchResults() {
@@ -799,10 +490,9 @@
       }
 
       function updateSectionVisibility(hasActiveSearch) {
-        APP_DATA.forEach(function (section) {
+        APP_DATA.forEach(section => {
           const sectionEl = sectionsContainer.querySelector('[data-section-id="' + section.id + '"]');
           if (!sectionEl) return;
-
           const visibleCards = sectionEl.querySelectorAll('.work-card:not(.is-hidden-by-search)').length;
           sectionEl.classList.toggle('is-hidden-section', hasActiveSearch && visibleCards === 0);
         });
@@ -811,17 +501,10 @@
       function applySearch() {
         const query = normalize(searchInput.value);
         clearSearchResults();
-
-        if (!query) {
-          return;
-        }
+        if (!query) return;
 
         const tokens = query.split(' ').filter(Boolean);
-        const matchedCards = CARD_INDEX.filter(function (card) {
-          return tokens.every(function (token) {
-            return card.searchText.includes(token);
-          });
-        });
+        const matchedCards = CARD_INDEX.filter(card => tokens.every(token => card.searchText.includes(token)));
 
         resultSection.classList.add('is-active');
         resultCountBadge.textContent = matchedCards.length + '건';
@@ -829,22 +512,20 @@
 
         if (matchedCards.length === 0) {
           resultEmptyBox.hidden = false;
-          resultText.textContent = '검색 결과가 없어 전체 카드 72개를 그대로 아래에 남겨둡니다.';
+          resultText.textContent = '검색 결과가 없어 전체 카드를 그대로 아래에 남겨둡니다.';
           updateSectionVisibility(false);
           resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
           return;
         }
 
-        matchedCards.forEach(function (card) {
+        matchedCards.forEach(card => {
           const originalCard = sectionsContainer.querySelector('.work-card[data-card-id="' + card.id + '"]');
-          if (originalCard) {
-            originalCard.classList.add('is-hidden-by-search');
-          }
+          if (originalCard) originalCard.classList.add('is-hidden-by-search');
           resultGrid.insertAdjacentHTML('beforeend', renderCardMarkup(card, true));
         });
 
         const remainingCount = CARD_INDEX.length - matchedCards.length;
-        resultText.textContent = '검색된 ' + matchedCards.length + '개 카드를 상단에 모았습니다. 나머지 ' + remainingCount + '개 카드는 아래 섹션에 그대로 남겨둡니다.';
+        resultText.textContent = '검색된 ' + matchedCards.length + '개 카드를 상단에 모았습니다. 나머지 ' + remainingCount + '개는 아래 섹션에 그대로 남겨둡니다.';
         updateSectionVisibility(true);
         resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
@@ -852,16 +533,13 @@
       function openOverlay(cardId, triggerEl) {
         const card = CARD_MAP.get(cardId);
         if (!card) return;
-
         lastFocusedCard = triggerEl || document.querySelector('.work-card[data-card-id="' + cardId + '"]');
 
         overlaySectionBadge.textContent = card.sectionTitle;
         overlayCardNoBadge.textContent = '카드 ' + card.cardNumber;
         overlayTitle.textContent = card.title;
         overlaySummary.textContent = card.thumbDescription;
-        overlayLines.innerHTML = card.details.map(function (line) {
-          return '<p class="overlay-line">' + escapeHtml(line) + '</p>';
-        }).join('');
+        overlayLines.innerHTML = card.details.map(line => '<p class="overlay-line">' + escapeHtml(line) + '</p>').join('');
         overlayHiddenTags.textContent = '검색 키워드: ' + card.tags.join(', ');
 
         if (card.detailUrl) {
@@ -883,62 +561,34 @@
         overlay.hidden = true;
         overlay.setAttribute('aria-hidden', 'true');
         document.body.classList.remove('modal-open');
-
-        if (lastFocusedCard && typeof lastFocusedCard.focus === 'function') {
-          lastFocusedCard.focus();
-        }
+        if (lastFocusedCard && typeof lastFocusedCard.focus === 'function') lastFocusedCard.focus();
       }
 
-      document.addEventListener('click', function (event) {
+      document.addEventListener('click', (event) => {
         const clickedCard = event.target.closest('.work-card');
-        if (clickedCard) {
-          openOverlay(clickedCard.dataset.cardId, clickedCard);
-          return;
-        }
-
-        if (event.target.closest('.close-overlay')) {
-          closeOverlay();
-          return;
-        }
-
+        if (clickedCard) { openOverlay(clickedCard.dataset.cardId, clickedCard); return; }
+        if (event.target.closest('.close-overlay')) { closeOverlay(); return; }
         if (!overlay.hidden) {
-          const clickedDetailLink = event.target.closest('.detail-link');
-          if (clickedDetailLink) {
-            return;
-          }
-
-          const clickedOverlayCard = event.target.closest('.overlay-card');
-          if (event.target === overlay || clickedOverlayCard === overlayCard) {
-            closeOverlay();
-          }
+          const clickedDetailLink = event.target.closest('#overlayDetailLink');
+          if (clickedDetailLink) return;
+          if (event.target === overlay) closeOverlay();
         }
       });
 
-      document.addEventListener('keydown', function (event) {
+      document.addEventListener('keydown', (event) => {
         const activeElement = document.activeElement;
-
         if ((event.key === 'Enter' || event.key === ' ') && activeElement && activeElement.classList.contains('work-card')) {
           event.preventDefault();
           openOverlay(activeElement.dataset.cardId, activeElement);
           return;
         }
-
-        if (event.key === 'Enter' && activeElement === searchInput) {
-          applySearch();
-          return;
-        }
-
-        if (event.key === 'Escape' && !overlay.hidden) {
-          closeOverlay();
-        }
+        if (event.key === 'Enter' && activeElement === searchInput) { applySearch(); return; }
+        if (event.key === 'Escape' && !overlay.hidden) closeOverlay();
       });
 
-      overlayDetailLink.addEventListener('click', function (event) {
-        event.stopPropagation();
-      });
-
+      overlayDetailLink.addEventListener('click', (event) => event.stopPropagation());
       searchButton.addEventListener('click', applySearch);
-      resetButton.addEventListener('click', function () {
+      resetButton.addEventListener('click', () => {
         searchInput.value = '';
         clearSearchResults();
         searchInput.focus();

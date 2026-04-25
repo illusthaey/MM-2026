@@ -20,86 +20,11 @@
 
   <link rel="icon" href="/static/favicon.ico" />
   <link rel="stylesheet" href="/static/style.css" />
+  <script src="/static/brand-config.js"></script>
+  <script defer src="/static/brand-ui.js"></script>
 
   <style>
-    .toast{
-      position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%);
-      padding: 10px 12px; border: 1px solid #e5e5e5; border-radius: 12px;
-      background: rgba(255,255,255,0.95); box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-      font-size: 0.95rem; color:#111; z-index: 9999;
-      display:none;
-    }
-
-    .content a{ text-decoration: underline; text-underline-offset: 2px; }
-
-    /* 체크리스트 UI */
-    .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding: 6px 10px; border-radius: 999px;
-      border: 1px solid #e5e5e5; background:#fafafa;
-      font-size: 0.95rem;
-      cursor: pointer;
-      user-select: none;
-    }
-    .pill input[type="radio"]{ transform: translateY(1px); }
-
-    .checklist{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      margin-top: 10px;
-    }
-    .checkitem{
-      display:flex;
-      align-items:flex-start;
-      gap: 10px;
-      padding: 12px;
-      border: 1px solid #eaeaea;
-      border-radius: 14px;
-      background: #fff;
-    }
-    .checkitem input[type="checkbox"]{
-      width: 18px; height: 18px;
-      margin-top: 2px;
-      flex: 0 0 auto;
-    }
-    .checkitem .meta{
-      flex:1 1 auto;
-    }
-    .checkitem .meta b{
-      display:block;
-      margin-bottom: 4px;
-    }
-    .small{
-      font-size: 0.92rem;
-      color: #555;
-    }
-
-    .resultBox{
-      border-radius: 14px;
-      padding: 12px;
-      border: 1px solid #e5e5e5;
-      background: #fcfcfc;
-    }
-    .resultBox.ok{
-      border-color: #cfe9d6;
-      background: #f3fbf5;
-    }
-    .resultBox.bad{
-      border-color: #f2c8c8;
-      background: #fff5f5;
-    }
-    .resultBox .title{
-      margin: 0 0 6px;
-      font-weight: 800;
-    }
-
-    /* 이미지 썸네일 */
-    .thumb{
-      max-width: 100%;
-      border: 1px solid #eee;
-      border-radius: 12px;
-    }
+    .small { font-size: var(--fs-sm); color: var(--text-muted); }
   </style>
 </head>
 
