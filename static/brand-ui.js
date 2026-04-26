@@ -1,15 +1,15 @@
 (function () {
   const FALLBACK = {
-    masterBrand: "고주무관의 쉬운 학교행정",
+    masterBrand: "업무천재 고주무관의 쉬운 학교행정",
     editionTitle: "문막초 교직원 안내",
     schoolName: "문막초등학교",
     schoolShortName: "문막초",
-    operatorName: "고주무관",
+    operatorName: "업무천재 고주무관",
     slogan: "교직원이 덜 헤매도록, 행정은 더 쉽게",
     homeHeadline: "문막초 교직원을 위한 쉬운 학교행정 안내",
-    homeSubtitle: "문막초가 좋은 행정실 주무관 고주무관이, 자주 묻는 행정·회계 업무를 이해하기 쉽게 정리했습니다.",
-    trustMessage: "이 웹페이지는 업무 참고용이며, 최종 기준은 공문·지침 등 공식 자료를 우선합니다.",
-    affectionLine: "문막초를 더 편하게 돕기 위해 만든 개인 운영 페이지입니다.",
+    homeSubtitle: "문막초가 좋은 행정실 고주무관이, 자주 묻는 행정·회계 업무를 이해하기 쉽게 정리했습니다.",
+    trustMessage: "이 웹페이지는 참고용 비공식 실무 도구이며, 공문·지침 등 공식 자료를 항상 확인합시다.",
+    affectionLine: "교직원도 고주무관도 서로 더 편하기 위해 만든 개인 운영 웹페이지입니다.",
     brandAccentColor: "#1f3a5f",
     schoolAccentColor: "#628a63",
     routes: {
