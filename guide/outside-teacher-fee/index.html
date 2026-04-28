@@ -7,14 +7,14 @@
   <meta name="color-scheme" content="light" />
   <title>강사료 지급 안내 (늘봄강사 제외)</title>
 
-  <meta name="description" content="일반 강사료·원고료 산정부터 증빙과 지급까지 확인할 포인트를 정리했습니다. (늘봄강사 제외)" />
+  <meta name="description" content="일반 강사료·원고료 산정 및 증빙 (늘봄강사 제외)" />
   <link rel="canonical" href="https://eduworkhaey.co.kr/guide/outside-teacher-fee/" />
 
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="고주무관의 쉬운 학교행정" />
   <meta property="og:locale" content="ko_KR" />
   <meta property="og:title" content="강사료 지급 가이드 — 고주무관의 쉬운 학교행정" />
-  <meta property="og:description" content="일반 강사료·원고료 산정부터 증빙과 지급까지 확인할 포인트를 정리했습니다. (늘봄강사 제외)" />
+  <meta property="og:description" content="일반 강사료·원고료 산정 및 증빙 (늘봄강사 제외)" />
   <meta property="og:url" content="https://eduworkhaey.co.kr/guide/outside-teacher-fee/" />
   <meta property="og:image" content="https://eduworkhaey.co.kr/static/alien.jpg" />
   <meta property="og:image:type" content="image/jpeg" />
@@ -24,7 +24,7 @@
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="강사료 지급 가이드 — 고주무관의 쉬운 학교행정" />
-  <meta name="twitter:description" content="일반 강사료·원고료 산정부터 증빙과 지급까지 확인할 포인트를 정리했습니다. (늘봄강사 제외)" />
+  <meta name="twitter:description" content="일반 강사료·원고료 산정 및 증빙 (늘봄강사 제외)" />
   <meta name="twitter:image" content="https://eduworkhaey.co.kr/static/alien.jpg" />
 
   <!-- Google tag (gtag.js) -->
@@ -40,6 +40,22 @@
   <link rel="stylesheet" href="/static/style.css" />
   <script src="/static/brand-config.js"></script>
   <script defer src="/static/brand-ui.js"></script>
+
+  <style>
+    /*
+      이 페이지 전용 보정:
+      copyBasic 안내문은 줄바꿈이 중요한 문구이므로 pre-wrap으로 표시한다.
+      전역 style.css를 수정하지 않고 이 페이지에만 적용한다.
+    */
+    .copy-card .guide-copy-text {
+      font-family: var(--font-sans);
+      font-size: var(--fs-base);
+      line-height: 1.8;
+      white-space: pre-wrap;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+  </style>
 </head>
 
 <body class="alien-side-bg">
@@ -218,7 +234,7 @@
         <div class="copy-head">
           <button class="btn ghost copy-btn" type="button" data-copy-target="copyBasic">문구 복사하기</button>
         </div>
-        <div class="copy-block" id="copyBasic">강사료 지급 안내
+        <pre class="copy-pre guide-copy-text" id="copyBasic">강사료 지급 안내
 
 1. 강사료 단가 (일반강사)
 가. 24호봉 이상 공무원, 자격증 소지 전문강사 등
@@ -246,7 +262,7 @@
 - 본인 명의의 통장 사본
 - 강사활동 확인서: 사업 담당자 및 교감선생님 서명 날인 (※ 결과보고랑 별개로 활동 증빙서류 제출)
 - 원고 활용시 원고 사본 (출력본 또는 파일)
-- 범죄경력조회 안내 필요 (학교에서 출력)</div>
+- 범죄경력조회 안내 필요 (학교에서 출력)</pre>
       </div>
 
     </section>
